@@ -1,0 +1,345 @@
+Storm Shell Project (0018)
+Settings (Start)
+C/C++ Environment
+"StormC:include"
+0
+Includepath (End)
+0 "" 80
+1 "obj/m68k_amigaos3"
+1 0 "makelog.txt"
+""
+0
+0 0
+0
+0 0
+C/C++ Preprozessor
+1 "NDEBUG" ""
+0
+Defines (End)
+1 1 1
+0 0
+C/C++ Options
+1 1 1 1 0 0 0 0 0 1 0 0 0 0 0
+0 0 0
+0
+0 1 0
+C/C++ Optimizer
+9
+C/C++ Warnings
+1 1 1 1 1 1 0 1
+0 0
+GCC Options (1)
+1 "NDEBUG" ""
+0
+1 "_VM_HOST_OS" "_VM_HOST_AMIGAOS3_68K"
+0
+0 "_VM_INTERPRETER" "_VM_INTERPRETER_FUNC_TABLE"
+0
+1 "_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE" ""
+0
+Defines (End)
+1 0 0 1 0
+3 0 0 0 0 1 0
+0 1 0 0 2
+0 0 0 0 1 1 0
+3 1 0 0
+0 ""
+3 1 1 0
+1 0 0 1 0 1 0 1 0 1
+1 1 0 1 0 1
+0 1 1 1 1 0 0
+1 0 0 0 0
+Assembler
+0 ""
+0 "CON://640/200/Storm Assembler/AUTO/WAIT/SCREEN StormScreen"
+0 0
+0 1 60 0 1 0 0 20 0
+Sets (End)
+0 1 0 0 0 2 1 0 0
+1 1 1 1 0 0 0 0 0
+1 0
+0 0 0 0 0
+Linker
+0 0 "PROGDIR:startup.o" 0 0 1 0 0 0 0
+"StormC:lib/" 0 "StormC:lib/logfile" 0 1 1
+0 "_WizardSurface"
+0 0 50 0 50 0 50 0 0
+0 0 0 0 0 0 0 0
+Run
+30 "" "" "" 0
+""
+
+1 "CON://400/180/Storm Console/AUTO/WAIT/SCREEN StormScreen" "RAM:Output" "RAM:Input"
+1 0
+0 0 0 "" ""
+Settings (End)
+Storm Shell Project (Custom Sections End)
+Section
+1 1 100
+0 1 1 0
+4
+File
+1 "machine.cpp"
+"machine.cpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/machine.o" "obj/m68k_amigaos3/machine.debug"
+""
+1 1
+File
+1 "main.cpp"
+"main.cpp"
+"vmcore.hpp"
+"vm.hpp"
+"machine.hpp"
+"vminline.hpp"
+"vm_codemacros.hpp"
+"vm_targetmacros.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/main.o" "obj/m68k_amigaos3/main.debug"
+""
+1 1
+File
+1 "op_arithmetic.cpp"
+"op_arithmetic.cpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/op_arithmetic.o" "obj/m68k_amigaos3/op_arithmetic.debug"
+""
+1 1
+File
+1 "op_control.cpp"
+"op_control.cpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/op_control.o" "obj/m68k_amigaos3/op_control.debug"
+""
+1 1
+File
+1 "op_convert.cpp"
+"op_convert.cpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/op_convert.o" "obj/m68k_amigaos3/op_convert.debug"
+""
+1 1
+File
+1 "op_jump.cpp"
+"op_jump.cpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/op_jump.o" "obj/m68k_amigaos3/op_jump.debug"
+""
+1 1
+File
+1 "op_load.cpp"
+"op_load.cpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/op_load.o" "obj/m68k_amigaos3/op_load.debug"
+""
+1 1
+File
+1 "op_logic.cpp"
+"op_logic.cpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/op_logic.o" "obj/m68k_amigaos3/op_logic.debug"
+""
+1 1
+File
+1 "op_move.cpp"
+"op_move.cpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/op_move.o" "obj/m68k_amigaos3/op_move.debug"
+""
+1 1
+File
+1 "op_normal_table.cpp"
+"op_normal_table.cpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/op_normal_table.o" "obj/m68k_amigaos3/op_normal_table.debug"
+""
+1 1
+File
+1 "op_store.cpp"
+"op_store.cpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/op_store.o" "obj/m68k_amigaos3/op_store.debug"
+""
+1 1
+File
+1 "vmcore.cpp"
+"vmcore.cpp"
+"vmcore.hpp"
+"vm.hpp"
+"machine.hpp"
+"vminline.hpp"
+"vm_targetmacros.hpp"
+"op_control_code.hpp"
+"op_load_code.hpp"
+"op_store_code.hpp"
+"op_move_code.hpp"
+"op_jump_code.hpp"
+"op_convert_code.hpp"
+"op_arithmetic_code.hpp"
+"op_logic_code.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/vmcore.o" "obj/m68k_amigaos3/vmcore.debug"
+""
+1 1
+File
+1 "vmprogram.cpp"
+"vmprogram.cpp"
+"vmcore.hpp"
+"vm.hpp"
+"machine.hpp"
+"vm_targetmacros.hpp"
+"vminline.hpp"
+"vm_codemacros.hpp"
+Storm Shell Project (Dependencies)
+"obj/m68k_amigaos3/vmprogram.o" "obj/m68k_amigaos3/vmprogram.debug"
+""
+1 1
+Section
+2 1 95
+0 1 1 0
+2
+File
+2 "machine.hpp"
+"machine.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "op_store_code.hpp"
+"op_store_code.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "op_move_code.hpp"
+"op_move_code.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "op_logic_code.hpp"
+"op_logic_code.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "op_load_code.hpp"
+"op_load_code.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "op_jump_code.hpp"
+"op_jump_code.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "op_convert_code.hpp"
+"op_convert_code.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "op_control_code.hpp"
+"op_control_code.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "op_arithmetic_code.hpp"
+"op_arithmetic_code.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "vm_targetmacros.hpp"
+"vm_targetmacros.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "vm_handlers.hpp"
+"vm_handlers.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "vm.hpp"
+"vm.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "vmcore.hpp"
+"vmcore.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "vminline.hpp"
+"vminline.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+2 "vm_codemacros.hpp"
+"vm_codemacros.hpp"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+Section
+10 1 40
+0 0 0 0
+7
+File
+10 "bin/exvm_68k"
+"bin/exvm_68k"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+Section
+5 1 -50
+0 0 0 0
+7
+File
+5 "stormgcc020.lib"
+"stormgcc020.lib"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+File
+5 "amiga.lib"
+"amiga.lib"
+Storm Shell Project (Dependencies)
+"" ""
+""
+0 0
+Storm Shell Project (End)
