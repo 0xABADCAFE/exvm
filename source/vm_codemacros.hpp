@@ -36,19 +36,19 @@
   }
 
   // covnert a 32-bit integer immediate into 16-bit words
-  #define _INLINE32(x) (( (uint32)(x) )>>16), \
-                       (( (uint32)(x) )&0xFFFF)
+  #define _INLINE32(x) (uint16)(( (uint32)(x) )>>16), \
+                       (uint16)(( (uint32)(x) )&0xFFFF)
 
   #if X_PTRSIZE == XA_PTRSIZE64
-    #define _INLINEPTR(x) (( (uint64)(x) )>>48), \
-                          ((( (uint64)(x) )>>32)&0xFFFF), \
-                          ((( (uint64)(x) )>>16)&0xFFFF), \
-                          (( (uint64)(x) )&0xFFFF)
+    #define _INLINEPTR(x) (uint16)(( (uint64)(x) )>>48), \
+                          (uint16)((( (uint64)(x) )>>32)&0xFFFF), \
+                          (uint16)((( (uint64)(x) )>>16)&0xFFFF), \
+                          (uint16)(( (uint64)(x) )&0xFFFF)
   #else
-    #define _INLINEPTR(x) 0, \
-                          0, \
-                          ((( (uint32)(x) )>>16)&0xFFFF), \
-                          (((uint32)(x))&0xFFFF)
+    #define _INLINEPTR(x) (uint16)0, \
+                          (uint16)0, \
+                          (uint16)((( (uint32)(x) )>>16)&0xFFFF), \
+                          (uint16)(((uint32)(x))&0xFFFF)
   #endif
 
   // convert a 32-bit float immediate into 16-bit words
@@ -78,15 +78,15 @@
                        (( (uint32)(x) )>>16)
 
   #if X_PTRSIZE == XA_PTRSIZE64
-    #define _INLINEPTR(x) (( (uint64)(x) )&0xFFFF), \
-                          ((( (uint64)(x) )>>16)&0xFFFF), \
-                          ((( (uint64)(x) )>>32)&0xFFFF), \
-                          (( (uint64)(x) )>>48)
+    #define _INLINEPTR(x) (uint16)(( (uint64)(x) )&0xFFFF), \
+                          (uint16)((( (uint64)(x) )>>16)&0xFFFF), \
+                          (uint16)((( (uint64)(x) )>>32)&0xFFFF), \
+                          (uint16)(( (uint64)(x) )>>48)
   #else
-    #define _INLINEPTR(x) (( (uint32)(x) )&0xFFFF), \
-                          (( (uint32)(x) )>>16), \
-                          0, \
-                          0
+    #define _INLINEPTR(x) (uint16)(( (uint32)(x) )&0xFFFF), \
+                          (uint16)(( (uint32)(x) )>>16), \
+                          (uint16)0, \
+                          (uint16)0
   #endif
 
 // convert a 32-bit float immediate into 16-bit words
@@ -222,9 +222,9 @@
 #define _ld_ripd_32(s,d)      _MKOP(LD_RIPD_32)|(s)<<4|(d),
 #define _ld_ripd_64(s,d)      _MKOP(LD_RIPD_64)|(s)<<4|(d),
 #define _ld_rid_8(s,o,d)      _MKOP(LD_RID_8)|(s)<<4|(d),
-#define _ld_rid_16(s,o,d)     _MKOP(LD_RID_16)|(s)<<4|(d), (o),
-#define _ld_rid_32(s,o,d)     _MKOP(LD_RID_32)|(s)<<4|(d), (o),
-#define _ld_rid_64(s,o,d)     _MKOP(LD_RID_64)|(s)<<4|(d), (o),
+#define _ld_rid_16(s,o,d)     _MKOP(LD_RID_16)|(s)<<4|(d), (uint16)(o),
+#define _ld_rid_32(s,o,d)     _MKOP(LD_RID_32)|(s)<<4|(d), (uint16)(o),
+#define _ld_rid_64(s,o,d)     _MKOP(LD_RID_64)|(s)<<4|(d), (uint16)(o),
 #define _ld_rii_8(s,i,f,d)    _MKOP(LD_RII_8)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _ld_rii_16(s,i,f,d)   _MKOP(LD_RII_16)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _ld_rii_32(s,i,f,d)   _MKOP(LD_RII_32)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
@@ -258,10 +258,10 @@
 #define _st_ripd_16(s,d)      _MKOP(ST_RIPD_16)|(s)<<4|(d),
 #define _st_ripd_32(s,d)      _MKOP(ST_RIPD_32)|(s)<<4|(d),
 #define _st_ripd_64(s,d)      _MKOP(ST_RIPD_64)|(s)<<4|(d),
-#define _st_rid_8(s,d,o)      _MKOP(ST_RID_8)|(s)<<4|(d), (o),
-#define _st_rid_16(s,d,o)     _MKOP(ST_RID_16)|(s)<<4|(d), (o),
-#define _st_rid_32(s,d,o)     _MKOP(ST_RID_32)|(s)<<4|(d), (o),
-#define _st_rid_64(s,d,o)     _MKOP(ST_RID_64)|(s)<<4|(d), (o),
+#define _st_rid_8(s,d,o)      _MKOP(ST_RID_8)|(s)<<4|(d), (uint16)(o),
+#define _st_rid_16(s,d,o)     _MKOP(ST_RID_16)|(s)<<4|(d), (uint16)(o),
+#define _st_rid_32(s,d,o)     _MKOP(ST_RID_32)|(s)<<4|(d), (uint16)(o),
+#define _st_rid_64(s,d,o)     _MKOP(ST_RID_64)|(s)<<4|(d), (uint16)(o),
 #define _st_rii_8(s,d,i,f)    _MKOP(ST_RII_8)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _st_rii_16(s,d,i,f)   _MKOP(ST_RII_16)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _st_rii_32(s,d,i,f)   _MKOP(ST_RII_32)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
@@ -309,45 +309,45 @@
 #define _calln(x)             _MKOP(CALLN), _INLINEPTR(x),
 #define _ret                  _MKOP(RET)
 #define _bra_8(o)             _MKOP(BRA8)|(o),
-#define _bra(o)               _MKOP(BRA16), (o),
+#define _bra(o)               _MKOP(BRA16), (uint16)(o),
 #define _jump(r,sz)           _MKOP(JUMP)|(r), (sz),
 
-#define _bnz_8(r,o)         _MKOP(BNZ_8)|(r), (o),
-#define _bnz_16(r,o)        _MKOP(BNZ_16)|(r), (o),
-#define _bnz_32(r,o)        _MKOP(BNZ_32)|(r), (o),
-#define _bnz_64(r,o)        _MKOP(BNZ_64)|(r), (o),
+#define _bnz_8(r,o)         _MKOP(BNZ_8)|(r), (uint16)(o),
+#define _bnz_16(r,o)        _MKOP(BNZ_16)|(r), (uint16)(o),
+#define _bnz_32(r,o)        _MKOP(BNZ_32)|(r), (uint16)(o),
+#define _bnz_64(r,o)        _MKOP(BNZ_64)|(r), (uint16)(o),
 
-#define _bls_8(s,d,o)         _MKOP(BGR_8)|(d)<<4|(s), (o),
-#define _bls_16(s,d,o)        _MKOP(BGR_16)|(d)<<4|(s), (o),
-#define _bls_32(s,d,o)        _MKOP(BGR_32)|(d)<<4|(s), (o),
-#define _bls_64(s,d,o)        _MKOP(BGR_64)|(d)<<4|(s), (o),
-#define _bls_f32(s,d,o)       _MKOP(BGR_F32)|(d)<<4|(s), (o),
-#define _bls_f64(s,d,o)       _MKOP(BGR_F64)|(d)<<4|(s), (o),
-#define _blseq_8(s,d,o)       _MKOP(BGREQ_8)|(d)<<4|(s), (o),
-#define _blseq_16(s,d,o)      _MKOP(BGREQ_16)|(d)<<4|(s), (o),
-#define _blseq_32(s,d,o)      _MKOP(BGREQ_32)|(d)<<4|(s), (o),
-#define _blseq_64(s,d,o)      _MKOP(BGREQ_64)|(d)<<4|(s), (o),
-#define _blseq_f32(s,d,o)     _MKOP(BGREQ_F32)|(d)<<4|(s), (o),
-#define _blseq_f64(s,d,o)     _MKOP(BGREQ_F64)|(d)<<4|(s), (o),
+#define _bls_8(s,d,o)         _MKOP(BGR_8)|(d)<<4|(s), (uint16)(o),
+#define _bls_16(s,d,o)        _MKOP(BGR_16)|(d)<<4|(s), (uint16)(o),
+#define _bls_32(s,d,o)        _MKOP(BGR_32)|(d)<<4|(s), (uint16)(o),
+#define _bls_64(s,d,o)        _MKOP(BGR_64)|(d)<<4|(s), (uint16)(o),
+#define _bls_f32(s,d,o)       _MKOP(BGR_F32)|(d)<<4|(s), (uint16)(o),
+#define _bls_f64(s,d,o)       _MKOP(BGR_F64)|(d)<<4|(s), (uint16)(o),
+#define _blseq_8(s,d,o)       _MKOP(BGREQ_8)|(d)<<4|(s), (uint16)(o),
+#define _blseq_16(s,d,o)      _MKOP(BGREQ_16)|(d)<<4|(s), (uint16)(o),
+#define _blseq_32(s,d,o)      _MKOP(BGREQ_32)|(d)<<4|(s), (uint16)(o),
+#define _blseq_64(s,d,o)      _MKOP(BGREQ_64)|(d)<<4|(s), (uint16)(o),
+#define _blseq_f32(s,d,o)     _MKOP(BGREQ_F32)|(d)<<4|(s), (uint16)(o),
+#define _blseq_f64(s,d,o)     _MKOP(BGREQ_F64)|(d)<<4|(s), (uint16)(o),
 
-#define _beq_8(s,d,o)         _MKOP(BEQ_8)|(s)<<4|(d), (o),
-#define _beq_16(s,d,o)        _MKOP(BEQ_16)|(s)<<4|(d), (o),
-#define _beq_32(s,d,o)        _MKOP(BEQ_32)|(s)<<4|(d), (o),
-#define _beq_64(s,d,o)        _MKOP(BEQ_64)|(s)<<4|(d), (o),
-#define _beq_f32(s,d,o)       _MKOP(BEQ_F32)|(s)<<4|(d), (o),
-#define _beq_f64(s,d,o)       _MKOP(BEQ_F64)|(s)<<4|(d), (o),
-#define _bgreq_8(s,d,o)       _MKOP(BGREQ_8)|(s)<<4|(d), (o),
-#define _bgreq_16(s,d,o)      _MKOP(BGREQ_16)|(s)<<4|(d), (o),
-#define _bgreq_32(s,d,o)      _MKOP(BGREQ_32)|(s)<<4|(d), (o),
-#define _bgreq_64(s,d,o)      _MKOP(BGREQ_64)|(s)<<4|(d), (o),
-#define _bgreq_f32(s,d,o)     _MKOP(BGREQ_F32)|(s)<<4|(d), (o),
-#define _bgreq_f64(s,d,o)     _MKOP(BGREQ_F64)|(s)<<4|(d), (o),
-#define _bgr_8(s,d,o)         _MKOP(BGR_8)|(s)<<4|(d), (o),
-#define _bgr_16(s,d,o)        _MKOP(BGR_16)|(s)<<4|(d), (o),
-#define _bgr_32(s,d,o)        _MKOP(BGR_32)|(s)<<4|(d), (o),
-#define _bgr_64(s,d,o)        _MKOP(BGR_64)|(s)<<4|(d), (o),
-#define _bgr_f32(s,d,o)       _MKOP(BGR_F32)|(s)<<4|(d), (o),
-#define _bgr_f64(s,d,o)       _MKOP(BGR_F64)|(s)<<4|(d), (o),
+#define _beq_8(s,d,o)         _MKOP(BEQ_8)|(s)<<4|(d), (uint16)(o),
+#define _beq_16(s,d,o)        _MKOP(BEQ_16)|(s)<<4|(d), (uint16)(o),
+#define _beq_32(s,d,o)        _MKOP(BEQ_32)|(s)<<4|(d), (uint16)(o),
+#define _beq_64(s,d,o)        _MKOP(BEQ_64)|(s)<<4|(d), (uint16)(o),
+#define _beq_f32(s,d,o)       _MKOP(BEQ_F32)|(s)<<4|(d), (uint16)(o),
+#define _beq_f64(s,d,o)       _MKOP(BEQ_F64)|(s)<<4|(d), (uint16)(o),
+#define _bgreq_8(s,d,o)       _MKOP(BGREQ_8)|(s)<<4|(d), (uint16)(o),
+#define _bgreq_16(s,d,o)      _MKOP(BGREQ_16)|(s)<<4|(d), (uint16)(o),
+#define _bgreq_32(s,d,o)      _MKOP(BGREQ_32)|(s)<<4|(d), (uint16)(o),
+#define _bgreq_64(s,d,o)      _MKOP(BGREQ_64)|(s)<<4|(d), (uint16)(o),
+#define _bgreq_f32(s,d,o)     _MKOP(BGREQ_F32)|(s)<<4|(d), (uint16)(o),
+#define _bgreq_f64(s,d,o)     _MKOP(BGREQ_F64)|(s)<<4|(d), (uint16)(o),
+#define _bgr_8(s,d,o)         _MKOP(BGR_8)|(s)<<4|(d), (uint16)(o),
+#define _bgr_16(s,d,o)        _MKOP(BGR_16)|(s)<<4|(d), (uint16)(o),
+#define _bgr_32(s,d,o)        _MKOP(BGR_32)|(s)<<4|(d), (uint16)(o),
+#define _bgr_64(s,d,o)        _MKOP(BGR_64)|(s)<<4|(d), (uint16)(o),
+#define _bgr_f32(s,d,o)       _MKOP(BGR_F32)|(s)<<4|(d), (uint16)(o),
+#define _bgr_f64(s,d,o)       _MKOP(BGR_F64)|(s)<<4|(d), (uint16)(o),
 
 ////////////////////////////////////////////////////////////////////////////////
 //
