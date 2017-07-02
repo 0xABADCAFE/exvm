@@ -46,7 +46,7 @@
 class VMCore {
   public:
     typedef void (*Native)(VMCore* vm);
-    typedef union GPR { // General Purpose 64-bit register type
+    union GPR { // General Purpose 64-bit register type
       friend class VMCore;
       private:  // Data arrangement
         union { uint8     _u8[8];   sint8     _s8[8];                                       };
@@ -119,8 +119,6 @@ class VMCore {
       const uint16* const * extCodeAddr;
       const Native* const * extNativeCodeAddr;
     } pc;         // program counter
-
-
 
     uint16**  callStack;  // return address stack
     uint64*   regStack;   // register save/restore stack
