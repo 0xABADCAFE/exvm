@@ -96,7 +96,7 @@ void VMCore::dump()
     "s8"
   );
   for (int i=0; i<16; i++) {
-    printf("%2d: 0x%08X%08X : %12ld : %6d : %4d : %c : %.8f\n", i+1,
+    printf("%2d: 0x%08X%08X : %12d : %6d : %4d : %c : %.8f\n", i+1,
       (unsigned)gpr[i].getMSW(), (unsigned)gpr[i].getLSW(),
       gpr[i].s32(),
       (int)gpr[i].s16(),
