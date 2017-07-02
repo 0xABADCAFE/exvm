@@ -18,7 +18,7 @@ using namespace std;
 
 _VM_EXTERN(virtualProgram);
 
-int main(int argc, char *argv[])
+int main()
 {
   static VMCore vm;
   puts("\nBeginning Virtual Program\n-----------------------\n");
