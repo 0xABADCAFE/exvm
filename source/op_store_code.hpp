@@ -155,7 +155,7 @@ _DEFINE_OP(ST_8)
 {
   // st.8 rX, label
   // runtime evaluated address is in 32-bit extension word (32-bit systems) after parsing.
-  *((uint8*)(_EX_U32)) = vm->gpr[_RX(op)].u8();
+  *((uint8*)(_EX_PTR)) = vm->gpr[_RX(op)].u8();
 }
 _END_OP
 
@@ -163,7 +163,7 @@ _DEFINE_OP(ST_16)
 {
   // st.16 rX, label
   // runtime evaluated address is in 32-bit extension word (32-bit systems) after parsing.
-  *((uint16*)(_EX_U32)) = vm->gpr[_RX(op)].u16();
+  *((uint16*)(_EX_PTR)) = vm->gpr[_RX(op)].u16();
 }
 _END_OP
 
@@ -171,7 +171,7 @@ _DEFINE_OP(ST_32)
 {
   // st.32 rX, label
   // runtime evaluated address is in 32-bit extension word (32-bit systems) after parsing.
-  *((uint32*)(_EX_U32)) = vm->gpr[_RX(op)].u32();
+  *((uint32*)(_EX_PTR)) = vm->gpr[_RX(op)].u32();
 }
 _END_OP
 
@@ -179,7 +179,7 @@ _DEFINE_OP(ST_64)
 {
   // st.64 rX, label
   // runtime evaluated address is in 32-bit extension word (32-bit systems) after parsing.
-  *((uint64*)(_EX_U32)) = vm->gpr[_RX(op)].u64();
+  *((uint64*)(_EX_PTR)) = vm->gpr[_RX(op)].u64();
 }
 _END_OP
 
