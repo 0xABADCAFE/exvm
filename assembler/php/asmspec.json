@@ -1,2015 +1,2026 @@
 {
-	"comment": "Full list of VM supported Opcodes",
-	"reg": ["r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15"],
-	"types": {
-		"8":   "uint8",
-		"16":  "uint16",
-		"32":  "uint32",
-		"64":  "uint64",
-		"u8":  "uint8",
-		"u16": "uint16",
-		"u32": "uint32",
-		"u64": "uint64",
-		"s8":  "int8",
-		"s16": "int16",
-		"s32": "int32",
-		"s64": "int64",
-		"f32": "float32",
-		"f64": "float64"
-	},
-	"param": {
-        "type": ".",
-		"int": "#",
-		"float": "$",
-		"label": "@",
-		"reg": "gpr",
-		"ref": "(gpr)",
-		"offset": "(gpr,#)",
-		"lookup": "(gpr,gpr,#)",
-		"postinc": "(gpr)+",
-		"predec": "-(gpr)"
-	},
-	"opcodes": {
-		"NOP": {
-			"mnemonic": "nop"
-		},
-		"BRK": {
-			"mnemonic": "brk"
-		},
-		"SET_IS": {
-			"mnemonic": "isa",
-			"reserved": true
-		},
-		"LDQ": {
-			"comment": "Load a small (0-15) integer literal into the specified register",
-			"mnemonic": "ldq",
-			"params": [
-				"int",
-				"reg"
-			]
-		},
-		"LD_I16_8": {
-			"comment": "Load an 16-bit integer literal into the specified register as a truncated 8-bit value",
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"int",
-				"reg"
-			]
-		},
-		"LD_I16_16": {
-			"comment": "Load a 16-bit integer literal into the specified register as a 16-bit value",
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"int",
-				"reg"
-			]
-		},
-		"LD_I16_32": {
-			"comment": "Load a 16-bit integer literal into the specified register as an extended 32-bit value",
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["32", "s32", "u32"],
-			"params": [
-				"int",
-				"reg"
-			]
-		},
-		"LD_I16_64": {
-			"comment": "Load a 16-bit integer literal into the specified register as an extended 64-bit value",
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["64", "s64", "u64"],
-			"params": [
-				"int",
-				"reg"
-			]
-		},
-		"LD_I32_32": {
-			"comment": "Load a 32-bit integer literal into the specified register as a 32-bit value",
-			"mnemonic": "ld",
-			"extension": 2,
-			"types": ["32", "s32", "u32"],
-			"params": [
-				"int",
-				"reg"
-			]
-		},
-		"LD_I32_64": {
-			"comment": "Load a 32-bit integer literal into the specified register as an extended 64-bit value",
-			"mnemonic": "ld",
-			"extension": 2,
-			"types": ["64", "s64", "u64"],
-			"params": [
-				"int",
-				"reg"
-			]
-		},
-		"LD_F32": {
-			"comment": "Load a 32-bit float literal into the specified register as a 32-bit value",
-			"mnemonic": "ld",
-			"extension": 2,
-			"types": ["f32"],
-			"params": [
-				"float",
-				"reg"
-			]
-		},
-		"LD_RI_8": {
-			"comment": "Load a 32-bit float literal into the specified register as an extended 64-bit value",
-			"mnemonic": "ld",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"ref",
-				"reg"
-			]
-		},
-		"LD_RI_16": {
-			"mnemonic": "ld",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"ref",
-				"reg"
-			]
-		},
-		"LD_RI_32": {
-			"mnemonic": "ld",
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"ref",
-				"reg"
-			]
-		},
-		"LD_RI_64": {
-			"mnemonic": "ld",
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"ref",
-				"reg"
-			]
-		},
-		"LD_RIPI_8": {
-			"mnemonic": "ld",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"postinc",
-				"reg"
-			]
-		},
-		"LD_RIPI_16": {
-			"mnemonic": "ld",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"postinc",
-				"reg"
-			]
-		},
-		"LD_RIPI_32": {
-			"mnemonic": "ld",
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"postinc",
-				"reg"
-			]
-		},
-		"LD_RIPI_64": {
-			"mnemonic": "ld",
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"postinc",
-				"reg"
-			]
-		},
-		"LD_RIPD_8": {
-			"mnemonic": "ld",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"predec",
-				"reg"
-			]
-		},
-		"LD_RIPD_16": {
-			"mnemonic": "ld",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"predec",
-				"reg"
-			]
-		},
-		"LD_RIPD_32": {
-			"mnemonic": "ld",
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"predec",
-				"reg"
-			]
-		},
-		"LD_RIPD_64": {
-			"mnemonic": "ld",
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"predec",
-				"reg"
-			]
-		},
-		"LD_RID_8": {
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"offset",
-				"reg"
-			]
-		},
-		"LD_RID_16": {
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"offset",
-				"reg"
-			]
-		},
-		"LD_RID_32": {
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"offset",
-				"reg"
-			]
-		},
-		"LD_RID_64": {
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["64", "s64", "u64", "f32"],
-			"params": [
-				"offset",
-				"reg"
-			]
-		},
-		"LD_RII_8": {
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"lookup",
-				"reg"
-			]
-		},
-		"LD_RII_16": {
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"lookup",
-				"reg"
-			]
-		},
-		"LD_RII_32": {
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"lookup",
-				"reg"
-			]
-		},
-		"LD_RII_64": {
-			"mnemonic": "ld",
-			"extension": 1,
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"lookup",
-				"reg"
-			]
-		},
-		"LD_8": {
-			"mnemonic": "ld",
-			"extension": 4,
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"label",
-				"reg"
-			]
-		},
-		"LD_16": {
-			"mnemonic": "ld",
-			"extension": 4,
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"label",
-				"reg"
-			]
-		},
-		"LD_32": {
-			"mnemonic": "ld",
-			"extension": 4,
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"label",
-				"reg"
-			]
-		},
-		"LD_64": {
-			"mnemonic": "ld",
-			"extension": 4,
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"label",
-				"reg"
-			]
-		},
-		"LD_ADDR": {
-			"mnemonic": "lda",
-			"extension": 4,
-			"params": [
-				"label",
-				"reg"
-			]
-		},
-		"ST_RI_8": {
-			"mnemonic": "st",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"ref"
-			]
-		},
-		"ST_RI_16": {
-			"mnemonic": "st",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"ref"
-			]
-		},
-		"ST_RI_32": {
-			"mnemonic": "st",
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"reg",
-				"ref"
-			]
-		},
-		"ST_RI_64": {
-			"mnemonic": "st",
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"reg",
-				"ref"
-			]
-		},
-		"ST_RIPI_8": {
-			"mnemonic": "st",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"postinc"
-			]
-		},
-		"ST_RIPI_16": {
-			"mnemonic": "st",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"postinc"
-			]
-		},
-		"ST_RIPI_32": {
-			"mnemonic": "st",
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"reg",
-				"postinc"
-			]
-		},
-		"ST_RIPI_64": {
-			"mnemonic": "st",
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"reg",
-				"postinc"
-			]
-		},
-		"ST_RIPD_8": {
-			"mnemonic": "st",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"predec"
-			]
-		},
-		"ST_RIPD_16": {
-			"mnemonic": "st",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"predec"
-			]
-		},
-		"ST_RIPD_32": {
-			"mnemonic": "st",
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"reg",
-				"predec"
-			]
-		},
-		"ST_RIPD_64": {
-			"mnemonic": "st",
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"reg",
-				"predec"
-			]
-		},
-		"ST_RID_8": {
-			"mnemonic": "st",
-			"extension": 1,
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"offset"
-			]
-		},
-		"ST_RID_16": {
-			"mnemonic": "st",
-			"extension": 1,
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"offset"
-			]
-		},
-		"ST_RID_32": {
-			"mnemonic": "st",
-			"extension": 1,
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"reg",
-				"offset"
-			]
-		},
-		"ST_RID_64": {
-			"mnemonic": "st",
-			"extension": 1,
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"reg",
-				"offset"
-			]
-		},
-		"ST_RII_8": {
-			"mnemonic": "st",
-			"extension": 1,
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"lookup"
-			]
-		},
-		"ST_RII_16": {
-			"mnemonic": "st",
-			"extension": 1,
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"lookup"
-			]
-		},
-		"ST_RII_32": {
-			"mnemonic": "st",
-			"extension": 1,
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"reg",
-				"lookup"
-			]
-		},
-		"ST_RII_64": {
-			"mnemonic": "st",
-			"extension": 1,
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"reg",
-				"lookup"
-			]
-		},
-		"ST_8": {
-			"mnemonic": "st",
-			"extension": 4,
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"label"
-			]
-		},
-		"ST_16": {
-			"mnemonic": "st",
-			"extension": 4,
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"label"
-			]
-		},
-		"ST_32": {
-			"mnemonic": "st",
-			"extension": 4,
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"reg",
-				"label"
-			]
-		},
-		"ST_64": {
-			"mnemonic": "st",
-			"extension": 4,
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"reg",
-				"label"
-			]
-		},
-		"MV_8": {
-			"mnemonic": "mv",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MV_16": {
-			"mnemonic": "mv",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MV_32": {
-			"mnemonic": "mv",
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MV_64": {
-			"mnemonic": "mv",
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"BSWP_16": {
-			"mnemonic": "bswp",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"BSWP_32": {
-			"mnemonic": "bswp",
-			"types": ["32", "s32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"BSWP_64": {
-			"mnemonic": "bswp",
-			"types": ["64", "s64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"EXG": {
-			"mnemonic": "exg",
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"SV": {
-			"mnemonic": "sv",
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"RS": {
-			"mnemonic": "rs",
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"PUSH_8": {
-			"mnemonic": "push",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"PUSH_16": {
-			"mnemonic": "push",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"PUSH_32": {
-			"mnemonic": "push",
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"PUSH_64": {
-			"mnemonic": "push",
-			"types": ["64", "s64", "u64", "f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"POP_8": {
-			"mnemonic": "pop",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"POP_16": {
-			"mnemonic": "pop",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"POP_32": {
-			"mnemonic": "pop",
-			"types": ["32", "s32", "u32", "f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"POP_64": {
-			"mnemonic": "pop",
-			"types": ["64", "s64", "u64", "f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"CALL": {
-			"mnemonic": "call",
-			"extension": 4,
-			"params": [
-				"label"
-			]
-		},
-		"CALLN": {
-			"mnemonic": "calln",
-			"extension": 4,
-			"params": [
-				"label"
-			]
-		},
-		"RET": {
-			"mnemonic": "ret"
-		},
-		"BRA8": {
-			"mnemonic": "bra",
-			"range": 8,
-			"params": [
-				"label"
-			]
-		},
-		"BRA16": {
-			"mnemonic": "bra",
-			"extension": 1,
-			"range": 16,
-			"params": [
-				"label"
-			]
-		},
-		"JUMP": {
-			"mnemonic": "jmp",
-			"extension": 2,
-			"var": true,
-			"range": 16
-		},
-		"BNZ_8": {
-			"mnemonic": "bnz",
-			"extension": 1,
-			"types": ["8", "s8", "u8"],
-			"range": 16,
-			"params": [
-				"reg",
-				"label"
-			]
-		},
-		"BNZ_16": {
-			"mnemonic": "bnz",
-			"extension": 1,
-			"types": ["16", "s16", "u16"],
-			"range": 16,
-			"params": [
-				"reg",
-				"label"
-			]
-		},
-		"BNZ_32": {
-			"mnemonic": "bnz",
-			"extension": 1,
-			"types": ["32", "s32", "u32"],
-			"range": 16,
-			"params": [
-				"reg",
-				"label"
-			]
-		},
-		"BNZ_64": {
-			"mnemonic": "bnz",
-			"extension": 1,
-			"types": ["64", "s64", "u64"],
-			"range": 16,
-			"params": [
-				"reg",
-				"label"
-			]
-		},
-		"BEQ_8": {
-			"mnemonic": "beq",
-			"extension": 1,
-			"types": ["8", "s8", "u8"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BEQ_16": {
-			"mnemonic": "beq",
-			"extension": 1,
-			"types": ["16", "s16", "u16"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BEQ_32": {
-			"mnemonic": "beq",
-			"extension": 1,
-			"types": ["32", "s32", "u32"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BEQ_64": {
-			"mnemonic": "beq",
-			"extension": 1,
-			"types": ["64", "s64", "u64"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BEQ_F32": {
-			"mnemonic": "beq",
-			"extension": 1,
-			"types": ["f32"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BEQ_F64": {
-			"mnemonic": "beq",
-			"extension": 1,
-			"types": ["f64"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGREQ_8": {
-			"mnemonic": "bge",
-			"extension": 1,
-			"types": ["8", "s8", "u8"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGREQ_16": {
-			"mnemonic": "bge",
-			"extension": 1,
-			"types": ["16", "s16", "u16"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGREQ_32": {
-			"mnemonic": "bge",
-			"extension": 1,
-			"types": ["32", "s32", "u32"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGREQ_64": {
-			"mnemonic": "bge",
-			"extension": 1,
-			"types": ["64", "s64", "u64"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGREQ_F32": {
-			"mnemonic": "bge",
-			"extension": 1,
-			"types": ["f32"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGREQ_F64": {
-			"mnemonic": "bge",
-			"extension": 1,
-			"types": ["f64"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGR_8": {
-			"mnemonic": "bgr",
-			"extension": 1,
-			"types": ["8", "s8", "u8"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGR_16": {
-			"mnemonic": "bgr",
-			"extension": 1,
-			"types": ["16", "s16", "u16"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGR_32": {
-			"mnemonic": "bgr",
-			"extension": 1,
-			"types": ["32", "s32", "u32"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGR_64": {
-			"mnemonic": "bgr",
-			"extension": 1,
-			"types": ["64", "s64", "u64"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGR_F32": {
-			"mnemonic": "bgr",
-			"extension": 1,
-			"types": ["f32"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"BGR_F64": {
-			"mnemonic": "bgr",
-			"extension": 1,
-			"types": ["f64"],
-			"range": 16,
-			"params": [
-				"reg",
-				"reg",
-				"label"
-			]
-		},
-		"S8_2_S16": {
-			"mnemonic": "s16",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S8_2_S32": {
-			"mnemonic": "s32",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S8_2_S64": {
-			"mnemonic": "s64",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S8_2_F32": {
-			"mnemonic": "f32",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S8_2_F64": {
-			"mnemonic": "f64",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S16_2_S32": {
-			"mnemonic": "s32",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S16_2_S64": {
-			"mnemonic": "s64",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S16_2_F32": {
-			"mnemonic": "f32",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S16_2_F64": {
-			"mnemonic": "f64",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S32_2_S64": {
-			"mnemonic": "s64",
-			"types": ["s32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S32_2_F32": {
-			"mnemonic": "f32",
-			"types": ["s32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S32_2_F64": {
-			"mnemonic": "f64",
-			"types": ["s32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S64_2_F32": {
-			"mnemonic": "f32",
-			"types": ["s64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"S64_2_F64": {
-			"mnemonic": "f64",
-			"types": ["s64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"U8_2_F32": {
-			"mnemonic": "f32",
-			"types": ["u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"U8_2_F64": {
-			"mnemonic": "f64",
-			"types": ["u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"U16_2_F32": {
-			"mnemonic": "f32",
-			"types": ["u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"U16_2_F64": {
-			"mnemonic": "f64",
-			"types": ["u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"U32_2_F32": {
-			"mnemonic": "f32",
-			"types": ["u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"U32_2_F64": {
-			"mnemonic": "f64",
-			"types": ["u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"U64_2_F32": {
-			"mnemonic": "f32",
-			"types": ["u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"U64_2_F64": {
-			"mnemonic": "f64",
-			"types": ["u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"F32_2_F64": {
-			"mnemonic": "f64",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"F64_2_F32": {
-			"mnemonic": "f32",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"F64_2_S64": {
-			"mnemonic": "s64",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"F64_2_S32": {
-			"mnemonic": "s32",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"F64_2_S16": {
-			"mnemonic": "s16",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"F64_2_S8": {
-			"mnemonic": "s8",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"F32_2_S64": {
-			"mnemonic": "s64",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"F32_2_S32": {
-			"mnemonic": "s32",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"F32_2_S16": {
-			"mnemonic": "s16",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"F32_2_S8": {
-			"mnemonic": "s8",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ADD_I8": {
-			"mnemonic": "add",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ADD_I16": {
-			"mnemonic": "add",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ADD_I32": {
-			"mnemonic": "add",
-			"types": ["32", "s32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ADD_I64": {
-			"mnemonic": "add",
-			"types": ["64", "s64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ADD_F32": {
-			"mnemonic": "add",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ADD_F64": {
-			"mnemonic": "add",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ADDI_I8": {
-			"mnemonic": "add",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ADDI_I16": {
-			"mnemonic": "add",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ADDI_I32": {
-			"mnemonic": "add",
-			"types": ["32", "s32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"SUB_I8": {
-			"mnemonic": "add",
-			"types": ["8", "s8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"SUB_I16": {
-			"mnemonic": "sub",
-			"types": ["16", "s16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"SUB_I32": {
-			"mnemonic": "sub",
-			"types": ["32", "s32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"SUB_I64": {
-			"mnemonic": "sub",
-			"types": ["64", "s64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"SUB_F32": {
-			"mnemonic": "sub",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"SUB_F64": {
-			"mnemonic": "sub",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_U8": {
-			"mnemonic": "mul",
-			"types": ["u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_U16": {
-			"mnemonic": "mul",
-			"types": ["u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_U32": {
-			"mnemonic": "mul",
-			"types": ["u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_U64": {
-			"mnemonic": "mul",
-			"types": ["u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_S8": {
-			"mnemonic": "mul",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_S16": {
-			"mnemonic": "mul",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_S32": {
-			"mnemonic": "mul",
-			"types": ["s32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_S64": {
-			"mnemonic": "mul",
-			"types": ["s64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_F32": {
-			"mnemonic": "mul",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_F64": {
-			"mnemonic": "mul",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"DIV_U8": {
-			"mnemonic": "div",
-			"types": ["u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"DIV_U16": {
-			"mnemonic": "div",
-			"types": ["u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"DIV_U32": {
-			"mnemonic": "div",
-			"types": ["u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"DIV_U64": {
-			"mnemonic": "div",
-			"types": ["u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"DIV_S8": {
-			"mnemonic": "div",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"DIV_S16": {
-			"mnemonic": "div",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"DIV_S32": {
-			"mnemonic": "div",
-			"types": ["s32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"DIV_S64": {
-			"mnemonic": "div",
-			"types": ["s64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"DIV_F32": {
-			"mnemonic": "div",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"DIV_F64": {
-			"mnemonic": "div",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MOD_U8": {
-			"mnemonic": "mod",
-			"types": ["u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MOD_U16": {
-			"mnemonic": "mod",
-			"types": ["u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MOD_U32": {
-			"mnemonic": "mod",
-			"types": ["u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MOD_U64": {
-			"mnemonic": "mod",
-			"types": ["u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MOD_S8": {
-			"mnemonic": "mod",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MOD_S16": {
-			"mnemonic": "mod",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MOD_S32": {
-			"mnemonic": "mod",
-			"types": ["s32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MOD_S64": {
-			"mnemonic": "mod",
-			"types": ["s64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MOD_F32": {
-			"mnemonic": "mod",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MOD_F64": {
-			"mnemonic": "mod",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"NEG_S8": {
-			"mnemonic": "neg",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"NEG_S16": {
-			"mnemonic": "neg",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"NEG_S32": {
-			"mnemonic": "neg",
-			"types": ["s32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"NEG_S64": {
-			"mnemonic": "neg",
-			"types": ["s64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"NEG_F32": {
-			"mnemonic": "neg",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"NEG_F64": {
-			"mnemonic": "neg",
-			"types": ["s64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ASR_S8": {
-			"mnemonic": "asr",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ASR_S16": {
-			"mnemonic": "asr",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ASR_S32": {
-			"mnemonic": "asr",
-			"types": ["s32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ASR_S64": {
-			"mnemonic": "asr",
-			"types": ["s64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MIN_S8": {
-			"mnemonic": "min",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MIN_S16": {
-			"mnemonic": "min",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MIN_S32": {
-			"mnemonic": "min",
-			"types": ["s32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MIN_S64": {
-			"mnemonic": "min",
-			"types": ["s64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MIN_F32": {
-			"mnemonic": "min",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MIN_F64": {
-			"mnemonic": "min",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MAX_S8": {
-			"mnemonic": "max",
-			"types": ["s8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MAX_S16": {
-			"mnemonic": "max",
-			"types": ["s16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MAX_S32": {
-			"mnemonic": "max",
-			"types": ["s32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MAX_S64": {
-			"mnemonic": "max",
-			"types": ["s64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MAX_F32": {
-			"mnemonic": "max",
-			"types": ["f32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MAX_F64": {
-			"mnemonic": "max",
-			"types": ["f64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"AND_8": {
-			"mnemonic": "and",
-			"types": ["8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"AND_16": {
-			"mnemonic": "and",
-			"types": ["16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"AND_32": {
-			"mnemonic": "and",
-			"types": ["32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"AND_64": {
-			"mnemonic": "and",
-			"types": ["64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"OR_8": {
-			"mnemonic": "or",
-			"types": ["8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"OR_16": {
-			"mnemonic": "or",
-			"types": ["16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"OR_32": {
-			"mnemonic": "or",
-			"types": ["32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"OR_64": {
-			"mnemonic": "or",
-			"types": ["64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"XOR_8": {
-			"mnemonic": "xor",
-			"types": ["8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"XOR_16": {
-			"mnemonic": "xor",
-			"types": ["16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"XOR_32": {
-			"mnemonic": "xor",
-			"types": ["32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"XOR_64": {
-			"mnemonic": "xor",
-			"types": ["64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"INV_8": {
-			"mnemonic": "inv",
-			"types": ["8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"INV_16": {
-			"mnemonic": "inv",
-			"types": ["16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"INV_32": {
-			"mnemonic": "inv",
-			"types": ["32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"INV_64": {
-			"mnemonic": "inv",
-			"types": ["64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"LSL_8": {
-			"mnemonic": "lsl",
-			"types": ["8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"LSL_16": {
-			"mnemonic": "lsl",
-			"types": ["16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"LSL_32": {
-			"mnemonic": "lsl",
-			"types": ["32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"LSL_64": {
-			"mnemonic": "lsr",
-			"types": ["64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"LSR_8": {
-			"mnemonic": "lsr",
-			"types": ["8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"LSR_16": {
-			"mnemonic": "lsr",
-			"types": ["16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"LSR_32": {
-			"mnemonic": "lsr",
-			"types": ["32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"LSR_64": {
-			"mnemonic": "lsr",
-			"types": ["64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ROL_8": {
-			"mnemonic": "rol",
-			"types": ["8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ROL_16": {
-			"mnemonic": "rol",
-			"types": ["16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ROL_32": {
-			"mnemonic": "rol",
-			"types": ["32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ROL_64": {
-			"mnemonic": "rol",
-			"types": ["64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ROR_8": {
-			"mnemonic": "ror",
-			"types": ["8", "u8"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ROR_16": {
-			"mnemonic": "ror",
-			"types": ["16", "u16"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ROR_32": {
-			"mnemonic": "ror",
-			"types": ["32", "u32"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"ROR_64": {
-			"mnemonic": "ror",
-			"types": ["64", "u64"],
-			"params": [
-				"reg",
-				"reg"
-			]
-		},
-		"MUL_ADD_F32": {
-			"mnemonic": "madd",
-			"extension": 1,
-			"types": ["f32"]
-		},
-		"MUL_ADD_F64": {
-			"mnemonic": "madd",
-			"extension": 1,
-			"types": ["f64"]
-		}
-	}
+  "comment": "ExVM Assembler Specification. This defines the base syntax for the assembler.",
+  "reg": ["r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15"],
+  "types": {
+	  "8":   "uint8",
+	  "16":  "uint16",
+	  "32":  "uint32",
+	  "64":  "uint64",
+	  "u8":  "uint8",
+	  "u16": "uint16",
+	  "u32": "uint32",
+	  "u64": "uint64",
+	  "s8":  "int8",
+	  "s16": "int16",
+	  "s32": "int32",
+	  "s64": "int64",
+	  "f32": "float32",
+	  "f64": "float64"
+  },
+  "param": {
+    "type": ".",
+	  "int": "#",
+	  "float": "$",
+	  "label": "@",
+	  "reg": "gpr",
+	  "ref": "(gpr)",
+	  "offset": "(gpr,#)",
+	  "lookup": "(gpr,gpr,#)",
+	  "postinc": "(gpr)+",
+	  "predec": "-(gpr)"
+  },
+  "instructions": {
+	  "NOP": {
+		  "mnemonic": "nop"
+	  },
+	  "BRK": {
+		  "mnemonic": "brk"
+	  },
+	  "SET_IS": {
+		  "mnemonic": "isa",
+		  "reserved": true
+	  },
+	  "LDQ": {
+		  "comment": "Load a small (0-15) integer literal into the specified register",
+		  "mnemonic": "ldq",
+		  "params": [
+			  "int",
+			  "reg"
+		  ]
+	  },
+	  "LD_I16_8": {
+		  "comment": "Load an 16-bit integer literal into the specified register as a truncated 8-bit value",
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "int",
+			  "reg"
+		  ]
+	  },
+	  "LD_I16_16": {
+		  "comment": "Load a 16-bit integer literal into the specified register as a 16-bit value",
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "int",
+			  "reg"
+		  ]
+	  },
+	  "LD_I16_32": {
+		  "comment": "Load a 16-bit integer literal into the specified register as an extended 32-bit value",
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32"],
+		  "params": [
+			  "int",
+			  "reg"
+		  ]
+	  },
+	  "LD_I16_64": {
+		  "comment": "Load a 16-bit integer literal into the specified register as an extended 64-bit value",
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64"],
+		  "params": [
+			  "int",
+			  "reg"
+		  ]
+	  },
+	  "LD_I32_32": {
+		  "comment": "Load a 32-bit integer literal into the specified register as a 32-bit value",
+		  "mnemonic": "ld",
+		  "extension": 2,
+		  "types": ["32", "s32", "u32"],
+		  "params": [
+			  "int",
+			  "reg"
+		  ]
+	  },
+	  "LD_I32_64": {
+		  "comment": "Load a 32-bit integer literal into the specified register as an extended 64-bit value",
+		  "mnemonic": "ld",
+		  "extension": 2,
+		  "types": ["64", "s64", "u64"],
+		  "params": [
+			  "int",
+			  "reg"
+		  ]
+	  },
+	  "LD_F32": {
+		  "comment": "Load a 32-bit float literal into the specified register as a 32-bit value",
+		  "mnemonic": "ld",
+		  "extension": 2,
+		  "types": ["f32"],
+		  "params": [
+			  "float",
+			  "reg"
+		  ]
+	  },
+	  "LD_RI_8": {
+		  "comment": "Load an 8-bit integer value referenced by the source register into the destination register",
+		  "mnemonic": "ld",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "ref",
+			  "reg"
+		  ]
+	  },
+	  "LD_RI_16": {
+		  "comment": "Load a 16-bit integer value referenced by the source register into the destination register",
+		  "mnemonic": "ld",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "ref",
+			  "reg"
+		  ]
+	  },
+	  "LD_RI_32": {
+		  "comment": "Load a 32-bit integer or float value referenced by the source register into the destination register",
+		  "mnemonic": "ld",
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "ref",
+			  "reg"
+		  ]
+	  },
+	  "LD_RI_64": {
+		  "comment": "Load a 64-bit integer or float value referenced by the source register into the destination register",
+		  "mnemonic": "ld",
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "ref",
+			  "reg"
+		  ]
+	  },
+	  "LD_RIPI_8": {
+		  "comment": "Load an 8-bit integer value referenced by the source register into the destination register, then increment the source register",
+		  "mnemonic": "ld",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "postinc",
+			  "reg"
+		  ]
+	  },
+	  "LD_RIPI_16": {
+		  "comment": "Load a 16-bit integer value referenced by the source register into the destination register, then increment the source register",
+		  "mnemonic": "ld",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "postinc",
+			  "reg"
+		  ]
+	  },
+	  "LD_RIPI_32": {
+		  "comment": "Load a 32-bit integer or float value referenced by the source register into the destination register, then increment the source register",
+		  "mnemonic": "ld",
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "postinc",
+			  "reg"
+		  ]
+	  },
+	  "LD_RIPI_64": {
+		  "comment": "Load a 64-bit integer or float value referenced by the source register into the destination register, then increment the source register",
+		  "mnemonic": "ld",
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "postinc",
+			  "reg"
+		  ]
+	  },
+	  "LD_RIPD_8": {
+		  "comment": "Decrement the source register, then load an 8-bit integer value referenced by the source register into the destination register",
+		  "mnemonic": "ld",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "predec",
+			  "reg"
+		  ]
+	  },
+	  "LD_RIPD_16": {
+		  "comment": "Decrement the source register, then load a 16-bit integer value referenced by the source register into the destination register",
+		  "mnemonic": "ld",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "predec",
+			  "reg"
+		  ]
+	  },
+	  "LD_RIPD_32": {
+		  "comment": "Decrement the source register, then load a 32-bit integer or float value referenced by the source register into the destination register",
+		  "mnemonic": "ld",
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "predec",
+			  "reg"
+		  ]
+	  },
+	  "LD_RIPD_64": {
+		  "comment": "Decrement the source register, then load a 64-bit integer or float value referenced by the source register into the destination register",
+		  "mnemonic": "ld",
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "predec",
+			  "reg"
+		  ]
+	  },
+	  "LD_RID_8": {
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "offset",
+			  "reg"
+		  ]
+	  },
+	  "LD_RID_16": {
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "offset",
+			  "reg"
+		  ]
+	  },
+	  "LD_RID_32": {
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "offset",
+			  "reg"
+		  ]
+	  },
+	  "LD_RID_64": {
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64", "f32"],
+		  "params": [
+			  "offset",
+			  "reg"
+		  ]
+	  },
+	  "LD_RII_8": {
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "lookup",
+			  "reg"
+		  ]
+	  },
+	  "LD_RII_16": {
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "lookup",
+			  "reg"
+		  ]
+	  },
+	  "LD_RII_32": {
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "lookup",
+			  "reg"
+		  ]
+	  },
+	  "LD_RII_64": {
+		  "mnemonic": "ld",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "lookup",
+			  "reg"
+		  ]
+	  },
+	  "LD_8": {
+		  "mnemonic": "ld",
+		  "extension": 4,
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "label",
+			  "reg"
+		  ]
+	  },
+	  "LD_16": {
+		  "mnemonic": "ld",
+		  "extension": 4,
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "label",
+			  "reg"
+		  ]
+	  },
+	  "LD_32": {
+		  "mnemonic": "ld",
+		  "extension": 4,
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "label",
+			  "reg"
+		  ]
+	  },
+	  "LD_64": {
+		  "mnemonic": "ld",
+		  "extension": 4,
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "label",
+			  "reg"
+		  ]
+	  },
+	  "LD_ADDR": {
+		  "mnemonic": "lda",
+		  "extension": 4,
+		  "params": [
+			  "label",
+			  "reg"
+		  ]
+	  },
+	  "ST_RI_8": {
+		  "mnemonic": "st",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "ref"
+		  ]
+	  },
+	  "ST_RI_16": {
+		  "mnemonic": "st",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "ref"
+		  ]
+	  },
+	  "ST_RI_32": {
+		  "mnemonic": "st",
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "reg",
+			  "ref"
+		  ]
+	  },
+	  "ST_RI_64": {
+		  "mnemonic": "st",
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "reg",
+			  "ref"
+		  ]
+	  },
+	  "ST_RIPI_8": {
+		  "mnemonic": "st",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "postinc"
+		  ]
+	  },
+	  "ST_RIPI_16": {
+		  "mnemonic": "st",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "postinc"
+		  ]
+	  },
+	  "ST_RIPI_32": {
+		  "mnemonic": "st",
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "reg",
+			  "postinc"
+		  ]
+	  },
+	  "ST_RIPI_64": {
+		  "mnemonic": "st",
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "reg",
+			  "postinc"
+		  ]
+	  },
+	  "ST_RIPD_8": {
+		  "mnemonic": "st",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "predec"
+		  ]
+	  },
+	  "ST_RIPD_16": {
+		  "mnemonic": "st",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "predec"
+		  ]
+	  },
+	  "ST_RIPD_32": {
+		  "mnemonic": "st",
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "reg",
+			  "predec"
+		  ]
+	  },
+	  "ST_RIPD_64": {
+		  "mnemonic": "st",
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "reg",
+			  "predec"
+		  ]
+	  },
+	  "ST_RID_8": {
+		  "mnemonic": "st",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "offset"
+		  ]
+	  },
+	  "ST_RID_16": {
+		  "mnemonic": "st",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "offset"
+		  ]
+	  },
+	  "ST_RID_32": {
+		  "mnemonic": "st",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "reg",
+			  "offset"
+		  ]
+	  },
+	  "ST_RID_64": {
+		  "mnemonic": "st",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "reg",
+			  "offset"
+		  ]
+	  },
+	  "ST_RII_8": {
+		  "mnemonic": "st",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "lookup"
+		  ]
+	  },
+	  "ST_RII_16": {
+		  "mnemonic": "st",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "lookup"
+		  ]
+	  },
+	  "ST_RII_32": {
+		  "mnemonic": "st",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "reg",
+			  "lookup"
+		  ]
+	  },
+	  "ST_RII_64": {
+		  "mnemonic": "st",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "reg",
+			  "lookup"
+		  ]
+	  },
+	  "ST_8": {
+		  "mnemonic": "st",
+		  "extension": 4,
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "ST_16": {
+		  "mnemonic": "st",
+		  "extension": 4,
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "ST_32": {
+		  "mnemonic": "st",
+		  "extension": 4,
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "ST_64": {
+		  "mnemonic": "st",
+		  "extension": 4,
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "MV_8": {
+		  "mnemonic": "mv",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MV_16": {
+		  "mnemonic": "mv",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MV_32": {
+		  "mnemonic": "mv",
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MV_64": {
+		  "mnemonic": "mv",
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "BSWP_16": {
+		  "mnemonic": "bswp",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "BSWP_32": {
+		  "mnemonic": "bswp",
+		  "types": ["32", "s32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "BSWP_64": {
+		  "mnemonic": "bswp",
+		  "types": ["64", "s64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "EXG": {
+		  "mnemonic": "exg",
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "SV": {
+		  "mnemonic": "sv",
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "RS": {
+		  "mnemonic": "rs",
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "PUSH_8": {
+		  "mnemonic": "push",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "PUSH_16": {
+		  "mnemonic": "push",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "PUSH_32": {
+		  "mnemonic": "push",
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "PUSH_64": {
+		  "mnemonic": "push",
+		  "types": ["64", "s64", "u64", "f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "POP_8": {
+		  "mnemonic": "pop",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "POP_16": {
+		  "mnemonic": "pop",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "POP_32": {
+		  "mnemonic": "pop",
+		  "types": ["32", "s32", "u32", "f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "POP_64": {
+		  "mnemonic": "pop",
+		  "types": ["64", "s64", "u64", "f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "CALL": {
+		  "mnemonic": "call",
+		  "extension": 4,
+		  "params": [
+			  "label"
+		  ]
+	  },
+	  "CALLN": {
+		  "mnemonic": "calln",
+		  "extension": 4,
+		  "params": [
+			  "label"
+		  ]
+	  },
+	  "RET": {
+		  "mnemonic": "ret"
+	  },
+	  "BRA8": {
+		  "mnemonic": "bra",
+		  "range": 8,
+		  "params": [
+			  "label"
+		  ]
+	  },
+	  "BRA16": {
+		  "mnemonic": "bra",
+		  "extension": 1,
+		  "range": 16,
+		  "params": [
+			  "label"
+		  ]
+	  },
+	  "JUMP": {
+		  "mnemonic": "jmp",
+		  "extension": 2,
+		  "var": true,
+		  "range": 16
+	  },
+	  "BNZ_8": {
+		  "mnemonic": "bnz",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BNZ_16": {
+		  "mnemonic": "bnz",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BNZ_32": {
+		  "mnemonic": "bnz",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BNZ_64": {
+		  "mnemonic": "bnz",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BEQ_8": {
+		  "mnemonic": "beq",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BEQ_16": {
+		  "mnemonic": "beq",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BEQ_32": {
+		  "mnemonic": "beq",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BEQ_64": {
+		  "mnemonic": "beq",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BEQ_F32": {
+		  "mnemonic": "beq",
+		  "extension": 1,
+		  "types": ["f32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BEQ_F64": {
+		  "mnemonic": "beq",
+		  "extension": 1,
+		  "types": ["f64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGREQ_8": {
+		  "mnemonic": "bge",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGREQ_16": {
+		  "mnemonic": "bge",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGREQ_32": {
+		  "mnemonic": "bge",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGREQ_64": {
+		  "mnemonic": "bge",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGREQ_F32": {
+		  "mnemonic": "bge",
+		  "extension": 1,
+		  "types": ["f32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGREQ_F64": {
+		  "mnemonic": "bge",
+		  "extension": 1,
+		  "types": ["f64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGR_8": {
+		  "mnemonic": "bgr",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGR_16": {
+		  "mnemonic": "bgr",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGR_32": {
+		  "mnemonic": "bgr",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGR_64": {
+		  "mnemonic": "bgr",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGR_F32": {
+		  "mnemonic": "bgr",
+		  "extension": 1,
+		  "types": ["f32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BGR_F64": {
+		  "mnemonic": "bgr",
+		  "extension": 1,
+		  "types": ["f64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "S8_2_S16": {
+		  "mnemonic": "s16",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S8_2_S32": {
+		  "mnemonic": "s32",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S8_2_S64": {
+		  "mnemonic": "s64",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S8_2_F32": {
+		  "mnemonic": "f32",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S8_2_F64": {
+		  "mnemonic": "f64",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S16_2_S32": {
+		  "mnemonic": "s32",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S16_2_S64": {
+		  "mnemonic": "s64",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S16_2_F32": {
+		  "mnemonic": "f32",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S16_2_F64": {
+		  "mnemonic": "f64",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S32_2_S64": {
+		  "mnemonic": "s64",
+		  "types": ["s32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S32_2_F32": {
+		  "mnemonic": "f32",
+		  "types": ["s32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S32_2_F64": {
+		  "mnemonic": "f64",
+		  "types": ["s32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S64_2_F32": {
+		  "mnemonic": "f32",
+		  "types": ["s64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "S64_2_F64": {
+		  "mnemonic": "f64",
+		  "types": ["s64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "U8_2_F32": {
+		  "mnemonic": "f32",
+		  "types": ["u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "U8_2_F64": {
+		  "mnemonic": "f64",
+		  "types": ["u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "U16_2_F32": {
+		  "mnemonic": "f32",
+		  "types": ["u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "U16_2_F64": {
+		  "mnemonic": "f64",
+		  "types": ["u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "U32_2_F32": {
+		  "mnemonic": "f32",
+		  "types": ["u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "U32_2_F64": {
+		  "mnemonic": "f64",
+		  "types": ["u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "U64_2_F32": {
+		  "mnemonic": "f32",
+		  "types": ["u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "U64_2_F64": {
+		  "mnemonic": "f64",
+		  "types": ["u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "F32_2_F64": {
+		  "mnemonic": "f64",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "F64_2_F32": {
+		  "mnemonic": "f32",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "F64_2_S64": {
+		  "mnemonic": "s64",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "F64_2_S32": {
+		  "mnemonic": "s32",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "F64_2_S16": {
+		  "mnemonic": "s16",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "F64_2_S8": {
+		  "mnemonic": "s8",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "F32_2_S64": {
+		  "mnemonic": "s64",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "F32_2_S32": {
+		  "mnemonic": "s32",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "F32_2_S16": {
+		  "mnemonic": "s16",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "F32_2_S8": {
+		  "mnemonic": "s8",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ADD_I8": {
+		  "mnemonic": "add",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ADD_I16": {
+		  "mnemonic": "add",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ADD_I32": {
+		  "mnemonic": "add",
+		  "types": ["32", "s32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ADD_I64": {
+		  "mnemonic": "add",
+		  "types": ["64", "s64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ADD_F32": {
+		  "mnemonic": "add",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ADD_F64": {
+		  "mnemonic": "add",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ADDI_I8": {
+		  "mnemonic": "add",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ADDI_I16": {
+		  "mnemonic": "add",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ADDI_I32": {
+		  "mnemonic": "add",
+		  "types": ["32", "s32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "SUB_I8": {
+		  "mnemonic": "sub",
+		  "types": ["8", "s8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "SUB_I16": {
+		  "mnemonic": "sub",
+		  "types": ["16", "s16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "SUB_I32": {
+		  "mnemonic": "sub",
+		  "types": ["32", "s32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "SUB_I64": {
+		  "mnemonic": "sub",
+		  "types": ["64", "s64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "SUB_F32": {
+		  "mnemonic": "sub",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "SUB_F64": {
+		  "mnemonic": "sub",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_U8": {
+		  "mnemonic": "mul",
+		  "types": ["u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_U16": {
+		  "mnemonic": "mul",
+		  "types": ["u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_U32": {
+		  "mnemonic": "mul",
+		  "types": ["u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_U64": {
+		  "mnemonic": "mul",
+		  "types": ["u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_S8": {
+		  "mnemonic": "mul",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_S16": {
+		  "mnemonic": "mul",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_S32": {
+		  "mnemonic": "mul",
+		  "types": ["s32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_S64": {
+		  "mnemonic": "mul",
+		  "types": ["s64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_F32": {
+		  "mnemonic": "mul",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_F64": {
+		  "mnemonic": "mul",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "DIV_U8": {
+		  "mnemonic": "div",
+		  "types": ["u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "DIV_U16": {
+		  "mnemonic": "div",
+		  "types": ["u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "DIV_U32": {
+		  "mnemonic": "div",
+		  "types": ["u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "DIV_U64": {
+		  "mnemonic": "div",
+		  "types": ["u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "DIV_S8": {
+		  "mnemonic": "div",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "DIV_S16": {
+		  "mnemonic": "div",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "DIV_S32": {
+		  "mnemonic": "div",
+		  "types": ["s32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "DIV_S64": {
+		  "mnemonic": "div",
+		  "types": ["s64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "DIV_F32": {
+		  "mnemonic": "div",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "DIV_F64": {
+		  "mnemonic": "div",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MOD_U8": {
+		  "mnemonic": "mod",
+		  "types": ["u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MOD_U16": {
+		  "mnemonic": "mod",
+		  "types": ["u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MOD_U32": {
+		  "mnemonic": "mod",
+		  "types": ["u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MOD_U64": {
+		  "mnemonic": "mod",
+		  "types": ["u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MOD_S8": {
+		  "mnemonic": "mod",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MOD_S16": {
+		  "mnemonic": "mod",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MOD_S32": {
+		  "mnemonic": "mod",
+		  "types": ["s32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MOD_S64": {
+		  "mnemonic": "mod",
+		  "types": ["s64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MOD_F32": {
+		  "mnemonic": "mod",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MOD_F64": {
+		  "mnemonic": "mod",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "NEG_S8": {
+		  "mnemonic": "neg",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "NEG_S16": {
+		  "mnemonic": "neg",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "NEG_S32": {
+		  "mnemonic": "neg",
+		  "types": ["s32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "NEG_S64": {
+		  "mnemonic": "neg",
+		  "types": ["s64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "NEG_F32": {
+		  "mnemonic": "neg",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "NEG_F64": {
+		  "mnemonic": "neg",
+		  "types": ["s64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ASR_S8": {
+		  "mnemonic": "asr",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ASR_S16": {
+		  "mnemonic": "asr",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ASR_S32": {
+		  "mnemonic": "asr",
+		  "types": ["s32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ASR_S64": {
+		  "mnemonic": "asr",
+		  "types": ["s64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MIN_S8": {
+		  "mnemonic": "min",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MIN_S16": {
+		  "mnemonic": "min",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MIN_S32": {
+		  "mnemonic": "min",
+		  "types": ["s32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MIN_S64": {
+		  "mnemonic": "min",
+		  "types": ["s64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MIN_F32": {
+		  "mnemonic": "min",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MIN_F64": {
+		  "mnemonic": "min",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MAX_S8": {
+		  "mnemonic": "max",
+		  "types": ["s8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MAX_S16": {
+		  "mnemonic": "max",
+		  "types": ["s16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MAX_S32": {
+		  "mnemonic": "max",
+		  "types": ["s32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MAX_S64": {
+		  "mnemonic": "max",
+		  "types": ["s64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MAX_F32": {
+		  "mnemonic": "max",
+		  "types": ["f32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MAX_F64": {
+		  "mnemonic": "max",
+		  "types": ["f64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "AND_8": {
+		  "mnemonic": "and",
+		  "types": ["8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "AND_16": {
+		  "mnemonic": "and",
+		  "types": ["16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "AND_32": {
+		  "mnemonic": "and",
+		  "types": ["32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "AND_64": {
+		  "mnemonic": "and",
+		  "types": ["64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "OR_8": {
+		  "mnemonic": "or",
+		  "types": ["8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "OR_16": {
+		  "mnemonic": "or",
+		  "types": ["16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "OR_32": {
+		  "mnemonic": "or",
+		  "types": ["32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "OR_64": {
+		  "mnemonic": "or",
+		  "types": ["64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "XOR_8": {
+		  "mnemonic": "xor",
+		  "types": ["8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "XOR_16": {
+		  "mnemonic": "xor",
+		  "types": ["16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "XOR_32": {
+		  "mnemonic": "xor",
+		  "types": ["32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "XOR_64": {
+		  "mnemonic": "xor",
+		  "types": ["64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "INV_8": {
+		  "mnemonic": "inv",
+		  "types": ["8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "INV_16": {
+		  "mnemonic": "inv",
+		  "types": ["16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "INV_32": {
+		  "mnemonic": "inv",
+		  "types": ["32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "INV_64": {
+		  "mnemonic": "inv",
+		  "types": ["64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "LSL_8": {
+		  "mnemonic": "lsl",
+		  "types": ["8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "LSL_16": {
+		  "mnemonic": "lsl",
+		  "types": ["16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "LSL_32": {
+		  "mnemonic": "lsl",
+		  "types": ["32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "LSL_64": {
+		  "mnemonic": "lsl",
+		  "types": ["64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "LSR_8": {
+		  "mnemonic": "lsr",
+		  "types": ["8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "LSR_16": {
+		  "mnemonic": "lsr",
+		  "types": ["16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "LSR_32": {
+		  "mnemonic": "lsr",
+		  "types": ["32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "LSR_64": {
+		  "mnemonic": "lsr",
+		  "types": ["64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ROL_8": {
+		  "mnemonic": "rol",
+		  "types": ["8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ROL_16": {
+		  "mnemonic": "rol",
+		  "types": ["16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ROL_32": {
+		  "mnemonic": "rol",
+		  "types": ["32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ROL_64": {
+		  "mnemonic": "rol",
+		  "types": ["64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ROR_8": {
+		  "mnemonic": "ror",
+		  "types": ["8", "u8"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ROR_16": {
+		  "mnemonic": "ror",
+		  "types": ["16", "u16"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ROR_32": {
+		  "mnemonic": "ror",
+		  "types": ["32", "u32"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "ROR_64": {
+		  "mnemonic": "ror",
+		  "types": ["64", "u64"],
+		  "params": [
+			  "reg",
+			  "reg"
+		  ]
+	  },
+	  "MUL_ADD_F32": {
+		  "mnemonic": "madd",
+		  "extension": 1,
+		  "types": ["f32"]
+	  },
+	  "MUL_ADD_F64": {
+		  "mnemonic": "madd",
+		  "extension": 1,
+		  "types": ["f64"]
+	  }
+  }
 }
 
