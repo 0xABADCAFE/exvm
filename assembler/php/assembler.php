@@ -27,9 +27,9 @@ class Assembler {
      $sTypeSep           = $oOpcodeData->syntax->typsep;
      $this->aOpcodeMap = [];
      foreach ($this->aOpcodeProps as $sOpcode => $oProps) {
-       $sCode = $oProps->mnm;
-       if (isset($oProps->typ)) {
-         foreach ($oProps->typ as $sType) {
+       $sCode = $oProps->mnemonic;
+       if (isset($oProps->types)) {
+         foreach ($oProps->types as $sType) {
            $this->aOpcodeMap[$sCode . $sTypeSep . $sType] = $sOpcode;
          }
        } else {
