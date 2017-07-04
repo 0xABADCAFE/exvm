@@ -1,5 +1,13 @@
 {
   "comment":"Full list of VM supported Opcodes",
+  "syntax":{
+    "typsep":".",
+    "litpfx":"#",
+    "labpfx":"@"
+  },
+  "reg":{
+    "gpr":["r0","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","r13","r14","r15"]
+  }, 
   "opcodes":{
     "NOP":       { "mnm":"nop" },
     "BRK":       { "mnm":"brk" },
@@ -84,7 +92,7 @@
     "RET":       { "mnm":"ret" },
     "BRA8":      { "mnm":"bra", "lab":true, "range":8 },
     "BRA16":     { "mnm":"bra", "nxw":1, "lab":true, "range":16 },
-    "JUMP":      { "nmn":"jump","nxw":2, "var":true, "range":16 },
+    "JUMP":      { "mnm":"jmp","nxw":2, "var":true, "range":16 },
     "BNZ_8":     { "mnm":"bnz", "nxw":1, "typ":["8",  "s8",  "u8"],  "lab":true, "range":16 },
     "BNZ_16":    { "mnm":"bnz", "nxw":1, "typ":["16", "s16", "u16"], "lab":true, "range":16 },
     "BNZ_32":    { "mnm":"bnz", "nxw":1, "typ":["32", "s32", "u32"], "lab":true, "range":16 },
