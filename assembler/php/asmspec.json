@@ -741,7 +741,7 @@
 			  "label"
 		  ]
 	  },
-	  "JUMP": {
+	  "CASE": {
 		  "mnemonic": "case",
 		  "extension": 2,
 		  "var": true,
@@ -2043,7 +2043,152 @@
 		  "extension": 1,
 		  "types": ["f64"]
 	  }
+  },
+  "fauxswapped": {
+	  "BLSEQ_8": {
+      "opcode":"BGREQ_8",
+		  "mnemonic": "ble",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLSEQ_16": {
+      "opcode":"BGREQ_16",
+		  "mnemonic": "ble",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLSEQ_32": {
+      "opcode":"BGREQ_32",
+		  "mnemonic": "ble",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLSEQ_64": {
+      "opcode":"BGREQ_64",
+		  "mnemonic": "ble",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLSEQ_F32": {
+      "opcode":"BGREQ_F32",
+		  "mnemonic": "ble",
+		  "extension": 1,
+		  "types": ["f32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLSEQ_F64": {
+      "opcode":"BGREQ_F64",
+		  "mnemonic": "ble",
+		  "extension": 1,
+		  "types": ["f64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLS_8": {
+      "opcode":"BGR_8",
+		  "mnemonic": "bls",
+		  "extension": 1,
+		  "types": ["8", "s8", "u8"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLS_16": {
+      "opcode":"BGR_16",
+		  "mnemonic": "bls",
+		  "extension": 1,
+		  "types": ["16", "s16", "u16"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLS_32": {
+      "opcode":"BGR_32",
+		  "mnemonic": "bls",
+		  "extension": 1,
+		  "types": ["32", "s32", "u32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLS_64": {
+      "opcode":"BGR_64",
+		  "mnemonic": "bls",
+		  "extension": 1,
+		  "types": ["64", "s64", "u64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLS_F32": {
+      "opcode":"BGR_F32",
+		  "mnemonic": "bls",
+		  "extension": 1,
+		  "types": ["f32"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  },
+	  "BLS_F64": {
+      "opcode":"BGR_F64",
+		  "mnemonic": "bls",
+		  "extension": 1,
+		  "types": ["f64"],
+		  "range": 16,
+		  "params": [
+			  "reg",
+			  "reg",
+			  "label"
+		  ]
+	  }
   }
-
 }
 
