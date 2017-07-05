@@ -65,7 +65,7 @@ _DEFINE_OP(BRA16)
 }
 _END_OP
 
-_DEFINE_OP(JUMP)
+_DEFINE_OP(CASE)
 {
   sint32 offset = _EX_U16;
   offset += vm->pc.extS16[vm->gpr[_RD(op)].u16()];

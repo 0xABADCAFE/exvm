@@ -283,14 +283,14 @@ public:
     // computed branch via an inline jump table. Each entry in the table is
     // a 16-bit signed offset from the PC following the opcode (just like
     // normal branches).
-    // jump(.16) rX
+    // case(.16) rX
     // [opcode] [ 0 : rX ]
     // [   table size    ]
     // [ displacement  0 ]
     // [ displacement  1 ]
     // ...................
     // [ displacement  n ]
-    _JUMP,
+    _CASE,
 
     // conditional branches - max 16-bit pc relative displacement
     // [opcode] [rS : rD]

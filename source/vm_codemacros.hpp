@@ -310,13 +310,14 @@
 #define _ret                  _MKOP(RET)
 #define _bra_8(o)             _MKOP(BRA8)|(o),
 #define _bra(o)               _MKOP(BRA16), (uint16)(o),
-#define _jump(r,sz)           _MKOP(JUMP)|(r), (sz),
+#define _case(r,sz)           _MKOP(CASE)|(r), (sz),
 
 #define _bnz_8(r,o)         _MKOP(BNZ_8)|(r), (uint16)(o),
 #define _bnz_16(r,o)        _MKOP(BNZ_16)|(r), (uint16)(o),
 #define _bnz_32(r,o)        _MKOP(BNZ_32)|(r), (uint16)(o),
 #define _bnz_64(r,o)        _MKOP(BNZ_64)|(r), (uint16)(o),
 
+// Fake Less a < b based on b > a
 #define _bls_8(s,d,o)         _MKOP(BGR_8)|(d)<<4|(s), (uint16)(o),
 #define _bls_16(s,d,o)        _MKOP(BGR_16)|(d)<<4|(s), (uint16)(o),
 #define _bls_32(s,d,o)        _MKOP(BGR_32)|(d)<<4|(s), (uint16)(o),
