@@ -37,16 +37,16 @@ class Assembler {
     }
     $this->aTypes     = [];
     $this->aOpcodeMap = [];
-    $this->aReg       = (array)$oAssemblerSpec->reg;
+    $this->aReg       = (array)$oAssemblerSpec->regnames;
 
     foreach ($oAssemblerSpec->types as $key => $value) {
       $this->aTypes[(string)$key] = $value;
     }
 
-    $this->aParams    = (array)$oAssemblerSpec->param;
+    $this->aParams    = (array)$oAssemblerSpec->params;
     $this->aInstProps = (array)$oAssemblerSpec->instructions;
     $this->aOpcodeVal = array_flip(array_keys($this->aInstProps));
-    $sTypeSep         = $oAssemblerSpec->param->type;
+    $sTypeSep         = $oAssemblerSpec->params->type;
 
     foreach ($this->aInstProps as $sOpcode => $oProps) {
       $this->validateInstructionDefinition($sOpcode, $oProps);
@@ -73,7 +73,7 @@ class Assembler {
 
     echo "Parsed ", count($this->aOpcodeMap), " assembler instruction variations based on ", count($this->aOpcodeVal), " discrete opcodes.\n";
 
-    $aKnown = array_chunk(array_keys($this->aOpcodeMap), 16);
+    $aKnown = array_chunk(array_keys($this->aOpcodeMap), 8);
     foreach ($aKnown as $aInst) {
       echo "\t", implode(', ', $aInst), "\n";
     }
