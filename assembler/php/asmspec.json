@@ -33,9 +33,23 @@
 	  "predec": "-(gpr)"
   },
   "directives": {
-    "label":  "/^@[a-z0-9_]+:/i",
-    "export": "/^export\\s+(@[a-z0-9_]+)/i",
-    "import": "/^import\\s+(@[a-z0-9_]+)/i"
+    "label": {
+      "match": "/^@[a-z0-9_]+:/i"
+    },
+    "export": {
+      "match": "/^export\\s+(@[a-z0-9_]+)/i"
+    },
+    "import": {
+      "match": "/^import\\s+(@[a-z0-9_]+)/i"
+    },
+    "const": {
+      "match": "/\\s+const/i",
+      "types": [
+        "u8", "u16", "u32", "u64",
+        "s8", "s16", "s32", "s64",
+        "f32", "f64"
+      ]
+    }
   },
   "instructions": {
 	  "NOP": {
