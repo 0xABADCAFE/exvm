@@ -1,6 +1,9 @@
 {
   "comment": "ExVM Assembler Specification. This defines the base syntax for the assembler.",
-  "reg": ["r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15"],
+  "regnames": [
+    "r0", "r1", "r2",  "r3",  "r4",  "r5",  "r6",  "r7",
+    "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15"
+  ],
   "types": {
 	  "8":   "uint8",
 	  "16":  "uint16",
@@ -17,7 +20,7 @@
 	  "f32": "float32",
 	  "f64": "float64"
   },
-  "param": {
+  "params": {
     "type": ".",
 	  "int": "#",
 	  "float": "$",
@@ -28,6 +31,11 @@
 	  "lookup": "(gpr,gpr,#)",
 	  "postinc": "(gpr)+",
 	  "predec": "-(gpr)"
+  },
+  "directives": {
+    "label":  "/^@[a-z0-9_]+:/i",
+    "export": "/^export\\s+(@[a-z0-9_]+)/i",
+    "import": "/^import\\s+(@[a-z0-9_]+)/i"
   },
   "instructions": {
 	  "NOP": {
@@ -42,7 +50,7 @@
 	  },
 	  "LDQ": {
 		  "comment": "Load a small (0-15) integer literal into the specified register",
-		  "mnemonic": "ldq",
+		  "mnemonic": "loadq",
 		  "params": [
 			  "int",
 			  "reg"
@@ -50,7 +58,7 @@
 	  },
 	  "LD_I16_8": {
 		  "comment": "Load an 16-bit integer literal into the specified register as a truncated 8-bit value",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["8", "s8", "u8"],
 		  "params": [
@@ -60,7 +68,7 @@
 	  },
 	  "LD_I16_16": {
 		  "comment": "Load a 16-bit integer literal into the specified register as a 16-bit value",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["16", "s16", "u16"],
 		  "params": [
@@ -70,7 +78,7 @@
 	  },
 	  "LD_I16_32": {
 		  "comment": "Load a 16-bit integer literal into the specified register as an extended 32-bit value",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["32", "s32", "u32"],
 		  "params": [
@@ -80,7 +88,7 @@
 	  },
 	  "LD_I16_64": {
 		  "comment": "Load a 16-bit integer literal into the specified register as an extended 64-bit value",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["64", "s64", "u64"],
 		  "params": [
@@ -90,7 +98,7 @@
 	  },
 	  "LD_I32_32": {
 		  "comment": "Load a 32-bit integer literal into the specified register as a 32-bit value",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 2,
 		  "types": ["32", "s32", "u32"],
 		  "params": [
@@ -100,7 +108,7 @@
 	  },
 	  "LD_I32_64": {
 		  "comment": "Load a 32-bit integer literal into the specified register as an extended 64-bit value",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 2,
 		  "types": ["64", "s64", "u64"],
 		  "params": [
@@ -110,7 +118,7 @@
 	  },
 	  "LD_F32": {
 		  "comment": "Load a 32-bit float literal into the specified register as a 32-bit value",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 2,
 		  "types": ["f32"],
 		  "params": [
@@ -120,7 +128,7 @@
 	  },
 	  "LD_RI_8": {
 		  "comment": "Load an 8-bit integer value referenced by the source register into the destination register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["8", "s8", "u8"],
 		  "params": [
 			  "ref",
@@ -129,7 +137,7 @@
 	  },
 	  "LD_RI_16": {
 		  "comment": "Load a 16-bit integer value referenced by the source register into the destination register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["16", "s16", "u16"],
 		  "params": [
 			  "ref",
@@ -138,7 +146,7 @@
 	  },
 	  "LD_RI_32": {
 		  "comment": "Load a 32-bit integer or float value referenced by the source register into the destination register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
 			  "ref",
@@ -147,7 +155,7 @@
 	  },
 	  "LD_RI_64": {
 		  "comment": "Load a 64-bit integer or float value referenced by the source register into the destination register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
 			  "ref",
@@ -156,7 +164,7 @@
 	  },
 	  "LD_RIPI_8": {
 		  "comment": "Load an 8-bit integer value referenced by the source register into the destination register, then increment the source register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["8", "s8", "u8"],
 		  "params": [
 			  "postinc",
@@ -165,7 +173,7 @@
 	  },
 	  "LD_RIPI_16": {
 		  "comment": "Load a 16-bit integer value referenced by the source register into the destination register, then increment the source register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["16", "s16", "u16"],
 		  "params": [
 			  "postinc",
@@ -174,7 +182,7 @@
 	  },
 	  "LD_RIPI_32": {
 		  "comment": "Load a 32-bit integer or float value referenced by the source register into the destination register, then increment the source register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
 			  "postinc",
@@ -183,7 +191,7 @@
 	  },
 	  "LD_RIPI_64": {
 		  "comment": "Load a 64-bit integer or float value referenced by the source register into the destination register, then increment the source register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
 			  "postinc",
@@ -192,7 +200,7 @@
 	  },
 	  "LD_RIPD_8": {
 		  "comment": "Decrement the source register, then load an 8-bit integer value referenced by the source register into the destination register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["8", "s8", "u8"],
 		  "params": [
 			  "predec",
@@ -201,7 +209,7 @@
 	  },
 	  "LD_RIPD_16": {
 		  "comment": "Decrement the source register, then load a 16-bit integer value referenced by the source register into the destination register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["16", "s16", "u16"],
 		  "params": [
 			  "predec",
@@ -210,7 +218,7 @@
 	  },
 	  "LD_RIPD_32": {
 		  "comment": "Decrement the source register, then load a 32-bit integer or float value referenced by the source register into the destination register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
 			  "predec",
@@ -219,7 +227,7 @@
 	  },
 	  "LD_RIPD_64": {
 		  "comment": "Decrement the source register, then load a 64-bit integer or float value referenced by the source register into the destination register",
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
 			  "predec",
@@ -227,7 +235,7 @@
 		  ]
 	  },
 	  "LD_RID_8": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["8", "s8", "u8"],
 		  "params": [
@@ -236,7 +244,7 @@
 		  ]
 	  },
 	  "LD_RID_16": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["16", "s16", "u16"],
 		  "params": [
@@ -245,7 +253,7 @@
 		  ]
 	  },
 	  "LD_RID_32": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
@@ -254,7 +262,7 @@
 		  ]
 	  },
 	  "LD_RID_64": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["64", "s64", "u64", "f32"],
 		  "params": [
@@ -263,7 +271,7 @@
 		  ]
 	  },
 	  "LD_RII_8": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["8", "s8", "u8"],
 		  "params": [
@@ -272,7 +280,7 @@
 		  ]
 	  },
 	  "LD_RII_16": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["16", "s16", "u16"],
 		  "params": [
@@ -281,7 +289,7 @@
 		  ]
 	  },
 	  "LD_RII_32": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
@@ -290,7 +298,7 @@
 		  ]
 	  },
 	  "LD_RII_64": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 1,
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
@@ -299,7 +307,7 @@
 		  ]
 	  },
 	  "LD_8": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 4,
 		  "types": ["8", "s8", "u8"],
 		  "params": [
@@ -308,7 +316,7 @@
 		  ]
 	  },
 	  "LD_16": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 4,
 		  "types": ["16", "s16", "u16"],
 		  "params": [
@@ -317,7 +325,7 @@
 		  ]
 	  },
 	  "LD_32": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 4,
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
@@ -326,7 +334,7 @@
 		  ]
 	  },
 	  "LD_64": {
-		  "mnemonic": "ld",
+		  "mnemonic": "load",
 		  "extension": 4,
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
@@ -335,7 +343,7 @@
 		  ]
 	  },
 	  "LD_ADDR": {
-		  "mnemonic": "lda",
+		  "mnemonic": "loada",
 		  "extension": 4,
 		  "params": [
 			  "label",
@@ -343,7 +351,7 @@
 		  ]
 	  },
 	  "ST_RI_8": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["8", "s8", "u8"],
 		  "params": [
 			  "reg",
@@ -351,7 +359,7 @@
 		  ]
 	  },
 	  "ST_RI_16": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["16", "s16", "u16"],
 		  "params": [
 			  "reg",
@@ -359,7 +367,7 @@
 		  ]
 	  },
 	  "ST_RI_32": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
 			  "reg",
@@ -367,7 +375,7 @@
 		  ]
 	  },
 	  "ST_RI_64": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
 			  "reg",
@@ -375,7 +383,7 @@
 		  ]
 	  },
 	  "ST_RIPI_8": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["8", "s8", "u8"],
 		  "params": [
 			  "reg",
@@ -383,7 +391,7 @@
 		  ]
 	  },
 	  "ST_RIPI_16": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["16", "s16", "u16"],
 		  "params": [
 			  "reg",
@@ -391,7 +399,7 @@
 		  ]
 	  },
 	  "ST_RIPI_32": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
 			  "reg",
@@ -399,7 +407,7 @@
 		  ]
 	  },
 	  "ST_RIPI_64": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
 			  "reg",
@@ -407,7 +415,7 @@
 		  ]
 	  },
 	  "ST_RIPD_8": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["8", "s8", "u8"],
 		  "params": [
 			  "reg",
@@ -415,7 +423,7 @@
 		  ]
 	  },
 	  "ST_RIPD_16": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["16", "s16", "u16"],
 		  "params": [
 			  "reg",
@@ -423,7 +431,7 @@
 		  ]
 	  },
 	  "ST_RIPD_32": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
 			  "reg",
@@ -431,7 +439,7 @@
 		  ]
 	  },
 	  "ST_RIPD_64": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
 			  "reg",
@@ -439,7 +447,7 @@
 		  ]
 	  },
 	  "ST_RID_8": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 1,
 		  "types": ["8", "s8", "u8"],
 		  "params": [
@@ -448,7 +456,7 @@
 		  ]
 	  },
 	  "ST_RID_16": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 1,
 		  "types": ["16", "s16", "u16"],
 		  "params": [
@@ -457,7 +465,7 @@
 		  ]
 	  },
 	  "ST_RID_32": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 1,
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
@@ -466,7 +474,7 @@
 		  ]
 	  },
 	  "ST_RID_64": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 1,
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
@@ -475,7 +483,7 @@
 		  ]
 	  },
 	  "ST_RII_8": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 1,
 		  "types": ["8", "s8", "u8"],
 		  "params": [
@@ -484,7 +492,7 @@
 		  ]
 	  },
 	  "ST_RII_16": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 1,
 		  "types": ["16", "s16", "u16"],
 		  "params": [
@@ -493,7 +501,7 @@
 		  ]
 	  },
 	  "ST_RII_32": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 1,
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
@@ -502,7 +510,7 @@
 		  ]
 	  },
 	  "ST_RII_64": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 1,
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
@@ -511,7 +519,7 @@
 		  ]
 	  },
 	  "ST_8": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 4,
 		  "types": ["8", "s8", "u8"],
 		  "params": [
@@ -520,7 +528,7 @@
 		  ]
 	  },
 	  "ST_16": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 4,
 		  "types": ["16", "s16", "u16"],
 		  "params": [
@@ -529,7 +537,7 @@
 		  ]
 	  },
 	  "ST_32": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 4,
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
@@ -538,7 +546,7 @@
 		  ]
 	  },
 	  "ST_64": {
-		  "mnemonic": "st",
+		  "mnemonic": "store",
 		  "extension": 4,
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
@@ -547,7 +555,7 @@
 		  ]
 	  },
 	  "MV_8": {
-		  "mnemonic": "mv",
+		  "mnemonic": "move",
 		  "types": ["8", "s8", "u8"],
 		  "params": [
 			  "reg",
@@ -555,7 +563,7 @@
 		  ]
 	  },
 	  "MV_16": {
-		  "mnemonic": "mv",
+		  "mnemonic": "move",
 		  "types": ["16", "s16", "u16"],
 		  "params": [
 			  "reg",
@@ -563,7 +571,7 @@
 		  ]
 	  },
 	  "MV_32": {
-		  "mnemonic": "mv",
+		  "mnemonic": "move",
 		  "types": ["32", "s32", "u32", "f32"],
 		  "params": [
 			  "reg",
@@ -571,7 +579,7 @@
 		  ]
 	  },
 	  "MV_64": {
-		  "mnemonic": "mv",
+		  "mnemonic": "move",
 		  "types": ["64", "s64", "u64", "f64"],
 		  "params": [
 			  "reg",
@@ -610,14 +618,14 @@
 		  ]
 	  },
 	  "SV": {
-		  "mnemonic": "sv",
+		  "mnemonic": "save",
 		  "params": [
 			  "reg",
 			  "reg"
 		  ]
 	  },
 	  "RS": {
-		  "mnemonic": "rs",
+		  "mnemonic": "rest",
 		  "params": [
 			  "reg",
 			  "reg"
@@ -720,7 +728,7 @@
 		  ]
 	  },
 	  "JUMP": {
-		  "mnemonic": "jmp",
+		  "mnemonic": "case",
 		  "extension": 2,
 		  "var": true,
 		  "range": 16
@@ -1271,7 +1279,7 @@
 		  "mnemonic": "add",
 		  "types": ["8", "s8", "u8"],
 		  "params": [
-			  "reg",
+			  "int",
 			  "reg"
 		  ]
 	  },
@@ -1279,7 +1287,7 @@
 		  "mnemonic": "add",
 		  "types": ["16", "s16", "u16"],
 		  "params": [
-			  "reg",
+			  "int",
 			  "reg"
 		  ]
 	  },
@@ -1287,7 +1295,7 @@
 		  "mnemonic": "add",
 		  "types": ["32", "s32", "u32"],
 		  "params": [
-			  "reg",
+			  "int",
 			  "reg"
 		  ]
 	  },
