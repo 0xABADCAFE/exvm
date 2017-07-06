@@ -4,7 +4,6 @@ BIN      = bin/exvm_x64_ft
 CXXFLAGS = -O3 -Wall -W -m64 -march=native -fomit-frame-pointer -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_VM_INTERPRETER=_VM_INTERPRETER_FUNC_TABLE
 OBJ      = obj/x64_ft_linux/main.o \
            obj/x64_ft_linux/vmprogram.o \
-           obj/x64_ft_linux/virtual.o \
            obj/x64_ft_linux/machine.o \
            obj/x64_ft_linux/op_control.o \
            obj/x64_ft_linux/op_load.o \
@@ -25,9 +24,6 @@ obj/x64_ft_linux/main.o: main.cpp vmcore.hpp vm.hpp machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/x64_ft_linux/vmprogram.o: vmprogram.cpp vmcore.hpp vm.hpp machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/x64_ft_linux/virtual.o: virtual.cpp vmcore.hpp vm.hpp machine.hpp vm_handlers.hpp vminline.hpp vm_codemacros.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/x64_ft_linux/machine.o: machine.cpp machine.hpp

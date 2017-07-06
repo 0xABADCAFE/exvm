@@ -21,9 +21,6 @@ $(BIN): $(OBJ) Makefile
 main.o: main.cpp vmcore.hpp vm.hpp machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-virtual.o: virtual.cpp vmcore.hpp vm.hpp machine.hpp vm_handlers.hpp vminline.hpp vm_codemacros.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
 machine.o: machine.cpp machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 	
