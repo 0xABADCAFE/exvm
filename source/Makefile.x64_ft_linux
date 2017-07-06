@@ -1,7 +1,7 @@
 # Project: exvm_x64_ft
 
 BIN      = bin/exvm_x64_ft
-CXXFLAGS = -O3 -Wall -W -m64 -fomit-frame-pointer -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_VM_INTERPRETER=_VM_INTERPRETER_FUNC_TABLE
+CXXFLAGS = -O3 -Wall -W -m64 -march=native -fomit-frame-pointer -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_VM_INTERPRETER=_VM_INTERPRETER_FUNC_TABLE
 OBJ      = obj/x64_ft_linux/main.o \
            obj/x64_ft_linux/vmprogram.o \
            obj/x64_ft_linux/virtual.o \
