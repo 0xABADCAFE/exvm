@@ -142,6 +142,9 @@ class VMCore {
     size_t    regStackSize;
     size_t    dataStackSize;
     size_t    callStackSize;
+    
+    float64   totalTime;
+    float64   nativeTime;
 
     #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
       #include "vm_handlers.hpp"

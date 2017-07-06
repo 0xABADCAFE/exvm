@@ -160,11 +160,14 @@ forever:
 
 void VMCore::execute()
 {
-  status = VMDefs::RUNNING;
+  int numStatements = 0;
+  totalTime         = 0;
+  nativeTime        = 0;
+  status            = VMDefs::RUNNING;
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
 
-  int numStatements = 0;
+  MilliClock total;
   // simple model, no exception based return, check status after each instruction
   while (status==VMDefs::RUNNING) {
     register const Handler* h = currHandler; // temp pointer;
@@ -180,17 +183,15 @@ void VMCore::execute()
       status = VMDefs::RUNNING;
     }
   }
-  printf("Executed %d statements\n", numStatements);
 
 #elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
 
-  int numStatements = innerExecute();
-  printf("Executed %d statements\n", numStatements);
+  MilliClock total;
+  numStatements = innerExecute();
+  totalTime     = total.elapsedFrac();
 
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
-
-  dump();
-
+  
   // assembler model, so far only the 68K has this
   #if _VM_HOST_OS == _VM_HOST_AMIGAOS3_68K
 
@@ -199,6 +200,7 @@ void VMCore::execute()
   void* old68KTrap       = thisTask->tc_TrapCode;
   thisTask->tc_TrapCode  = (void*)(&trap_68K);
 
+  MilliClock total;
   // jump into the asm execute code
   asm(
     "\n/*************************************/\n\n"
@@ -209,6 +211,7 @@ void VMCore::execute()
     : "g"(this)                       // inputs
     : "d0", "d1", "a0", "a1","cc"     // clobbers
   );
+  totalTime = total.elapsedFrac();
 
   // reset the trap code to whatever it was previously
   thisTask->tc_TrapCode = old68KTrap;
@@ -217,5 +220,14 @@ void VMCore::execute()
     #error Only the 680x0 target currently supports custom implementation
   #endif
 #endif
+
+  printf("Executed %d statements\n", numStatements);
+  float64 virtualTime = totalTime - nativeTime;
+  float64 mips        = (0.001*numStatements)/virtualTime;
+  printf(
+    "Total: %.3f ms, native: %.3f ms, virtual: %.3f ms, %.3f MIPs\n",
+    totalTime, nativeTime, virtualTime, mips
+  );
+
 }
 

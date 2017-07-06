@@ -24,9 +24,7 @@ int main()
   puts("\nBeginning Virtual Program\n-----------------------\n");
 
   vm.setPC(_VM_ENTRY(virtualProgram));
-  MilliClock t;
   vm.execute();
-  printf("Time taken :%0.3fms\n", t.elapsedFrac());
   puts("\n-----------------------\n");
   vm.dump();
 
