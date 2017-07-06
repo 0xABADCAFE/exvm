@@ -46,8 +46,10 @@ const char* VMCore::statusCodes[] = {
   "Call empty native address"
 };
 
-VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) : regStackSize(rStackSize), dataStackSize(dStackSize), callStackSize(cStackSize)
-{
+VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
+  regStackSize(rStackSize),
+  dataStackSize(dStackSize),
+  callStackSize(cStackSize) {
   pc.inst       = 0;
   regStack     = regStackBase  = new(nothrow) uint64   [regStackSize];
   dataStack.u8 = dataStackBase = new(nothrow) uint8    [dataStackSize];
@@ -66,8 +68,6 @@ VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) : regSta
 #endif
 
   printf("VM compiled %d-bit native\n", X_PTRSIZE);
-
-
   printf("There are presently %d core instructions defined\n", VMDefs::MAX_OP);
 
 /*
@@ -78,16 +78,14 @@ VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) : regSta
 */
 }
 
-VMCore::~VMCore()
-{
+VMCore::~VMCore() {
   delete[] callStackBase;
   delete[] dataStackBase;
   delete[] regStackBase;
   printf("Destroyed VMCore\n");
 }
 
-void VMCore::dump()
-{
+void VMCore::dump() {
   printf("VMCore dump\n\n");
   printf("rX: %18s : %12s : %6s : %4s : c\n",
     "64-bit (hex dump)",
@@ -158,8 +156,7 @@ forever:
 
 #endif
 
-void VMCore::execute()
-{
+void VMCore::execute() {
   int numStatements = 0;
   totalTime         = 0;
   nativeTime        = 0;
@@ -183,6 +180,7 @@ void VMCore::execute()
       status = VMDefs::RUNNING;
     }
   }
+  totalTime = total.elapsedFrac();
 
 #elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
 

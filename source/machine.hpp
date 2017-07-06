@@ -89,8 +89,6 @@ typedef double float64;
 #define rfloat32 register float32
 #define rfloat64 register float64
 
-
-
 // Target sanity checks
 
 #if (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K)

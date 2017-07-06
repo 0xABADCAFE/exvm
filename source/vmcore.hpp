@@ -153,15 +153,13 @@ class VMCore {
 
 
     #if X_PTRSIZE == XA_PTRSIZE32
-    static const uint16* getPCFor32BitHost(VMCore* vm)
-    {
+    static const uint16* getPCFor32BitHost(VMCore* vm) {
       const uint16* result = vm->pc.extCodeAddr[EX_ADDR_32];
       vm->pc.extU64++;
       return result;
     }
 
-    static const VMCore::Native* getNativeFor32BitHost(VMCore* vm)
-    {
+    static const VMCore::Native* getNativeFor32BitHost(VMCore* vm) {
       const VMCore::Native* result = vm->pc.extNativeCodeAddr[EX_ADDR_32];
       vm->pc.extU64++;
       return result;
@@ -177,7 +175,7 @@ class VMCore {
     VMCore(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
     ~VMCore();
 
-    uint32  getStatus() { return status; }
+    uint32  getStatus() const { return status; }
 
   public:
     GPR&    getReg(sint32 i) { return gpr[(i&0xF)]; }

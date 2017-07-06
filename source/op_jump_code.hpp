@@ -41,7 +41,7 @@ _DEFINE_OP(CALLN) {
     MilliClock native;
     //printf("call native 0x%08X\n", (unsigned)func);
     func(vm);
-    nativeTime += native.elapsedFrac();
+    vm->nativeTime += native.elapsedFrac();
   } else {
     vm->status = VMDefs::CALL_EMPTY_NATIVE;
     #ifdef VM_FULL_DEBUG

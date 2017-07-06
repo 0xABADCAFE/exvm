@@ -118,7 +118,7 @@ const VMCore::Handler VMCore::normal[256] = {
   _REFER_OP(RET),
   _REFER_OP(BRA8),
   _REFER_OP(BRA16),
-  _REFER_OP(JUMP),
+  _REFER_OP(CASE),
 
   _REFER_OP(BNZ_8),
   _REFER_OP(BNZ_16),
