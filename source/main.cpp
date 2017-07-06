@@ -1,8 +1,16 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-//  test app
-//
-////////////////////////////////////////////////////////////////////////////////
+//****************************************************************************//
+//**                                                                        **//
+//** File:         main.cpp                                                 **//
+//** Description:  Test Application                                         **//
+//** Comment(s):   Internal developer version only                          **//
+//** Library:                                                               **//
+//** Created:      2001-08-29                                               **//
+//** Author(s):    Karl Churchill                                           **//
+//** Note(s):                                                               **//
+//** Copyright:    (C)1996 - , eXtropia Studios                             **//
+//**               All Rights Reserved.                                     **//
+//**                                                                        **//
+//****************************************************************************//
 
 
 #include <new>
@@ -18,8 +26,7 @@ using namespace std;
 
 _VM_EXTERN(virtualProgram);
 
-int main()
-{
+int main() {
   static VMCore vm;
   puts("\nBeginning Virtual Program\n-----------------------\n");
 

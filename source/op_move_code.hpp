@@ -1,42 +1,50 @@
+//****************************************************************************//
+//**                                                                        **//
+//** File:         op_move_code.hpp                                         **//
+//** Description:  Move group opcode implementation                         **//
+//** Comment(s):   Internal developer version only                          **//
+//** Library:                                                               **//
+//** Created:      2005-01-29                                               **//
+//** Author(s):    Karl Churchill                                           **//
+//** Note(s):                                                               **//
+//** Copyright:    (C)1996 - , eXtropia Studios                             **//
+//**               All Rights Reserved.                                     **//
+//**                                                                        **//
+//****************************************************************************//
 
-_DEFINE_OP(MV_8)
-{
+
+_DEFINE_OP(MV_8) {
   // move.8 rS,rD
   vm->gpr[_RD(op)].u8() = vm->gpr[_RS(op)].u8();
 }
 _END_OP
 
-_DEFINE_OP(MV_16)
-{
+_DEFINE_OP(MV_16) {
   // move.16 rS,rD
   vm->gpr[_RD(op)].u16() = vm->gpr[_RS(op)].u16();
 }
 _END_OP
 
-_DEFINE_OP(MV_32)
-{
+_DEFINE_OP(MV_32) {
   // move.32 rS,rD
   vm->gpr[_RD(op)].u32() = vm->gpr[_RS(op)].u32();
 }
 _END_OP
 
-_DEFINE_OP(MV_64)
-{
+_DEFINE_OP(MV_64) {
   // move.64 rS,rD
   vm->gpr[_RD(op)].u64() = vm->gpr[_RS(op)].u64();
 }
 _END_OP
 
-_DEFINE_OP(BSWP_16)
-{
+_DEFINE_OP(BSWP_16) {
   // bswap.16 rS,rD
   uint16 word16 = vm->gpr[_RS(op)].u16();
   vm->gpr[_RD(op)].u16() = word16>>8 | word16<<8;
 }
 _END_OP
 
-_DEFINE_OP(BSWP_32)
-{
+_DEFINE_OP(BSWP_32) {
   // bswap.32 rS,rD
   uint32 word32 =  vm->gpr[_RS(op)].u32();
   word32        = word32>>16 | word32<<16;
@@ -44,8 +52,7 @@ _DEFINE_OP(BSWP_32)
 }
 _END_OP
 
-_DEFINE_OP(BSWP_64)
-{
+_DEFINE_OP(BSWP_64) {
   // bswap.64 rS,rD
   GPR* reg = &vm->gpr[_RS(op)];
   uint32 v1 = reg->getMSW(); v1 = v1<<16 | v1>>16;
@@ -56,8 +63,7 @@ _DEFINE_OP(BSWP_64)
 }
 _END_OP
 
-_DEFINE_OP(EXG)
-{
+_DEFINE_OP(EXG) {
   // exg rS,rD
   uint64 t = vm->gpr[_RD(op)].u64();
   vm->gpr[_RD(op)].u64() = vm->gpr[_RS(op)].u64();
@@ -65,8 +71,7 @@ _DEFINE_OP(EXG)
 }
 _END_OP
 
-_DEFINE_OP(SV)
-{
+_DEFINE_OP(SV) {
   // save r1,r2...
   uint16  mask  = _EX_U16;
   GPR*    r     = vm->gpr;
@@ -90,8 +95,7 @@ _DEFINE_OP(SV)
 }
 _END_OP
 
-_DEFINE_OP(RS)
-{
+_DEFINE_OP(RS) {
   // restore r1,r2...
   uint16  mask  = _EX_U16;
   GPR*    r     = vm->gpr+15;
@@ -115,8 +119,7 @@ _DEFINE_OP(RS)
 }
 _END_OP
 
-_DEFINE_OP(PUSH_8)
-{
+_DEFINE_OP(PUSH_8) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -138,8 +141,7 @@ _DEFINE_OP(PUSH_8)
 }
 _END_OP
 
-_DEFINE_OP(PUSH_16)
-{
+_DEFINE_OP(PUSH_16) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -161,8 +163,7 @@ _DEFINE_OP(PUSH_16)
 }
 _END_OP
 
-_DEFINE_OP(PUSH_32)
-{
+_DEFINE_OP(PUSH_32) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -184,8 +185,7 @@ _DEFINE_OP(PUSH_32)
 }
 _END_OP
 
-_DEFINE_OP(PUSH_64)
-{
+_DEFINE_OP(PUSH_64) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -207,8 +207,7 @@ _DEFINE_OP(PUSH_64)
 }
 _END_OP
 
-_DEFINE_OP(POP_8)
-{
+_DEFINE_OP(POP_8) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr+15;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -230,8 +229,7 @@ _DEFINE_OP(POP_8)
 }
 _END_OP
 
-_DEFINE_OP(POP_16)
-{
+_DEFINE_OP(POP_16) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr+15;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -253,8 +251,7 @@ _DEFINE_OP(POP_16)
 }
 _END_OP
 
-_DEFINE_OP(POP_32)
-{
+_DEFINE_OP(POP_32) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr+15;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -276,8 +273,7 @@ _DEFINE_OP(POP_32)
 }
 _END_OP
 
-_DEFINE_OP(POP_64)
-{
+_DEFINE_OP(POP_64) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr+15;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {

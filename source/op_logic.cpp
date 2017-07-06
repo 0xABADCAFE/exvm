@@ -1,6 +1,6 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         op_arithmetic.cpp                                        **//
+//** File:         op_logic.cpp                                             **//
 //** Description:  Logic group opcode implementation                        **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//

@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
 //** File:         op_normal_table.cpp                                      **//
-//** Description:  VMCore class definition                                  **//
+//** Description:  Function Table build model                               **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-09-16                                               **//
@@ -18,8 +18,7 @@
   #include "vmcore.hpp"
   #include <cstdio>
 
-_DEFINE_OP(ILLEGAL)
-{
+_DEFINE_OP(ILLEGAL) {
   printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
   vm->status = VMDefs::BREAKPOINT;
 }

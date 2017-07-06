@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         op_load.cpp                                              **//
-//** Description:  Load group opcode implementation                         **//
+//** File:         op_misc.cpp                                              **//
+//** Description:  Miscellanous group opcode implementation                 **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-08-29                                               **//

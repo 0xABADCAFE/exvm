@@ -1,3 +1,16 @@
+//****************************************************************************//
+//**                                                                        **//
+//** File:         op_jump_code.hpp                                         **//
+//** Description:  Jump group opcode implementation                         **//
+//** Comment(s):   Internal developer version only                          **//
+//** Library:                                                               **//
+//** Created:      2001-08-29                                               **//
+//** Author(s):    Karl Churchill                                           **//
+//** Note(s):                                                               **//
+//** Copyright:    (C)1996 - , eXtropia Studios                             **//
+//**               All Rights Reserved.                                     **//
+//**                                                                        **//
+//****************************************************************************//
 
 #if X_PTRSIZE == XA_PTRSIZE64
   #define _DECLARE_OFFSET sint64 offset = _EX_S16;
@@ -5,8 +18,7 @@
   #define _DECLARE_OFFSET sint16 offset = _EX_S16;
 #endif
 
-_DEFINE_OP(CALL)
-{
+_DEFINE_OP(CALL) {
   const uint16* newPC = _EX_PC;
   //printf("call 0x%08X\n", (unsigned)newPC);
   if (vm->callStack < vm->callStackTop) {
@@ -23,8 +35,7 @@ _DEFINE_OP(CALL)
 }
 _END_OP
 
-_DEFINE_OP(CALLN)
-{
+_DEFINE_OP(CALLN) {
   Native func = (Native)_EX_NTV;
   if (func) {
     MilliClock native;
@@ -42,8 +53,7 @@ _DEFINE_OP(CALLN)
 }
 _END_OP
 
-_DEFINE_OP(RET)
-{
+_DEFINE_OP(RET) {
   if (vm->callStack > vm->callStackBase) {
     vm->pc.inst = (const uint16*) *(--vm->callStack);
   } else {
@@ -53,30 +63,26 @@ _DEFINE_OP(RET)
 }
 _END_OP
 
-_DEFINE_OP(BRA8)
-{
+_DEFINE_OP(BRA8) {
   vm->pc.inst += _B8(op);
 }
 _END_OP
 
-_DEFINE_OP(BRA16)
-{
+_DEFINE_OP(BRA16) {
   //for clarity, since _EX_S16 macro increments pc
   _DECLARE_OFFSET
   vm->pc.inst += offset;
 }
 _END_OP
 
-_DEFINE_OP(CASE)
-{
+_DEFINE_OP(CASE) {
   sint32 offset = _EX_U16;
   offset += vm->pc.extS16[vm->gpr[_RD(op)].u16()];
   vm->pc.inst += offset;
 }
 _END_OP
 
-_DEFINE_OP(BNZ_8)
-{
+_DEFINE_OP(BNZ_8) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s8()) {
     vm->pc.inst += offset;
@@ -84,8 +90,7 @@ _DEFINE_OP(BNZ_8)
 }
 _END_OP
 
-_DEFINE_OP(BNZ_16)
-{
+_DEFINE_OP(BNZ_16) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s16()) {
     vm->pc.inst += offset;
@@ -93,8 +98,7 @@ _DEFINE_OP(BNZ_16)
 }
 _END_OP
 
-_DEFINE_OP(BNZ_32)
-{
+_DEFINE_OP(BNZ_32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s32()) {
     vm->pc.inst += offset;
@@ -102,8 +106,7 @@ _DEFINE_OP(BNZ_32)
 }
 _END_OP
 
-_DEFINE_OP(BNZ_64)
-{
+_DEFINE_OP(BNZ_64) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s64()) {
     vm->pc.inst += offset;
@@ -111,8 +114,7 @@ _DEFINE_OP(BNZ_64)
 }
 _END_OP
 
-_DEFINE_OP(BEQ_8)
-{
+_DEFINE_OP(BEQ_8) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s8() == vm->gpr[_RS(op)].s8()) {
     vm->pc.inst += offset;
@@ -120,8 +122,7 @@ _DEFINE_OP(BEQ_8)
 }
 _END_OP
 
-_DEFINE_OP(BEQ_16)
-{
+_DEFINE_OP(BEQ_16) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s16() == vm->gpr[_RS(op)].s16()) {
     vm->pc.inst += offset;
@@ -129,8 +130,7 @@ _DEFINE_OP(BEQ_16)
 }
 _END_OP
 
-_DEFINE_OP(BEQ_32)
-{
+_DEFINE_OP(BEQ_32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s32() == vm->gpr[_RS(op)].s32()) {
     vm->pc.inst += offset;
@@ -138,8 +138,7 @@ _DEFINE_OP(BEQ_32)
 }
 _END_OP
 
-_DEFINE_OP(BEQ_64)
-{
+_DEFINE_OP(BEQ_64) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s64() == vm->gpr[_RS(op)].s64()) {
     vm->pc.inst += offset;
@@ -147,8 +146,7 @@ _DEFINE_OP(BEQ_64)
 }
 _END_OP
 
-_DEFINE_OP(BEQ_F32)
-{
+_DEFINE_OP(BEQ_F32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].f32() == vm->gpr[_RS(op)].f32()) {
     vm->pc.inst += offset;
@@ -156,8 +154,7 @@ _DEFINE_OP(BEQ_F32)
 }
 _END_OP
 
-_DEFINE_OP(BEQ_F64)
-{
+_DEFINE_OP(BEQ_F64) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].f64() == vm->gpr[_RS(op)].f64()) {
     vm->pc.inst += offset;
@@ -165,8 +162,7 @@ _DEFINE_OP(BEQ_F64)
 }
 _END_OP
 
-_DEFINE_OP(BGREQ_8)
-{
+_DEFINE_OP(BGREQ_8) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s8() <= vm->gpr[_RS(op)].s8()) {
     vm->pc.inst += offset;
@@ -174,8 +170,7 @@ _DEFINE_OP(BGREQ_8)
 }
 _END_OP
 
-_DEFINE_OP(BGREQ_16)
-{
+_DEFINE_OP(BGREQ_16) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s16() <= vm->gpr[_RS(op)].s16()) {
     vm->pc.inst += offset;
@@ -183,8 +178,7 @@ _DEFINE_OP(BGREQ_16)
 }
 _END_OP
 
-_DEFINE_OP(BGREQ_32)
-{
+_DEFINE_OP(BGREQ_32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s32() <= vm->gpr[_RS(op)].s32()) {
     vm->pc.inst += offset;
@@ -192,8 +186,7 @@ _DEFINE_OP(BGREQ_32)
 }
 _END_OP
 
-_DEFINE_OP(BGREQ_64)
-{
+_DEFINE_OP(BGREQ_64) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s64() <= vm->gpr[_RS(op)].s64()) {
     vm->pc.inst += offset;
@@ -201,8 +194,7 @@ _DEFINE_OP(BGREQ_64)
 }
 _END_OP
 
-_DEFINE_OP(BGREQ_F32)
-{
+_DEFINE_OP(BGREQ_F32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].f32() <= vm->gpr[_RS(op)].f32()) {
     vm->pc.inst += offset;
@@ -210,8 +202,7 @@ _DEFINE_OP(BGREQ_F32)
 }
 _END_OP
 
-_DEFINE_OP(BGREQ_F64)
-{
+_DEFINE_OP(BGREQ_F64) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].f64() <= vm->gpr[_RS(op)].f64()) {
     vm->pc.inst += offset;
@@ -219,8 +210,7 @@ _DEFINE_OP(BGREQ_F64)
 }
 _END_OP
 
-_DEFINE_OP(BGR_8)
-{
+_DEFINE_OP(BGR_8) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s8() < vm->gpr[_RS(op)].s8()) {
     vm->pc.inst += offset;
@@ -228,8 +218,7 @@ _DEFINE_OP(BGR_8)
 }
 _END_OP
 
-_DEFINE_OP(BGR_16)
-{
+_DEFINE_OP(BGR_16) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s16() < vm->gpr[_RS(op)].s16()) {
     vm->pc.inst += offset;
@@ -237,8 +226,7 @@ _DEFINE_OP(BGR_16)
 }
 _END_OP
 
-_DEFINE_OP(BGR_32)
-{
+_DEFINE_OP(BGR_32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s32() < vm->gpr[_RS(op)].s32()) {
     vm->pc.inst += offset;
@@ -246,8 +234,7 @@ _DEFINE_OP(BGR_32)
 }
 _END_OP
 
-_DEFINE_OP(BGR_64)
-{
+_DEFINE_OP(BGR_64) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s64() < vm->gpr[_RS(op)].s64()) {
     vm->pc.inst += offset;
@@ -255,8 +242,7 @@ _DEFINE_OP(BGR_64)
 }
 _END_OP
 
-_DEFINE_OP(BGR_F32)
-{
+_DEFINE_OP(BGR_F32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].f32() < vm->gpr[_RS(op)].f32()) {
     vm->pc.inst += offset;
@@ -264,8 +250,7 @@ _DEFINE_OP(BGR_F32)
 }
 _END_OP
 
-_DEFINE_OP(BGR_F64)
-{
+_DEFINE_OP(BGR_F64) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].f64() < vm->gpr[_RS(op)].f64()) {
     vm->pc.inst += offset;

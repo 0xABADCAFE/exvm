@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
 //** File:         op_arithmetic.cpp                                        **//
-//** Description:  Move group opcode implementation                         **//
+//** Description:  Arithmetic group opcode implementation                   **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-08-29                                               **//
@@ -32,3 +32,4 @@
   #include "op_arithmetic_code.hpp"
 
 #endif
+

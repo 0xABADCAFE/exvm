@@ -24,8 +24,7 @@
 
 struct timezone MilliClock::tz = { 0 };
 
-uint32 MilliClock::elapsed()
-{
+uint32 MilliClock::elapsed() {
   timeval current;
   gettimeofday(&current, &tz);
   if (current.tv_sec == mark.tv_sec) {
@@ -34,8 +33,7 @@ uint32 MilliClock::elapsed()
   return (1000*(current.tv_sec - mark.tv_sec)) + ((current.tv_usec - mark.tv_usec)/1000);
 }
 
-float64 MilliClock::elapsedFrac()
-{
+float64 MilliClock::elapsedFrac() {
   timeval current;
   gettimeofday(&current, &tz);
   if (current.tv_sec == mark.tv_sec) {
@@ -50,14 +48,12 @@ float64 MilliClock::elapsedFrac()
 
 #elif _VM_HOST_OS == _VM_HOST_WIN32_I386
 
-uint32 MilliClock::elapsed()
-{
-  uint32  current = GetTickCount();
+uint32 MilliClock::elapsed() {
+  uint32 current = GetTickCount();
   return current-mark;
 }
 
-float64 MilliClock::elapsedFrac()
-{
+float64 MilliClock::elapsedFrac() {
   return (float64) elapsed();
 }
 
@@ -69,20 +65,20 @@ uint32  MilliClock::clockFreq = 0;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-uint32 MilliClock::elapsed()
-{
+uint32 MilliClock::elapsed() {
   EClockVal current;
   ReadEClock(&current);
   ruint32 ticks;
-  if (current.ev_hi == mark.ev_hi)
+  if (current.ev_hi == mark.ev_hi) {
     ticks = current.ev_lo - mark.ev_lo;
-  else
+  }
+  else {
     ticks = 0xFFFFFFFF-mark.ev_lo + current.ev_lo;
+  }
   return (1000*ticks)/clockFreq;
 }
 
-float64 MilliClock::elapsedFrac()
-{
+float64 MilliClock::elapsedFrac() {
   EClockVal current;
   ReadEClock(&current);
   float64 ticks;
@@ -98,16 +94,14 @@ float64 MilliClock::elapsedFrac()
 
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS3_WARPUP)
 
-uint32 MilliClock::elapsed()
-{
+uint32 MilliClock::elapsed() {
   timeval current;
   GetSysTimePPC(&current);
   SubTimePPC(&current, &mark);
   return (current.tv_secs*1000) + (current.tv_micro/1000);
 }
 
-float64 MilliClock::elapsedFrac()
-{
+float64 MilliClock::elapsedFrac() {
   timeval current;
   GetSysTimePPC(&current);
   SubTimePPC(&current, &mark);
@@ -121,8 +115,7 @@ uint32  MilliClock::clockFreq = 0;
 struct Device *TimerBase;
 struct TimerIFace *ITimer;
 
-MilliClock::MilliClock()
-{
+MilliClock::MilliClock() {
 	if (!clockFreq) {
 		TimerBase = (Device*)     IExec->FindName(&SysBase->DeviceList, "timer.device");
 		ITimer    = (TimerIFace*) IExec->GetInterface((struct Library *)TimerBase, "main", 1, 0);
@@ -130,8 +123,7 @@ MilliClock::MilliClock()
 	}
 }
 
-uint32 MilliClock::elapsed()
-{
+uint32 MilliClock::elapsed() {
   EClockVal current;
   ITimer->ReadEClock(&current);
   uint32 ticks;
@@ -144,8 +136,7 @@ uint32 MilliClock::elapsed()
   return (1000*ticks)/clockFreq;
 }
 
-float64 MilliClock::elapsedFrac()
-{
+float64 MilliClock::elapsedFrac() {
   EClockVal current;
   ITimer->ReadEClock(&current);
   float64 ticks;

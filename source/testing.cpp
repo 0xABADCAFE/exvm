@@ -4,8 +4,7 @@ uint16*     testBuffer = 0;
 VMCore*     vm;
 MilliClock  timeMS;
 
-void timeNOP()
-{
+void timeNOP() {
   printf("Benchmarking fetch/execute code\n\n");
   for (sint32 e=0; e<16; e++) {
     float64 elapsed = 0.0;
@@ -40,18 +39,15 @@ void timeNOP()
   printf("-------------------------------\n\n");
 }
 
-_VM_CODE(callTestReturn)
-{
+_VM_CODE(callTestReturn) {
   _ret
 };
 
-_VM_CODE(callTest)
-{
+_VM_CODE(callTest) {
   _call(callTestReturn)
 };
 
-void timeCALL()
-{
+void timeCALL() {
   printf("Benchmarking call/return pair\n\n");
   float64 elapsed = 0.0;
   uint16* p = testBuffer;
@@ -76,8 +72,7 @@ void timeCALL()
   printf("-------------------------------\n\n");
 }
 
-void benchmark()
-{
+void benchmark() {
   testBuffer = new(nothrow) uint16[(3*TEST_BUFFER_SIZE)+2];
   if (testBuffer) {
     timeNOP();
@@ -85,3 +80,4 @@ void benchmark()
     delete testBuffer;
   }
 }
+

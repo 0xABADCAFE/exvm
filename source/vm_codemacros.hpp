@@ -19,16 +19,14 @@
 
 #if (X_ENDIAN == XA_BIGENDIAN)
 
-  inline uint16 _float32MSW(float32 f)
-  {
+  inline uint16 _float32MSW(float32 f) {
     // returns the most significant 16-bits of a 32-bit floating point value
     union { float32 f; uint16 u[2]; } u;
     u.f = f;
     return u.u[0];
   }
 
-  inline uint16 _float32LSW(float32 f)
-  {
+  inline uint16 _float32LSW(float32 f) {
     // returns the most significant 16-bits of a 32-bit floating point value
     union { float32 f; uint16 u[2]; } u;
     u.f = f;
@@ -57,16 +55,14 @@
 
 #else
 
-  inline uint16 _float32MSW(float32 f)
-  {
+  inline uint16 _float32MSW(float32 f) {
     // returns the most significant 16-bits of a 32-bit floating point value
     union { float32 f; uint16 u[2]; } u;
     u.f = f;
     return u.u[1];
   }
 
-  inline uint16 _float32LSW(float32 f)
-  {
+  inline uint16 _float32LSW(float32 f) {
     // returns the most significant 16-bits of a 32-bit floating point value
     union { float32 f; uint16 u[2]; } u;
     u.f = f;

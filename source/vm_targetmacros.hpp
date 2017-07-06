@@ -1,3 +1,16 @@
+//****************************************************************************//
+//**                                                                        **//
+//** File:         vm_targetmacros.hpp                                      **//
+//** Description:  Virtual Machine host specific macro definitions          **//
+//** Comment(s):   Internal developer version only                          **//
+//** Library:                                                               **//
+//** Created:      2001-08-14                                               **//
+//** Author(s):    Karl Churchill                                           **//
+//** Note(s):                                                               **//
+//** Copyright:    (C)1996 - , eXtropia Studios                             **//
+//**               All Rights Reserved.                                     **//
+//**                                                                        **//
+//****************************************************************************//
 
 #ifndef _VM_TARGETMACROS_HPP_
 #define _VM_TARGETMACROS_HPP_
