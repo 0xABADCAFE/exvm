@@ -1,7 +1,19 @@
 # exvm
 Experimental Virtual Machine
 
-A simple register based interpretive virtual machine, written as an old experiment. The default embedded hello world program generates a 512x512 greyscale mandelbrot and saves it to the current directory.
+A simple register based interpretive virtual machine, written as an old experiment.
+
+There are 16 64-bit general purpose registers that can contain any 8, 16, 32 or 64 bit integer (signed or unsigned), a 32 or 64 bit IEEE754 float or an address value.
+
+The machine implements a load/store architecture in which almost all operations are register to register. The contents of the register are implied by the instruction. Operations on sizes smaller than 64-bit always affect the least significant portion of the register. Operations directly on memory operands are not supported.
+
+The load/store operations support register indirect, postincrement, predecrement, displacement and scaled index modes.
+
+In addition to the general purpose register, there are separate stacks for user data, register save/restore and function call/return.
+
+There are no condition codes. Conditional branches are performed on the basis of a type inferred comparison between two register operands. There is an explicit single register comparison to zero and branch. Branching based on less/less-equal comparisons are not supported. There are modelled as the corresponding greater/greater-equal with the register operands inverted.
+
+The default embedded hello world program generates a 512x512 greyscale mandelbrot and saves it to the current directory.
 
 Supported modes:
 - Switch Case interpreter
