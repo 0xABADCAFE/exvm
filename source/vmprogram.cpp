@@ -20,28 +20,30 @@
 
 using namespace std;
 
+////////////////////////////////////////////////////////////////////////////////
+
 void nativeAllocBuffer(VMCore* vm) {
-  // width/height in r2/r3
-  // return buffer in r1
-  int w = vm->getReg(_r2).s32();
-  int h = vm->getReg(_r3).s32();
-  vm->getReg(_r1).pU8() = new uint8[w*h];
+  // width/height in r1/r2
+  // return buffer in r0
+  int w = vm->getReg(_r1).s32();
+  int h = vm->getReg(_r2).s32();
+  vm->getReg(_r0).pU8() = new uint8[w*h];
   printf("Allocated buffer [%d x %d]\n", w, h);
 }
 
 void nativeFreeBuffer(VMCore* vm) {
-  // expects buffer in r1
-  delete[] vm->getReg(_r1).pCh();
-  vm->getReg(_r1).pCh() = 0;
+  // expects buffer in r0
+  delete[] vm->getReg(_r0).pCh();
+  vm->getReg(_r0).pCh() = 0;
   printf("Freed buffer\n");
 }
 
 void nativeWriteBuffer(VMCore* vm) {
-  // writes buffer in r1 to filename in r4
-  // expects width/height in r2/r3
-  const char* fileName = vm->getReg(_r16).pCh();
-  int w = vm->getReg(_r2).s32();
-  int h = vm->getReg(_r3).s32();
+  // writes buffer in r0 to filename in r15
+  // expects width/height in r1/r2
+  const char* fileName = vm->getReg(_r15).pCh();
+  int w = vm->getReg(_r1).s32();
+  int h = vm->getReg(_r2).s32();
 
   if (!fileName) {
     fileName = "untitled.pgm";
@@ -51,7 +53,7 @@ void nativeWriteBuffer(VMCore* vm) {
   FILE *f = fopen(fileName, "wb");
   if (f) {
     fprintf(f, "P5\n%d\n%d\n255\n", w, h);
-    fwrite(vm->getReg(_r1).pCh(), 1, w*h, f);
+    fwrite(vm->getReg(_r0).pCh(), 1, w*h, f);
     fclose(f);
     printf("Wrote buffer '%s'\n", fileName);
   }
@@ -60,107 +62,108 @@ void nativeWriteBuffer(VMCore* vm) {
 void nativePrintCoords(VMCore* vm) {
   printf(
     "Coords %4d, %4d (%.6f, %.6f)\n",
-    (int)vm->getReg(_r7).s32(),
-    (int)vm->getReg(_r5).s32(),
-    vm->getReg(_r9).f32(),
-    vm->getReg(_r4).f32()
+    (int)vm->getReg(_r6).s32(),
+    (int)vm->getReg(_r4).s32(),
+    vm->getReg(_r8).f32(),
+    vm->getReg(_r3).f32()
   );
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 _VM_CODE(makeFractal) {
-  // r1 = pixel data address
-  // r2 = width in pixels
-  // r3 = height in pixels
-  // r4 = cY (float pos, starting at yMin)
-  // r5 = y (int) pixel
-  // r6 = xMin (float)
-  // r7 = cX (float pos, starting at xMin)
-  // r8 = fStep
-  // r9 = x (int) pixel
-  // r10 = iStep (1)
+  // r0 = pixel data address
+  // r1 = width in pixels
+  // r2 = height in pixels
+  // r3 = cY (float pos, starting at yMin)
+  // r4 = y (int) pixel
+  // r5 = xMin (float)
+  // r6 = cX (float pos, starting at xMin)
+  // r7 = fStep
+  // r8 = x (int) pixel
+  // r9 = iStep (1)
 
-  _save       (_mr1)           // 2 : save r1
-  _ldq        (0, _r5)         // 1 : y (r5) = 0
-  _ld_16_i32  (255, _r10)      // 2 : max iters
+  _save       (_mr0)                     // 2 : save pixel base address
+  _ldq        (0,    _r4)                // 1 : y (r5) = 0
+  _ld_16_i32  (255,  _r9)                // 2 : max iters
 
-  // y-loop
-  _ldq        (0, _r9)         // 1 : x = 0
-  _move_32    (_r6, _r7)       // 1 : cX = xMin
+  // y loop
+  _ldq        (0,    _r8)                // 1 : x = 0
+  _move_32    (_r5,  _r6)                // 1 : cX = xMin
 
-  // x-loop                        do {
+  // x loop 
+  _move_32    (_r6,  _r10)               // 1 : zx = cX
+  _move_32    (_r3,  _r11)               // 1 : zy = cY
+  _ldq        (0,    _r12)               // 1 : n = 0
 
-  _move_32    (_r7, _r11)            // 1 : zx = cX
-  _move_32    (_r4, _r12)            // 1 : zy = cY
-  _ldq        (0, _r13)              // 1 :  n = 0
+  // iteration loop
+  _move_32    (_r10, _r13)               // 1
+  _mul_f32    (_r10, _r13)               // 1 : zx2 = zx*zx
+  _move_32    (_r11, _r14)               // 1
+  _mul_f32    (_r11, _r14)               // 1 : zy2   = zy*zy
 
-                                      // do {
+  _move_32    (_r6,  _r15)               // 1 : new_zx = cX
+  _add_f32    (_r13, _r15)               // 1 : new_zx += zx2
+  _sub_f32    (_r14, _r15)               // 1 : new_zx -= zy2
 
-  _move_32    (_r11, _r14)           // 1
-  _mul_f32    (_r11, _r14)           // 1 : zx2 = zx*zx
-  _move_32    (_r12, _r15)           // 1
-  _mul_f32    (_r12, _r15)           // 1 : zy2   = zy*zy
+  _add_f32    (_r14, _r13)               // 1 : r14 = zx*zx + zy*zy (for loop test)
 
-  _move_32    (_r7,  _r16)           // 1 : new_zx = cX
-  _add_f32    (_r14, _r16)           // 1 : new_zx += zx2
-  _sub_f32    (_r15, _r16)           // 1 : new_zx -= zy2
+  _move_32    (_r10, _r14)               // 1 : tmp = zx
+  _mul_f32    (_r11, _r14)               // 1 : tmp *= zy
+  _add_f32    (_r14, _r14)               // 1 : tmp += tmp2
+  _add_f32    (_r3,  _r14)               // 1 : tmp += cY (tmp = 2*zx*zy+cY)
 
-  _add_f32    (_r15, _r14)           // 1 : r14 = zx*zx + zy*zy (for loop test)
+  _move_32    (_r14, _r11)               // 1 : zy = tmp
+  _move_32    (_r15, _r10)               // 1 : zx = new_zx
+  _addi_16    (1,    _r12)               // 2 : n++
 
-  _move_32    (_r11, _r15)           // 1 : tmp = zx
-  _mul_f32    (_r12, _r15)           // 1 : tmp *= zy
-  _add_f32    (_r15, _r15)           // 1 : tmp += tmp2
-  _add_f32    (_r4,  _r15)           // 1 : tmp += cY (tmp = 2*zx*zy+cY)
+  _ld_32_f32  (4.0f, _r15)               // 3
+  _bgr_f32    (_r13, _r15, 2)            // 2 : bailout
+  _bls_32     (_r12, _r9, -23)           // 2 : iteration loop
 
-  _move_32    (_r15, _r12)           // 1 : zy = tmp
-  _move_32    (_r16, _r11)           // 1 : zx = new_zx
-  _addi_16    (1, _r13)              // 2 : n++
+  // bailout
+  _mul_u16    (_r12, _r12)               // 1 : out *= out - improve gradient
+  _st_ripi_8  (_r12, _r0)                // 1 : out = n
+  _add_f32    (_r7,  _r6)                // 1 : cX += fStep
+  _addi_16    (1,    _r8)                // 2 : x += iStep
 
-  _ld_32_f32  (4.0f, _r16)             // 3
-  _bgr_f32    (_r14, _r16, 2)          // 2
-  _bls_32     (_r13, _r10, -23)        // 2
+  _bls_32     (_r8, _r1, -(6+23+3+1))    // 2 : x loop
 
-  _mul_u16    (_r13, _r13)             // 1
-  _st_ripi_8  (_r13, _r1)              // 1 : out = n
-  _add_f32    (_r8, _r7)               // 1 : cX += fStep
-  _addi_16    (1, _r9)                 // 2 : x += iStep
+  _add_f32    (_r7, _r3)                 // 1 : cY += fStep
+  _addi_16    (1,   _r4)                 // 2 : y += iStep
+  _bls_32     (_r4, _r2, -(5+5+6+23+1))  // 2 : y loop
 
-  _bls_32     (_r9, _r2, -(6+23+3+1))    // 2 : } while (x < width)
-
-  _add_f32    (_r8, _r4)                 // 1 : cY += fStep
-  _addi_16    (1, _r5)                   // 2 : y += iStep
-  _bls_32     (_r5, _r3, -(5+5+6+23+1))  // 2 : } while (y < height)
-
-  _restore    (_mr1)                     // 1
+  _restore    (_mr0)                     // 1
   _ret
 };
 
 _VM_CODE(calculateRanges) {
-  // calculates xMin in r6, xMax in r7, step in r8
-  _move_32    (_r5, _r6)
-  _sub_f32    (_r4, _r6)         // r6 = r5-r4 (total y range)
-  _s32to_f32  (_r2, _r7)         // r7 = (float) r2
-  _move_32    (_r7, _r9)
-  _mul_f32    (_r6, _r7)         // r7 *= r6
-  _s32to_f32  (_r3, _r6)         // r6 = (float) r3
-  _div_f32    (_r6, _r7)         // r7 /= r6
-  _move_32    (_r7, _r8)
-  _div_f32    (_r9, _r8)
-  _ld_32_f32  (0.75f, _r6)
-  _sub_f32    (_r7, _r6)
-  _add_f32    (_r6, _r7)
+  // calculates xMin in r5, xMax in r6, step in r7
+  _move_32    (_r4, _r5)
+  _sub_f32    (_r3, _r5)         // r5 = r4 - r3 (total y range)
+  _s32to_f32  (_r1, _r6)         // r6 = (float) r1
+  _move_32    (_r6, _r8)
+  _mul_f32    (_r5, _r6)         // r6 *= r5
+  _s32to_f32  (_r2, _r5)         // r5 = (float) r2
+  _div_f32    (_r5, _r6)         // r6 /= r4
+  _move_32    (_r6, _r7)
+  _div_f32    (_r8, _r7)
+  _ld_32_f32  (0.75f, _r5)
+  _sub_f32    (_r6, _r5)
+  _add_f32    (_r5, _r6)
 
   _ret
 };
 
 _VM_CODE(virtualProgram) {
+  _ld_16_i16  (512, _r1)
   _ld_16_i16  (512, _r2)
-  _ld_16_i16  (512, _r3)
   _calln      (nativeAllocBuffer)
-  _ld_32_f32  (-1.25f, _r4)       // yMin
-  _ld_32_f32  (1.25f, _r5)        // yMax
+  _ld_32_f32  (-1.25f, _r3)       // yMin
+  _ld_32_f32  (1.25f, _r4)        // yMax
   _call       (calculateRanges)
   _call       (makeFractal)
-  _lda        ("framebuffer.pgm", _r16)
+  _lda        ("framebuffer.pgm", _r15)
   _calln      (nativeWriteBuffer)
   _calln      (nativeFreeBuffer)
   _ret

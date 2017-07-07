@@ -19,113 +19,119 @@
 
 #if (X_ENDIAN == XA_BIGENDIAN)
 
-  inline uint16 _float32MSW(float32 f) {
-    // returns the most significant 16-bits of a 32-bit floating point value
-    union { float32 f; uint16 u[2]; } u;
-    u.f = f;
-    return u.u[0];
-  }
+inline uint16 _float32MSW(float32 f) {
+  // returns the most significant 16-bits of a 32-bit floating point value
+  union {
+    float32 f;
+    uint16 u[2];
+  } u;
+  u.f = f;
+  return u.u[0];
+}
 
-  inline uint16 _float32LSW(float32 f) {
-    // returns the most significant 16-bits of a 32-bit floating point value
-    union { float32 f; uint16 u[2]; } u;
-    u.f = f;
-    return u.u[1];
-  }
+inline uint16 _float32LSW(float32 f) {
+  // returns the most significant 16-bits of a 32-bit floating point value
+  union {
+    float32 f;
+    uint16 u[2];
+  } u;
+  u.f = f;
+  return u.u[1];
+}
 
-  // covnert a 32-bit integer immediate into 16-bit words
-  #define _INLINE32(x) (uint16)(( (uint32)(x) )>>16), \
-                       (uint16)(( (uint32)(x) )&0xFFFF)
+// covnert a 32-bit integer immediate into 16-bit words
+#define _INLINE32(x) (uint16)(( (uint32)(x) )>>16), \
+                     (uint16)(( (uint32)(x) )&0xFFFF)
 
-  #if X_PTRSIZE == XA_PTRSIZE64
-    #define _INLINEPTR(x) (uint16)(( (uint64)(x) )>>48), \
-                          (uint16)((( (uint64)(x) )>>32)&0xFFFF), \
-                          (uint16)((( (uint64)(x) )>>16)&0xFFFF), \
-                          (uint16)(( (uint64)(x) )&0xFFFF)
-  #else
-    #define _INLINEPTR(x) (uint16)0, \
-                          (uint16)0, \
-                          (uint16)((( (uint32)(x) )>>16)&0xFFFF), \
-                          (uint16)(((uint32)(x))&0xFFFF)
-  #endif
+#if X_PTRSIZE == XA_PTRSIZE64
+#define _INLINEPTR(x) (uint16)(( (uint64)(x) )>>48), \
+                      (uint16)((( (uint64)(x) )>>32)&0xFFFF), \
+                      (uint16)((( (uint64)(x) )>>16)&0xFFFF), \
+                      (uint16)(( (uint64)(x) )&0xFFFF)
+#else
+#define _INLINEPTR(x) (uint16)0, \
+                      (uint16)0, \
+                      (uint16)((( (uint32)(x) )>>16)&0xFFFF), \
+                      (uint16)(((uint32)(x))&0xFFFF)
+#endif
 
-  // convert a 32-bit float immediate into 16-bit words
-  #define _INLINEF32(x)  (_float32MSW((x))), \
-                         (_float32LSW((x)))
+// convert a 32-bit float immediate into 16-bit words
+#define _INLINEF32(x) (_float32MSW((x))), \
+                      (_float32LSW((x)))
 
 #else
 
-  inline uint16 _float32MSW(float32 f) {
-    // returns the most significant 16-bits of a 32-bit floating point value
-    union { float32 f; uint16 u[2]; } u;
-    u.f = f;
-    return u.u[1];
-  }
+inline uint16 _float32MSW(float32 f) {
+  // returns the most significant 16-bits of a 32-bit floating point value
+  union { float32 f; uint16 u[2]; } u;
+  u.f = f;
+  return u.u[1];
+}
 
-  inline uint16 _float32LSW(float32 f) {
-    // returns the most significant 16-bits of a 32-bit floating point value
-    union { float32 f; uint16 u[2]; } u;
-    u.f = f;
-    return u.u[0];
-  }
+inline uint16 _float32LSW(float32 f) {
+  // returns the most significant 16-bits of a 32-bit floating point value
+  union { float32 f; uint16 u[2]; } u;
+  u.f = f;
+  return u.u[0];
+}
 
-  // covnert a 32-bit integer immediate into 16-bit words
-  #define _INLINE32(x) (( (uint32)(x) )&0xFFFF), \
-                       (( (uint32)(x) )>>16)
+// covnert a 32-bit integer immediate into 16-bit words
+#define _INLINE32(x) (( (uint32)(x) )&0xFFFF), \
+                     (( (uint32)(x) )>>16)
 
-  #if X_PTRSIZE == XA_PTRSIZE64
-    #define _INLINEPTR(x) (uint16)(( (uint64)(x) )&0xFFFF), \
-                          (uint16)((( (uint64)(x) )>>16)&0xFFFF), \
-                          (uint16)((( (uint64)(x) )>>32)&0xFFFF), \
-                          (uint16)(( (uint64)(x) )>>48)
-  #else
-    #define _INLINEPTR(x) (uint16)(( (uint32)(x) )&0xFFFF), \
-                          (uint16)(( (uint32)(x) )>>16), \
-                          (uint16)0, \
-                          (uint16)0
-  #endif
+#if X_PTRSIZE == XA_PTRSIZE64
+  #define _INLINEPTR(x) (uint16)(( (uint64)(x) )&0xFFFF), \
+                        (uint16)((( (uint64)(x) )>>16)&0xFFFF), \
+                        (uint16)((( (uint64)(x) )>>32)&0xFFFF), \
+                        (uint16)(( (uint64)(x) )>>48)
+#else
+  #define _INLINEPTR(x) (uint16)(( (uint32)(x) )&0xFFFF), \
+                        (uint16)(( (uint32)(x) )>>16), \
+                        (uint16)0, \
+                        (uint16)0
+#endif
 
 // convert a 32-bit float immediate into 16-bit words
-  #define _INLINEF32(x)  (_float32LSW((x))), \
-                         (_float32MSW((x)))
+#define _INLINEF32(x)  (_float32LSW((x))), \
+                       (_float32MSW((x)))
 
 #endif
 
 // register names
-#define _r1 0
-#define _r2 1
-#define _r3 2
-#define _r4 3
-#define _r5 4
-#define _r6 5
-#define _r7 6
-#define _r8 7
-#define _r9 8
-#define _r10 9
-#define _r11 10
-#define _r12 11
-#define _r13 12
-#define _r14 13
-#define _r15 14
-#define _r16 15
+#define _r0 0
+#define _r1 1
+#define _r2 2
+#define _r3 3
+#define _r4 4
+#define _r5 5
+#define _r6 6
+#define _r7 7
+#define _r8 8
+#define _r9 9
+#define _r10 10
+#define _r11 11
+#define _r12 12
+#define _r13 13
+#define _r14 14
+#define _r15 15
 
 // register masks (for save/restore/push/pop)
-#define _mr1 1
-#define _mr2 2
-#define _mr3 4
-#define _mr4 8
-#define _mr5 16
-#define _mr6 32
-#define _mr7 64
-#define _mr8 128
-#define _mr9 256
-#define _mr10 512
-#define _mr11 1024
-#define _mr12 2048
-#define _mr13 4096
-#define _mr14 8192
-#define _mr15 16384
-#define _mr16 32768
+#define _mr0 1
+#define _mr1 2
+#define _mr2 4
+#define _mr3 8
+#define _mr4 16
+#define _mr5 32
+#define _mr6 64
+#define _mr7 128
+#define _mr8 256
+#define _mr9  512
+#define _mr10 1024
+#define _mr11 2048
+#define _mr12 4096
+#define _mr13 8192
+#define _mr14 16384
+#define _mr15 32768
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -134,7 +140,7 @@
 //  _VM_CODE(myFunction) {
 //
 //
-//  }; <- don't forget the trailing semicolon
+//  }; <- don't forget the trailing semicolon!
 //
 ////////////////////////////////////////////////////////////////////////////////
 
