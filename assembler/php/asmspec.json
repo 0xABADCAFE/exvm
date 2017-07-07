@@ -25,12 +25,12 @@
 	  "int": "#",
 	  "float": "$",
 	  "label": "@",
-	  "reg": "gpr",
-	  "ref": "(gpr)",
-	  "offset": "(gpr,#)",
-	  "lookup": "(gpr,gpr,#)",
-	  "postinc": "(gpr)+",
-	  "predec": "-(gpr)"
+	  "reg": "reg",
+	  "ref": "(reg)",
+	  "offset": "(reg,#)",
+	  "lookup": "(reg,reg,#)",
+	  "postinc": "(reg)+",
+	  "predec": "-(reg)"
   },
   "directives": {
     "label": {
