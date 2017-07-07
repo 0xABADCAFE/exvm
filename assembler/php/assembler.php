@@ -45,7 +45,7 @@ class Assembler {
 
     $this->aParams    = (array)$oAssemblerSpec->params;
     $this->aInstProps = (array)$oAssemblerSpec->instructions;
-    $this->aOpcodeVal = array_flip(array_keys($this->aInstProps));
+
     $sTypeSep         = $oAssemblerSpec->params->type;
 
     foreach ($this->aInstProps as $sOpcode => $oProps) {
@@ -71,7 +71,7 @@ class Assembler {
       }
     }
 
-    echo "Parsed ", count($this->aOpcodeMap), " assembler instruction variations based on ", count($this->aOpcodeVal), " discrete opcodes.\n";
+    echo "Parsed ", count($this->aOpcodeMap), " assembler instruction variations.\n";
 
     $aKnown = array_chunk(array_keys($this->aOpcodeMap), 8);
     foreach ($aKnown as $aInst) {
@@ -121,7 +121,6 @@ class Assembler {
     $aReg,
     $aTypes,
     $aParams,
-    $aOpcodeVal,
     $aOpcodeMap,
     $aInstProps
   ;
