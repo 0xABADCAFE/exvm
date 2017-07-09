@@ -84,7 +84,7 @@
             "mnemonic": "brk"
         },
         "LDQ": {
-            "code": 3,
+            "code": 2,
             "comment": "Load a small (0-15) integer literal into the specified register",
             "mnemonic": "loadq",
             "params": [
@@ -93,7 +93,7 @@
             ]
         },
         "LD_I16_8": {
-            "code": 4,
+            "code": 3,
             "comment": "Load an 16-bit integer literal into the specified register as a truncated 8-bit value",
             "extension": 1,
             "mnemonic": "load",
@@ -108,7 +108,7 @@
             ]
         },
         "LD_I16_16": {
-            "code": 5,
+            "code": 4,
             "comment": "Load a 16-bit integer literal into the specified register as a 16-bit value",
             "extension": 1,
             "mnemonic": "load",
@@ -123,7 +123,7 @@
             ]
         },
         "LD_I16_32": {
-            "code": 6,
+            "code": 5,
             "comment": "Load a 16-bit integer literal into the specified register as an extended 32-bit value",
             "extension": 1,
             "mnemonic": "load",
@@ -138,7 +138,7 @@
             ]
         },
         "LD_I16_64": {
-            "code": 7,
+            "code": 6,
             "comment": "Load a 16-bit integer literal into the specified register as an extended 64-bit value",
             "extension": 1,
             "mnemonic": "load",
@@ -153,7 +153,7 @@
             ]
         },
         "LD_I32_32": {
-            "code": 8,
+            "code": 7,
             "comment": "Load a 32-bit integer literal into the specified register as a 32-bit value",
             "extension": 2,
             "mnemonic": "load",
@@ -168,7 +168,7 @@
             ]
         },
         "LD_I32_64": {
-            "code": 9,
+            "code": 8,
             "comment": "Load a 32-bit integer literal into the specified register as an extended 64-bit value",
             "extension": 2,
             "mnemonic": "load",
@@ -183,7 +183,7 @@
             ]
         },
         "LD_F32": {
-            "code": 10,
+            "code": 9,
             "comment": "Load a 32-bit float literal into the specified register as a 32-bit value",
             "extension": 2,
             "mnemonic": "load",
@@ -196,7 +196,7 @@
             ]
         },
         "LD_RI_8": {
-            "code": 11,
+            "code": 10,
             "comment": "Load an 8-bit integer value referenced by the source register into the destination register",
             "mnemonic": "load",
             "params": [
@@ -210,7 +210,7 @@
             ]
         },
         "LD_RI_16": {
-            "code": 12,
+            "code": 11,
             "comment": "Load a 16-bit integer value referenced by the source register into the destination register",
             "mnemonic": "load",
             "params": [
@@ -224,7 +224,7 @@
             ]
         },
         "LD_RI_32": {
-            "code": 13,
+            "code": 12,
             "comment": "Load a 32-bit integer or float value referenced by the source register into the destination register",
             "mnemonic": "load",
             "params": [
@@ -239,7 +239,7 @@
             ]
         },
         "LD_RI_64": {
-            "code": 14,
+            "code": 13,
             "comment": "Load a 64-bit integer or float value referenced by the source register into the destination register",
             "mnemonic": "load",
             "params": [
@@ -254,7 +254,7 @@
             ]
         },
         "LD_RIPI_8": {
-            "code": 15,
+            "code": 14,
             "comment": "Load an 8-bit integer value referenced by the source register into the destination register, then increment the source register",
             "mnemonic": "load",
             "params": [
@@ -268,7 +268,7 @@
             ]
         },
         "LD_RIPI_16": {
-            "code": 16,
+            "code": 15,
             "comment": "Load a 16-bit integer value referenced by the source register into the destination register, then increment the source register",
             "mnemonic": "load",
             "params": [
@@ -282,7 +282,7 @@
             ]
         },
         "LD_RIPI_32": {
-            "code": 17,
+            "code": 16,
             "comment": "Load a 32-bit integer or float value referenced by the source register into the destination register, then increment the source register",
             "mnemonic": "load",
             "params": [
@@ -297,7 +297,7 @@
             ]
         },
         "LD_RIPI_64": {
-            "code": 18,
+            "code": 17,
             "comment": "Load a 64-bit integer or float value referenced by the source register into the destination register, then increment the source register",
             "mnemonic": "load",
             "params": [
@@ -312,7 +312,7 @@
             ]
         },
         "LD_RIPD_8": {
-            "code": 19,
+            "code": 18,
             "comment": "Decrement the source register, then load an 8-bit integer value referenced by the source register into the destination register",
             "mnemonic": "load",
             "params": [
@@ -326,7 +326,7 @@
             ]
         },
         "LD_RIPD_16": {
-            "code": 20,
+            "code": 19,
             "comment": "Decrement the source register, then load a 16-bit integer value referenced by the source register into the destination register",
             "mnemonic": "load",
             "params": [
@@ -340,7 +340,7 @@
             ]
         },
         "LD_RIPD_32": {
-            "code": 21,
+            "code": 20,
             "comment": "Decrement the source register, then load a 32-bit integer or float value referenced by the source register into the destination register",
             "mnemonic": "load",
             "params": [
@@ -355,7 +355,7 @@
             ]
         },
         "LD_RIPD_64": {
-            "code": 22,
+            "code": 21,
             "comment": "Decrement the source register, then load a 64-bit integer or float value referenced by the source register into the destination register",
             "mnemonic": "load",
             "params": [
@@ -370,7 +370,7 @@
             ]
         },
         "LD_RID_8": {
-            "code": 23,
+            "code": 22,
             "comment": "Load the 8-bit integer value referenced by the source register plus signed 16-bit displacement, into the destination register",
             "extension": 1,
             "mnemonic": "load",
@@ -385,7 +385,7 @@
             ]
         },
         "LD_RID_16": {
-            "code": 24,
+            "code": 23,
             "comment": "Load the 16-bit integer value referenced by the source register plus signed 16-bit displacement, into the destination register",
             "extension": 1,
             "mnemonic": "load",
@@ -400,7 +400,7 @@
             ]
         },
         "LD_RID_32": {
-            "code": 25,
+            "code": 24,
             "comment": "Load the 32-bit integer referenced by the source register plus signed 16-bit displacement, into the destination register",
             "extension": 1,
             "mnemonic": "load",
@@ -416,7 +416,7 @@
             ]
         },
         "LD_RID_64": {
-            "code": 26,
+            "code": 25,
             "comment": "Load the 64-bit integer referenced by the source register plus signed 16-bit displacement, into the destination register",
             "extension": 1,
             "mnemonic": "load",
@@ -432,7 +432,7 @@
             ]
         },
         "LD_RII_8": {
-            "code": 27,
+            "code": 26,
             "comment": "TODO: LD_RII_8",
             "extension": 1,
             "mnemonic": "load",
@@ -447,7 +447,7 @@
             ]
         },
         "LD_RII_16": {
-            "code": 28,
+            "code": 27,
             "comment": "TODO: LD_RII_16",
             "extension": 1,
             "mnemonic": "load",
@@ -462,7 +462,7 @@
             ]
         },
         "LD_RII_32": {
-            "code": 29,
+            "code": 28,
             "comment": "TODO: LD_RII_32",
             "extension": 1,
             "mnemonic": "load",
@@ -478,7 +478,7 @@
             ]
         },
         "LD_RII_64": {
-            "code": 30,
+            "code": 29,
             "comment": "TODO: LD_RII_64",
             "extension": 1,
             "mnemonic": "load",
@@ -494,7 +494,7 @@
             ]
         },
         "LD_8": {
-            "code": 31,
+            "code": 30,
             "comment": "TODO: LD_8",
             "extension": 4,
             "mnemonic": "load",
@@ -509,7 +509,7 @@
             ]
         },
         "LD_16": {
-            "code": 32,
+            "code": 31,
             "comment": "TODO: LD_16",
             "extension": 4,
             "mnemonic": "load",
@@ -524,7 +524,7 @@
             ]
         },
         "LD_32": {
-            "code": 33,
+            "code": 32,
             "comment": "TODO: LD_32",
             "extension": 4,
             "mnemonic": "load",
@@ -540,7 +540,7 @@
             ]
         },
         "LD_64": {
-            "code": 34,
+            "code": 33,
             "comment": "TODO: LD_64",
             "extension": 4,
             "mnemonic": "load",
@@ -556,7 +556,7 @@
             ]
         },
         "LD_ADDR": {
-            "code": 35,
+            "code": 34,
             "comment": "TODO: LD_ADDR",
             "extension": 4,
             "mnemonic": "loada",
@@ -566,7 +566,7 @@
             ]
         },
         "ST_RI_8": {
-            "code": 36,
+            "code": 35,
             "comment": "TODO: ST_RI_8",
             "mnemonic": "store",
             "params": [
@@ -580,7 +580,7 @@
             ]
         },
         "ST_RI_16": {
-            "code": 37,
+            "code": 36,
             "comment": "TODO: ST_RI_16",
             "mnemonic": "store",
             "params": [
@@ -594,7 +594,7 @@
             ]
         },
         "ST_RI_32": {
-            "code": 38,
+            "code": 37,
             "comment": "TODO: ST_RI_32",
             "mnemonic": "store",
             "params": [
@@ -609,7 +609,7 @@
             ]
         },
         "ST_RI_64": {
-            "code": 39,
+            "code": 38,
             "comment": "TODO: ST_RI_64",
             "mnemonic": "store",
             "params": [
@@ -624,7 +624,7 @@
             ]
         },
         "ST_RIPI_8": {
-            "code": 40,
+            "code": 39,
             "comment": "TODO: ST_RIPI_8",
             "mnemonic": "store",
             "params": [
@@ -638,7 +638,7 @@
             ]
         },
         "ST_RIPI_16": {
-            "code": 41,
+            "code": 40,
             "comment": "TODO: ST_RIPI_16",
             "mnemonic": "store",
             "params": [
@@ -652,7 +652,7 @@
             ]
         },
         "ST_RIPI_32": {
-            "code": 42,
+            "code": 41,
             "comment": "TODO: ST_RIPI_32",
             "mnemonic": "store",
             "params": [
@@ -667,7 +667,7 @@
             ]
         },
         "ST_RIPI_64": {
-            "code": 43,
+            "code": 42,
             "comment": "TODO: ST_RIPI_64",
             "mnemonic": "store",
             "params": [
@@ -682,7 +682,7 @@
             ]
         },
         "ST_RIPD_8": {
-            "code": 44,
+            "code": 43,
             "comment": "TODO: ST_RIPD_8",
             "mnemonic": "store",
             "params": [
@@ -696,7 +696,7 @@
             ]
         },
         "ST_RIPD_16": {
-            "code": 45,
+            "code": 44,
             "comment": "TODO: ST_RIPD_16",
             "mnemonic": "store",
             "params": [
@@ -710,7 +710,7 @@
             ]
         },
         "ST_RIPD_32": {
-            "code": 46,
+            "code": 45,
             "comment": "TODO: ST_RIPD_32",
             "mnemonic": "store",
             "params": [
@@ -725,7 +725,7 @@
             ]
         },
         "ST_RIPD_64": {
-            "code": 47,
+            "code": 46,
             "comment": "TODO: ST_RIPD_64",
             "mnemonic": "store",
             "params": [
@@ -740,7 +740,7 @@
             ]
         },
         "ST_RID_8": {
-            "code": 48,
+            "code": 47,
             "comment": "TODO: ST_RID_8",
             "extension": 1,
             "mnemonic": "store",
@@ -755,7 +755,7 @@
             ]
         },
         "ST_RID_16": {
-            "code": 49,
+            "code": 48,
             "comment": "TODO: ST_RID_16",
             "extension": 1,
             "mnemonic": "store",
@@ -770,7 +770,7 @@
             ]
         },
         "ST_RID_32": {
-            "code": 50,
+            "code": 49,
             "comment": "TODO: ST_RID_32",
             "extension": 1,
             "mnemonic": "store",
@@ -786,7 +786,7 @@
             ]
         },
         "ST_RID_64": {
-            "code": 51,
+            "code": 50,
             "comment": "TODO: ST_RID_64",
             "extension": 1,
             "mnemonic": "store",
@@ -802,7 +802,7 @@
             ]
         },
         "ST_RII_8": {
-            "code": 52,
+            "code": 51,
             "comment": "TODO: ST_RII_8",
             "extension": 1,
             "mnemonic": "store",
@@ -817,7 +817,7 @@
             ]
         },
         "ST_RII_16": {
-            "code": 53,
+            "code": 52,
             "comment": "TODO: ST_RII_16",
             "extension": 1,
             "mnemonic": "store",
@@ -832,7 +832,7 @@
             ]
         },
         "ST_RII_32": {
-            "code": 54,
+            "code": 53,
             "comment": "TODO: ST_RII_32",
             "extension": 1,
             "mnemonic": "store",
@@ -848,7 +848,7 @@
             ]
         },
         "ST_RII_64": {
-            "code": 55,
+            "code": 54,
             "comment": "TODO: ST_RII_64",
             "extension": 1,
             "mnemonic": "store",
@@ -864,7 +864,7 @@
             ]
         },
         "ST_8": {
-            "code": 56,
+            "code": 55,
             "comment": "TODO: ST_8",
             "extension": 4,
             "mnemonic": "store",
@@ -879,7 +879,7 @@
             ]
         },
         "ST_16": {
-            "code": 57,
+            "code": 56,
             "comment": "TODO: ST_16",
             "extension": 4,
             "mnemonic": "store",
@@ -894,7 +894,7 @@
             ]
         },
         "ST_32": {
-            "code": 58,
+            "code": 57,
             "comment": "TODO: ST_32",
             "extension": 4,
             "mnemonic": "store",
@@ -910,7 +910,7 @@
             ]
         },
         "ST_64": {
-            "code": 59,
+            "code": 58,
             "comment": "TODO: ST_64",
             "extension": 4,
             "mnemonic": "store",
@@ -926,7 +926,7 @@
             ]
         },
         "MV_8": {
-            "code": 60,
+            "code": 59,
             "comment": "TODO: MV_8",
             "mnemonic": "move",
             "params": [
@@ -940,7 +940,7 @@
             ]
         },
         "MV_16": {
-            "code": 61,
+            "code": 60,
             "comment": "TODO: MV_16",
             "mnemonic": "move",
             "params": [
@@ -954,7 +954,7 @@
             ]
         },
         "MV_32": {
-            "code": 62,
+            "code": 61,
             "comment": "TODO: MV_32",
             "mnemonic": "move",
             "params": [
@@ -969,7 +969,7 @@
             ]
         },
         "MV_64": {
-            "code": 63,
+            "code": 62,
             "comment": "TODO: MV_64",
             "mnemonic": "move",
             "params": [
@@ -984,7 +984,7 @@
             ]
         },
         "BSWP_16": {
-            "code": 64,
+            "code": 63,
             "comment": "TODO: BSWP_16",
             "mnemonic": "bswp",
             "params": [
@@ -998,7 +998,7 @@
             ]
         },
         "BSWP_32": {
-            "code": 65,
+            "code": 64,
             "comment": "TODO: BSWP_32",
             "mnemonic": "bswp",
             "params": [
@@ -1012,7 +1012,7 @@
             ]
         },
         "BSWP_64": {
-            "code": 66,
+            "code": 65,
             "comment": "TODO: BSWP_64",
             "mnemonic": "bswp",
             "params": [
@@ -1026,7 +1026,7 @@
             ]
         },
         "EXG": {
-            "code": 67,
+            "code": 66,
             "comment": "TODO: EXG",
             "mnemonic": "exg",
             "params": [
@@ -1035,7 +1035,7 @@
             ]
         },
         "SV": {
-            "code": 68,
+            "code": 67,
             "comment": "TODO: SV",
             "mnemonic": "save",
             "params": [
@@ -1044,7 +1044,7 @@
             ]
         },
         "RS": {
-            "code": 69,
+            "code": 68,
             "comment": "TODO: RS",
             "mnemonic": "rest",
             "params": [
@@ -1053,7 +1053,7 @@
             ]
         },
         "PUSH_8": {
-            "code": 70,
+            "code": 69,
             "comment": "TODO: PUSH_8",
             "mnemonic": "push",
             "params": [
@@ -1067,7 +1067,7 @@
             ]
         },
         "PUSH_16": {
-            "code": 71,
+            "code": 70,
             "comment": "TODO: PUSH_16",
             "mnemonic": "push",
             "params": [
@@ -1081,7 +1081,7 @@
             ]
         },
         "PUSH_32": {
-            "code": 72,
+            "code": 71,
             "comment": "TODO: PUSH_32",
             "mnemonic": "push",
             "params": [
@@ -1096,7 +1096,7 @@
             ]
         },
         "PUSH_64": {
-            "code": 73,
+            "code": 72,
             "comment": "TODO: PUSH_64",
             "mnemonic": "push",
             "params": [
@@ -1111,7 +1111,7 @@
             ]
         },
         "POP_8": {
-            "code": 74,
+            "code": 73,
             "comment": "TODO: POP_8",
             "mnemonic": "pop",
             "params": [
@@ -1125,7 +1125,7 @@
             ]
         },
         "POP_16": {
-            "code": 75,
+            "code": 74,
             "comment": "TODO: POP_16",
             "mnemonic": "pop",
             "params": [
@@ -1139,7 +1139,7 @@
             ]
         },
         "POP_32": {
-            "code": 76,
+            "code": 75,
             "comment": "TODO: POP_32",
             "mnemonic": "pop",
             "params": [
@@ -1154,7 +1154,7 @@
             ]
         },
         "POP_64": {
-            "code": 77,
+            "code": 76,
             "comment": "TODO: POP_64",
             "mnemonic": "pop",
             "params": [
@@ -1169,7 +1169,7 @@
             ]
         },
         "BCALL8": {
-            "code": 81,
+            "code": 77,
             "comment": "TODO: BRA8",
             "mnemonic": "bcall",
             "params": [
@@ -1178,7 +1178,7 @@
             "range": 8
         },
         "BCALL16": {
-            "code": 82,
+            "code": 78,
             "comment": "TODO: BRA16",
             "extension": 1,
             "mnemonic": "bcall",
@@ -1188,7 +1188,7 @@
             "range": 16
         },
         "CALL": {
-            "code": 78,
+            "code": 79,
             "comment": "TODO: CALL",
             "extension": 4,
             "mnemonic": "call",
@@ -1197,7 +1197,7 @@
             ]
         },
         "CALLN": {
-            "code": 79,
+            "code": 80,
             "comment": "TODO: CALLN",
             "extension": 4,
             "mnemonic": "calln",
@@ -1206,12 +1206,12 @@
             ]
         },
         "RET": {
-            "code": 80,
+            "code": 81,
             "comment": "TODO: RET",
             "mnemonic": "ret"
         },
         "BRA8": {
-            "code": 81,
+            "code": 82,
             "comment": "TODO: BRA8",
             "mnemonic": "bra",
             "params": [
@@ -1220,7 +1220,7 @@
             "range": 8
         },
         "BRA16": {
-            "code": 82,
+            "code": 83,
             "comment": "TODO: BRA16",
             "extension": 1,
             "mnemonic": "bra",
@@ -1230,7 +1230,7 @@
             "range": 16
         },
         "CASE": {
-            "code": 83,
+            "code": 84,
             "comment": "TODO: CASE",
             "extension": 2,
             "mnemonic": "case",
@@ -1238,7 +1238,7 @@
             "var": true
         },
         "BNZ_8": {
-            "code": 84,
+            "code": 85,
             "comment": "TODO: BNZ_8",
             "extension": 1,
             "mnemonic": "bnz",
@@ -1254,7 +1254,7 @@
             ]
         },
         "BNZ_16": {
-            "code": 85,
+            "code": 86,
             "comment": "TODO: BNZ_16",
             "extension": 1,
             "mnemonic": "bnz",
@@ -1270,7 +1270,7 @@
             ]
         },
         "BNZ_32": {
-            "code": 86,
+            "code": 87,
             "comment": "TODO: BNZ_32",
             "extension": 1,
             "mnemonic": "bnz",
@@ -1286,7 +1286,7 @@
             ]
         },
         "BNZ_64": {
-            "code": 87,
+            "code": 88,
             "comment": "TODO: BNZ_64",
             "extension": 1,
             "mnemonic": "bnz",
@@ -1302,7 +1302,7 @@
             ]
         },
         "BEQ_8": {
-            "code": 88,
+            "code": 89,
             "comment": "TODO: BEQ_8",
             "extension": 1,
             "mnemonic": "beq",
@@ -1319,7 +1319,7 @@
             ]
         },
         "BEQ_16": {
-            "code": 89,
+            "code": 90,
             "comment": "TODO: BEQ_16",
             "extension": 1,
             "mnemonic": "beq",
@@ -1336,7 +1336,7 @@
             ]
         },
         "BEQ_32": {
-            "code": 90,
+            "code": 91,
             "comment": "TODO: BEQ_32",
             "extension": 1,
             "mnemonic": "beq",
@@ -1353,7 +1353,7 @@
             ]
         },
         "BEQ_64": {
-            "code": 91,
+            "code": 92,
             "comment": "TODO: BEQ_64",
             "extension": 1,
             "mnemonic": "beq",
@@ -1370,7 +1370,7 @@
             ]
         },
         "BEQ_F32": {
-            "code": 92,
+            "code": 93,
             "comment": "TODO: BEQ_F32",
             "extension": 1,
             "mnemonic": "beq",
@@ -1385,7 +1385,7 @@
             ]
         },
         "BEQ_F64": {
-            "code": 93,
+            "code": 94,
             "comment": "TODO: BEQ_F64",
             "extension": 1,
             "mnemonic": "beq",
@@ -1400,7 +1400,7 @@
             ]
         },
         "BGREQ_8": {
-            "code": 94,
+            "code": 95,
             "comment": "TODO: BGREQ_8",
             "extension": 1,
             "mnemonic": "bge",
@@ -1417,7 +1417,7 @@
             ]
         },
         "BGREQ_16": {
-            "code": 95,
+            "code": 96,
             "comment": "TODO: BGREQ_16",
             "extension": 1,
             "mnemonic": "bge",
@@ -1434,7 +1434,7 @@
             ]
         },
         "BGREQ_32": {
-            "code": 96,
+            "code": 97,
             "comment": "TODO: BGREQ_32",
             "extension": 1,
             "mnemonic": "bge",
@@ -1451,7 +1451,7 @@
             ]
         },
         "BGREQ_64": {
-            "code": 97,
+            "code": 98,
             "comment": "TODO: BGREQ_64",
             "extension": 1,
             "mnemonic": "bge",
@@ -1468,7 +1468,7 @@
             ]
         },
         "BGREQ_F32": {
-            "code": 98,
+            "code": 99,
             "comment": "TODO: BGREQ_F32",
             "extension": 1,
             "mnemonic": "bge",
@@ -1483,7 +1483,7 @@
             ]
         },
         "BGREQ_F64": {
-            "code": 99,
+            "code": 100,
             "comment": "TODO: BGREQ_F64",
             "extension": 1,
             "mnemonic": "bge",
@@ -1498,7 +1498,7 @@
             ]
         },
         "BGR_8": {
-            "code": 100,
+            "code": 101,
             "comment": "TODO: BGR_8",
             "extension": 1,
             "mnemonic": "bgr",
@@ -1515,7 +1515,7 @@
             ]
         },
         "BGR_16": {
-            "code": 101,
+            "code": 102,
             "comment": "TODO: BGR_16",
             "extension": 1,
             "mnemonic": "bgr",
@@ -1532,7 +1532,7 @@
             ]
         },
         "BGR_32": {
-            "code": 102,
+            "code": 103,
             "comment": "TODO: BGR_32",
             "extension": 1,
             "mnemonic": "bgr",
@@ -1549,7 +1549,7 @@
             ]
         },
         "BGR_64": {
-            "code": 103,
+            "code": 104,
             "comment": "TODO: BGR_64",
             "extension": 1,
             "mnemonic": "bgr",
@@ -1566,7 +1566,7 @@
             ]
         },
         "BGR_F32": {
-            "code": 104,
+            "code": 105,
             "comment": "TODO: BGR_F32",
             "extension": 1,
             "mnemonic": "bgr",
@@ -1581,7 +1581,7 @@
             ]
         },
         "BGR_F64": {
-            "code": 105,
+            "code": 106,
             "comment": "TODO: BGR_F64",
             "extension": 1,
             "mnemonic": "bgr",
@@ -1596,7 +1596,7 @@
             ]
         },
         "S8_2_S16": {
-            "code": 106,
+            "code": 107,
             "comment": "TODO: S8_2_S16",
             "mnemonic": "s16",
             "params": [
@@ -1608,7 +1608,7 @@
             ]
         },
         "S8_2_S32": {
-            "code": 107,
+            "code": 108,
             "comment": "TODO: S8_2_S32",
             "mnemonic": "s32",
             "params": [
@@ -1620,7 +1620,7 @@
             ]
         },
         "S8_2_S64": {
-            "code": 108,
+            "code": 109,
             "comment": "TODO: S8_2_S64",
             "mnemonic": "s64",
             "params": [
@@ -1632,7 +1632,7 @@
             ]
         },
         "S8_2_F32": {
-            "code": 109,
+            "code": 110,
             "comment": "TODO: S8_2_F32",
             "mnemonic": "f32",
             "params": [
@@ -1644,7 +1644,7 @@
             ]
         },
         "S8_2_F64": {
-            "code": 110,
+            "code": 111,
             "comment": "TODO: S8_2_F64",
             "mnemonic": "f64",
             "params": [
@@ -1656,7 +1656,7 @@
             ]
         },
         "S16_2_S32": {
-            "code": 111,
+            "code": 112,
             "comment": "TODO: S16_2_S32",
             "mnemonic": "s32",
             "params": [
@@ -1668,7 +1668,7 @@
             ]
         },
         "S16_2_S64": {
-            "code": 112,
+            "code": 113,
             "comment": "TODO: S16_2_S64",
             "mnemonic": "s64",
             "params": [
@@ -1680,7 +1680,7 @@
             ]
         },
         "S16_2_F32": {
-            "code": 113,
+            "code": 114,
             "comment": "TODO: S16_2_F32",
             "mnemonic": "f32",
             "params": [
@@ -1692,7 +1692,7 @@
             ]
         },
         "S16_2_F64": {
-            "code": 114,
+            "code": 115,
             "comment": "TODO: S16_2_F64",
             "mnemonic": "f64",
             "params": [
@@ -1704,7 +1704,7 @@
             ]
         },
         "S32_2_S64": {
-            "code": 115,
+            "code": 116,
             "comment": "TODO: S32_2_S64",
             "mnemonic": "s64",
             "params": [
@@ -1716,7 +1716,7 @@
             ]
         },
         "S32_2_F32": {
-            "code": 116,
+            "code": 117,
             "comment": "TODO: S32_2_F32",
             "mnemonic": "f32",
             "params": [
@@ -1728,7 +1728,7 @@
             ]
         },
         "S32_2_F64": {
-            "code": 117,
+            "code": 118,
             "comment": "TODO: S32_2_F64",
             "mnemonic": "f64",
             "params": [
@@ -1740,7 +1740,7 @@
             ]
         },
         "S64_2_F32": {
-            "code": 118,
+            "code": 119,
             "comment": "TODO: S64_2_F32",
             "mnemonic": "f32",
             "params": [
@@ -1752,7 +1752,7 @@
             ]
         },
         "S64_2_F64": {
-            "code": 119,
+            "code": 120,
             "comment": "TODO: S64_2_F64",
             "mnemonic": "f64",
             "params": [
@@ -1764,7 +1764,7 @@
             ]
         },
         "U8_2_F32": {
-            "code": 120,
+            "code": 121,
             "comment": "TODO: U8_2_F32",
             "mnemonic": "f32",
             "params": [
@@ -1776,7 +1776,7 @@
             ]
         },
         "U8_2_F64": {
-            "code": 121,
+            "code": 122,
             "comment": "TODO: U8_2_F64",
             "mnemonic": "f64",
             "params": [
@@ -1788,7 +1788,7 @@
             ]
         },
         "U16_2_F32": {
-            "code": 122,
+            "code": 123,
             "comment": "TODO: U16_2_F32",
             "mnemonic": "f32",
             "params": [
@@ -1800,7 +1800,7 @@
             ]
         },
         "U16_2_F64": {
-            "code": 123,
+            "code": 124,
             "comment": "TODO: U16_2_F64",
             "mnemonic": "f64",
             "params": [
@@ -1812,7 +1812,7 @@
             ]
         },
         "U32_2_F32": {
-            "code": 124,
+            "code": 125,
             "comment": "TODO: U32_2_F32",
             "mnemonic": "f32",
             "params": [
@@ -1824,7 +1824,7 @@
             ]
         },
         "U32_2_F64": {
-            "code": 125,
+            "code": 126,
             "comment": "TODO: U32_2_F64",
             "mnemonic": "f64",
             "params": [
@@ -1836,7 +1836,7 @@
             ]
         },
         "U64_2_F32": {
-            "code": 126,
+            "code": 127,
             "comment": "TODO: U64_2_F32",
             "mnemonic": "f32",
             "params": [
@@ -1848,7 +1848,7 @@
             ]
         },
         "U64_2_F64": {
-            "code": 127,
+            "code": 128,
             "comment": "TODO: U64_2_F64",
             "mnemonic": "f64",
             "params": [
@@ -1860,7 +1860,7 @@
             ]
         },
         "F32_2_F64": {
-            "code": 128,
+            "code": 129,
             "comment": "TODO: F32_2_F64",
             "mnemonic": "f64",
             "params": [
@@ -1872,7 +1872,7 @@
             ]
         },
         "F64_2_F32": {
-            "code": 129,
+            "code": 130,
             "comment": "TODO: F64_2_F32",
             "mnemonic": "f32",
             "params": [
@@ -1884,7 +1884,7 @@
             ]
         },
         "F64_2_S64": {
-            "code": 130,
+            "code": 131,
             "comment": "TODO: F64_2_S64",
             "mnemonic": "s64",
             "params": [
@@ -1896,7 +1896,7 @@
             ]
         },
         "F64_2_S32": {
-            "code": 131,
+            "code": 132,
             "comment": "TODO: F64_2_S32",
             "mnemonic": "s32",
             "params": [
@@ -1908,7 +1908,7 @@
             ]
         },
         "F64_2_S16": {
-            "code": 132,
+            "code": 133,
             "comment": "TODO: F64_2_S16",
             "mnemonic": "s16",
             "params": [
@@ -1920,7 +1920,7 @@
             ]
         },
         "F64_2_S8": {
-            "code": 133,
+            "code": 134,
             "comment": "TODO: F64_2_S8",
             "mnemonic": "s8",
             "params": [
@@ -1932,7 +1932,7 @@
             ]
         },
         "F32_2_S64": {
-            "code": 134,
+            "code": 135,
             "comment": "TODO: F32_2_S64",
             "mnemonic": "s64",
             "params": [
@@ -1944,7 +1944,7 @@
             ]
         },
         "F32_2_S32": {
-            "code": 135,
+            "code": 136,
             "comment": "TODO: F32_2_S32",
             "mnemonic": "s32",
             "params": [
@@ -1956,7 +1956,7 @@
             ]
         },
         "F32_2_S16": {
-            "code": 136,
+            "code": 137,
             "comment": "TODO: F32_2_S16",
             "mnemonic": "s16",
             "params": [
@@ -1968,7 +1968,7 @@
             ]
         },
         "F32_2_S8": {
-            "code": 137,
+            "code": 138,
             "comment": "TODO: F32_2_S8",
             "mnemonic": "s8",
             "params": [
@@ -1980,7 +1980,7 @@
             ]
         },
         "ADD_I8": {
-            "code": 138,
+            "code": 139,
             "comment": "TODO: ADD_I8",
             "mnemonic": "add",
             "params": [
@@ -1994,7 +1994,7 @@
             ]
         },
         "ADD_I16": {
-            "code": 139,
+            "code": 140,
             "comment": "TODO: ADD_I16",
             "mnemonic": "add",
             "params": [
@@ -2008,7 +2008,7 @@
             ]
         },
         "ADD_I32": {
-            "code": 140,
+            "code": 141,
             "comment": "TODO: ADD_I32",
             "mnemonic": "add",
             "params": [
@@ -2022,7 +2022,7 @@
             ]
         },
         "ADD_I64": {
-            "code": 141,
+            "code": 142,
             "comment": "TODO: ADD_I64",
             "mnemonic": "add",
             "params": [
@@ -2036,7 +2036,7 @@
             ]
         },
         "ADD_F32": {
-            "code": 142,
+            "code": 143,
             "comment": "TODO: ADD_F32",
             "mnemonic": "add",
             "params": [
@@ -2048,7 +2048,7 @@
             ]
         },
         "ADD_F64": {
-            "code": 143,
+            "code": 144,
             "comment": "TODO: ADD_F64",
             "mnemonic": "add",
             "params": [
@@ -2060,7 +2060,7 @@
             ]
         },
         "ADDI_I8": {
-            "code": 144,
+            "code": 145,
             "comment": "TODO: ADDI_I8",
             "mnemonic": "add",
             "params": [
@@ -2074,7 +2074,7 @@
             ]
         },
         "ADDI_I16": {
-            "code": 145,
+            "code": 146,
             "comment": "TODO: ADDI_I16",
             "mnemonic": "add",
             "params": [
@@ -2088,7 +2088,7 @@
             ]
         },
         "ADDI_I32": {
-            "code": 146,
+            "code": 147,
             "comment": "TODO: ADDI_I32",
             "mnemonic": "add",
             "params": [
@@ -2102,7 +2102,7 @@
             ]
         },
         "SUB_I8": {
-            "code": 147,
+            "code": 148,
             "comment": "TODO: SUB_I8",
             "mnemonic": "sub",
             "params": [
@@ -2116,7 +2116,7 @@
             ]
         },
         "SUB_I16": {
-            "code": 148,
+            "code": 149,
             "comment": "TODO: SUB_I16",
             "mnemonic": "sub",
             "params": [
@@ -2130,7 +2130,7 @@
             ]
         },
         "SUB_I32": {
-            "code": 149,
+            "code": 150,
             "comment": "TODO: SUB_I32",
             "mnemonic": "sub",
             "params": [
@@ -2144,7 +2144,7 @@
             ]
         },
         "SUB_I64": {
-            "code": 150,
+            "code": 151,
             "comment": "TODO: SUB_I64",
             "mnemonic": "sub",
             "params": [
@@ -2158,7 +2158,7 @@
             ]
         },
         "SUB_F32": {
-            "code": 151,
+            "code": 152,
             "comment": "TODO: SUB_F32",
             "mnemonic": "sub",
             "params": [
@@ -2170,7 +2170,7 @@
             ]
         },
         "SUB_F64": {
-            "code": 152,
+            "code": 153,
             "comment": "TODO: SUB_F64",
             "mnemonic": "sub",
             "params": [
@@ -2182,7 +2182,7 @@
             ]
         },
         "MUL_U8": {
-            "code": 153,
+            "code": 154,
             "comment": "TODO: MUL_U8",
             "mnemonic": "mul",
             "params": [
@@ -2194,7 +2194,7 @@
             ]
         },
         "MUL_U16": {
-            "code": 154,
+            "code": 155,
             "comment": "TODO: MUL_U16",
             "mnemonic": "mul",
             "params": [
@@ -2206,7 +2206,7 @@
             ]
         },
         "MUL_U32": {
-            "code": 155,
+            "code": 156,
             "comment": "TODO: MUL_U32",
             "mnemonic": "mul",
             "params": [
@@ -2218,7 +2218,7 @@
             ]
         },
         "MUL_U64": {
-            "code": 156,
+            "code": 157,
             "comment": "TODO: MUL_U64",
             "mnemonic": "mul",
             "params": [
@@ -2230,7 +2230,7 @@
             ]
         },
         "MUL_S8": {
-            "code": 157,
+            "code": 158,
             "comment": "TODO: MUL_S8",
             "mnemonic": "mul",
             "params": [
@@ -2242,7 +2242,7 @@
             ]
         },
         "MUL_S16": {
-            "code": 158,
+            "code": 159,
             "comment": "TODO: MUL_S16",
             "mnemonic": "mul",
             "params": [
@@ -2254,7 +2254,7 @@
             ]
         },
         "MUL_S32": {
-            "code": 159,
+            "code": 160,
             "comment": "TODO: MUL_S32",
             "mnemonic": "mul",
             "params": [
@@ -2266,7 +2266,7 @@
             ]
         },
         "MUL_S64": {
-            "code": 160,
+            "code": 161,
             "comment": "TODO: MUL_S64",
             "mnemonic": "mul",
             "params": [
@@ -2278,7 +2278,7 @@
             ]
         },
         "MUL_F32": {
-            "code": 161,
+            "code": 162,
             "comment": "TODO: MUL_F32",
             "mnemonic": "mul",
             "params": [
@@ -2290,7 +2290,7 @@
             ]
         },
         "MUL_F64": {
-            "code": 162,
+            "code": 163,
             "comment": "TODO: MUL_F64",
             "mnemonic": "mul",
             "params": [
@@ -2302,7 +2302,7 @@
             ]
         },
         "DIV_U8": {
-            "code": 163,
+            "code": 164,
             "comment": "TODO: DIV_U8",
             "mnemonic": "div",
             "params": [
@@ -2314,7 +2314,7 @@
             ]
         },
         "DIV_U16": {
-            "code": 164,
+            "code": 165,
             "comment": "TODO: DIV_U16",
             "mnemonic": "div",
             "params": [
@@ -2326,7 +2326,7 @@
             ]
         },
         "DIV_U32": {
-            "code": 165,
+            "code": 166,
             "comment": "TODO: DIV_U32",
             "mnemonic": "div",
             "params": [
@@ -2338,7 +2338,7 @@
             ]
         },
         "DIV_U64": {
-            "code": 166,
+            "code": 167,
             "comment": "TODO: DIV_U64",
             "mnemonic": "div",
             "params": [
@@ -2350,7 +2350,7 @@
             ]
         },
         "DIV_S8": {
-            "code": 167,
+            "code": 168,
             "comment": "TODO: DIV_S8",
             "mnemonic": "div",
             "params": [
@@ -2362,7 +2362,7 @@
             ]
         },
         "DIV_S16": {
-            "code": 168,
+            "code": 169,
             "comment": "TODO: DIV_S16",
             "mnemonic": "div",
             "params": [
@@ -2374,7 +2374,7 @@
             ]
         },
         "DIV_S32": {
-            "code": 169,
+            "code": 170,
             "comment": "TODO: DIV_S32",
             "mnemonic": "div",
             "params": [
@@ -2386,7 +2386,7 @@
             ]
         },
         "DIV_S64": {
-            "code": 170,
+            "code": 171,
             "comment": "TODO: DIV_S64",
             "mnemonic": "div",
             "params": [
@@ -2398,7 +2398,7 @@
             ]
         },
         "DIV_F32": {
-            "code": 171,
+            "code": 172,
             "comment": "TODO: DIV_F32",
             "mnemonic": "div",
             "params": [
@@ -2410,7 +2410,7 @@
             ]
         },
         "DIV_F64": {
-            "code": 172,
+            "code": 173,
             "comment": "TODO: DIV_F64",
             "mnemonic": "div",
             "params": [
@@ -2422,7 +2422,7 @@
             ]
         },
         "MOD_U8": {
-            "code": 173,
+            "code": 174,
             "comment": "TODO: MOD_U8",
             "mnemonic": "mod",
             "params": [
@@ -2434,7 +2434,7 @@
             ]
         },
         "MOD_U16": {
-            "code": 174,
+            "code": 175,
             "comment": "TODO: MOD_U16",
             "mnemonic": "mod",
             "params": [
@@ -2446,7 +2446,7 @@
             ]
         },
         "MOD_U32": {
-            "code": 175,
+            "code": 176,
             "comment": "TODO: MOD_U32",
             "mnemonic": "mod",
             "params": [
@@ -2458,7 +2458,7 @@
             ]
         },
         "MOD_U64": {
-            "code": 176,
+            "code": 177,
             "comment": "TODO: MOD_U64",
             "mnemonic": "mod",
             "params": [
@@ -2470,7 +2470,7 @@
             ]
         },
         "MOD_S8": {
-            "code": 177,
+            "code": 178,
             "comment": "TODO: MOD_S8",
             "mnemonic": "mod",
             "params": [
@@ -2482,7 +2482,7 @@
             ]
         },
         "MOD_S16": {
-            "code": 178,
+            "code": 179,
             "comment": "TODO: MOD_S16",
             "mnemonic": "mod",
             "params": [
@@ -2494,7 +2494,7 @@
             ]
         },
         "MOD_S32": {
-            "code": 179,
+            "code": 180,
             "comment": "TODO: MOD_S32",
             "mnemonic": "mod",
             "params": [
@@ -2506,7 +2506,7 @@
             ]
         },
         "MOD_S64": {
-            "code": 180,
+            "code": 181,
             "comment": "TODO: MOD_S64",
             "mnemonic": "mod",
             "params": [
@@ -2518,7 +2518,7 @@
             ]
         },
         "MOD_F32": {
-            "code": 181,
+            "code": 182,
             "comment": "TODO: MOD_F32",
             "mnemonic": "mod",
             "params": [
@@ -2530,7 +2530,7 @@
             ]
         },
         "MOD_F64": {
-            "code": 182,
+            "code": 183,
             "comment": "TODO: MOD_F64",
             "mnemonic": "mod",
             "params": [
@@ -2542,7 +2542,7 @@
             ]
         },
         "NEG_S8": {
-            "code": 183,
+            "code": 184,
             "comment": "TODO: NEG_S8",
             "mnemonic": "neg",
             "params": [
@@ -2554,7 +2554,7 @@
             ]
         },
         "NEG_S16": {
-            "code": 184,
+            "code": 185,
             "comment": "TODO: NEG_S16",
             "mnemonic": "neg",
             "params": [
@@ -2566,7 +2566,7 @@
             ]
         },
         "NEG_S32": {
-            "code": 185,
+            "code": 186,
             "comment": "TODO: NEG_S32",
             "mnemonic": "neg",
             "params": [
@@ -2578,7 +2578,7 @@
             ]
         },
         "NEG_S64": {
-            "code": 186,
+            "code": 187,
             "comment": "TODO: NEG_S64",
             "mnemonic": "neg",
             "params": [
@@ -2590,7 +2590,7 @@
             ]
         },
         "NEG_F32": {
-            "code": 187,
+            "code": 188,
             "comment": "TODO: NEG_F32",
             "mnemonic": "neg",
             "params": [
@@ -2602,7 +2602,7 @@
             ]
         },
         "NEG_F64": {
-            "code": 188,
+            "code": 189,
             "comment": "TODO: NEG_F64",
             "mnemonic": "neg",
             "params": [
@@ -2614,7 +2614,7 @@
             ]
         },
         "ASR_S8": {
-            "code": 189,
+            "code": 190,
             "comment": "TODO: ASR_S8",
             "mnemonic": "asr",
             "params": [
@@ -2626,7 +2626,7 @@
             ]
         },
         "ASR_S16": {
-            "code": 190,
+            "code": 191,
             "comment": "TODO: ASR_S16",
             "mnemonic": "asr",
             "params": [
@@ -2638,7 +2638,7 @@
             ]
         },
         "ASR_S32": {
-            "code": 191,
+            "code": 192,
             "comment": "TODO: ASR_S32",
             "mnemonic": "asr",
             "params": [
@@ -2650,7 +2650,7 @@
             ]
         },
         "ASR_S64": {
-            "code": 192,
+            "code": 193,
             "comment": "TODO: ASR_S64",
             "mnemonic": "asr",
             "params": [
@@ -2662,7 +2662,7 @@
             ]
         },
         "MIN_S8": {
-            "code": 193,
+            "code": 194,
             "comment": "TODO: MIN_S8",
             "mnemonic": "min",
             "params": [
@@ -2674,7 +2674,7 @@
             ]
         },
         "MIN_S16": {
-            "code": 194,
+            "code": 195,
             "comment": "TODO: MIN_S16",
             "mnemonic": "min",
             "params": [
@@ -2686,7 +2686,7 @@
             ]
         },
         "MIN_S32": {
-            "code": 195,
+            "code": 196,
             "comment": "TODO: MIN_S32",
             "mnemonic": "min",
             "params": [
@@ -2698,7 +2698,7 @@
             ]
         },
         "MIN_S64": {
-            "code": 196,
+            "code": 197,
             "comment": "TODO: MIN_S64",
             "mnemonic": "min",
             "params": [
@@ -2710,7 +2710,7 @@
             ]
         },
         "MIN_F32": {
-            "code": 197,
+            "code": 198,
             "comment": "TODO: MIN_F32",
             "mnemonic": "min",
             "params": [
@@ -2722,7 +2722,7 @@
             ]
         },
         "MIN_F64": {
-            "code": 198,
+            "code": 199,
             "comment": "TODO: MIN_F64",
             "mnemonic": "min",
             "params": [
@@ -2734,7 +2734,7 @@
             ]
         },
         "MAX_S8": {
-            "code": 199,
+            "code": 200,
             "comment": "TODO: MAX_S8",
             "mnemonic": "max",
             "params": [
@@ -2746,7 +2746,7 @@
             ]
         },
         "MAX_S16": {
-            "code": 200,
+            "code": 201,
             "comment": "TODO: MAX_S16",
             "mnemonic": "max",
             "params": [
@@ -2758,7 +2758,7 @@
             ]
         },
         "MAX_S32": {
-            "code": 201,
+            "code": 202,
             "comment": "TODO: MAX_S32",
             "mnemonic": "max",
             "params": [
@@ -2770,7 +2770,7 @@
             ]
         },
         "MAX_S64": {
-            "code": 202,
+            "code": 203,
             "comment": "TODO: MAX_S64",
             "mnemonic": "max",
             "params": [
@@ -2782,7 +2782,7 @@
             ]
         },
         "MAX_F32": {
-            "code": 203,
+            "code": 204,
             "comment": "TODO: MAX_F32",
             "mnemonic": "max",
             "params": [
@@ -2794,7 +2794,7 @@
             ]
         },
         "MAX_F64": {
-            "code": 204,
+            "code": 205,
             "comment": "TODO: MAX_F64",
             "mnemonic": "max",
             "params": [
@@ -2806,7 +2806,7 @@
             ]
         },
         "MUL_ADD_F32": {
-            "code": 237,
+            "code": 206,
             "comment": "TODO: MUL_ADD_F32",
             "extension": 1,
             "mnemonic": "madd",
@@ -2815,7 +2815,7 @@
             ]
         },
         "MUL_ADD_F64": {
-            "code": 238,
+            "code": 207,
             "comment": "TODO: MUL_ADD_F64",
             "extension": 1,
             "mnemonic": "madd",
@@ -2824,7 +2824,7 @@
             ]
         },
         "AND_8": {
-            "code": 205,
+            "code": 208,
             "comment": "TODO: AND_8",
             "mnemonic": "and",
             "params": [
@@ -2837,7 +2837,7 @@
             ]
         },
         "AND_16": {
-            "code": 206,
+            "code": 209,
             "comment": "TODO: AND_16",
             "mnemonic": "and",
             "params": [
@@ -2850,7 +2850,7 @@
             ]
         },
         "AND_32": {
-            "code": 207,
+            "code": 210,
             "comment": "TODO: AND_32",
             "mnemonic": "and",
             "params": [
@@ -2863,7 +2863,7 @@
             ]
         },
         "AND_64": {
-            "code": 208,
+            "code": 211,
             "comment": "TODO: AND_64",
             "mnemonic": "and",
             "params": [
@@ -2876,7 +2876,7 @@
             ]
         },
         "OR_8": {
-            "code": 209,
+            "code": 212,
             "comment": "TODO: OR_8",
             "mnemonic": "or",
             "params": [
@@ -2889,7 +2889,7 @@
             ]
         },
         "OR_16": {
-            "code": 210,
+            "code": 213,
             "comment": "TODO: OR_16",
             "mnemonic": "or",
             "params": [
@@ -2902,7 +2902,7 @@
             ]
         },
         "OR_32": {
-            "code": 211,
+            "code": 214,
             "comment": "TODO: OR_32",
             "mnemonic": "or",
             "params": [
@@ -2915,7 +2915,7 @@
             ]
         },
         "OR_64": {
-            "code": 212,
+            "code": 215,
             "comment": "TODO: OR_64",
             "mnemonic": "or",
             "params": [
@@ -2928,7 +2928,7 @@
             ]
         },
         "XOR_8": {
-            "code": 213,
+            "code": 216,
             "comment": "TODO: XOR_8",
             "mnemonic": "xor",
             "params": [
@@ -2941,7 +2941,7 @@
             ]
         },
         "XOR_16": {
-            "code": 214,
+            "code": 217,
             "comment": "TODO: XOR_16",
             "mnemonic": "xor",
             "params": [
@@ -2954,7 +2954,7 @@
             ]
         },
         "XOR_32": {
-            "code": 215,
+            "code": 218,
             "comment": "TODO: XOR_32",
             "mnemonic": "xor",
             "params": [
@@ -2967,7 +2967,7 @@
             ]
         },
         "XOR_64": {
-            "code": 216,
+            "code": 219,
             "comment": "TODO: XOR_64",
             "mnemonic": "xor",
             "params": [
@@ -2980,7 +2980,7 @@
             ]
         },
         "INV_8": {
-            "code": 217,
+            "code": 220,
             "comment": "TODO: INV_8",
             "mnemonic": "inv",
             "params": [
@@ -2993,7 +2993,7 @@
             ]
         },
         "INV_16": {
-            "code": 218,
+            "code": 221,
             "comment": "TODO: INV_16",
             "mnemonic": "inv",
             "params": [
@@ -3006,7 +3006,7 @@
             ]
         },
         "INV_32": {
-            "code": 219,
+            "code": 222,
             "comment": "TODO: INV_32",
             "mnemonic": "inv",
             "params": [
@@ -3019,7 +3019,7 @@
             ]
         },
         "INV_64": {
-            "code": 220,
+            "code": 223,
             "comment": "TODO: INV_64",
             "mnemonic": "inv",
             "params": [
@@ -3032,7 +3032,7 @@
             ]
         },
         "LSL_8": {
-            "code": 221,
+            "code": 224,
             "comment": "TODO: LSL_8",
             "mnemonic": "lsl",
             "params": [
@@ -3045,7 +3045,7 @@
             ]
         },
         "LSL_16": {
-            "code": 222,
+            "code": 225,
             "comment": "TODO: LSL_16",
             "mnemonic": "lsl",
             "params": [
@@ -3058,7 +3058,7 @@
             ]
         },
         "LSL_32": {
-            "code": 223,
+            "code": 226,
             "comment": "TODO: LSL_32",
             "mnemonic": "lsl",
             "params": [
@@ -3071,7 +3071,7 @@
             ]
         },
         "LSL_64": {
-            "code": 224,
+            "code": 227,
             "comment": "TODO: LSL_64",
             "mnemonic": "lsl",
             "params": [
@@ -3084,7 +3084,7 @@
             ]
         },
         "LSR_8": {
-            "code": 225,
+            "code": 228,
             "comment": "TODO: LSR_8",
             "mnemonic": "lsr",
             "params": [
@@ -3097,7 +3097,7 @@
             ]
         },
         "LSR_16": {
-            "code": 226,
+            "code": 229,
             "comment": "TODO: LSR_16",
             "mnemonic": "lsr",
             "params": [
@@ -3110,7 +3110,7 @@
             ]
         },
         "LSR_32": {
-            "code": 227,
+            "code": 230,
             "comment": "TODO: LSR_32",
             "mnemonic": "lsr",
             "params": [
@@ -3123,7 +3123,7 @@
             ]
         },
         "LSR_64": {
-            "code": 228,
+            "code": 231,
             "comment": "TODO: LSR_64",
             "mnemonic": "lsr",
             "params": [
@@ -3136,7 +3136,7 @@
             ]
         },
         "ROL_8": {
-            "code": 229,
+            "code": 232,
             "comment": "TODO: ROL_8",
             "mnemonic": "rol",
             "params": [
@@ -3149,7 +3149,7 @@
             ]
         },
         "ROL_16": {
-            "code": 230,
+            "code": 233,
             "comment": "TODO: ROL_16",
             "mnemonic": "rol",
             "params": [
@@ -3162,7 +3162,7 @@
             ]
         },
         "ROL_32": {
-            "code": 231,
+            "code": 234,
             "comment": "TODO: ROL_32",
             "mnemonic": "rol",
             "params": [
@@ -3175,7 +3175,7 @@
             ]
         },
         "ROL_64": {
-            "code": 232,
+            "code": 235,
             "comment": "TODO: ROL_64",
             "mnemonic": "rol",
             "params": [
@@ -3188,7 +3188,7 @@
             ]
         },
         "ROR_8": {
-            "code": 233,
+            "code": 236,
             "comment": "TODO: ROR_8",
             "mnemonic": "ror",
             "params": [
@@ -3201,7 +3201,7 @@
             ]
         },
         "ROR_16": {
-            "code": 234,
+            "code": 237,
             "comment": "TODO: ROR_16",
             "mnemonic": "ror",
             "params": [
@@ -3214,7 +3214,7 @@
             ]
         },
         "ROR_32": {
-            "code": 235,
+            "code": 238,
             "comment": "TODO: ROR_32",
             "mnemonic": "ror",
             "params": [
@@ -3227,7 +3227,7 @@
             ]
         },
         "ROR_64": {
-            "code": 236,
+            "code": 239,
             "comment": "TODO: ROR_64",
             "mnemonic": "ror",
             "params": [
