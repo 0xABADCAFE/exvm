@@ -32,10 +32,6 @@
 
 class VMDefs {
 public:
-  typedef enum {
-    INST_NORMAL = 0,
-    INST_VECTOR = 1
-  } InstTypes;
 
   // Opcode definitions
 
@@ -43,8 +39,6 @@ public:
     // control group ////////////////////////////////////////
     _NOP = 0,
     _BRK,
-
-    _SET_IS,
 
     // load group ///////////////////////////////////////////
 
@@ -383,7 +377,6 @@ public:
     INITIAL,
     COMPLETED,
     BREAKPOINT,
-    UPDATE_INST_SET,
     ILLEGAL_OPCODE,
     ZERO_DIVIDE,
     REG_STACK_OVERFLOW,

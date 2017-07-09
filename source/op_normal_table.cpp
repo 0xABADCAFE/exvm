@@ -29,7 +29,6 @@ const VMCore::Handler VMCore::normal[256] = {
   // control group
   _REFER_OP(NOP),
   _REFER_OP(BRK),
-  _REFER_OP(SET_IS),
 
   // load group
   _REFER_OP(LDQ),

@@ -16,9 +16,7 @@
 #error vmhandlers.hpp must not be included manually!
 #endif
 
-/*
-class VMCore {
-*/
+/* class VMCore { */
 
     typedef void (*Handler)(VMCore*, uint16);
     const Handler*  currHandler; // this is the active handler table
@@ -26,7 +24,6 @@ class VMCore {
     // control group
     _DECLARE_OP(NOP)
     _DECLARE_OP(BRK)
-    _DECLARE_OP(SET_IS)
 
     // load group
     _DECLARE_OP(LDQ)
@@ -231,12 +228,7 @@ class VMCore {
     _DECLARE_OP(NEG_S64)
     _DECLARE_OP(NEG_F32)
     _DECLARE_OP(NEG_F64)
-/*
-    _DECLARE_OP(ASL_S8)
-    _DECLARE_OP(ASL_S16)
-    _DECLARE_OP(ASL_S32)
-    _DECLARE_OP(ASL_S64)
-*/
+
     _DECLARE_OP(ASR_S8)
     _DECLARE_OP(ASR_S16)
     _DECLARE_OP(ASR_S32)
@@ -296,6 +288,4 @@ class VMCore {
 
     static const Handler normal[256]; // normal handlers
     static const Handler vector[256]; // vector handlers
-/*
-}
-*/
+/* } */

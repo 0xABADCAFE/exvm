@@ -94,7 +94,7 @@
   #if (X_ENDIAN == XA_BIGENDIAN)
     #define _EX_PTR  (vm->pc.extU32++, *vm->pc.extU32++)
   #else
-		#define _EX_PTR  ((uint32) *vm->pc.extU64++)
+    #define _EX_PTR  ((uint32) *vm->pc.extU64++)
   #endif
 #endif
 

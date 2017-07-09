@@ -190,7 +190,6 @@ inline uint16 _float32LSW(float32 f) {
 
 #define _nop                  _MKOP(NOP),
 #define _brk                  _MKOP(BRK),
-#define _iset(n)              _MKOP(SET_IS)|(n),
 
 ////////////////////////////////////////////////////////////////////////////////
 //

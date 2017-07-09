@@ -94,7 +94,7 @@ void VMCore::dump() {
     "s8"
   );
   for (int i=0; i<16; i++) {
-    printf("%2d: 0x%08X%08X : %12d : %6d : %4d : %c : %.8f\n", i+1,
+    printf("%2d: 0x%08X%08X : %12d : %6d : %4d : %c : %.8f\n", i,
       (unsigned)gpr[i].getMSW(), (unsigned)gpr[i].getLSW(),
       gpr[i].s32(),
       (int)gpr[i].s16(),
@@ -131,26 +131,26 @@ int VMCore::innerExecute() {
   register uint16  op;
 
 forever:
-	op = *pc.inst++;
-	switch (op>>8) {
-		#include "op_control_code.hpp"
-		#include "op_load_code.hpp"
-		#include "op_store_code.hpp"
-		#include "op_move_code.hpp"
-		#include "op_jump_code.hpp"
-		#include "op_convert_code.hpp"
-		#include "op_arithmetic_code.hpp"
-		#include "op_logic_code.hpp"
-		#include "op_misc_code.hpp"
-		default:
-			printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
-			status = VMDefs::BREAKPOINT;
-			return ++numStatements;
-	}
-	++numStatements;
+  op = *pc.inst++;
+  switch (op>>8) {
+    #include "op_control_code.hpp"
+    #include "op_load_code.hpp"
+    #include "op_store_code.hpp"
+    #include "op_move_code.hpp"
+    #include "op_jump_code.hpp"
+    #include "op_convert_code.hpp"
+    #include "op_arithmetic_code.hpp"
+    #include "op_logic_code.hpp"
+    #include "op_misc_code.hpp"
+    default:
+      printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
+        status = VMDefs::BREAKPOINT;
+        return ++numStatements;
+    }
+    ++numStatements;
   goto forever;
 
-	// We can't get here, but the compiler needs to see it
+  // We can't get here, but the compiler needs to see it
   return numStatements;
 }
 
@@ -173,12 +173,6 @@ void VMCore::execute() {
       h[(op>>8)](this, op);
       ++numStatements;
     }
-    // if the currHandler has changed, status will be
-    // UPDATE_INST_SET, so reset it and allow the outer
-    // loop to iterate again, to refresh our temp pointer;
-    if (status == VMDefs::UPDATE_INST_SET) {
-      status = VMDefs::RUNNING;
-    }
   }
   totalTime = total.elapsedFrac();
 
@@ -189,7 +183,7 @@ void VMCore::execute() {
   totalTime     = total.elapsedFrac();
 
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
-  
+
   // assembler model, so far only the 68K has this
   #if _VM_HOST_OS == _VM_HOST_AMIGAOS3_68K
 
