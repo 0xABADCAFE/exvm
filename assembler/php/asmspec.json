@@ -83,12 +83,6 @@
             "comment": "TODO: BRK",
             "mnemonic": "brk"
         },
-        "SET_IS": {
-            "code": 2,
-            "comment": "TODO: SET_IS",
-            "mnemonic": "isa",
-            "reserved": true
-        },
         "LDQ": {
             "code": 3,
             "comment": "Load a small (0-15) integer literal into the specified register",
@@ -377,7 +371,7 @@
         },
         "LD_RID_8": {
             "code": 23,
-            "comment": "TODO: LD_RID_8",
+            "comment": "Load the 8-bit integer value referenced by the source register plus signed 16-bit displacement, into the destination register",
             "extension": 1,
             "mnemonic": "load",
             "params": [
@@ -392,7 +386,7 @@
         },
         "LD_RID_16": {
             "code": 24,
-            "comment": "TODO: LD_RID_16",
+            "comment": "Load the 16-bit integer value referenced by the source register plus signed 16-bit displacement, into the destination register",
             "extension": 1,
             "mnemonic": "load",
             "params": [
@@ -407,7 +401,7 @@
         },
         "LD_RID_32": {
             "code": 25,
-            "comment": "TODO: LD_RID_32",
+            "comment": "Load the 32-bit integer referenced by the source register plus signed 16-bit displacement, into the destination register",
             "extension": 1,
             "mnemonic": "load",
             "params": [
@@ -423,7 +417,7 @@
         },
         "LD_RID_64": {
             "code": 26,
-            "comment": "TODO: LD_RID_64",
+            "comment": "Load the 64-bit integer referenced by the source register plus signed 16-bit displacement, into the destination register",
             "extension": 1,
             "mnemonic": "load",
             "params": [
@@ -1173,6 +1167,25 @@
                 "u64",
                 "f64"
             ]
+        },
+        "BCALL8": {
+            "code": 81,
+            "comment": "TODO: BRA8",
+            "mnemonic": "bcall",
+            "params": [
+                "label"
+            ],
+            "range": 8
+        },
+        "BCALL16": {
+            "code": 82,
+            "comment": "TODO: BRA16",
+            "extension": 1,
+            "mnemonic": "bcall",
+            "params": [
+                "label"
+            ],
+            "range": 16
         },
         "CALL": {
             "code": 78,
@@ -2792,6 +2805,24 @@
                 "f64"
             ]
         },
+        "MUL_ADD_F32": {
+            "code": 237,
+            "comment": "TODO: MUL_ADD_F32",
+            "extension": 1,
+            "mnemonic": "madd",
+            "types": [
+                "f32"
+            ]
+        },
+        "MUL_ADD_F64": {
+            "code": 238,
+            "comment": "TODO: MUL_ADD_F64",
+            "extension": 1,
+            "mnemonic": "madd",
+            "types": [
+                "f64"
+            ]
+        },
         "AND_8": {
             "code": 205,
             "comment": "TODO: AND_8",
@@ -3206,24 +3237,6 @@
             "types": [
                 "64",
                 "u64"
-            ]
-        },
-        "MUL_ADD_F32": {
-            "code": 237,
-            "comment": "TODO: MUL_ADD_F32",
-            "extension": 1,
-            "mnemonic": "madd",
-            "types": [
-                "f32"
-            ]
-        },
-        "MUL_ADD_F64": {
-            "code": 238,
-            "comment": "TODO: MUL_ADD_F64",
-            "extension": 1,
-            "mnemonic": "madd",
-            "types": [
-                "f64"
             ]
         }
     }
