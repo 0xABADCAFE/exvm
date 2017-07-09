@@ -112,6 +112,8 @@ const VMCore::Handler VMCore::normal[256] = {
   _REFER_OP(POP_64),
 
   // jump group
+  _REFER_OP(BCALL8),
+  _REFER_OP(BCALL16),
   _REFER_OP(CALL),
   _REFER_OP(CALLN),
   _REFER_OP(RET),
@@ -248,7 +250,8 @@ const VMCore::Handler VMCore::normal[256] = {
   _REFER_OP(MAX_S64),
   _REFER_OP(MAX_F32),
   _REFER_OP(MAX_F64),
-
+  _REFER_OP(MUL_ADD_F32),
+  _REFER_OP(MUL_ADD_F64),
   // logic group
   _REFER_OP(AND_8),
   _REFER_OP(AND_16),
@@ -284,8 +287,7 @@ const VMCore::Handler VMCore::normal[256] = {
   _REFER_OP(ROR_64),
 
   // misc group
-  _REFER_OP(MUL_ADD_F32),
-  _REFER_OP(MUL_ADD_F64),
+
   _REFER_OP(ILLEGAL),
 
   _REFER_OP(ILLEGAL)

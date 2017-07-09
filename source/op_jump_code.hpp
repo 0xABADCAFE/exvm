@@ -18,6 +18,39 @@
   #define _DECLARE_OFFSET sint16 offset = _EX_S16;
 #endif
 
+_DEFINE_OP(BCALL8) {
+  if (vm->callStack < vm->callStackTop) {
+    *vm->callStack++ = (uint16*)vm->pc.inst;
+    vm->pc.inst += _B8(op);
+  } else {
+    vm->status = VMDefs::CALL_STACK_OVERFLOW;
+    #ifdef VM_FULL_DEBUG
+    printf("Runtime error: call stack overflow\n");
+    vm->dump();
+    #endif
+    _THROW(-1)
+  }
+}
+_END_OP
+
+_DEFINE_OP(BCALL16) {
+  if (vm->callStack < vm->callStackTop) {
+    // for clarity, since _EX_S16 macro increments pc
+    _DECLARE_OFFSET
+    *vm->callStack++ = (uint16*)vm->pc.inst;
+    vm->pc.inst += offset;
+  } else {
+    vm->status = VMDefs::CALL_STACK_OVERFLOW;
+    #ifdef VM_FULL_DEBUG
+    printf("Runtime error: call stack overflow\n");
+    vm->dump();
+    #endif
+    _THROW(-1)
+  }
+
+}
+_END_OP
+
 _DEFINE_OP(CALL) {
   const uint16* newPC = _EX_PC;
   //printf("call 0x%08X\n", (unsigned)newPC);

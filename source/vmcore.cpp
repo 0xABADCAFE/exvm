@@ -141,7 +141,6 @@ forever:
     #include "op_convert_code.hpp"
     #include "op_arithmetic_code.hpp"
     #include "op_logic_code.hpp"
-    #include "op_misc_code.hpp"
     default:
       printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
         status = VMDefs::BREAKPOINT;

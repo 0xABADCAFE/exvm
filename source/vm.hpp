@@ -47,7 +47,7 @@ public:
     // [opcode] [#n : rX]
     _LDQ,
 
-    // immediate 16-bit literal, -32767 to 32768
+    // immediate 16-bit literal, -32768 to 32767
     // allowed for 8/16-bit destination operands,
     // values outside the 8-bit range are truncated for 8-bit.
     //
@@ -195,6 +195,10 @@ public:
 
     // jump/branch group //////////////////////////////////
 
+    // Branch call. Call a PC relative displacement as a function.
+    _BCALL8,
+    _BCALL16,
+
     // call global reference
     // call label
     // [opcode] [     0 ]
@@ -317,6 +321,12 @@ public:
     _MAX_S8,  _MAX_S16, _MAX_S32, _MAX_S64,
     _MAX_F32, _MAX_F64,
 
+    // madd.f32|f64 rS,rD,rM,rA
+    // rD = rS*rM + rA
+    // [ opcode ][rS : rD]
+    // [ 0 : rM ][ 0 : rA]
+    _MUL_ADD_F32, _MUL_ADD_F64,
+
     // Logic commands, data treat as unsigned binary
 
     // and.x rS,RD (rD &= rS)
@@ -342,12 +352,6 @@ public:
 
     // ror.x rS,rD (rD @>= rS) - rotate right
     _ROR_8, _ROR_16, _ROR_32, _ROR_64,
-
-    // madd.f32|f64 rS,rD,rM,rA
-    // rD = rS*rM + rA
-    // [ opcode ][rS : rD]
-    // [ 0 : rM ][ 0 : rA]
-    _MUL_ADD_F32, _MUL_ADD_F64,
 
     MAX_OP
   } NormalOp;

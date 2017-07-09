@@ -116,11 +116,11 @@ struct Device *TimerBase;
 struct TimerIFace *ITimer;
 
 MilliClock::MilliClock() {
-	if (!clockFreq) {
-		TimerBase = (Device*)     IExec->FindName(&SysBase->DeviceList, "timer.device");
-		ITimer    = (TimerIFace*) IExec->GetInterface((struct Library *)TimerBase, "main", 1, 0);
-		clockFreq = ITimer->ReadEClock(&mark);
-	}
+  if (!clockFreq) {
+    TimerBase = (Device*)     IExec->FindName(&SysBase->DeviceList, "timer.device");
+    ITimer    = (TimerIFace*) IExec->GetInterface((struct Library *)TimerBase, "main", 1, 0);
+    clockFreq = ITimer->ReadEClock(&mark);
+  }
 }
 
 uint32 MilliClock::elapsed() {

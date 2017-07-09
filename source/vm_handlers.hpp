@@ -107,6 +107,8 @@
     _DECLARE_OP(POP_64)
 
     // jump group
+    _DECLARE_OP(BCALL8)
+    _DECLARE_OP(BCALL16)
     _DECLARE_OP(CALL)
     _DECLARE_OP(CALLN)
     _DECLARE_OP(RET)
@@ -245,6 +247,8 @@
     _DECLARE_OP(MAX_S64)
     _DECLARE_OP(MAX_F32)
     _DECLARE_OP(MAX_F64)
+    _DECLARE_OP(MUL_ADD_F32)
+    _DECLARE_OP(MUL_ADD_F64)
 
     // logic group
     _DECLARE_OP(AND_8)
@@ -281,9 +285,6 @@
     _DECLARE_OP(ROR_64)
 
     // misc group
-    _DECLARE_OP(MUL_ADD_F32)
-    _DECLARE_OP(MUL_ADD_F64)
-
     _DECLARE_OP(ILLEGAL);
 
     static const Handler normal[256]; // normal handlers

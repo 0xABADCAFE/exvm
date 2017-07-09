@@ -13,7 +13,6 @@ OBJ      = obj/arm64_linux/main.o \
            obj/arm64_linux/op_convert.o \
            obj/arm64_linux/op_arithmetic.o \
            obj/arm64_linux/op_logic.o \
-           obj/arm64_linux/op_misc.o \
            obj/arm64_linux/vmcore.o \
            obj/arm64_linux/op_normal_table.o
 
@@ -51,9 +50,6 @@ obj/arm64_linux/op_arithmetic.o: op_arithmetic.cpp vmcore.hpp vm.hpp machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/arm64_linux/op_logic.o: op_logic.cpp vmcore.hpp vm.hpp machine.hpp vminline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm64_linux/op_misc.o: op_misc.cpp vmcore.hpp vm.hpp machine.hpp vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/arm64_linux/vmcore.o: vmcore.cpp vmcore.hpp vm.hpp machine.hpp vminline.hpp

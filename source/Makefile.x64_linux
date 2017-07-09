@@ -13,7 +13,6 @@ OBJ      = obj/x64_linux/main.o \
            obj/x64_linux/op_convert.o \
            obj/x64_linux/op_arithmetic.o \
            obj/x64_linux/op_logic.o \
-           obj/x64_linux/op_misc.o \
            obj/x64_linux/vmcore.o \
            obj/x64_linux/op_normal_table.o
 
@@ -53,15 +52,11 @@ obj/x64_linux/op_arithmetic.o: op_arithmetic.cpp vmcore.hpp vm.hpp machine.hpp v
 obj/x64_linux/op_logic.o: op_logic.cpp vmcore.hpp vm.hpp machine.hpp vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/x64_linux/op_misc.o: op_misc.cpp vmcore.hpp vm.hpp machine.hpp vminline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
 obj/x64_linux/vmcore.o: vmcore.cpp vmcore.hpp vm.hpp machine.hpp vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/x64_linux/op_normal_table.o: op_normal_table.cpp vmcore.hpp vm.hpp machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
 
 clean:
 	$(RM) $(TARGET) obj/x64_linux/*.o *~ core
