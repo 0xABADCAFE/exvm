@@ -45,6 +45,13 @@
 
 class VMCore {
   public:
+    enum {
+      NUM_GPR         = 16,   // Number of general purpose registers
+      DEF_REG_STACK   = 1024, // Default register save/restore stack size, in entries
+      DEF_DATA_STACK  = 4096, // Default data stack size, in bytes
+      DEF_CALL_STACK  = 4096  // Default call stack size, in entries
+    };
+
     typedef void (*Native)(VMCore* vm);
     union GPR { // General Purpose 64-bit register type
       friend class VMCore;
@@ -104,7 +111,7 @@ class VMCore {
     };
 
   private:
-    GPR       gpr[16];    // register set
+    GPR       gpr[VMCore::NUM_GPR];    // register set
 
     union {
       const uint16*         inst;   // normal interpretation
@@ -167,11 +174,7 @@ class VMCore {
     #endif
 
   public:
-    enum {
-      DEF_REG_STACK   = 1024,
-      DEF_DATA_STACK  = 4096,
-      DEF_CALL_STACK  = 4096
-    };
+
     VMCore(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
     ~VMCore();
 

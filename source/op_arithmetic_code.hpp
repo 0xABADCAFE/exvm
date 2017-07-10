@@ -477,7 +477,9 @@ _DEFINE_OP(MIN_S8) {
   // min.s8 rS,rD
   sint8 &d = vm->gpr[_RD(op)].s8();
   sint8 s = vm->gpr[_RS(op)].s8();
-  if (s<d) d = s;
+  if (s < d) {
+    d = s;
+  }
 }
 _END_OP
 
@@ -485,7 +487,9 @@ _DEFINE_OP(MIN_S16) {
   // min.s16 rS,rD
   sint16 &d = vm->gpr[_RD(op)].s16();
   sint16 s = vm->gpr[_RS(op)].s16();
-  if (s<d) d = s;
+  if (s < d) {
+    d = s;
+  }
 }
 _END_OP
 
@@ -501,7 +505,9 @@ _DEFINE_OP(MIN_S64) {
   // min.s64 rS,rD
   sint64 &d = vm->gpr[_RD(op)].s64();
   sint64 s = vm->gpr[_RS(op)].s64();
-  if (s<d) d = s;
+  if (s < d) {
+    d = s;
+  }
 }
 _END_OP
 
@@ -509,7 +515,9 @@ _DEFINE_OP(MIN_F32) {
   // min.f32 rS,rD
   float32 &d = vm->gpr[_RD(op)].f32();
   float32 s = vm->gpr[_RS(op)].f32();
-  if (s<d) d = s;
+  if (s < d) {
+    d = s;
+  }
 }
 _END_OP
 
@@ -517,7 +525,9 @@ _DEFINE_OP(MIN_F64) {
   // min.f64 rS,rD
   float64 &d = vm->gpr[_RD(op)].f64();
   float64 s = vm->gpr[_RS(op)].f64();
-  if (s<d) d = s;
+  if (s < d) {
+    d = s;
+  };
 }
 _END_OP
 
@@ -527,7 +537,9 @@ _DEFINE_OP(MAX_S8) {
   // max.s8 rS,rD
   sint8 &d = vm->gpr[_RD(op)].s8();
   sint8 s = vm->gpr[_RS(op)].s8();
-  if (s>d) d = s;
+  if (s > d) {
+    d = s;
+  }
 }
 _END_OP
 
@@ -535,7 +547,9 @@ _DEFINE_OP(MAX_S16) {
   // max.s16 rS,rD
   sint16 &d = vm->gpr[_RD(op)].s16();
   sint16 s = vm->gpr[_RS(op)].s16();
-  if (s>d) d = s;
+  if (s > d) {
+    d = s;
+  }
 }
 _END_OP
 
@@ -543,7 +557,9 @@ _DEFINE_OP(MAX_S32) {
   // max.s32 rS,rD
   sint32 &d = vm->gpr[_RD(op)].s32();
   sint32 s = vm->gpr[_RS(op)].s32();
-  if (s>d) d = s;
+  if (s > d) {
+    d = s;
+  }
 }
 _END_OP
 
@@ -551,7 +567,9 @@ _DEFINE_OP(MAX_S64) {
   // max.s64 rS,rD
   sint64 &d = vm->gpr[_RD(op)].s64();
   sint64 s = vm->gpr[_RS(op)].s64();
-  if (s>d) d = s;
+  if (s > d) {
+    d = s;
+  }
 }
 _END_OP
 
@@ -559,7 +577,9 @@ _DEFINE_OP(MAX_F32) {
   // max.f32 rS,rD
   float32 &d = vm->gpr[_RD(op)].f32();
   float32 s = vm->gpr[_RS(op)].f32();
-  if (s>d) d = s;
+  if (s > d) {
+    d = s;
+  }
 }
 _END_OP
 
@@ -574,13 +594,13 @@ _END_OP
 // MISC /////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(MUL_ADD_F32) {
-  vm->gpr[_RD(op)].f32() = vm->gpr[_RS(op)].f32()*vm->gpr[_EX_U8_1].f32() + vm->gpr[_EX_U8_2].f32() ;
+  vm->gpr[_RD(op)].f32() = vm->gpr[_RS(op)].f32() * vm->gpr[_EX_U8_1].f32() + vm->gpr[_EX_U8_2].f32();
   ++vm->pc.extU16;
 }
 _END_OP
 
 _DEFINE_OP(MUL_ADD_F64) {
-  vm->gpr[_RD(op)].f64() = vm->gpr[_RS(op)].f64()*vm->gpr[_EX_U8_1].f64() + vm->gpr[_EX_U8_2].f64() ;
+  vm->gpr[_RD(op)].f64() = vm->gpr[_RS(op)].f64() * vm->gpr[_EX_U8_1].f64() + vm->gpr[_EX_U8_2].f64();
   ++vm->pc.extU16;
 }
 _END_OP

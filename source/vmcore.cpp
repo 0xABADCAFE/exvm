@@ -57,7 +57,7 @@ VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
   regStackTop  = regStackBase  ? regStackBase  + regStackSize  : 0;
   dataStackTop = dataStackBase ? dataStackBase + dataStackSize : 0;
   callStackTop = callStackBase ? callStackBase + callStackSize : 0;
-  for(int i = 0; i < 16; i++) {
+  for (int i = 0; i < NUM_GPR; i++) {
     gpr[i].u64() = 0;
   }
 
@@ -93,7 +93,7 @@ void VMCore::dump() {
     "s16",
     "s8"
   );
-  for (int i=0; i<16; i++) {
+  for (int i = 0; i < NUM_GPR; i++) {
     printf("%2d: 0x%08X%08X : %12d : %6d : %4d : %c : %.8f\n", i,
       (unsigned)gpr[i].getMSW(), (unsigned)gpr[i].getLSW(),
       gpr[i].s32(),
@@ -126,7 +126,7 @@ void VMCore::dump() {
   #include <cmath>
 
 int VMCore::innerExecute() {
-  int numStatements = 0;
+  int numStatements   = 0;
   register VMCore* vm = this;
   register uint16  op;
 

@@ -30,16 +30,16 @@ uint32 MilliClock::elapsed() {
   if (current.tv_sec == mark.tv_sec) {
     return (current.tv_usec - mark.tv_usec)/1000;
   }
-  return (1000*(current.tv_sec - mark.tv_sec)) + ((current.tv_usec - mark.tv_usec)/1000);
+  return (1000 * (current.tv_sec - mark.tv_sec)) + ((current.tv_usec - mark.tv_usec) / 1000);
 }
 
 float64 MilliClock::elapsedFrac() {
   timeval current;
   gettimeofday(&current, &tz);
   if (current.tv_sec == mark.tv_sec) {
-    return 0.001*(current.tv_usec - mark.tv_usec);
+    return 0.001 * (current.tv_usec - mark.tv_usec);
   }
-  return (1000.0*(current.tv_sec - mark.tv_sec)) + (0.001*(current.tv_usec - mark.tv_usec));
+  return (1000.0 * (current.tv_sec - mark.tv_sec)) + (0.001 * (current.tv_usec - mark.tv_usec));
 }
 
 
@@ -50,11 +50,11 @@ float64 MilliClock::elapsedFrac() {
 
 uint32 MilliClock::elapsed() {
   uint32 current = GetTickCount();
-  return current-mark;
+  return current - mark;
 }
 
 float64 MilliClock::elapsedFrac() {
-  return (float64) elapsed();
+  return (float64)elapsed();
 }
 
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K)
@@ -73,21 +73,23 @@ uint32 MilliClock::elapsed() {
     ticks = current.ev_lo - mark.ev_lo;
   }
   else {
-    ticks = 0xFFFFFFFF-mark.ev_lo + current.ev_lo;
+    ticks = 0xFFFFFFFF - mark.ev_lo + current.ev_lo;
   }
-  return (1000*ticks)/clockFreq;
+  return (1000 * ticks) / clockFreq;
 }
 
 float64 MilliClock::elapsedFrac() {
   EClockVal current;
   ReadEClock(&current);
   float64 ticks;
-  static float64 cF = 1000.0/(float64)clockFreq;
-  if (current.ev_hi == mark.ev_hi)
+  static float64 cF = 1000.0 / (float64)clockFreq;
+  if (current.ev_hi == mark.ev_hi) {
     ticks = (current.ev_lo - mark.ev_lo);
-  else
-    ticks = (0xFFFFFFFF-mark.ev_lo + current.ev_lo);
-  return (cF*ticks);
+  }
+  else {
+    ticks = (0xFFFFFFFF - mark.ev_lo + current.ev_lo);
+  }
+  return (cF * ticks);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -98,14 +100,14 @@ uint32 MilliClock::elapsed() {
   timeval current;
   GetSysTimePPC(&current);
   SubTimePPC(&current, &mark);
-  return (current.tv_secs*1000) + (current.tv_micro/1000);
+  return (1000 * current.tv_secs) + (current.tv_micro / 1000);
 }
 
 float64 MilliClock::elapsedFrac() {
   timeval current;
   GetSysTimePPC(&current);
   SubTimePPC(&current, &mark);
-  return (1000.0*current.tv_secs) + (0.001*(float64)current.tv_micro);
+  return (1000.0 * current.tv_secs) + (0.001 * (float64)current.tv_micro);
 }
 
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS4_PPC)
@@ -131,9 +133,9 @@ uint32 MilliClock::elapsed() {
     ticks = current.ev_lo - mark.ev_lo;
   }
   else {
-    ticks = 0xFFFFFFFF-mark.ev_lo + current.ev_lo;
+    ticks = 0xFFFFFFFF - mark.ev_lo + current.ev_lo;
   }
-  return (1000*ticks)/clockFreq;
+  return (1000 * ticks) / clockFreq;
 }
 
 float64 MilliClock::elapsedFrac() {
@@ -145,9 +147,9 @@ float64 MilliClock::elapsedFrac() {
     ticks = (current.ev_lo - mark.ev_lo);
   }
   else {
-    ticks = (0xFFFFFFFF-mark.ev_lo + current.ev_lo);
+    ticks = (0xFFFFFFFF - mark.ev_lo + current.ev_lo);
   }
-  return (cF*ticks);
+  return (cF * ticks);
 }
 
 #endif

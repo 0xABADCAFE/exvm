@@ -17,7 +17,7 @@
 #include "vmcore.hpp"
 #include "vminline.hpp"
 #include "vm_codemacros.hpp"
-
+#include <new>
 using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ void nativeAllocBuffer(VMCore* vm) {
   // return buffer in r0
   int w = vm->getReg(_r1).s32();
   int h = vm->getReg(_r2).s32();
-  vm->getReg(_r0).pU8() = new uint8[w*h];
+  vm->getReg(_r0).pU8() = new(nothrow) uint8[w*h];
   printf("Allocated buffer [%d x %d]\n", w, h);
 }
 

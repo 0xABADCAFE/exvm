@@ -40,26 +40,26 @@ _END_OP
 _DEFINE_OP(BSWP_16) {
   // bswap.16 rS,rD
   uint16 word16 = vm->gpr[_RS(op)].u16();
-  vm->gpr[_RD(op)].u16() = word16>>8 | word16<<8;
+  vm->gpr[_RD(op)].u16() = word16 >> 8 | word16 << 8;
 }
 _END_OP
 
 _DEFINE_OP(BSWP_32) {
   // bswap.32 rS,rD
   uint32 word32 =  vm->gpr[_RS(op)].u32();
-  word32        = word32>>16 | word32<<16;
-  vm->gpr[_RD(op)].u32() = ((word32 & 0x00FF00FF)<<8) | ((word32 & 0xFF00FF00)>>8);
+  word32        = word32 >> 16 | word32 << 16;
+  vm->gpr[_RD(op)].u32() = ((word32 & 0x00FF00FF) << 8) | ((word32 & 0xFF00FF00) >> 8);
 }
 _END_OP
 
 _DEFINE_OP(BSWP_64) {
   // bswap.64 rS,rD
   GPR* reg = &vm->gpr[_RS(op)];
-  uint32 v1 = reg->getMSW(); v1 = v1<<16 | v1>>16;
-  uint32 v2 = reg->getLSW(); v2 = v2<<16 | v2>>16;
+  uint32 v1 = reg->getMSW(); v1 = v1 << 16 | v1 >> 16;
+  uint32 v2 = reg->getLSW(); v2 = v2 << 16 | v2 >> 16;
   reg = &vm->gpr[_RD(op)];
-  reg->getLSW() = ((v1 & 0x00FF00FF)<<8) | ((v1 & 0xFF00FF00)>>8);
-  reg->getMSW() = ((v2 & 0x00FF00FF)<<8) | ((v2 & 0xFF00FF00)>>8);
+  reg->getLSW() = ((v1 & 0x00FF00FF) << 8) | ((v1 & 0xFF00FF00) >> 8);
+  reg->getMSW() = ((v2 & 0x00FF00FF) << 8) | ((v2 & 0xFF00FF00) >> 8);
 }
 _END_OP
 
@@ -77,7 +77,7 @@ _DEFINE_OP(SV) {
   GPR*    r     = vm->gpr;
 
   while (mask && (vm->regStack < vm->regStackTop)) {
-    if (mask&0x0001) {
+    if (mask & 0x0001) {
       *vm->regStack++ = r->u64();
     }
     ++r;
@@ -98,9 +98,9 @@ _END_OP
 _DEFINE_OP(RS) {
   // restore r1,r2...
   uint16  mask  = _EX_U16;
-  GPR*    r     = vm->gpr+15;
+  GPR*    r     = vm->gpr + 15;
   while (mask && (vm->regStack > vm->regStackBase)) {
-    if (mask&0x8000) {
+    if (mask & 0x8000) {
       r->u64() = *(--vm->regStack);
     }
     --r;
@@ -209,7 +209,7 @@ _END_OP
 
 _DEFINE_OP(POP_8) {
   uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr+15;
+  GPR*  r = vm->gpr + 15;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
     if (mask & 0x8000) {
       r->u8() = *(--vm->dataStack.u16);
@@ -231,7 +231,7 @@ _END_OP
 
 _DEFINE_OP(POP_16) {
   uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr+15;
+  GPR*  r = vm->gpr + 15;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
     if (mask & 0x8000) {
       r->u16() = *(--vm->dataStack.u16);
@@ -253,7 +253,7 @@ _END_OP
 
 _DEFINE_OP(POP_32) {
   uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr+15;
+  GPR*  r = vm->gpr + 15;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
     if (mask & 0x8000) {
       r->u32() = *(--vm->dataStack.u32);
@@ -275,7 +275,7 @@ _END_OP
 
 _DEFINE_OP(POP_64) {
   uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr+15;
+  GPR*  r = vm->gpr + 15;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
     if (mask & 0x8000) {
       r->u64() = *(--vm->dataStack.u64);

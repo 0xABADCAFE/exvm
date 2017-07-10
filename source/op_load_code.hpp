@@ -174,7 +174,7 @@ _DEFINE_OP(LD_RII_8) {
   // #s : rI are in the extension word
   uint16 ex = _EX_U16;
   vm->gpr[_RD(op)].u8() = *(vm->gpr[_RS(op)].pU8() +  // rS
-                          (vm->gpr[_RI(ex)].s32()*    // rI
+                          (vm->gpr[_RI(ex)].s32() *   // rI
                           _SC(ex)));                  // s
 }
 _END_OP
@@ -184,7 +184,7 @@ _DEFINE_OP(LD_RII_16) {
   // #s : rI are in the extension word
   uint16 ex = _EX_U16;
   vm->gpr[_RD(op)].u16() = *((uint16*)(vm->gpr[_RS(op)].pU8() + // rS
-                            (vm->gpr[_RI(ex)].s32()*            // rI
+                            (vm->gpr[_RI(ex)].s32() *           // rI
                             _SC(ex))));                         // s
 }
 _END_OP
@@ -194,7 +194,7 @@ _DEFINE_OP(LD_RII_32) {
   // #s : rI are in the extension word
   uint16 ex = _EX_U16;
   vm->gpr[_RD(op)].u32() = *((uint32*)(vm->gpr[_RS(op)].pU8() + // rS
-                            (vm->gpr[_RI(ex)].s32()*            // rI
+                            (vm->gpr[_RI(ex)].s32() *           // rI
                             _SC(ex))));                         // s
 }
 _END_OP
@@ -204,7 +204,7 @@ _DEFINE_OP(LD_RII_64) {
   // #s:rI are in the extension word
   uint16 ex = _EX_U16;
   vm->gpr[_RD(op)].u64() = *((uint64*)(vm->gpr[_RS(op)].pU8() + // rS
-                            (vm->gpr[_RI(ex)].s32()*            // rI
+                            (vm->gpr[_RI(ex)].s32() *           // rI
                             _SC(ex))));                         // s
 }
 _END_OP
