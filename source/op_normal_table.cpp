@@ -15,7 +15,7 @@
 #include "include/machine.hpp"
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include "vmcore.hpp"
+  #include "include/vmcore.hpp"
   #include <cstdio>
 
 _DEFINE_OP(ILLEGAL) {
