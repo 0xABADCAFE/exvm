@@ -12,5 +12,14 @@
 //**                                                                        **//
 //****************************************************************************//
 
-#include <cmath>
+#ifndef _VM_INTERPRETER_SWITCH_CASE_HPP_
+  #define _VM_INTERPRETER_SWITCH_CASE_HPP_
+  #include <cmath>
 
+  #define _DECLARE_OP(x)
+  #define _DEFINE_OP(x)   case VMDefs::_##x:
+  #define _END_OP         break;
+  #define _REFER_OP(x)
+  #define _THROW(x)       goto interpreter_bailout;
+
+#endif

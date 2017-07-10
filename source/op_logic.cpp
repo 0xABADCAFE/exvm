@@ -17,6 +17,7 @@
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
   #include "include/vmcore.hpp"
   #include "include/vminline.hpp"
+  #include "include/vm_interpreter_func_table.hpp"
   #include <cstdio>
 
 // Upon entry, the pc points to the 16-bit word following the current opcode.

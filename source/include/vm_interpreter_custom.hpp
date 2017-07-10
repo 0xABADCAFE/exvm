@@ -12,9 +12,20 @@
 //**                                                                        **//
 //****************************************************************************//
 
-#if (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K)
-  #include "platforms/vm_custom_interpreter_amiga_68k.hpp"
-#else
-  #error No custom interpreter for the current target
+#ifndef _VM_INTERPRETER_CUSTOM_HPP_
+  #define _VM_INTERPRETER_CUSTOM_HPP_
+  #if (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K)
+    #include "platforms/vm_custom_interpreter_amiga_68k.hpp"
+  #else
+    #error No custom interpreter for the current target
+  #endif
+
+  /*
+    #define _DECLARE_OP(x)
+    #define _DEFINE_OP(x)
+    #define _END_OP
+    #define _REFER_OP(x)
+    #define _THROW(x)
+  */
 #endif
 

@@ -44,6 +44,8 @@ const char* VMCore::statusCodes[] = {
   "Call empty native address"
 };
 
+////////////////////////////////////////////////////////////////////////////////
+
 VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
   regStackSize(rStackSize),
   dataStackSize(dStackSize),
@@ -70,12 +72,16 @@ VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
 */
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 VMCore::~VMCore() {
   delete[] callStackBase;
   delete[] dataStackBase;
   delete[] regStackBase;
   printf("Destroyed VMCore\n");
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 void VMCore::dump() {
   printf("VMCore dump\n\n");
@@ -110,6 +116,8 @@ void VMCore::dump() {
 #endif
 
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 void VMCore::execute() {
   MilliClock total;

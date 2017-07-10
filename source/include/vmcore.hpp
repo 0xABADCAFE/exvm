@@ -17,29 +17,29 @@
 #include "vm.hpp"
 #include "vm_targetmacros.hpp"
 
-#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #define _DECLARE_OP(x)  static void do##x(VMCore*, uint16);
-  #define _DEFINE_OP(x)   void VMCore::do##x(VMCore* vm, uint16 op)
-  #define _REFER_OP(x)    VMCore::do##x
-  #define _END_OP
-  #define _THROW(x) return;
-#elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
-  #define _DECLARE_OP(x)
-  #define _DEFINE_OP(x)   case VMDefs::_##x:
-  #define _END_OP         break;
-  #define _REFER_OP(x)
-  #define _THROW(x)       goto interpreter_bailout;// not forgetting the one just executed!
-#elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
-/*
-  #define _DECLARE_OP(x)
-  #define _DEFINE_OP(x)
-  #define _END_OP
-  #define _REFER_OP(x)
-  #define _THROW(x)
-*/
-#else
-  #error No interpreter model set
-#endif
+//#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
+//  #define _DECLARE_OP(x)  static void do##x(VMCore*, uint16);
+//  #define _DEFINE_OP(x)   void VMCore::do##x(VMCore* vm, uint16 op)
+//  #define _REFER_OP(x)    VMCore::do##x
+//  #define _END_OP
+//  #define _THROW(x) return;
+//#elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+//  #define _DECLARE_OP(x)
+//  #define _DEFINE_OP(x)   case VMDefs::_##x:
+//  #define _END_OP         break;
+//  #define _REFER_OP(x)
+//  #define _THROW(x)       goto interpreter_bailout;// not forgetting the one just executed!
+//#elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
+///*
+//  #define _DECLARE_OP(x)
+//  #define _DEFINE_OP(x)
+//  #define _END_OP
+//  #define _REFER_OP(x)
+//  #define _THROW(x)
+//*/
+//#else
+//  #error No interpreter model set
+//#endif
 
 class VMCore {
   public:

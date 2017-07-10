@@ -12,3 +12,12 @@
 //**                                                                        **//
 //****************************************************************************//
 
+#ifndef _VM_INTERPRETER_FUNC_TABLE_HPP_
+  #define _VM_INTERPRETER_FUNC_TABLE_HPP_
+  #define _DECLARE_OP(x)  static void do##x(VMCore*, uint16);
+  #define _DEFINE_OP(x)   void VMCore::do##x(VMCore* vm, uint16 op)
+  #define _REFER_OP(x)    VMCore::do##x
+  #define _END_OP
+  #define _THROW(x) return;
+#endif
+

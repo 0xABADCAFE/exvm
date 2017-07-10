@@ -15,7 +15,7 @@
 #ifndef _VM_CORE_HPP_
 #error vmhandlers.hpp must not be included manually!
 #endif
-
+#define _DECLARE_OP(x)  static void do##x(VMCore*, uint16);
 /* class VMCore { */
 
     typedef void (*Handler)(VMCore*, uint16);
