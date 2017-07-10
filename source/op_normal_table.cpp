@@ -12,7 +12,7 @@
 //**                                                                        **//
 //****************************************************************************//
 
-#include "machine.hpp"
+#include "include/machine.hpp"
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
   #include "vmcore.hpp"

@@ -12,7 +12,7 @@
 //**                                                                        **//
 //****************************************************************************//
 
-#include "machine.hpp"
+#include "include/machine.hpp"
 
 #if (_VM_HOST_OS == _VM_HOST_LINUX_I386) || (_VM_HOST_OS == _VM_HOST_LINUX_X64)
 

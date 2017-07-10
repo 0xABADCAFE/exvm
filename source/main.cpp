@@ -16,9 +16,9 @@
 #include <new>
 #include <cstdio>
 #include <cstdlib>
-#include "vmcore.hpp"
-#include "vminline.hpp"
-#include "vm_codemacros.hpp"
+#include "include/vmcore.hpp"
+#include "include/vminline.hpp"
+#include "include/vm_codemacros.hpp"
 
 using namespace std;
 

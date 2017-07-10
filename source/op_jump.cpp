@@ -12,11 +12,11 @@
 //**                                                                        **//
 //****************************************************************************//
 
-#include "machine.hpp"
+#include "include/machine.hpp"
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include "vmcore.hpp"
-  #include "vminline.hpp"
+  #include "include/vmcore.hpp"
+  #include "include/vminline.hpp"
   #include <cstdio>
 
 // Upon entry, the pc points to the 16-bit word following the current opcode.
@@ -28,6 +28,6 @@
 // vm is a pointer to the VMCore instance
 // op is the current opcode word
 
-  #include "op_jump_code.hpp"
+  #include "include/op_jump_code.hpp"
 
 #endif

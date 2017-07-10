@@ -13,8 +13,8 @@
 //****************************************************************************//
 
 #include <cstdio>
-#include "vmcore.hpp"
-#include "vminline.hpp"
+#include "include/vmcore.hpp"
+#include "include/vminline.hpp"
 #include <new>
 
 #if (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K) && (_VM_INTERPRETER == _VM_INTERPRETER_CUSTOM)
@@ -132,15 +132,15 @@ int VMCore::innerExecute() {
 
 forever:
   op = *pc.inst++;
-  switch (op>>8) {
-    #include "op_control_code.hpp"
-    #include "op_load_code.hpp"
-    #include "op_store_code.hpp"
-    #include "op_move_code.hpp"
-    #include "op_jump_code.hpp"
-    #include "op_convert_code.hpp"
-    #include "op_arithmetic_code.hpp"
-    #include "op_logic_code.hpp"
+  switch (op >> 8) {
+    #include "include/op_control_code.hpp"
+    #include "include/op_load_code.hpp"
+    #include "include/op_store_code.hpp"
+    #include "include/op_move_code.hpp"
+    #include "include/op_jump_code.hpp"
+    #include "include/op_convert_code.hpp"
+    #include "include/op_arithmetic_code.hpp"
+    #include "include/op_logic_code.hpp"
     default:
       printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
         status = VMDefs::BREAKPOINT;
