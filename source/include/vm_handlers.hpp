@@ -19,7 +19,6 @@
 /* class VMCore { */
 
     typedef void (*Handler)(VMCore*, uint16);
-    const Handler*  currHandler; // this is the active handler table
 
     // control group
     _DECLARE_OP(NOP)
@@ -287,6 +286,6 @@
     // misc group
     _DECLARE_OP(ILLEGAL);
 
-    static const Handler normal[256]; // normal handlers
-    static const Handler vector[256]; // vector handlers
+    static const Handler handlers[256]; // normal handlers
+
 /* } */

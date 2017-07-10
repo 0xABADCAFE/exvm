@@ -59,12 +59,6 @@ VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
     gpr[i].u64() = 0;
   }
 
-#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  currHandler = normal;
-#else
-  //currHandler = 0;
-#endif
-
   printf("VM compiled %d-bit native\n", X_PTRSIZE);
   printf("There are presently %d core instructions defined\n", VMDefs::MAX_OP);
 
@@ -108,9 +102,6 @@ void VMCore::dump() {
   printf("CS: %p (%td)\n",       callStack, (callStack-callStackBase));
   printf("ST: 0x%08X (%s)\n\n",  (unsigned)status, statusCodes[status]);
 #else
-#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  printf("HT: 0x%08X\n",  (unsigned)currHandler);
-#endif
   printf("PC: 0x%08X\n",         (unsigned)pc.inst);
   printf("RS: 0x%08X (%d)\n",    (unsigned)regStack, (regStack-regStackBase));
   printf("DS: 0x%08X (%d)\n",    (unsigned)dataStack.u8, (dataStack.u8-dataStackBase));

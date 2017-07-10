@@ -28,7 +28,7 @@
   #define _DEFINE_OP(x)   case VMDefs::_##x:
   #define _END_OP         break;
   #define _REFER_OP(x)
-  #define _THROW(x)       return ++numStatements; // not forgetting the one just executed!
+  #define _THROW(x)       goto interpreter_bailout;// not forgetting the one just executed!
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
 /*
   #define _DECLARE_OP(x)
@@ -183,11 +183,6 @@ class VMCore {
     void    dump();
     void    setPC(uint16* newPC) { pc.inst = newPC; }
     void    execute();
-
-    #if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
-  private:
-    int    innerExecute();
-    #endif
 };
 
 #endif
