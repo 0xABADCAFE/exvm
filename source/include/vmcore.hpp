@@ -41,8 +41,6 @@
   #error No interpreter model set
 #endif
 
-
-
 class VMCore {
   public:
     enum {

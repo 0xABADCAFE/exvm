@@ -165,14 +165,14 @@ void VMCore::execute() {
 
   MilliClock total;
   // simple model, no exception based return, check status after each instruction
-  while (status==VMDefs::RUNNING) {
-    register const Handler* h = currHandler; // temp pointer;
-    while (status == VMDefs::RUNNING) {
-      uint16 op = *pc.inst++;
-      h[(op>>8)](this, op);
-      ++numStatements;
-    }
+
+  register const Handler* h = currHandler; // temp pointer;
+  while (status == VMDefs::RUNNING) {
+    uint16 op = *pc.inst++;
+    h[(op>>8)](this, op);
+    ++numStatements;
   }
+
   totalTime = total.elapsedFrac();
 
 #elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE

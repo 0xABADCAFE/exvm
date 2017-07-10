@@ -117,98 +117,15 @@ typedef double float64;
 
 #if (_VM_HOST_OS == _VM_HOST_LINUX_I386) || (_VM_HOST_OS == _VM_HOST_LINUX_X64)
   #define X_ENDIAN XA_LITTLEENDIAN
-  #include <sys/time.h>
-  #include <time.h>
-
-class MilliClock {
-  friend class Clock;
-  private:
-    static struct timezone  tz;
-    timeval mark;
-
-  public:
-    void      set()     { gettimeofday(&mark, &tz); }
-    uint32    elapsed();
-    float64   elapsedFrac();
-
-  public:
-    MilliClock() { set(); }
-};
-
+  #include "platforms/machine_linux_generic.hpp"
 #elif _VM_HOST_OS == _VM_HOST_WIN32_I386
-  #define X_ENDIAN XA_LITTLEENDIAN
-  #include <windows.h>
-
-class MilliClock {
-  private:
-    uint32 mark;
-
-  public:
-    void      set()     { mark = GetTickCount(); }
-    uint32    elapsed();
-    float64   elapsedFrac();
-
-  public:
-    MilliClock() { set(); }
-};
-
+  #include "platforms/machine_win32.hpp"
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K)
-  #define X_ENDIAN XA_BIGENDIAN
-  #include <proto/timer.h>
-
-class MilliClock {
-  private:
-    static uint32 clockFreq;
-    EClockVal     mark;
-
-  public:
-    void      set()     { ::ReadEClock(&mark); }
-    uint32    elapsed();
-    float64   elapsedFrac();
-
-  public:
-    MilliClock() { clockFreq = ::ReadEClock(&mark); }
-};
-
+  #include "platforms/machine_amiga_68k.hpp"
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS3_WARPUP)
-  #define X_ENDIAN XA_BIGENDIAN
-  #include <proto/exec.h>
-  #include <devices/timer.h>
-  #include <proto/powerpc.h>
-
-class MilliClock {
-  private:
-    timeval   mark;
-
-  public:
-    void      set()     { ::GetSysTimePPC(&mark); }
-    uint32    elapsed();
-    float64   elapsedFrac();
-
-  public:
-    MilliClock() { set(); }
-};
-
+  #include "platforms/machine_amiga_68k.hpp"
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS4_PPC)
-  #define X_ENDIAN XA_BIGENDIAN
-  #include <proto/exec.h>
-  #include <proto/timer.h>
-
-class MilliClock {
-  private:
-    static uint32 clockFreq;
-    EClockVal     mark;
-
-  public:
-    void      set()     { ITimer->ReadEClock(&mark); }
-    uint32    elapsed();
-    float64   elapsedFrac();
-
-  public:
-    MilliClock();
-};
-
-
+  #include "platforms/machine_amiga_os4.hpp"
 #else
   #error Unrecognised Machine
 #endif
