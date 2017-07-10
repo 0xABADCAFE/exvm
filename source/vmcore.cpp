@@ -17,14 +17,12 @@
 #include "include/vminline.hpp"
 #include <new>
 
-#if (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K) && (_VM_INTERPRETER == _VM_INTERPRETER_CUSTOM)
-#include <exec/tasks.h>
-#include <clib/exec_protos.h>
-
-extern "C" {
-  uint32 trap_68K();
-}
-
+#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
+  #include "include/vm_interpreter_func_table.hpp"
+#elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+  #include "include/vm_interpreter_switch_case.hpp"
+#elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
+  #include "include/vm_interpreter_custom.hpp"
 #endif
 
 using std::nothrow;
@@ -122,96 +120,22 @@ void VMCore::dump() {
 
 }
 
-#if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
-  #include <cmath>
-
-int VMCore::innerExecute() {
-  int numStatements   = 0;
-  register VMCore* vm = this;
-  register uint16  op;
-
-forever:
-  op = *pc.inst++;
-  switch (op >> 8) {
-    #include "include/op_control_code.hpp"
-    #include "include/op_load_code.hpp"
-    #include "include/op_store_code.hpp"
-    #include "include/op_move_code.hpp"
-    #include "include/op_jump_code.hpp"
-    #include "include/op_convert_code.hpp"
-    #include "include/op_arithmetic_code.hpp"
-    #include "include/op_logic_code.hpp"
-    default:
-      printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
-        status = VMDefs::BREAKPOINT;
-        return ++numStatements;
-    }
-    ++numStatements;
-  goto forever;
-
-  // We can't get here, but the compiler needs to see it
-  return numStatements;
-}
-
-#endif
-
 void VMCore::execute() {
+  MilliClock total;
   int numStatements = 0;
   totalTime         = 0;
   nativeTime        = 0;
   status            = VMDefs::RUNNING;
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-
-  MilliClock total;
-  // simple model, no exception based return, check status after each instruction
-
-  register const Handler* h = currHandler; // temp pointer;
-  while (status == VMDefs::RUNNING) {
-    uint16 op = *pc.inst++;
-    h[(op>>8)](this, op);
-    ++numStatements;
-  }
-
-  totalTime = total.elapsedFrac();
-
+  #include "include/vm_interpreter_func_table_impl.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
-
-  MilliClock total;
-  numStatements = innerExecute();
-  totalTime     = total.elapsedFrac();
-
+  #include "include/vm_interpreter_switch_case_impl.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
-
-  // assembler model, so far only the 68K has this
-  #if _VM_HOST_OS == _VM_HOST_AMIGAOS3_68K
-
-  // set up CPU trap handling, written in asm
-  Task* thisTask         = FindTask(0);
-  void* old68KTrap       = thisTask->tc_TrapCode;
-  thisTask->tc_TrapCode  = (void*)(&trap_68K);
-
-  MilliClock total;
-  // jump into the asm execute code
-  asm(
-    "\n/*************************************/\n\n"
-    "\tmove.l %0, a0\n"
-    "\tjsr _execute_68K\n"
-    "\n/*************************************/\n\n"
-    :                                 // no outputs
-    : "g"(this)                       // inputs
-    : "d0", "d1", "a0", "a1","cc"     // clobbers
-  );
-  totalTime = total.elapsedFrac();
-
-  // reset the trap code to whatever it was previously
-  thisTask->tc_TrapCode = old68KTrap;
-
-  #else // not 68K amigaos?
-    #error Only the 680x0 target currently supports custom implementation
-  #endif
+  #include "include/vm_interpreter_custom_impl.hpp"
 #endif
 
+  totalTime = total.elapsedFrac();
   printf("Executed %d statements\n", numStatements);
   float64 virtualTime = totalTime - nativeTime;
   float64 mips        = (0.001*numStatements)/virtualTime;

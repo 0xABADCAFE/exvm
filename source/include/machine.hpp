@@ -119,6 +119,7 @@ typedef double float64;
   #define X_ENDIAN XA_LITTLEENDIAN
   #include "platforms/machine_linux_generic.hpp"
 #elif _VM_HOST_OS == _VM_HOST_WIN32_I386
+  #warning This target is almost certainly not working
   #include "platforms/machine_win32.hpp"
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K)
   #include "platforms/machine_amiga_68k.hpp"
