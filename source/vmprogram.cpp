@@ -49,8 +49,6 @@ void nativeWriteBuffer(VMCore* vm) {
   int w = vm->getReg(_r1).s32();
   int h = vm->getReg(_r2).s32();
 
-  printf("filename: %p\n", fileName);
-
   if (!fileName) {
     fileName = "untitled.pgm";
     printf("Warning - no filename passed to native function, using safe default\n");
