@@ -21,6 +21,10 @@
 using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
+//
+//  Native functions
+//
+////////////////////////////////////////////////////////////////////////////////
 
 void nativeAllocBuffer(VMCore* vm) {
   // width/height in r1/r2
@@ -44,6 +48,8 @@ void nativeWriteBuffer(VMCore* vm) {
   const char* fileName = vm->getReg(_r15).pCh();
   int w = vm->getReg(_r1).s32();
   int h = vm->getReg(_r2).s32();
+
+  printf("filename: %p\n", fileName);
 
   if (!fileName) {
     fileName = "untitled.pgm";
@@ -70,6 +76,54 @@ void nativePrintCoords(VMCore* vm) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+// Resolved native code table
+VMCore::Native resolvedNativeCodeSymbol[] = {
+  nativeAllocBuffer,
+  nativeFreeBuffer,
+  nativeWriteBuffer,
+  nativePrintCoords
+};
+
+// Resolved ID of native functions
+enum {
+  _SYM_NATIVE(nativeAllocBuffer),
+  _SYM_NATIVE(nativeFreeBuffer),
+  _SYM_NATIVE(nativeWriteBuffer),
+  _SYM_NATIVE(nativePrintCoords)
+};
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Data
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// Resolved data symbol table
+void* resolvedDataSymbol[] = {
+  (void*)"framebuffer.pgm"
+};
+
+
+// Resoled ID of data
+enum {
+  _SYM_DATA(fileName),
+};
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  VM Code
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// Resolved ID of vm functions
+enum {
+  _SYM_CODE(virtualProgram),
+  _SYM_CODE(calculateRanges),
+  _SYM_CODE(makeFractal)
+};
+
+// Actual code itself
 
 _VM_CODE(makeFractal) {
   // r0 = pixel data address
@@ -162,9 +216,50 @@ _VM_CODE(virtualProgram) {
   _ld_32_f32  (1.25f, _r4)        // yMax
   _call       (calculateRanges)
   _call       (makeFractal)
-  _lda        ("framebuffer.pgm", _r15)
+  _lda        (fileName, _r15)
   _calln      (nativeWriteBuffer)
   _calln      (nativeFreeBuffer)
   _ret
 };
 
+// Resolved virtual code table
+uint16* resolvedCodeSymbol[] = {
+  _VM_ENTRY(virtualProgram),
+  _VM_ENTRY(calculateRanges),
+  _VM_ENTRY(makeFractal)
+};
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+void runTestExample() {
+  static VMCore vm;
+  puts(
+    "\nBeginning Virtual Program\n"
+    "-----------------------\n"
+  );
+
+  vm.setNativeCodeSymbolTable(
+    resolvedNativeCodeSymbol,
+    sizeof(resolvedNativeCodeSymbol)/sizeof(VMCore::Native)
+  );
+
+  vm.setCodeSymbolTable(
+    resolvedCodeSymbol,
+    sizeof(resolvedCodeSymbol)/sizeof(uint16*)
+  );
+
+  vm.setDataSymbolTable(
+    resolvedDataSymbol,
+    sizeof(resolvedDataSymbol)/sizeof(void*)
+  );
+
+
+  vm.setPC(_VM_ENTRY(virtualProgram));
+  vm.execute();
+  puts(
+    "\n-----------------------\n"
+  );
+  vm.dump();
+}

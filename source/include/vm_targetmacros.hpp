@@ -73,9 +73,7 @@
   #define PTR_S64  _ps64
   #define PTR_F32  _pf32
   #define PTR_F64  _pf64
-  #define _EX_PC   (*vm->pc.extCodeAddr++)
-  #define _EX_NTV  (*vm->pc.extNativeCodeAddr++)
-  #define _EX_PTR  (*vm->pc.extU64++)
+
 #else
   #define PTR_CH   _pch[REGOFS_P]
   #define PTR_U8   _pu8[REGOFS_P]
@@ -88,14 +86,25 @@
   #define PTR_S64  _ps64[REGOFS_P]
   #define PTR_F32  _pf32[REGOFS_P]
   #define PTR_F64  _pf64[REGOFS_P]
-  #define _EX_PC   (getPCFor32BitHost(vm))
-  #define _EX_NTV  (getNativeFor32BitHost(vm))
 
-  #if (X_ENDIAN == XA_BIGENDIAN)
-    #define _EX_PTR  (vm->pc.extU32++, *vm->pc.extU32++)
-  #else
-    #define _EX_PTR  ((uint32) *vm->pc.extU64++)
-  #endif
+#endif
+
+#ifdef VM_FULL_DEBUG
+  #define _DECLARE_DATA_SYMBOL(x)               \
+  uint16 x = _EX_U16;                         \
+  if (x >= vm->dataSymbolCount) {             \
+    vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \
+    printf("Runtime error: Unknown data symbol : %d\n", (int)x); \
+    vm->dump();                               \
+    _THROW(-1)                                \
+  }
+#else
+  #define _DECLARE_DATA_SYMBOL(x)               \
+  uint16 x = _EX_U16;                         \
+  if (x >= vm->dataSymbolCount) {             \
+    vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \                             \
+    _THROW(-1)                                \
+  }
 #endif
 
 #endif

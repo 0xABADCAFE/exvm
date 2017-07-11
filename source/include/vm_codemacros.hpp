@@ -97,6 +97,8 @@ inline uint16 _float32LSW(float32 f) {
 
 #endif
 
+
+////////////////////////////////////////////////////////////////////////////////
 // register names
 #define _r0 0
 #define _r1 1
@@ -132,6 +134,10 @@ inline uint16 _float32LSW(float32 f) {
 #define _mr13 8192
 #define _mr14 16384
 #define _mr15 32768
+
+#define _SYM_NATIVE(x) sym_native_##x
+#define _SYM_CODE(x) sym_code_##x
+#define _SYM_DATA(x) sym_data_##x
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -230,11 +236,11 @@ inline uint16 _float32LSW(float32 f) {
 #define _ld_rii_16(s,i,f,d)   _MKOP(LD_RII_16)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _ld_rii_32(s,i,f,d)   _MKOP(LD_RII_32)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _ld_rii_64(s,i,f,d)   _MKOP(LD_RII_64)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
-#define _ld_8(x,d)            _MKOP(LD_8)|(d), _INLINEPTR(&(x)),
-#define _ld_16(x,d)           _MKOP(LD_16)|(d), _INLINEPTR(&(x)),
-#define _ld_32(x,d)           _MKOP(LD_32)|(d), _INLINEPTR(&(x)),
-#define _ld_64(x,d)           _MKOP(LD_64)|(d), _INLINEPTR(&(x)),
-#define _lda(x,d)             _MKOP(LD_ADDR)|(d), _INLINEPTR(x),
+#define _ld_8(x,d)            _MKOP(LD_8)|(d), (uint16)_SYM_DATA(x),
+#define _ld_16(x,d)           _MKOP(LD_16)|(d), (uint16)_SYM_DATA(x),
+#define _ld_32(x,d)           _MKOP(LD_32)|(d), (uint16)_SYM_DATA(x),
+#define _ld_64(x,d)           _MKOP(LD_64)|(d), (uint16)_SYM_DATA(x),
+#define _lda(x,d)             _MKOP(LD_ADDR)|(d), (uint16)_SYM_DATA(x),
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -267,10 +273,10 @@ inline uint16 _float32LSW(float32 f) {
 #define _st_rii_16(s,d,i,f)   _MKOP(ST_RII_16)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _st_rii_32(s,d,i,f)   _MKOP(ST_RII_32)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _st_rii_64(s,d,i,f)   _MKOP(ST_RII_64)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
-#define _st_8(s,x)            _MKOP(ST_8)|(s), _INLINEPTR(&(x)),
-#define _st_16(s,x)           _MKOP(ST_16)|(s), _INLINEPTR(&(x)),
-#define _st_32(s,x)           _MKOP(ST_32)|(s), _INLINEPTR(&(x)),
-#define _st_64(s,x)           _MKOP(ST_64)|(s), _INLINEPTR(&(x)),
+#define _st_8(s,x)            _MKOP(ST_8)|(s), (uint16)_SYM_DATA(x),
+#define _st_16(s,x)           _MKOP(ST_16)|(s), (uint16)_SYM_DATA(x),
+#define _st_32(s,x)           _MKOP(ST_32)|(s), (uint16)_SYM_DATA(x),
+#define _st_64(s,x)           _MKOP(ST_64)|(s), (uint16)_SYM_DATA(x),
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -306,8 +312,8 @@ inline uint16 _float32LSW(float32 f) {
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#define _call(x)              _MKOP(CALL), _INLINEPTR(_vmCode##x),
-#define _calln(x)             _MKOP(CALLN), _INLINEPTR(x),
+#define _call(x)              _MKOP(CALL), (uint16)_SYM_CODE(x),
+#define _calln(x)             _MKOP(CALLN), (uint16)_SYM_NATIVE(x),
 #define _ret                  _MKOP(RET)
 #define _bra_8(o)             _MKOP(BRA8)|(o),
 #define _bra(o)               _MKOP(BRA16), (uint16)(o),

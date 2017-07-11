@@ -26,14 +26,9 @@ using namespace std;
 
 _VM_EXTERN(virtualProgram);
 
+extern void runTestExample();
+
 int main() {
-  static VMCore vm;
-  puts("\nBeginning Virtual Program\n-----------------------\n");
-
-  vm.setPC(_VM_ENTRY(virtualProgram));
-  vm.execute();
-  puts("\n-----------------------\n");
-  vm.dump();
-
+  runTestExample();
   return 0;
 }

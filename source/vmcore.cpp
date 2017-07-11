@@ -41,7 +41,10 @@ const char* VMCore::statusCodes[] = {
   "Data stack underflow",
   "Call stack overflow",
   "Call empty address",
-  "Call empty native address"
+  "Call empty native address",
+  "Unknown code symbol",
+  "Unknown data symbol",
+  "Unknown native code symbol",
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,16 +53,26 @@ VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
   regStackSize(rStackSize),
   dataStackSize(dStackSize),
   callStackSize(cStackSize) {
-  pc.inst       = 0;
+  pc.inst      = 0;
   regStack     = regStackBase  = new(nothrow) uint64   [regStackSize];
   dataStack.u8 = dataStackBase = new(nothrow) uint8    [dataStackSize];
   callStack    = callStackBase = new(nothrow) uint16*  [callStackSize];
   regStackTop  = regStackBase  ? regStackBase  + regStackSize  : 0;
   dataStackTop = dataStackBase ? dataStackBase + dataStackSize : 0;
   callStackTop = callStackBase ? callStackBase + callStackSize : 0;
+
+  nativeCodeSymbol = 0;
+  codeSymbol       = 0;  
+  dataSymbol       = 0;
+
+
   for (int i = 0; i < NUM_GPR; i++) {
     gpr[i].u64() = 0;
   }
+
+  nativeCodeSymbolCount = 0;
+  codeSymbolCount       = 0;
+  dataSymbolCount       = 0;
 
   printf("VM compiled %d-bit native\n", X_PTRSIZE);
   printf("There are presently %d core instructions defined\n", VMDefs::MAX_OP);
@@ -115,6 +128,29 @@ void VMCore::dump() {
   printf("ST: 0x%08X (%s)\n\n",  (unsigned)status, statusCodes[status]);
 #endif
 
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+void VMCore::setNativeCodeSymbolTable(Native* symbol, uint16 count) {
+  nativeCodeSymbol      = symbol;
+  nativeCodeSymbolCount = count;
+
+  printf("Native Code Symbols : %p [%d]\n", symbol, (int)count);
+}
+
+void VMCore::setCodeSymbolTable(uint16** symbol, uint16 count) {
+  codeSymbol      = symbol;
+  codeSymbolCount = count;
+
+  printf("Code Symbols : %p [%d]\n", symbol, (int)count);
+}
+
+void VMCore::setDataSymbolTable(void** symbol, uint16 count) {
+  dataSymbol      = symbol;
+  dataSymbolCount = count;
+
+  printf("Data Symbols : %p [%d]\n", symbol, (int)count);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

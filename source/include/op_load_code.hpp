@@ -211,37 +211,36 @@ _END_OP
 
 _DEFINE_OP(LD_8) {
   // ld.8 label, rX
-  // runtime evaluated address is in 32-bit extension word (32-bit systems) after parsing.
-  vm->gpr[_RX(op)].u8() = *((uint8*)(_EX_PTR));
+  _DECLARE_DATA_SYMBOL(symbol)
+  vm->gpr[_RX(op)].u8() = *((uint8*)(vm->dataSymbol[symbol]));
 }
 _END_OP
 
 _DEFINE_OP(LD_16) {
   // ld.16 label, rX
-  // runtime evaluated address is in 32-bit extension word (32-bit systems) after parsing.
-  vm->gpr[_RX(op)].u16()  = *((uint16*)(_EX_PTR));
+  _DECLARE_DATA_SYMBOL(symbol)
+  vm->gpr[_RX(op)].u16()  = *((uint16*)(vm->dataSymbol[symbol]));
 }
 _END_OP
 
 _DEFINE_OP(LD_32) {
   // ld.32 label, rX
-  // runtime evaluated address is in 32-bit extension word (32-bit systems) after parsing.
-  vm->gpr[_RX(op)].u32()  = *((uint32*)(_EX_PTR));
+  _DECLARE_DATA_SYMBOL(symbol)
+  vm->gpr[_RX(op)].u32()  = *((uint32*)(vm->dataSymbol[symbol]));
 }
 _END_OP
 
 _DEFINE_OP(LD_64) {
   // ld.64 label, rX
-  // runtime evaluated address is in 32-bit extension word (32-bit systems) after parsing.
-  vm->gpr[_RX(op)].u64()  = *((uint64*)(_EX_PTR));
+  _DECLARE_DATA_SYMBOL(symbol)
+  vm->gpr[_RX(op)].u64()  = *((uint64*)(vm->dataSymbol[symbol]));
 }
 _END_OP
 
 _DEFINE_OP(LD_ADDR) {
   // lda label, rX
-  // runtime evaluated address is in 32-bit extension word (32-bit systems) after parsing.
-  // load to register as a full 64-bit operand
-  vm->gpr[_RX(op)].u64()  = _EX_PTR;
+  _DECLARE_DATA_SYMBOL(symbol)
+  vm->gpr[_RX(op)].u64()  = (uint64)vm->dataSymbol[symbol];
 }
 _END_OP
 

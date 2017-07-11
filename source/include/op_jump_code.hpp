@@ -18,20 +18,26 @@
   #define _DECLARE_OFFSET sint16 offset = _EX_S16;
 #endif
 
+////////////////////////////////////////////////////////////////////////////////
+
 _DEFINE_OP(BCALL8) {
   if (vm->callStack < vm->callStackTop) {
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst += _B8(op);
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
-    #ifdef VM_FULL_DEBUG
+
+#ifdef VM_FULL_DEBUG
     printf("Runtime error: call stack overflow\n");
     vm->dump();
-    #endif
+#endif
+
     _THROW(-1)
   }
 }
 _END_OP
+
+////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(BCALL16) {
   if (vm->callStack < vm->callStackTop) {
@@ -41,35 +47,65 @@ _DEFINE_OP(BCALL16) {
     vm->pc.inst += offset;
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
-    #ifdef VM_FULL_DEBUG
+
+#ifdef VM_FULL_DEBUG
     printf("Runtime error: call stack overflow\n");
     vm->dump();
-    #endif
+#endif
+
     _THROW(-1)
   }
 
 }
 _END_OP
 
+////////////////////////////////////////////////////////////////////////////////
+
 _DEFINE_OP(CALL) {
-  const uint16* newPC = _EX_PC;
+  uint16 symbol = _EX_U16;
+  if (symbol >= vm->codeSymbolCount) {
+    vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
+
+#ifdef VM_FULL_DEBUG
+    printf("Runtime error: Unknown code symbold : %d\n", (int)symbol);
+    vm->dump();
+#endif
+
+    _THROW(-1)
+  }
+  const uint16* newPC = vm->codeSymbol[symbol];
   //printf("call 0x%08X\n", (unsigned)newPC);
   if (vm->callStack < vm->callStackTop) {
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst = newPC;
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
-    #ifdef VM_FULL_DEBUG
+
+#ifdef VM_FULL_DEBUG
     printf("Runtime error: call stack overflow\n");
     vm->dump();
-    #endif
+#endif
+
     _THROW(-1)
   }
 }
 _END_OP
 
+////////////////////////////////////////////////////////////////////////////////
+
 _DEFINE_OP(CALLN) {
-  Native func = (Native)_EX_NTV;
+  uint16 symbol = _EX_U16;
+  if (symbol >= vm->nativeCodeSymbolCount) {
+    vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
+
+#ifdef VM_FULL_DEBUG
+    printf("Runtime error: Unknown native code symbold : %d\n", (int)symbol);
+    vm->dump();
+#endif
+
+    _THROW(-1)
+  }
+  Native func = vm->nativeCodeSymbol[symbol];
   if (func) {
     MilliClock native;
     //printf("call native 0x%08X\n", (unsigned)func);
@@ -77,14 +113,18 @@ _DEFINE_OP(CALLN) {
     vm->nativeTime += native.elapsedFrac();
   } else {
     vm->status = VMDefs::CALL_EMPTY_NATIVE;
-    #ifdef VM_FULL_DEBUG
+
+#ifdef VM_FULL_DEBUG
     printf("Runtime error: call native with null address\n");
     vm->dump();
-    #endif
+#endif
+
     _THROW(-1)
   }
 }
 _END_OP
+
+////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(RET) {
   if (vm->callStack > vm->callStackBase) {
