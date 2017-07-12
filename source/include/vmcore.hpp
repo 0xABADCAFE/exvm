@@ -112,6 +112,7 @@ class VMCore {
     void dump();
 
     void execute();
+    
 };
 
 #endif
