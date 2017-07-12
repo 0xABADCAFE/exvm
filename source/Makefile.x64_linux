@@ -1,7 +1,7 @@
 # Project: exvm_x64
 
 BIN      = bin/exvm_x64
-CXXFLAGS = -O3 -Wall -W -m64 -march=native -fomit-frame-pointer -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE
+CXXFLAGS = -O3 -Wall -W -m64 -march=native -fomit-frame-pointer -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE -D_GCC_USE_BUILTIN
 OBJ      = obj/x64_linux/main.o \
            obj/x64_linux/vmprogram.o \
            obj/x64_linux/machine.o \

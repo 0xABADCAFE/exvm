@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
 //** File:         machine_linux_generic_impl.hpp                           **//
-//** Description:  Host Machine definitions                                 **//
+//** Description:  Host Machine implementation for generic Linux            **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-08-29                                               **//

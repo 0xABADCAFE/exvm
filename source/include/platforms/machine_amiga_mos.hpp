@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         machine_amiga_68k.hpp                                    **//
-//** Description:  Host Machine definitions for AmigaOS 3.x / 680x0         **//
+//** File:         machine_amiga_mos.hpp                                    **//
+//** Description:  Host Machine definitions for MorphOS PowerPC             **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-08-29                                               **//

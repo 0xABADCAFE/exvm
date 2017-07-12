@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         machine_linux_amiga_os4.hpp                              **//
-//** Description:  Host Machine definitions                                 **//
+//** File:         machine_amiga_os4.hpp                                    **//
+//** Description:  Host Machine definitions for AmigaOS4 PowerPC            **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-08-29                                               **//

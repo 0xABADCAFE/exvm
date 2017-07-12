@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         machine_amiga_os4_impl.hpp                               **//
-//** Description:  Host Machine implementation for AmigaOS4 PowerPC         **//
+//** File:         machine_amiga_mos.hpp                                    **//
+//** Description:  Host Machine implementation for MorphOS PowerPC          **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-08-29                                               **//
@@ -18,23 +18,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-uint32  MilliClock::clockFreq = 0;
+extern Device* TimerBase;
 
-struct Device *TimerBase;
-struct TimerIFace *ITimer;
-
-MilliClock::MilliClock() {
-  if (!clockFreq) {
-    TimerBase = (Device*)     IExec->FindName(&SysBase->DeviceList, "timer.device");
-    ITimer    = (TimerIFace*) IExec->GetInterface((struct Library *)TimerBase, "main", 1, 0);
-    clockFreq = ITimer->ReadEClock(&mark);
-  }
-}
+uint32 MilliClock::clockFreq = 0;
 
 uint32 MilliClock::elapsed() {
   EClockVal current;
-  ITimer->ReadEClock(&current);
-  uint32 ticks;
+  ReadEClock(&current);
+  ruint32 ticks;
   if (current.ev_hi == mark.ev_hi) {
     ticks = current.ev_lo - mark.ev_lo;
   }
@@ -46,9 +37,9 @@ uint32 MilliClock::elapsed() {
 
 float64 MilliClock::elapsedFrac() {
   EClockVal current;
-  ITimer->ReadEClock(&current);
+  ReadEClock(&current);
   float64 ticks;
-  static float64 cF = 1000.0/(float64)clockFreq;
+  static float64 cF = 1000.0 / (float64)clockFreq;
   if (current.ev_hi == mark.ev_hi) {
     ticks = (current.ev_lo - mark.ev_lo);
   }
