@@ -17,37 +17,6 @@
   #include "machine.hpp"
 
 class VMSymbolTable {
-
-  private:
-
-    // Trie implementation:
-    // Rather than  defining a trie with a wide fan out (63 node pointers per node), instead we use two nodes per mapped
-    // cahr, each of which has 8 children. This gives us a range of 8x8=64, sufficient to cover the entire set of valid
-    // characters but with a lot less memory wasted on unused pointers.
-
-    struct SNode;
-    struct PNode;
-    struct Block;
-
-    enum {
-      PNODE_TO_SNODE = 8,
-      SNODE_TO_PNODE = 8
-    };
-
-    // Primary node structure
-    struct PNode {
-      VMSymbolTable::SNode* children[VMSymbolTable::PNODE_TO_SNODE];
-      const char* symbol;
-      int symbolID;
-    };
-
-    // Secondary node structure
-    struct SNode {
-      VMSymbolTable::PNode* children[VMSymbolTable::SNODE_TO_PNODE];
-    };
-
-    int maxSymbolID;
-    int nextSymbolID;
   
   public:
     // Error enumerations
@@ -71,9 +40,28 @@ class VMSymbolTable {
     int get(const char* symbol);
 
   private:
+    // Trie implementation:
+    // Rather than  defining a trie with a wide fan out (63 node pointers per node), instead we use two nodes per mapped
+    // cahr, each of which has 8 children. This gives us a range of 8x8=64, sufficient to cover the entire set of valid
+    // characters but with a lot less memory wasted on unused pointers.
+    
+    struct SNode;
+    struct PNode;
+    struct Block;
+
     // We map the allowed symbol name characters 0-9A-Za-z_ to the range 0-62. This function maps a single input
     // character. If the input character is out of range, reuturns ERR_ILLEGAL_SYMBOL_CHAR
     int mapChar(int c);
+
+    PNode* allocPNode(PNode* parent, int code);
+    SNode* allocSNode();
+
+    Block*  nodeBlock;       /* Points to the most recently allocated NodeBlock*/
+    PNode*  rootNode;        /* Points to the root of the trie */
+    int     maxSymbolLength;
+
+    int maxSymbolID;
+    int nextSymbolID;
 };
 
 #endif
