@@ -17,7 +17,7 @@
   #include "machine.hpp"
 
 class VMSymbolTable {
-  
+
   public:
     // Error enumerations
     enum {
@@ -28,40 +28,75 @@ class VMSymbolTable {
       ERR_OUT_OF_MEMORY        = -5, // There was insufficient memory to allocate storage for symbol data.
     };
 
-    explicit VMSymbolTable(int maxSymbolID);
+    explicit VMSymbolTable(uint32 maxSize);
     ~VMSymbolTable();
 
     // Add a new symbol to the table. Will return the uniquely assigned ID value for the symbol if successful, or
     // one of the enumerated error constants if not.
-
     int add(const char* symbol);
 
     // Get the ID value of a previously registered symbol.
-    int get(const char* symbol);
+    int get(const char* symbol) const;
+
+    uint32 length() const {
+      return nextSymbolID;
+    }
+
+    const char** getMap() const {
+      return symbolMap;
+    }
+
+    int operator[](const char* symbol) const {
+      return get(symbol);
+    }
 
   private:
     // Trie implementation:
     // Rather than  defining a trie with a wide fan out (63 node pointers per node), instead we use two nodes per mapped
     // cahr, each of which has 8 children. This gives us a range of 8x8=64, sufficient to cover the entire set of valid
     // characters but with a lot less memory wasted on unused pointers.
-    
-    struct SNode;
+
+    // Primary node type
     struct PNode;
+
+    // Secondary node type
+    struct SNode;
+
+    // Block of allocated nodes, linked together.
     struct Block;
 
     // We map the allowed symbol name characters 0-9A-Za-z_ to the range 0-62. This function maps a single input
     // character. If the input character is out of range, reuturns ERR_ILLEGAL_SYMBOL_CHAR
-    int mapChar(int c);
+    int     mapChar(int c) const;
 
-    PNode* allocPNode(PNode* parent, int code);
-    SNode* allocSNode();
+    // Allocate a new PNode. Allocations will be from the remainder of the current Block or from a new Block if the
+    // existing one is full.
+    PNode*  allocPNode();
 
-    Block*  nodeBlock;       /* Points to the most recently allocated NodeBlock*/
-    PNode*  rootNode;        /* Points to the root of the trie */
-    int     maxSymbolLength;
+    // Allocate a new SNode. Allocations will be from the remainder of the current Block of from a new Block if the
+    // existing one is full.
+    SNode*  allocSNode();
 
-    int maxSymbolID;
-    int nextSymbolID;
+    // Check if a Block is available.
+    int     checkBlock();
+
+    // Data ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Location of the current Block.
+    Block*       nodeBlock;
+
+    // Root of the trie
+    PNode*       rootNode;
+
+    // Array of symbols
+    const char** symbolMap;
+
+    // Table size, set on construction
+    uint32 maxSymbols;
+
+    // The next ID we will allocate
+    uint32 nextSymbolID;
+
 };
 
 #endif

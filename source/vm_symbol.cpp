@@ -16,25 +16,40 @@
 
 #include "include/vm_symbol.hpp"
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 enum {
   PNODE_TO_SNODE = 8,
   SNODE_TO_PNODE = 8,
-  NODE_BLOCKSIZE = 8192
+  NODE_BLOCKSIZE = 256
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 // Primary node structure
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 struct VMSymbolTable::PNode {
   VMSymbolTable::SNode* children[PNODE_TO_SNODE];
-  PNode* parentNode;
-  int code;
-  int count;
+  int symbolID;
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 // Secondary node structure
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 struct VMSymbolTable::SNode {
   VMSymbolTable::PNode* children[SNODE_TO_PNODE];
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Node block structure
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 struct VMSymbolTable::Block {
   union {
@@ -46,17 +61,24 @@ struct VMSymbolTable::Block {
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-VMSymbolTable::VMSymbolTable(int maxSymbolID) :
+//
+// Constructor
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+VMSymbolTable::VMSymbolTable(uint32 maxSize) :
   nodeBlock(0),
   rootNode(0),
-  maxSymbolLength(0),
-  maxSymbolID(maxSymbolID),
+  symbolMap(0),
+  maxSymbols(maxSize),
   nextSymbolID(0)
 {
-  rootNode  = allocPNode(0, 0);
+
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Destructor
+//
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 VMSymbolTable::~VMSymbolTable() {
@@ -66,15 +88,25 @@ VMSymbolTable::~VMSymbolTable() {
   while (pBlock) {
     void* ptr = (void*) pBlock;
     pBlock    = pBlock->prevBlock;
+
+#ifdef VM_FULL_DEBUG
+    std::fprintf(stderr, "[INF] Freeing Block at %p\n", ptr);
+#endif
+
     std::free(ptr);
+  }
+  if (symbolMap) {
+    std::free(symbolMap);
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//
 // Convert an ASCII character code from the set 0-9A-Za-z_ to a mapped code 0-62
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int VMSymbolTable::mapChar(int c) {
+int VMSymbolTable::mapChar(int c) const {
   if (c >= '0' && c <= '9') {
     return c - '0';
   }
@@ -91,122 +123,204 @@ int VMSymbolTable::mapChar(int c) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Confirm we have a node block and attempt to allocate one if not, or if full
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//  Allocate a new PNode. This performs several tasks. It tries to allocate the next free PNode from the
-//  currently active Block, If the block is not yet allocated or is full, it tries to allocate a new one. If
-//  successful the newly allocated Block is made active and the first node taken. The Blocks are chained
-//  such that they can all be freed later.
-//  Once a Block is obtained, it is filled in with the parentNode and code values supplied.
-
-VMSymbolTable::PNode* VMSymbolTable::allocPNode(VMSymbolTable::PNode* parent, int code) {
-
-  PNode* primaryNode = 0;
-
-  /* Check if we need to allocate a new block of nodes */
+int VMSymbolTable::checkBlock() {
+  // Check if we need to allocate a new block of nodes
   if (!nodeBlock || nodeBlock->nextFree == NODE_BLOCKSIZE) {
     Block* newBlock = (Block*)std::calloc(1, sizeof(Block));
     if (!newBlock) {
-      std::fprintf(stderr, "Unable to allocate Block of %lu bytes\n", (unsigned long)sizeof(Block));
+
+#ifdef VM_FULL_DEBUG
+      std::fprintf(stderr, "[ERR] Unable to allocate Block of %u bytes\n", (uint32)sizeof(Block));
+#endif
+
       return 0;
     }
 
-    /* Make the newly allocated block the active one */
+#ifdef VM_FULL_DEBUG
+    std::fprintf(stderr, "[INF] Allocate Block of %u bytes at %p\n", (uint32)sizeof(Block), newBlock);
+#endif
+
+    // Make the newly allocated block the active one
     newBlock->prevBlock    = nodeBlock;
     nodeBlock = newBlock;
   }
-
-  /* get the next Primary node from the block and populate it */
-  primaryNode = &nodeBlock->nodes[nodeBlock->nextFree++].primary;
-  primaryNode->parentNode = parent;
-  primaryNode->code       = code;
-
-  return primaryNode;
+  return 1;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Allocate the next available PNode
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+VMSymbolTable::PNode* VMSymbolTable::allocPNode() {
+  if (!checkBlock()) {
+    return 0;
+  }
 
-//  Allocate a new SNode. This performs several tasks. It tries to allocate the next free SNode from the
-//  currently active NodeBlock, If the block is not yet allocated or is full, it tries to allocate a new one. If
-//  successful the newly allocated NodeBlock is made active and the first node taken. The NodeBlocks are chained
-//  such that they can all be freed later.
+  // Get the next free PNode and set it's symbol ID to -1 so that we can properly detect when terminating on this
+  // node that it does not mark the end of an existing symbol
+  PNode* pNode = &nodeBlock->nodes[nodeBlock->nextFree++].primary;
+  pNode->symbolID = -1;
+  return pNode;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Allocate the next available SNode
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 VMSymbolTable::SNode* VMSymbolTable::allocSNode() {
-
-  SNode* secondaryNode = 0;
-
-  /* Check if we need to allocate a new block of nodes */
-  if (!nodeBlock || nodeBlock->nextFree == NODE_BLOCKSIZE) {
-    Block* newBlock = (Block*)calloc(1, sizeof(Block));
-    if (!newBlock) {
-      std::fprintf(stderr, "Unable to allocate Block of %lu bytes\n", (unsigned long)sizeof(Block));
-      return 0;
-    }
-
-    /* Make the newly allocated block the active one */
-    newBlock->prevBlock    = nodeBlock;
-    nodeBlock = newBlock;
+  if (!checkBlock()) {
+    return 0;
   }
 
-  /* get the next Primary node from the block and populate it */
-  secondaryNode = &nodeBlock->nodes[nodeBlock->nextFree++].secondary;
-
-  return secondaryNode;
+  // Get the next free SNode from the block
+  return &nodeBlock->nodes[nodeBlock->nextFree++].secondary;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Attempt to find the ID associated with a symbol
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int VMSymbolTable::add(const char* symbol) {
+int VMSymbolTable::get(const char* symbol) const {
 
-  if (nextSymbolID == maxSymbolID) {
-    return ERR_TABLE_FULL;
+  // If there is no rootNode, then no symbols have been added. Ipso facto, cannot be known!
+  if (!rootNode) {
+    return ERR_UNKNOWN_SYMBOL;
   }
 
   PNode* primaryNode;
   SNode* secondaryNode;
-  int charCode, indexPrimary, indexSecondary, symbolLength;
+  int charCode, indexPrimary, indexSecondary;
 
-  symbolLength = 0;
+  // Walk down the trie, one PNode and one SNode per mapped character
   primaryNode  = rootNode;
   while ( (charCode = *symbol++) ) {
-
     int code = mapChar(charCode);
     if (code < 0) {
+
+#ifdef VM_FULL_DEBUG
+      std::fprintf(stderr, "[ERR] Illegal Character \'%c\' in symbol\n", charCode);
+#endif
+
       return code;
     }
 
-    /* convert mapped code to index pair for our primary and secondary nodes */
+    // Convert mapped code to index pair for our primary and secondary nodes.
+    indexPrimary   = code & 3;
+    indexSecondary = code >> 3;
+    if (!primaryNode->children[indexPrimary]) {
+      return ERR_UNKNOWN_SYMBOL;
+    }
+    secondaryNode = primaryNode->children[indexPrimary];
+    if (!secondaryNode->children[indexSecondary]) {
+      return ERR_UNKNOWN_SYMBOL;
+    }
+    primaryNode = secondaryNode->children[indexSecondary];
+  }
+
+  return primaryNode->symbolID;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Attempt to add a new symbol and obtain the associated ID.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int VMSymbolTable::add(const char* symbol) {
+
+  // Check we haven't reached the table size limit
+  if (nextSymbolID == maxSymbols) {
+
+#ifdef VM_FULL_DEBUG
+    std::fprintf(stderr, "[ERR] Cannot add symbol %s, table limit of %u entries reached\n", symbol, maxSymbolID);
+#endif
+
+    return ERR_TABLE_FULL;
+  }
+
+  // If we haven't allocated a symbol map yet, we better do it.
+  if (!symbolMap && !(symbolMap = (const char**)std::calloc(maxSymbols, sizeof(const char*)))) {
+
+#ifdef VM_FULL_DEBUG
+    std::fprintf(stderr, "[ERR] Could not allocate symbol map\n");
+#endif
+
+    return ERR_OUT_OF_MEMORY;
+  }
+
+  // If we haven't allocated the root of our trie yet, we better do it.
+  if (!rootNode && !(rootNode = allocPNode())) {
+
+#ifdef VM_FULL_DEBUG
+    std::fprintf(stderr, "[ERR] Could not allocate root node\n");
+#endif
+
+    return ERR_OUT_OF_MEMORY;
+  }
+
+  const char* pChar = symbol;
+  PNode* primaryNode;
+  SNode* secondaryNode;
+  int charCode, indexPrimary, indexSecondary;
+
+  // Walk down the trie, one PNode and one SNode per mapped character
+  primaryNode  = rootNode;
+  while ( (charCode = *pChar++) ) {
+
+    int code = mapChar(charCode);
+    if (code < 0) {
+
+#ifdef VM_FULL_DEBUG
+      std::fprintf(stderr, "[ERR] Illegal Character \'%c\' in symbol\n", charCode);
+#endif
+
+      return code;
+    }
+
+    // Convert mapped code to index pair for our primary and secondary nodes
     indexPrimary   = code & 3;
     indexSecondary = code >> 3;
 
-    if (!primaryNode->children[indexPrimary]) {
-      if (!(primaryNode->children[indexPrimary] = allocSNode())) {
-        return ERR_OUT_OF_MEMORY;
-      }
+    // Ensure there is a child SNode instance for the PNode
+    if (
+      !primaryNode->children[indexPrimary] &&
+      !(primaryNode->children[indexPrimary] = allocSNode())
+    ) {
+      return ERR_OUT_OF_MEMORY;
     }
-
     secondaryNode = primaryNode->children[indexPrimary];
 
-    if (!secondaryNode->children[indexSecondary]) {
-      if (!(secondaryNode->children[indexSecondary] = allocPNode(primaryNode, charCode))) {
-        return ERR_OUT_OF_MEMORY;
-      }
+    // Ensure there is a child PNode instance fore the SNode
+    if (
+      !secondaryNode->children[indexSecondary] &&
+      !(secondaryNode->children[indexSecondary] = allocPNode())
+    ) {
+      return ERR_OUT_OF_MEMORY;
     }
     primaryNode = secondaryNode->children[indexSecondary];
-    symbolLength++;
+
   }
 
-
-  if (symbolLength > maxSymbolLength) {
-    maxSymbolLength = symbolLength;
-  }
-
-  // If this is the first time we landed on this particular PNode, it's a new symbol
-  if (!primaryNode->count++) {
-    return nextSymbolID++;
+  // If this is the first time we landed on this particular PNode, it's a new symbol!
+  if (primaryNode->symbolID < 0) {
+    int symbolID = primaryNode->symbolID = (int)nextSymbolID++;
+    symbolMap[symbolID] = symbol;
+    return symbolID;
   } else {
     return ERR_DUPLICATE_SYMBOL;
   }
 }
+
 
 
