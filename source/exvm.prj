@@ -92,7 +92,7 @@ File
 "vm_core.hpp"
 "vm.hpp"
 "machine.hpp"
-"vminline.hpp"
+"vm_inline.hpp"
 "vm_codemacros.hpp"
 "vm_targetmacros.hpp"
 Storm Shell Project (Dependencies)
@@ -177,7 +177,7 @@ File
 "vm_core.hpp"
 "vm.hpp"
 "machine.hpp"
-"vminline.hpp"
+"vm_inline.hpp"
 "vm_targetmacros.hpp"
 "op_control_code.hpp"
 "op_load_code.hpp"
@@ -198,7 +198,7 @@ File
 "vm.hpp"
 "machine.hpp"
 "vm_targetmacros.hpp"
-"vminline.hpp"
+"vm_inline.hpp"
 "vm_codemacros.hpp"
 Storm Shell Project (Dependencies)
 "obj/m68k_amigaos3/vmprogram.o" "obj/m68k_amigaos3/vmprogram.debug"
@@ -300,8 +300,8 @@ Storm Shell Project (Dependencies)
 ""
 0 0
 File
-2 "vminline.hpp"
-"vminline.hpp"
+2 "vm_inline.hpp"
+"vm_inline.hpp"
 Storm Shell Project (Dependencies)
 "" ""
 ""

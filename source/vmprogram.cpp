@@ -15,7 +15,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include "include/vm_core.hpp"
-#include "include/vminline.hpp"
+#include "include/vm_inline.hpp"
 #include "include/vm_codemacros.hpp"
 #include <new>
 using namespace std;

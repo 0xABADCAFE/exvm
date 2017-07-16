@@ -96,7 +96,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit6]
-FileName=vminline.hpp
+FileName=vm_inline.hpp
 CompileCpp=1
 Folder=
 Compile=1
