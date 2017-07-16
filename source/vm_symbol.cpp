@@ -102,7 +102,7 @@ VMSymbolTable::~VMSymbolTable() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// Convert an ASCII character code from the set 0-9A-Za-z_ to a mapped code 0-62
+// Convert an ASCII character code from the set 0-9A-Za-z@_ to a mapped code 0-63
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -116,9 +116,13 @@ int VMSymbolTable::mapChar(int c) const {
   if (c >= 'a' && c <= 'z') {
     return 38 + c - 'a';
   }
-  if (c == '_') {
+  if (c == '@') {
     return 62;
   }
+  if (c == '_') {
+    return 63;
+  }
+
   return ERR_ILLEGAL_SYMBOL_CHAR;
 }
 

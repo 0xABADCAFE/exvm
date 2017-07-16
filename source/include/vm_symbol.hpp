@@ -16,6 +16,24 @@
   #define _VM_SYMBOL_HPP_
   #include "machine.hpp"
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// VMSymbolTable
+//
+// Assigns unique ID values to symbol strings. Symbol strings represent imported or exported identifiers and may only
+// contain the following 64 characters 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_
+//
+// Each ASCII character in the above set is mapped to a value 0-63. Symbols of varying lengths are added to the table
+// which stores them in an internal trie structure. The trie uses two levels per mapped character, each with a fan
+// out of 8. The nodes are allocated in contiguous blocks.
+//
+// Each symbol that is added is assigned a unique ID, starting at zero. The maximum number of symbols to accomodate is
+// given on construction.
+//
+// EXVM permits 65536 symbols each for function, data and native function identifiers.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 class VMSymbolTable {
 
   public:
