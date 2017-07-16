@@ -13,7 +13,7 @@ OBJ      = obj/ppc_amigaos4/main.o \
            obj/ppc_amigaos4/op_convert.o \
            obj/ppc_amigaos4/op_arithmetic.o \
            obj/ppc_amigaos4/op_logic.o \
-           obj/ppc_amigaos4/vmcore.o \
+           obj/ppc_amigaos4/vm_core.o \
            obj/ppc_amigaos4/op_normal_table.o
 
 CC      = ppc-amigaos-gcc
@@ -24,43 +24,43 @@ AR      = ppc-amigaos-ar
 $(BIN): $(OBJ) Makefile.os4
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN)
 
-obj/ppc_amigaos4/main.o: main.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp
+obj/ppc_amigaos4/main.o: main.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/vmprogram.o: vmprogram.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp
+obj/ppc_amigaos4/vmprogram.o: vmprogram.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/ppc_amigaos4/machine.o: machine.cpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/op_control.o: op_control.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/ppc_amigaos4/op_control.o: op_control.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/op_load.o: op_load.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/ppc_amigaos4/op_load.o: op_load.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/op_store.o: op_store.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/ppc_amigaos4/op_store.o: op_store.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/op_move.o: op_move.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/ppc_amigaos4/op_move.o: op_move.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/op_jump.o: op_jump.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/ppc_amigaos4/op_jump.o: op_jump.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/op_convert.o:op_convert.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/ppc_amigaos4/op_convert.o:op_convert.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/op_arithmetic.o: op_arithmetic.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/ppc_amigaos4/op_arithmetic.o: op_arithmetic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/op_logic.o: op_logic.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/ppc_amigaos4/op_logic.o: op_logic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/vmcore.o: vmcore.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/ppc_amigaos4/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/ppc_amigaos4/op_normal_table.o: op_normal_table.cpp include/vmcore.hpp include/vm.hpp include/machine.hpp
+obj/ppc_amigaos4/op_normal_table.o: op_normal_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 

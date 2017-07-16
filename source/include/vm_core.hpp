@@ -1,6 +1,6 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         vmcore.hpp                                               **//
+//** File:         vm_core.hpp                                              **//
 //** Description:  Virtual Machine Core definitions                         **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//

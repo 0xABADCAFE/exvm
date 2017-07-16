@@ -15,7 +15,7 @@
 #include "include/machine.hpp"
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include "include/vmcore.hpp"
+  #include "include/vm_core.hpp"
   #include <cstdio>
 
   #include "include/vm_interpreter_func_table.hpp"

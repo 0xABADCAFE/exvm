@@ -13,7 +13,7 @@
 //****************************************************************************//
 
 #include <cstdio>
-#include "include/vmcore.hpp"
+#include "include/vm_core.hpp"
 #include "include/vminline.hpp"
 #include <new>
 

@@ -76,7 +76,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=vmcore.hpp
+FileName=vm_core.hpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -116,7 +116,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit8]
-FileName=vmcore.cpp
+FileName=vm_core.cpp
 CompileCpp=1
 Folder=
 Compile=1

@@ -87,7 +87,7 @@ Storm Shell Project (Dependencies)
 File
 1 "main.cpp"
 "main.cpp"
-"vmcore.hpp"
+"vm_core.hpp"
 "vm.hpp"
 "machine.hpp"
 "vminline.hpp"
@@ -170,9 +170,9 @@ Storm Shell Project (Dependencies)
 ""
 1 1
 File
-1 "vmcore.cpp"
-"vmcore.cpp"
-"vmcore.hpp"
+1 "vm_core.cpp"
+"vm_core.cpp"
+"vm_core.hpp"
 "vm.hpp"
 "machine.hpp"
 "vminline.hpp"
@@ -186,13 +186,13 @@ File
 "op_arithmetic_code.hpp"
 "op_logic_code.hpp"
 Storm Shell Project (Dependencies)
-"obj/ppc_warpos/vmcore.o" "obj/ppc_warpos/vmcore.debug"
+"obj/ppc_warpos/vm_core.o" "obj/ppc_warpos/vm_core.debug"
 ""
 1 1
 File
 1 "vmprogram.cpp"
 "vmprogram.cpp"
-"vmcore.hpp"
+"vm_core.hpp"
 "vm.hpp"
 "machine.hpp"
 "vm_targetmacros.hpp"
@@ -291,8 +291,8 @@ Storm Shell Project (Dependencies)
 ""
 0 0
 File
-2 "vmcore.hpp"
-"vmcore.hpp"
+2 "vm_core.hpp"
+"vm_core.hpp"
 Storm Shell Project (Dependencies)
 "" ""
 ""
