@@ -14,9 +14,9 @@
 
 #ifndef _VM_INTERPRETER_FUNC_TABLE_HPP_
   #define _VM_INTERPRETER_FUNC_TABLE_HPP_
-  #define _DECLARE_OP(x)  static void do##x(Interpreter*, uint16);
-  #define _DEFINE_OP(x)   void Interpreter::do##x(Interpreter* vm, uint16 op)
-  #define _REFER_OP(x)    Interpreter::do##x
+  #define _DECLARE_OP(x)  static void do##x(ExVM::Interpreter*, uint16);
+  #define _DEFINE_OP(x)   void ExVM::Interpreter::do##x(ExVM::Interpreter* vm, uint16 op)
+  #define _REFER_OP(x)    ExVM::Interpreter::do##x
   #define _END_OP
   #define _THROW(x) return;
 #endif
