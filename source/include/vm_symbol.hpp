@@ -16,6 +16,8 @@
   #define _VM_SYMBOL_HPP_
   #include "machine.hpp"
 
+namespace ExVM {
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // SymbolEnumerator
@@ -116,5 +118,5 @@ class SymbolEnumerator {
     uint32 nextSymbolID;
 
 };
-
+}
 #endif

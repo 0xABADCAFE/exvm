@@ -15,6 +15,8 @@
 #ifndef _VM_INLINE_HPP_
 #define _VM_INLINE_HPP_
 
+namespace ExVM {
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  Register access
@@ -59,4 +61,5 @@ inline float64& Interpreter::GPR::f64()          { return _f64;            }
 inline uint32&  Interpreter::GPR::getMSW()       { return _u32[REG_MSW]; }
 inline uint32&  Interpreter::GPR::getLSW()       { return _u32[REG_LSW]; }
 
+}
 #endif

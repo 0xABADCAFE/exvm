@@ -27,6 +27,8 @@
 
 using std::nothrow;
 
+using namespace ExVM;
+
 const char* Interpreter::statusCodes[] = {
   "Running",
   "Initialised",

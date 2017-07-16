@@ -16,6 +16,8 @@
 
 #include "include/vm_symbol.hpp"
 
+using ExVM::SymbolEnumerator;
+
 int main() {
 
   // Create a symbol table big enough for 3 unique symbols

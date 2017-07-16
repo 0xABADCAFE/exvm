@@ -20,6 +20,8 @@
 
   #include "include/vm_interpreter_func_table.hpp"
 
+using namespace ExVM;
+
 _DEFINE_OP(ILLEGAL) {
   printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
   vm->status = VMDefs::BREAKPOINT;
