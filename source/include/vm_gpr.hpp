@@ -26,7 +26,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 union GPR { // General Purpose 64-bit register type
-  friend class VMCore;
+  friend class Interpeter;
   private:  // Data arrangement
     union {
       uint8   _u8[8];

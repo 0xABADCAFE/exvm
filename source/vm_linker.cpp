@@ -18,7 +18,17 @@
 
 #include <new>
 
+using namespace ExVM;
 
+struct VMLinker::Resolved {
+  union {
+    NativeCall native,
+    const uint16*  func,
+    const uint8*   data;
+  };
+  const char* symbol;
+  int         symbolID;
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -36,7 +46,7 @@ VMLinker::VMLinker() :
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int VMLinker::registerNative(const char* symbol, VMCore::Native func) {
+int VMLinker::registerNative(const char* symbol, NativeCall func) {
   return 0;
 }
 

@@ -78,17 +78,6 @@ any pointer %p
     typedef double float64;
   #endif
 
-  #define rsint8 register sint8
-  #define rsint16 register sint16
-  #define rsint32 register sint32
-  #define rsint64 register sint64
-  #define ruint8 register uint8
-  #define ruint16 register uint16
-  #define ruint32 register uint32
-  #define ruint64 register uint64
-  #define rfloat32 register float32
-  #define rfloat64 register float64
-
   // Target sanity checks
   #if (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K)
     #ifdef __PPC__

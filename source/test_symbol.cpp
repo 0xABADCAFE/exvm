@@ -19,23 +19,23 @@
 int main() {
 
   // Create a symbol table big enough for 3 unique symbols
-  VMSymbolTable symbolTable(3);
+  SymbolEnumerator symbolTable(3);
 
   // Strucuture up some conformance test data
   struct TestData {
     const char* symbol; // the symbol string
     int         result; // the expected return value from add()
   } testData [] = {
-    {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_", 0 }, // Expect this to get ID 0
-    {"Breaking Bad", VMSymbolTable::ERR_ILLEGAL_SYMBOL_CHAR },               // Expect this to fail
-    {"_totallyLegit123", 1 },                                                // Expect this to get ID 1
-    {"_totallyLegit123", VMSymbolTable::ERR_DUPLICATE_SYMBOL },              // Expect this to fail
-    {"_totallyLegit456", 2 },                                                // Expect this to get ID 2
-    {"alasNoMoreRoom", VMSymbolTable::ERR_TABLE_FULL }                       // Expect this to fail
+    {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_", 0 }, // Expect this to get ID 0
+    {"Breaking Bad", SymbolEnumerator::ERR_ILLEGAL_SYMBOL_CHAR },             // Expect this to fail
+    {"_totallyLegit123", 1 },                                                 // Expect this to get ID 1
+    {"_totallyLegit123", SymbolEnumerator::ERR_DUPLICATE_SYMBOL },            // Expect this to fail
+    {"_totallyLegit456", 2 },                                                 // Expect this to get ID 2
+    {"alasNoMoreRoom", SymbolEnumerator::ERR_TABLE_FULL }                     // Expect this to fail
   };
 
   // Now test the behaviour of add()
-  std::puts("Testing VMSymbolTable::add()...");
+  std::puts("Testing SymbolEnumerator::add()...");
   for (size_t i = 0; i < sizeof(testData) / sizeof(TestData); i++) {
     std::printf(
       "\tAttempting to add symbol: %-64s with expected result : %2d ... ",
@@ -55,7 +55,7 @@ int main() {
   std::printf("\nAdded %d unique symbols\n\n", (int)length);
 
   // Now test the behaviour of get()
-  std::puts("Testing VMSymbolTable::get() with the original set of symbols...");
+  std::puts("Testing SymbolEnumerator::get() with the original set of symbols...");
   for (size_t i = 0; i < sizeof(testData) / sizeof(TestData); i++) {
     std::printf(
       "\t%-64s : %d\n",

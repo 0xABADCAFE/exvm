@@ -18,7 +18,9 @@
 #include "include/vm_inline.hpp"
 #include "include/vm_codemacros.hpp"
 #include <new>
+
 using namespace std;
+using namespace ExVM;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -26,7 +28,7 @@ using namespace std;
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-void nativeAllocBuffer(VMCore* vm) {
+void nativeAllocBuffer(Interpreter* vm) {
   // width/height in r1/r2
   // return buffer in r0
   int w = vm->getReg(_r1).s32();
@@ -35,14 +37,14 @@ void nativeAllocBuffer(VMCore* vm) {
   printf("Allocated buffer [%d x %d]\n", w, h);
 }
 
-void nativeFreeBuffer(VMCore* vm) {
+void nativeFreeBuffer(Interpreter* vm) {
   // expects buffer in r0
   delete[] vm->getReg(_r0).pCh();
   vm->getReg(_r0).pCh() = 0;
   printf("Freed buffer\n");
 }
 
-void nativeWriteBuffer(VMCore* vm) {
+void nativeWriteBuffer(Interpreter* vm) {
   // writes buffer in r0 to filename in r15
   // expects width/height in r1/r2
   const char* fileName = vm->getReg(_r15).pCh();
@@ -63,7 +65,7 @@ void nativeWriteBuffer(VMCore* vm) {
   }
 }
 
-void nativePrintCoords(VMCore* vm) {
+void nativePrintCoords(Interpreter* vm) {
   printf(
     "Coords %4d, %4d (%.6f, %.6f)\n",
     (int)vm->getReg(_r6).s32(),
@@ -76,7 +78,7 @@ void nativePrintCoords(VMCore* vm) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // Resolved native code table
-VMCore::Native resolvedNativeCodeSymbol[] = {
+Interpreter::Native resolvedNativeCodeSymbol[] = {
   nativeAllocBuffer,
   nativeFreeBuffer,
   nativeWriteBuffer,
@@ -232,7 +234,7 @@ uint16* resolvedCodeSymbol[] = {
 ////////////////////////////////////////////////////////////////////////////////
 
 void runTestExample() {
-  static VMCore vm;
+  static Interpreter vm;
   puts(
     "\nBeginning Virtual Program\n"
     "-----------------------\n"
@@ -240,7 +242,7 @@ void runTestExample() {
 
   vm.setNativeCodeSymbolTable(
     resolvedNativeCodeSymbol,
-    sizeof(resolvedNativeCodeSymbol)/sizeof(VMCore::Native)
+    sizeof(resolvedNativeCodeSymbol)/sizeof(Interpreter::Native)
   );
 
   vm.setCodeSymbolTable(

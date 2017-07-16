@@ -18,7 +18,7 @@
 #define _DECLARE_OP(x)  static void do##x(VMCore*, uint16);
 /* class VMCore { */
 
-    typedef void (*Handler)(VMCore*, uint16);
+    typedef void (*Handler)(Interpeter*, uint16);
 
     // control group
     _DECLARE_OP(NOP)

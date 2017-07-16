@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
 //** File:         vm_core.cpp                                              **//
-//** Description:  VMCore class definition                                  **//
+//** Description:  Interpreter class definition                                  **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-08-29                                               **//
@@ -27,7 +27,7 @@
 
 using std::nothrow;
 
-const char* VMCore::statusCodes[] = {
+const char* Interpreter::statusCodes[] = {
   "Running",
   "Initialised",
   "Completed",
@@ -49,7 +49,7 @@ const char* VMCore::statusCodes[] = {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
+Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
   regStackSize(rStackSize),
   dataStackSize(dStackSize),
   callStackSize(cStackSize) {
@@ -79,25 +79,25 @@ VMCore::VMCore(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
 
 /*
   printf("sizeof (VMDefs) = %zd\n", sizeof(VMDefs));
-  printf("sizeof (VMCore) = %zd\n", sizeof(VMCore));
+  printf("sizeof (Interpreter) = %zd\n", sizeof(Interpreter));
   printf("There are presently %d core instructions defined\n", VMDefs::MAX_OP);
-  printf("Constructed VMCore:\nreg Stack %zd entries\ndataStack %zd bytes\ncallStack %zd levels\n", regStackSize, dataStackSize, callStackSize);
+  printf("Constructed Interpreter:\nreg Stack %zd entries\ndataStack %zd bytes\ncallStack %zd levels\n", regStackSize, dataStackSize, callStackSize);
 */
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-VMCore::~VMCore() {
+Interpreter::~Interpreter() {
   delete[] callStackBase;
   delete[] dataStackBase;
   delete[] regStackBase;
-  printf("Destroyed VMCore\n");
+  printf("Destroyed Interpreter\n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void VMCore::dump() {
-  printf("VMCore dump\n\n");
+void Interpreter::dump() {
+  printf("Interpreter dump\n\n");
   printf("rX: %18s : %12s : %6s : %4s : c\n",
     "64-bit (hex dump)",
     "s32",
@@ -132,21 +132,21 @@ void VMCore::dump() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void VMCore::setNativeCodeSymbolTable(Native* symbol, uint16 count) {
+void Interpreter::setNativeCodeSymbolTable(Native* symbol, uint16 count) {
   nativeCodeSymbol      = symbol;
   nativeCodeSymbolCount = count;
 
   printf("Native Code Symbols : %p [%d]\n", symbol, (int)count);
 }
 
-void VMCore::setCodeSymbolTable(uint16** symbol, uint16 count) {
+void Interpreter::setCodeSymbolTable(uint16** symbol, uint16 count) {
   codeSymbol      = symbol;
   codeSymbolCount = count;
 
   printf("Code Symbols : %p [%d]\n", symbol, (int)count);
 }
 
-void VMCore::setDataSymbolTable(void** symbol, uint16 count) {
+void Interpreter::setDataSymbolTable(void** symbol, uint16 count) {
   dataSymbol      = symbol;
   dataSymbolCount = count;
 
@@ -155,7 +155,7 @@ void VMCore::setDataSymbolTable(void** symbol, uint16 count) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void VMCore::execute() {
+void Interpreter::execute() {
   MilliClock total;
   int numStatements = 0;
   totalTime         = 0;

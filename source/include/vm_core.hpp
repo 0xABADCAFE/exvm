@@ -19,14 +19,16 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// VMCore
+// Interpreter
 //
 // Represents the core interpreter for the virtual machine and is primarily responsible for the runtime execution of
 // virtual code.
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class VMCore {
+namespace ExVM {
+
+class Interpreter {
   public:
     enum {
       NUM_GPR         = 16,   // Number of general purpose registers
@@ -35,12 +37,12 @@ class VMCore {
       DEF_CALL_STACK  = 4096  // Default call stack size, in entries
     };
 
-    typedef void (*Native)(VMCore* vm);
+    typedef void (*Native)(Interpreter* vm);
 
     #include "vm_gpr.hpp"
 
   private:
-    GPR       gpr[VMCore::NUM_GPR];    // register set
+    GPR       gpr[Interpreter::NUM_GPR];    // register set
 
     union {
       const uint16*         inst;   // normal interpretation
@@ -97,8 +99,8 @@ class VMCore {
 
   public:
 
-    VMCore(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
-    ~VMCore();
+    Interpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
+    ~Interpreter();
 
     uint32  getStatus() const {
       return status;
@@ -124,4 +126,5 @@ class VMCore {
     
 };
 
+}
 #endif

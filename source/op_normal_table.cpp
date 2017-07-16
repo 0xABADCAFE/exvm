@@ -27,7 +27,7 @@ _DEFINE_OP(ILLEGAL) {
 
 // normal instruction set
 
-const VMCore::Handler VMCore::handlers[256] = {
+const Interpreter::Handler Interpreter::handlers[256] = {
   // control group
   _REFER_OP(NOP),
   _REFER_OP(BRK),
