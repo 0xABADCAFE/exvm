@@ -1,6 +1,6 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         vminline.hpp                                             **//
+//** File:         vm_inline.hpp                                            **//
 //** Description:  Virtual Machine Core definitions                         **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//

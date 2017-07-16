@@ -28,31 +28,31 @@ obj/x86_ft_linux/vmprogram.o: vmprogram.cpp include/vm_core.hpp include/vm.hpp i
 obj/x86_ft_linux/machine.o: machine.cpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/x86_ft_linux/op_control.o: op_control.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/x86_ft_linux/op_control.o: op_control.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/x86_ft_linux/op_load.o: op_load.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/x86_ft_linux/op_load.o: op_load.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/x86_ft_linux/op_store.o: op_store.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/x86_ft_linux/op_store.o: op_store.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/x86_ft_linux/op_move.o: op_move.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/x86_ft_linux/op_move.o: op_move.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/x86_ft_linux/op_jump.o: op_jump.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/x86_ft_linux/op_jump.o: op_jump.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/x86_ft_linux/op_convert.o:op_convert.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/x86_ft_linux/op_convert.o:op_convert.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/x86_ft_linux/op_arithmetic.o: op_arithmetic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/x86_ft_linux/op_arithmetic.o: op_arithmetic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/x86_ft_linux/op_logic.o: op_logic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/x86_ft_linux/op_logic.o: op_logic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/x86_ft_linux/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vminline.hpp
+obj/x86_ft_linux/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/x86_ft_linux/op_normal_table.o: op_normal_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
