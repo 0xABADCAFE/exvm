@@ -70,7 +70,7 @@ class VMSymbolTable {
 
   private:
     // Trie implementation:
-    // Rather than  defining a trie with a wide fan out (63 node pointers per node), instead we use two nodes per mapped
+    // Rather than  defining a trie with a wide fan out (64 node pointers per node), instead we use two nodes per mapped
     // cahr, each of which has 8 children. This gives us a range of 8x8=64, sufficient to cover the entire set of valid
     // characters but with a lot less memory wasted on unused pointers.
 
@@ -83,7 +83,7 @@ class VMSymbolTable {
     // Block of allocated nodes, linked together.
     struct Block;
 
-    // We map the allowed symbol name characters 0-9A-Za-z_ to the range 0-62. This function maps a single input
+    // We map the allowed symbol name characters 0-9A-Za-z@_ to the range 0-63 . This function maps a single input
     // character. If the input character is out of range, reuturns ERR_ILLEGAL_SYMBOL_CHAR
     int     mapChar(int c) const;
 
