@@ -1,5 +1,6 @@
 # exvm
-Experimental Virtual Machine
+
+## Experimental Virtual Machine
 
 A simple register based interpretive virtual machine, written as an old experiment.
 
@@ -28,4 +29,10 @@ Supported platforms:
 - Amiga OS 3.x WarpOS (PPC)
   - Each requires StormC4 (gcc 2.95.3 compatible) to compile the project
 - Amiga OS 4.x
-- Linux arm32, i386, x64
+- Linux arm32, arm64, i386, x64
+
+## Work in progress
+The current effort geared towards building a runtime loader and linker, defining a fully portable object code format and an assembler tool for writing virtual code.
+
+## Stuff for later
+Port to vanilla C and provide a basic C++ frontend bindings to replace the current C++ code. The main reason for this is to increase portability (i.e more languages and more readily implemented as host native libraries) and hopefully allow for more aggressive optimisation of the interpreter. In any event, the present implementation, which remains compatible with m68k 2.95.x versions of GCC is very much "C with Classes" rather than modern C++ and only makes minimal use of modern C++ language features.
