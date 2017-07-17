@@ -134,7 +134,7 @@ void Interpreter::dump() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void Interpreter::setNativeCodeSymbolTable(Native* symbol, uint16 count) {
+void Interpreter::setNativeCodeSymbolTable(NativeCall* symbol, uint16 count) {
   nativeCodeSymbol      = symbol;
   nativeCodeSymbolCount = count;
 

@@ -105,7 +105,7 @@ _DEFINE_OP(CALLN) {
 
     _THROW(-1)
   }
-  Native func = vm->nativeCodeSymbol[symbol];
+  NativeCall func = vm->nativeCodeSymbol[symbol];
   if (func) {
     MilliClock native;
     //printf("call native 0x%08X\n", (unsigned)func);

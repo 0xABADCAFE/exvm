@@ -20,11 +20,11 @@
 
 using namespace ExVM;
 
-struct VMLinker::Resolved {
+struct Linker::Resolved {
   union {
-    NativeCall native,
-    const uint16*  func,
-    const uint8*   data;
+    NativeCall    native;
+    const uint16* func;
+    const uint8*  data;
   };
   const char* symbol;
   int         symbolID;
@@ -36,9 +36,9 @@ struct VMLinker::Resolved {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-VMLinker::VMLinker() :
+Linker::Linker() :
   native(0),
-  code(0)
+  code(0),
   data(0)
 {
   
@@ -46,19 +46,19 @@ VMLinker::VMLinker() :
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int VMLinker::registerNative(const char* symbol, NativeCall func) {
+int Linker::registerNative(const char* symbol, NativeCall func) {
   return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int VMLinker::registerCode(const char* symbol, const uint16* func) {
+int Linker::registerCode(const char* symbol, const uint16* func) {
   return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int VMLinker::registerData(const char* symbol, const void* data) {
+int Linker::registerData(const char* symbol, const void* data) {
   return 0;
 }
 

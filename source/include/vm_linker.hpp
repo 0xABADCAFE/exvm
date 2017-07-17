@@ -14,6 +14,7 @@
 
 #ifndef _VM_LINKER_HPP_
   #define _VM_LINKER_HPP_
+  #include "vm.hpp"
   #include "vm_symbol.hpp"
 
 namespace ExVM {
@@ -37,8 +38,8 @@ class Linker {
   int registerCode(const char* symbol, const uint16* func);
   int registerData(const char* symbol, const void* data);
 
-  VMLinker();
-  ~VMLinker();
+  Linker();
+  ~Linker();
 
   private:
     struct Resolved;
@@ -47,5 +48,6 @@ class Linker {
     SymbolEnumerator* code;
     SymbolEnumerator* data;
 };
+
 }
 #endif

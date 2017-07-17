@@ -78,7 +78,7 @@ void nativePrintCoords(Interpreter* vm) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // Resolved native code table
-Interpreter::Native resolvedNativeCodeSymbol[] = {
+NativeCall resolvedNativeCodeSymbol[] = {
   nativeAllocBuffer,
   nativeFreeBuffer,
   nativeWriteBuffer,
@@ -242,7 +242,7 @@ void runTestExample() {
 
   vm.setNativeCodeSymbolTable(
     resolvedNativeCodeSymbol,
-    sizeof(resolvedNativeCodeSymbol)/sizeof(Interpreter::Native)
+    sizeof(resolvedNativeCodeSymbol)/sizeof(NativeCall)
   );
 
   vm.setCodeSymbolTable(

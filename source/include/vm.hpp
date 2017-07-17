@@ -88,5 +88,6 @@ class VMDefs {
       UNKNOWN_NATIVE_CODE_SYMBOL,
     } VMStatus;
 };
+
 }
 #endif
