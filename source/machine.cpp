@@ -14,6 +14,8 @@
 
 #include "include/machine.hpp"
 
+using namespace ExVM;
+
 #if (_VM_HOST_OS == _VM_HOST_LINUX_I386) || (_VM_HOST_OS == _VM_HOST_LINUX_X64)
   #include "include/platforms/machine_linux_generic_impl.hpp"
 #elif _VM_HOST_OS == _VM_HOST_WIN32_I386
