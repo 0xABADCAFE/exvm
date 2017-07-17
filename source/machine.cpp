@@ -26,5 +26,7 @@ using namespace ExVM;
   #include "include/platforms/machine_amiga_wos_impl.hpp"
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS4_PPC)
   #include "include/platforms/machine_amiga_os4_impl.hpp"
+#elif (_VM_HOST_OS == _VM_HOST_MORPHOS_PPC)
+  #include "include/platforms/machine_amiga_mos_impl.hpp"
 #endif
 

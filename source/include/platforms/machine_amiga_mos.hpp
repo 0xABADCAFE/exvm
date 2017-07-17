@@ -24,14 +24,14 @@ namespace ExVM {
 
     public:
       void      set()     {
-        ::ReadEClock(&mark);
+        ReadEClock(&mark);
       }
       uint32    elapsed();
       float64   elapsedFrac();
 
     public:
       MilliClock() {
-        clockFreq = ::ReadEClock(&mark);
+        clockFreq = ReadEClock(&mark);
       }
   };
 

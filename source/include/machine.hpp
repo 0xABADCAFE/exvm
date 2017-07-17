@@ -115,7 +115,7 @@ any pointer %p
   #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS4_PPC)
     #include "platforms/machine_amiga_os4.hpp"
   #elif (_VM_HOST_OS == _VM_HOST_MORPHOS_PPC)
-    #include "platforms/machine_morphos.hpp"
+    #include "platforms/machine_amiga_mos.hpp"
   #else
     #error Unrecognised Machine
   #endif
