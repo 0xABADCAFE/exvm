@@ -13,7 +13,7 @@
 //****************************************************************************//
 
 #include <cstdio>
-
+#include <cstring>
 #include "include/vm_symbol.hpp"
 
 using namespace ExVM;
@@ -329,5 +329,24 @@ int SymbolEnumerator::add(const char* symbol) {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Raise the maximum ID for enumeration
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+int SymbolEnumerator::raiseLimit(uint32 newLimit) {
+  if (newLimit <= maxSymbols) {
+    return Error::ILLEGAL_ARGUMENT;
+  }
+  //symbolMap = (const char**)std::calloc(maxSymbols, sizeof(const char*)
+  const char** newSymbolMap = (const char**)std::realloc(symbolMap, newLimit * sizeof(const char*));
+  if (newSymbolMap) {
+    std::memset(&newSymbolMap[maxSymbols], 0, (newLimit - maxSymbols) * sizeof(const char*));
+    symbolMap  = newSymbolMap;
+    maxSymbols = newLimit;
+    return newLimit;
+  }
+  return Error::OUT_OF_MEMORY;
+}
 

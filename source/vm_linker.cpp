@@ -42,26 +42,64 @@ Linker::Linker() :
   data(0),
   nativeEnumerator(0),
   codeEnumerator(0),
-  dataEnumerator(0)
+  dataEnumerator(0),
+  maxNative(INI_TABLE_SIZE),
+  maxCode(INI_TABLE_SIZE),
+  maxData(INI_TABLE_SIZE)
 {
 
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Linker::~Linker() {
+  if (nativeEnumerator) {
+    delete nativeEnumerator;
+  }
+  if (codeEnumerator) {
+    delete codeEnumerator;
+  }
+  if (dataEnumerator) {
+    delete dataEnumerator;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int Linker::registerNative(const char* symbol, NativeCall func) {
+  if (
+    !nativeEnumerator &&
+    !(nativeEnumerator = new(std::nothrow)SymbolEnumerator(maxNative))
+  ) {
+    return Error::OUT_OF_MEMORY;
+  }
+
   return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int Linker::registerCode(const char* symbol, const uint16* func) {
+  if (
+    !codeEnumerator &&
+    !(codeEnumerator = new(std::nothrow)SymbolEnumerator(maxCode))
+  ) {
+    return Error::OUT_OF_MEMORY;
+  }
+
   return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int Linker::registerData(const char* symbol, const void* data) {
+  if (
+    !dataEnumerator &&
+    !(dataEnumerator = new(std::nothrow)SymbolEnumerator(maxData))
+  ) {
+    return Error::OUT_OF_MEMORY;
+  }
+
   return 0;
 }
 

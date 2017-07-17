@@ -52,6 +52,15 @@ int main() {
     }
   }
 
+  std::puts("Testing SymbolEnumerator::raiseLimit()...");
+  int newLimit = symbolTable.raiseLimit(8);
+  if (newLimit == 8) {
+    std::puts("\tSUCCESS");
+    symbolTable.add("sneakyExtraSymbol_FTW");
+  } else {
+    std::puts("\tFAILURE");
+  }
+
   size_t length = symbolTable.length();
 
   std::printf("\nAdded %d unique symbols\n\n", (int)length);

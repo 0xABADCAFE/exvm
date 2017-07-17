@@ -39,7 +39,7 @@ namespace ExVM {
         MAX_SYMBOLS_NATIVE = 65536,
         MAX_SYMBOLS_CODE   = 65536,
         MAX_SYMBOLS_DATA   = 65536,
-        INI_SIZE           = 128
+        INI_TABLE_SIZE     = 128
       };
 
     int registerNative(const char* symbol, NativeCall func);
@@ -59,6 +59,10 @@ namespace ExVM {
       SymbolEnumerator* nativeEnumerator;
       SymbolEnumerator* codeEnumerator;
       SymbolEnumerator* dataEnumerator;
+
+      uint32 maxNative;
+      uint32 maxCode;
+      uint32 maxData;
   };
 
 }

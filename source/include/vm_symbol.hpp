@@ -54,6 +54,8 @@ namespace ExVM {
       explicit SymbolEnumerator(uint32 maxSize);
       ~SymbolEnumerator();
 
+      int raiseLimit(uint32 limit);
+
       // Add a new symbol to the table. Will return the uniquely assigned ID value for the symbol if successful, or
       // one of the enumerated error constants if not.
       int add(const char* symbol);
@@ -122,4 +124,5 @@ namespace ExVM {
 
   };
 }
+
 #endif
