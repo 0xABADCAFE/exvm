@@ -1,38 +1,27 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         machine_win32.hpp                                        **//
-//** Description:  Host Machine definitions                                 **//
+//** File:         vm_symbol.cpp                                            **//
+//** Description:  VMSynbol class definition                                **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
-//** Created:      2001-08-29                                               **//
+//** Created:      2017-07-12                                               **//
 //** Author(s):    Karl Churchill                                           **//
-//** Note(s):      Stub replacement for needed exng/xbase.hpp defs          **//
+//** Note(s):                                                               **//
 //** Copyright:    (C)1996 - , eXtropia Studios                             **//
 //**               All Rights Reserved.                                     **//
 //**                                                                        **//
 //****************************************************************************//
 
-#define X_ENDIAN XA_LITTLEENDIAN
-#include <windows.h>
+#include <cstdio>
 
-namespace ExVM {
+#include "include/vm_linker.hpp"
 
-class MilliClock {
-  private:
-    uint32 mark;
+using ExVM::Linker;
 
-  public:
-    void      set(){
-      mark = GetTickCount();
-    }
-    uint32    elapsed();
-    float64   elapsedFrac();
+int main() {
 
-  public:
-    MilliClock() {
-      set();
-    }
-};
 
+
+  return 0;
 }
 

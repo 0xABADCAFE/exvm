@@ -101,8 +101,6 @@ any pointer %p
     #endif
   #endif
 
-namespace ExVM {
-
   // target specific class implementations
   #if (_VM_HOST_OS == _VM_HOST_LINUX_I386) || (_VM_HOST_OS == _VM_HOST_LINUX_X64)
     #define X_ENDIAN XA_LITTLEENDIAN
@@ -121,7 +119,6 @@ namespace ExVM {
   #else
     #error Unrecognised Machine
   #endif
-}
 
 #endif
 

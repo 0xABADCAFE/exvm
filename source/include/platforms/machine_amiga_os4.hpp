@@ -16,6 +16,8 @@
 #include <proto/exec.h>
 #include <proto/timer.h>
 
+namespace ExVM {
+
 class MilliClock {
   private:
     static uint32 clockFreq;
@@ -31,4 +33,6 @@ class MilliClock {
   public:
     MilliClock();
 };
+
+}
 

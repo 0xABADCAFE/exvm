@@ -21,10 +21,10 @@ using namespace ExVM;
 #elif _VM_HOST_OS == _VM_HOST_WIN32_I386
   #include "include/platforms/machine_win32_impl.hpp"
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K)
-  #include "include/platforms/machine_amigaos_68k_impl.hpp"
+  #include "include/platforms/machine_amiga_68k_impl.hpp"
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS3_WARPUP)
-  #include "include/platforms/machine_amigaos_wos_impl.hpp"
+  #include "include/platforms/machine_amiga_wos_impl.hpp"
 #elif (_VM_HOST_OS == _VM_HOST_AMIGAOS4_PPC)
-  #include "include/platforms/machine_amigaos_os4_impl.hpp"
+  #include "include/platforms/machine_amiga_os4_impl.hpp"
 #endif
 

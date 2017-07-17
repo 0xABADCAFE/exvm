@@ -21,6 +21,8 @@
 #include <sys/time.h>
 #include <time.h>
 
+namespace ExVM {
+
 class MilliClock {
   friend class Clock;
   private:
@@ -39,4 +41,6 @@ class MilliClock {
       set();
     }
 };
+
+}
 
