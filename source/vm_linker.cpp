@@ -42,7 +42,7 @@ Linker::Linker() :
   data(0),
   nativeEnumerator(0),
   codeEnumerator(0),
-  dataEnumerator(0),
+  dataEnumerator(0)
 {
 
 }

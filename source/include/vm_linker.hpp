@@ -28,6 +28,13 @@ namespace ExVM {
   class Linker {
 
     public:
+      class Error : public ExVM::Error {
+        public:
+          enum {
+            ILLEGAL_SYMBOL_ADDRESS = -200,
+          };
+      };
+
       enum {
         MAX_SYMBOLS_NATIVE = 65536,
         MAX_SYMBOLS_CODE   = 65536,
