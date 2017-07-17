@@ -14,7 +14,10 @@
 
 #ifndef _VM_LINKER_HPP_
   #define _VM_LINKER_HPP_
+  #include "vm.hpp"
   #include "vm_symbol.hpp"
+
+namespace ExVM {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -22,7 +25,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class VMLinker {
+class Linker {
 
   public:
     enum {
@@ -31,17 +34,20 @@ class VMLinker {
       MAX_SYMBOLS_DATA   = 65536,
     };
 
-  int registerNative(const char* symbol, VMCore::Native func);
+  int registerNative(const char* symbol, NativeCall func);
   int registerCode(const char* symbol, const uint16* func);
   int registerData(const char* symbol, const void* data);
 
-  VMLinker();
-  ~VMLinker();
+  Linker();
+  ~Linker();
 
   private:
-    VMSymbolTable* native;
-    VMSymbolTable* code;
-    VMSynbolTable* data;
+    struct Resolved;
+
+    SymbolEnumerator* native;
+    SymbolEnumerator* code;
+    SymbolEnumerator* data;
 };
 
+}
 #endif

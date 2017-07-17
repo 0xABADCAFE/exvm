@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
 //** File:         vm_interpreter_switch_case.hpp                           **//
-//** Description:  VMCore class definition                                  **//
+//** Description:  Interpreter class definition                             **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-08-29                                               **//
@@ -13,7 +13,7 @@
 //****************************************************************************//
 
 {
-  register VMCore* vm = this;
+  register Interpreter* vm = this;
   register uint16  op;
 
 forever:

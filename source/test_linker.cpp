@@ -1,23 +1,27 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         vm_interpreter_func_table.hpp                            **//
-//** Description:  Host Machine definitions                                 **//
+//** File:         vm_symbol.cpp                                            **//
+//** Description:  VMSynbol class definition                                **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
-//** Created:      2001-08-29                                               **//
+//** Created:      2017-07-12                                               **//
 //** Author(s):    Karl Churchill                                           **//
-//** Note(s):      Stub replacement for needed exng/xbase.hpp defs          **//
+//** Note(s):                                                               **//
 //** Copyright:    (C)1996 - , eXtropia Studios                             **//
 //**               All Rights Reserved.                                     **//
 //**                                                                        **//
 //****************************************************************************//
 
-#ifndef _VM_INTERPRETER_FUNC_TABLE_HPP_
-  #define _VM_INTERPRETER_FUNC_TABLE_HPP_
-  #define _DECLARE_OP(x)  static void do##x(ExVM::Interpreter*, uint16);
-  #define _DEFINE_OP(x)   void ExVM::Interpreter::do##x(ExVM::Interpreter* vm, uint16 op)
-  #define _REFER_OP(x)    ExVM::Interpreter::do##x
-  #define _END_OP
-  #define _THROW(x) return;
-#endif
+#include <cstdio>
+
+#include "include/vm_linker.hpp"
+
+using ExVM::Linker;
+
+int main() {
+
+
+
+  return 0;
+}
 

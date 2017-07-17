@@ -16,9 +16,11 @@
   #define _VM_SYMBOL_HPP_
   #include "machine.hpp"
 
+namespace ExVM {
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// VMSymbolTable
+// SymbolEnumerator
 //
 // Assigns unique ID values to symbol strings. Symbol strings represent imported or exported identifiers and may only
 // contain the following 64 characters 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_
@@ -34,7 +36,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class VMSymbolTable {
+class SymbolEnumerator {
 
   public:
     // Error enumerations
@@ -46,8 +48,8 @@ class VMSymbolTable {
       ERR_OUT_OF_MEMORY        = -5, // There was insufficient memory to allocate storage for symbol data.
     };
 
-    explicit VMSymbolTable(uint32 maxSize);
-    ~VMSymbolTable();
+    explicit SymbolEnumerator(uint32 maxSize);
+    ~SymbolEnumerator();
 
     // Add a new symbol to the table. Will return the uniquely assigned ID value for the symbol if successful, or
     // one of the enumerated error constants if not.
@@ -116,5 +118,5 @@ class VMSymbolTable {
     uint32 nextSymbolID;
 
 };
-
+}
 #endif

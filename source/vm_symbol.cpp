@@ -16,6 +16,8 @@
 
 #include "include/vm_symbol.hpp"
 
+using namespace ExVM;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 enum {
@@ -30,8 +32,8 @@ enum {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct VMSymbolTable::PNode {
-  VMSymbolTable::SNode* children[PNODE_TO_SNODE];
+struct SymbolEnumerator::PNode {
+  SymbolEnumerator::SNode* children[PNODE_TO_SNODE];
   int symbolID;
 };
 
@@ -41,8 +43,8 @@ struct VMSymbolTable::PNode {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct VMSymbolTable::SNode {
-  VMSymbolTable::PNode* children[SNODE_TO_PNODE];
+struct SymbolEnumerator::SNode {
+  SymbolEnumerator::PNode* children[SNODE_TO_PNODE];
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +53,7 @@ struct VMSymbolTable::SNode {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct VMSymbolTable::Block {
+struct SymbolEnumerator::Block {
   union {
     PNode primary;
     SNode secondary;
@@ -66,7 +68,7 @@ struct VMSymbolTable::Block {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-VMSymbolTable::VMSymbolTable(uint32 maxSize) :
+SymbolEnumerator::SymbolEnumerator(uint32 maxSize) :
   nodeBlock(0),
   rootNode(0),
   symbolMap(0),
@@ -82,7 +84,7 @@ VMSymbolTable::VMSymbolTable(uint32 maxSize) :
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-VMSymbolTable::~VMSymbolTable() {
+SymbolEnumerator::~SymbolEnumerator() {
   Block*   pBlock = nodeBlock;
 
   /* Free the block list */
@@ -107,7 +109,7 @@ VMSymbolTable::~VMSymbolTable() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int VMSymbolTable::mapChar(int c) const {
+int SymbolEnumerator::mapChar(int c) const {
   if (c >= '0' && c <= '9') {
     return c - '0';
   }
@@ -133,7 +135,7 @@ int VMSymbolTable::mapChar(int c) const {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int VMSymbolTable::checkBlock() {
+int SymbolEnumerator::checkBlock() {
   // Check if we need to allocate a new block of nodes
   if (!nodeBlock || nodeBlock->nextFree == NODE_BLOCKSIZE) {
     Block* newBlock = (Block*)std::calloc(1, sizeof(Block));
@@ -163,7 +165,7 @@ int VMSymbolTable::checkBlock() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-VMSymbolTable::PNode* VMSymbolTable::allocPNode() {
+SymbolEnumerator::PNode* SymbolEnumerator::allocPNode() {
   if (!checkBlock()) {
     return 0;
   }
@@ -181,7 +183,7 @@ VMSymbolTable::PNode* VMSymbolTable::allocPNode() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-VMSymbolTable::SNode* VMSymbolTable::allocSNode() {
+SymbolEnumerator::SNode* SymbolEnumerator::allocSNode() {
   if (!checkBlock()) {
     return 0;
   }
@@ -196,7 +198,7 @@ VMSymbolTable::SNode* VMSymbolTable::allocSNode() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int VMSymbolTable::get(const char* symbol) const {
+int SymbolEnumerator::get(const char* symbol) const {
 
   // If there is no rootNode, then no symbols have been added. Ipso facto, cannot be known!
   if (!rootNode) {
@@ -242,7 +244,7 @@ int VMSymbolTable::get(const char* symbol) const {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int VMSymbolTable::add(const char* symbol) {
+int SymbolEnumerator::add(const char* symbol) {
 
   // Check we haven't reached the table size limit
   if (nextSymbolID == maxSymbols) {

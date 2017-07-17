@@ -19,6 +19,20 @@
 
 #define VM_FULL_DEBUG
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// V2
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+namespace ExVM {
+  class Interpreter;
+  class SymbolEnumerator;
+  class Linker;
+
+  typedef void (*NativeCall)(Interpreter* vm);
+
+
 // types:
 // .s8, .s16, .s32, .s64 - signed integer
 // .u8, .u16, .u32, .u64 - unsigned integer
@@ -37,22 +51,22 @@ class VMDefs {
 
     typedef enum {
       // bit masks used in multi-register transfers
-      BITMASK_R1 = 0x0001,
-      BITMASK_R2 = 0x0002,
-      BITMASK_R3 = 0x0004,
-      BITMASK_R4 = 0x0008,
-      BITMASK_R5 = 0x0010,
-      BITMASK_R6 = 0x0020,
-      BITMASK_R7 = 0x0040,
-      BITMASK_R8 = 0x0080,
-      BITMASK_R9 = 0x0100,
-      BITMASK_R10 = 0x0200,
-      BITMASK_R11 = 0x0400,
-      BITMASK_R12 = 0x0800,
-      BITMASK_R13 = 0x1000,
-      BITMASK_R14 = 0x2000,
-      BITMASK_R15 = 0x4000,
-      BITMASK_R16 = 0x8000
+      BITMASK_R0  = 0x0001,
+      BITMASK_R1  = 0x0002,
+      BITMASK_R2  = 0x0004,
+      BITMASK_R3  = 0x0008,
+      BITMASK_R4  = 0x0010,
+      BITMASK_R5  = 0x0020,
+      BITMASK_R6  = 0x0040,
+      BITMASK_R7  = 0x0080,
+      BITMASK_R8  = 0x0100,
+      BITMASK_R9  = 0x0200,
+      BITMASK_R10 = 0x0400,
+      BITMASK_R11 = 0x0800,
+      BITMASK_R12 = 0x1000,
+      BITMASK_R13 = 0x2000,
+      BITMASK_R14 = 0x4000,
+      BITMASK_R15 = 0x8000
     } MultiRegMask;
 
     typedef enum {
@@ -75,4 +89,5 @@ class VMDefs {
     } VMStatus;
 };
 
+}
 #endif

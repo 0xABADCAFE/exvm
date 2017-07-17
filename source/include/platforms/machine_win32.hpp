@@ -15,6 +15,8 @@
 #define X_ENDIAN XA_LITTLEENDIAN
 #include <windows.h>
 
+namespace ExVM {
+
 class MilliClock {
   private:
     uint32 mark;
@@ -31,4 +33,6 @@ class MilliClock {
       set();
     }
 };
+
+}
 

@@ -19,14 +19,16 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// VMCore
+// Interpreter
 //
 // Represents the core interpreter for the virtual machine and is primarily responsible for the runtime execution of
 // virtual code.
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class VMCore {
+namespace ExVM {
+
+class Interpreter {
   public:
     enum {
       NUM_GPR         = 16,   // Number of general purpose registers
@@ -35,25 +37,23 @@ class VMCore {
       DEF_CALL_STACK  = 4096  // Default call stack size, in entries
     };
 
-    typedef void (*Native)(VMCore* vm);
-
     #include "vm_gpr.hpp"
 
   private:
-    GPR       gpr[VMCore::NUM_GPR];    // register set
+    GPR       gpr[Interpreter::NUM_GPR];    // register set
 
     union {
-      const uint16*         inst;   // normal interpretation
-      const uint8*          extU8;
-      const uint16*         extU16;
-      const uint32*         extU32;
-      const uint64*         extU64;
-      const sint8*          extS8;
-      const sint16*         extS16;
-      const sint32*         extS32;
-      const sint64*         extS64;
-      const uint16* const * extCodeAddr;
-      const Native* const * extNativeCodeAddr;
+      const uint16*             inst;   // normal interpretation
+      const uint8*              extU8;
+      const uint16*             extU16;
+      const uint32*             extU32;
+      const uint64*             extU64;
+      const sint8*              extS8;
+      const sint16*             extS16;
+      const sint32*             extS32;
+      const sint64*             extS64;
+      const uint16* const *     extCodeAddr;
+      const NativeCall* const * extNativeCodeAddr;
     } pc;         // program counter
 
     uint16**  callStack;  // return address stack
@@ -73,10 +73,9 @@ class VMCore {
     uint64*   regStackTop;
     uint8*    dataStackTop;
 
-    Native*   nativeCodeSymbol;
-    uint16**  codeSymbol;  
-    void**    dataSymbol;
-
+    NativeCall* nativeCodeSymbol;
+    uint16**    codeSymbol;  
+    void**      dataSymbol;
     uint32    status;
 
     size_t    regStackSize;
@@ -97,8 +96,8 @@ class VMCore {
 
   public:
 
-    VMCore(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
-    ~VMCore();
+    Interpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
+    ~Interpreter();
 
     uint32  getStatus() const {
       return status;
@@ -106,7 +105,7 @@ class VMCore {
 
   public:
  
-    void setNativeCodeSymbolTable(Native* symbol, uint16 count);
+    void setNativeCodeSymbolTable(NativeCall* symbol, uint16 count);
     void setCodeSymbolTable(uint16** symbol, uint16 count);
     void setDataSymbolTable(void** symbol, uint16 count);
 
@@ -124,4 +123,5 @@ class VMCore {
     
 };
 
+}
 #endif

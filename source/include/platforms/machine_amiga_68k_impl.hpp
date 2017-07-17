@@ -25,7 +25,7 @@ uint32 MilliClock::clockFreq = 0;
 uint32 MilliClock::elapsed() {
   EClockVal current;
   ReadEClock(&current);
-  ruint32 ticks;
+  register uint32 ticks;
   if (current.ev_hi == mark.ev_hi) {
     ticks = current.ev_lo - mark.ev_lo;
   }

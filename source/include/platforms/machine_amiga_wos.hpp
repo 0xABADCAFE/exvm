@@ -17,6 +17,8 @@
 #include <devices/timer.h>
 #include <proto/powerpc.h>
 
+namespace ExVM {
+
 class MilliClock {
   private:
     timeval   mark;
@@ -33,4 +35,6 @@ class MilliClock {
       set();
     }
 };
+
+}
 

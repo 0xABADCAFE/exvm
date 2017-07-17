@@ -15,6 +15,8 @@
 #define X_ENDIAN XA_BIGENDIAN
 #include <proto/timer.h>
 
+namespace ExVM {
+
 class MilliClock {
   private:
     static uint32 clockFreq;
@@ -33,4 +35,5 @@ class MilliClock {
     }
 };
 
+}
 
