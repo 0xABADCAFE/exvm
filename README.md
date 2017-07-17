@@ -29,6 +29,7 @@ Supported platforms:
 - Amiga OS 3.x WarpOS (PPC)
   - Each requires StormC4 (gcc 2.95.3 compatible) to compile the project
 - Amiga OS 4.x
+- MorphOS 3.x
 - Linux arm32, arm64, i386, x64
 
 ## Work in progress
