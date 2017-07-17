@@ -21,33 +21,33 @@ namespace ExVM {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// VMLinker
+// Linker
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class Linker {
+  class Linker {
 
-  public:
-    enum {
-      MAX_SYMBOLS_NATIVE = 65536,
-      MAX_SYMBOLS_CODE   = 65536,
-      MAX_SYMBOLS_DATA   = 65536,
-    };
+    public:
+      enum {
+        MAX_SYMBOLS_NATIVE = 65536,
+        MAX_SYMBOLS_CODE   = 65536,
+        MAX_SYMBOLS_DATA   = 65536,
+      };
 
-  int registerNative(const char* symbol, NativeCall func);
-  int registerCode(const char* symbol, const uint16* func);
-  int registerData(const char* symbol, const void* data);
+    int registerNative(const char* symbol, NativeCall func);
+    int registerCode(const char* symbol, const uint16* func);
+    int registerData(const char* symbol, const void* data);
 
-  Linker();
-  ~Linker();
+    Linker();
+    ~Linker();
 
-  private:
-    struct Resolved;
+    private:
+      struct Resolved;
 
-    SymbolEnumerator* native;
-    SymbolEnumerator* code;
-    SymbolEnumerator* data;
-};
+      SymbolEnumerator* native;
+      SymbolEnumerator* code;
+      SymbolEnumerator* data;
+  };
 
 }
 #endif

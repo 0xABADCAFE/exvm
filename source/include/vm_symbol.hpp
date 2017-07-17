@@ -36,87 +36,87 @@ namespace ExVM {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class SymbolEnumerator {
+  class SymbolEnumerator {
 
-  public:
-    // Error enumerations
-    enum {
-      ERR_TABLE_FULL           = -1, // We have reached the maximum number of allowed symbol ID entries.
-      ERR_UNKNOWN_SYMBOL       = -2, // The requested symbol is not in the table.
-      ERR_DUPLICATE_SYMBOL     = -3, // An attempt to register the same symbol was made.
-      ERR_ILLEGAL_SYMBOL_CHAR  = -4, // A symbol contained an illegal character.
-      ERR_OUT_OF_MEMORY        = -5, // There was insufficient memory to allocate storage for symbol data.
-    };
+    public:
+      // Error enumerations
+      enum {
+        ERR_TABLE_FULL           = -1, // We have reached the maximum number of allowed symbol ID entries.
+        ERR_UNKNOWN_SYMBOL       = -2, // The requested symbol is not in the table.
+        ERR_DUPLICATE_SYMBOL     = -3, // An attempt to register the same symbol was made.
+        ERR_ILLEGAL_SYMBOL_CHAR  = -4, // A symbol contained an illegal character.
+        ERR_OUT_OF_MEMORY        = -5, // There was insufficient memory to allocate storage for symbol data.
+      };
 
-    explicit SymbolEnumerator(uint32 maxSize);
-    ~SymbolEnumerator();
+      explicit SymbolEnumerator(uint32 maxSize);
+      ~SymbolEnumerator();
 
-    // Add a new symbol to the table. Will return the uniquely assigned ID value for the symbol if successful, or
-    // one of the enumerated error constants if not.
-    int add(const char* symbol);
+      // Add a new symbol to the table. Will return the uniquely assigned ID value for the symbol if successful, or
+      // one of the enumerated error constants if not.
+      int add(const char* symbol);
 
-    // Get the ID value of a previously registered symbol.
-    int get(const char* symbol) const;
+      // Get the ID value of a previously registered symbol.
+      int get(const char* symbol) const;
 
-    uint32 length() const {
-      return nextSymbolID;
-    }
+      uint32 length() const {
+        return nextSymbolID;
+      }
 
-    const char** getMap() const {
-      return symbolMap;
-    }
+      const char** getMap() const {
+        return symbolMap;
+      }
 
-    int operator[](const char* symbol) const {
-      return get(symbol);
-    }
+      int operator[](const char* symbol) const {
+        return get(symbol);
+      }
 
-  private:
-    // Trie implementation:
-    // Rather than  defining a trie with a wide fan out (64 node pointers per node), instead we use two nodes per mapped
-    // cahr, each of which has 8 children. This gives us a range of 8x8=64, sufficient to cover the entire set of valid
-    // characters but with a lot less memory wasted on unused pointers.
+    private:
+      // Trie implementation:
+      // Rather than  defining a trie with a wide fan out (64 node pointers per node), instead we use two nodes per mapped
+      // cahr, each of which has 8 children. This gives us a range of 8x8=64, sufficient to cover the entire set of valid
+      // characters but with a lot less memory wasted on unused pointers.
 
-    // Primary node type
-    struct PNode;
+      // Primary node type
+      struct PNode;
 
-    // Secondary node type
-    struct SNode;
+      // Secondary node type
+      struct SNode;
 
-    // Block of allocated nodes, linked together.
-    struct Block;
+      // Block of allocated nodes, linked together.
+      struct Block;
 
-    // We map the allowed symbol name characters 0-9A-Za-z@_ to the range 0-63 . This function maps a single input
-    // character. If the input character is out of range, reuturns ERR_ILLEGAL_SYMBOL_CHAR
-    int     mapChar(int c) const;
+      // We map the allowed symbol name characters 0-9A-Za-z@_ to the range 0-63 . This function maps a single input
+      // character. If the input character is out of range, reuturns ERR_ILLEGAL_SYMBOL_CHAR
+      int     mapChar(int c) const;
 
-    // Allocate a new PNode. Allocations will be from the remainder of the current Block or from a new Block if the
-    // existing one is full.
-    PNode*  allocPNode();
+      // Allocate a new PNode. Allocations will be from the remainder of the current Block or from a new Block if the
+      // existing one is full.
+      PNode*  allocPNode();
 
-    // Allocate a new SNode. Allocations will be from the remainder of the current Block of from a new Block if the
-    // existing one is full.
-    SNode*  allocSNode();
+      // Allocate a new SNode. Allocations will be from the remainder of the current Block of from a new Block if the
+      // existing one is full.
+      SNode*  allocSNode();
 
-    // Check if a Block is available.
-    int     checkBlock();
+      // Check if a Block is available.
+      int     checkBlock();
 
-    // Data ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Data ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Location of the current Block.
-    Block*       nodeBlock;
+      // Location of the current Block.
+      Block*       nodeBlock;
 
-    // Root of the trie
-    PNode*       rootNode;
+      // Root of the trie
+      PNode*       rootNode;
 
-    // Array of symbols
-    const char** symbolMap;
+      // Array of symbols
+      const char** symbolMap;
 
-    // Table size, set on construction
-    uint32 maxSymbols;
+      // Table size, set on construction
+      uint32 maxSymbols;
 
-    // The next ID we will allocate
-    uint32 nextSymbolID;
+      // The next ID we will allocate
+      uint32 nextSymbolID;
 
-};
+  };
 }
 #endif

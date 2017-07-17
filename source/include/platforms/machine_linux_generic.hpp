@@ -23,24 +23,24 @@
 
 namespace ExVM {
 
-class MilliClock {
-  friend class Clock;
-  private:
-    static struct timezone  tz;
-    timeval mark;
+  class MilliClock {
+    friend class Clock;
+    private:
+      static struct timezone  tz;
+      timeval mark;
 
-  public:
-    void      set() {
-      gettimeofday(&mark, &tz);
-    }
-    uint32    elapsed();
-    float64   elapsedFrac();
+    public:
+      void      set() {
+        gettimeofday(&mark, &tz);
+      }
+      uint32    elapsed();
+      float64   elapsedFrac();
 
-  public:
-    MilliClock() {
-      set();
-    }
-};
+    public:
+      MilliClock() {
+        set();
+      }
+  };
 
 }
 

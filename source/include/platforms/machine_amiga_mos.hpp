@@ -17,23 +17,23 @@
 
 namespace ExVM {
 
-class MilliClock {
-  private:
-    static uint32 clockFreq;
-    EClockVal     mark;
+  class MilliClock {
+    private:
+      static uint32 clockFreq;
+      EClockVal     mark;
 
-  public:
-    void      set()     {
-      ::ReadEClock(&mark);
-    }
-    uint32    elapsed();
-    float64   elapsedFrac();
+    public:
+      void      set()     {
+        ::ReadEClock(&mark);
+      }
+      uint32    elapsed();
+      float64   elapsedFrac();
 
-  public:
-    MilliClock() {
-      clockFreq = ::ReadEClock(&mark);
-    }
-};
+    public:
+      MilliClock() {
+        clockFreq = ::ReadEClock(&mark);
+      }
+  };
 
 }
 

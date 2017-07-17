@@ -17,22 +17,22 @@
 
 namespace ExVM {
 
-class MilliClock {
-  private:
-    uint32 mark;
+  class MilliClock {
+    private:
+      uint32 mark;
 
-  public:
-    void      set(){
-      mark = GetTickCount();
-    }
-    uint32    elapsed();
-    float64   elapsedFrac();
+    public:
+      void      set(){
+        mark = GetTickCount();
+      }
+      uint32    elapsed();
+      float64   elapsedFrac();
 
-  public:
-    MilliClock() {
-      set();
-    }
-};
+    public:
+      MilliClock() {
+        set();
+      }
+  };
 
 }
 

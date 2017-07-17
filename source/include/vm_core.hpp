@@ -28,100 +28,100 @@
 
 namespace ExVM {
 
-class Interpreter {
-  public:
-    enum {
-      NUM_GPR         = 16,   // Number of general purpose registers
-      DEF_REG_STACK   = 1024, // Default register save/restore stack size, in entries
-      DEF_DATA_STACK  = 4096, // Default data stack size, in bytes
-      DEF_CALL_STACK  = 4096  // Default call stack size, in entries
-    };
+  class Interpreter {
+    public:
+      enum {
+        NUM_GPR         = 16,   // Number of general purpose registers
+        DEF_REG_STACK   = 1024, // Default register save/restore stack size, in entries
+        DEF_DATA_STACK  = 4096, // Default data stack size, in bytes
+        DEF_CALL_STACK  = 4096  // Default call stack size, in entries
+      };
 
-    #include "vm_gpr.hpp"
+      #include "vm_gpr.hpp"
 
-  private:
-    GPR       gpr[Interpreter::NUM_GPR];    // register set
+    private:
+      GPR       gpr[Interpreter::NUM_GPR];    // register set
 
-    union {
-      const uint16*             inst;   // normal interpretation
-      const uint8*              extU8;
-      const uint16*             extU16;
-      const uint32*             extU32;
-      const uint64*             extU64;
-      const sint8*              extS8;
-      const sint16*             extS16;
-      const sint32*             extS32;
-      const sint64*             extS64;
-      const uint16* const *     extCodeAddr;
-      const NativeCall* const * extNativeCodeAddr;
-    } pc;         // program counter
+      union {
+        const uint16*             inst;   // normal interpretation
+        const uint8*              extU8;
+        const uint16*             extU16;
+        const uint32*             extU32;
+        const uint64*             extU64;
+        const sint8*              extS8;
+        const sint16*             extS16;
+        const sint32*             extS32;
+        const sint64*             extS64;
+        const uint16* const *     extCodeAddr;
+        const NativeCall* const * extNativeCodeAddr;
+      } pc;         // program counter
 
-    uint16**  callStack;  // return address stack
-    uint64*   regStack;   // register save/restore stack
-    union {
-      uint8*  u8;
-      uint16* u16;
-      uint32* u32;
-      uint64* u64;
-    } dataStack;  // general data stack
+      uint16**  callStack;  // return address stack
+      uint64*   regStack;   // register save/restore stack
+      union {
+        uint8*  u8;
+        uint16* u16;
+        uint32* u32;
+        uint64* u64;
+      } dataStack;  // general data stack
 
-    uint16**  callStackBase;
-    uint64*   regStackBase;
-    uint8*    dataStackBase;
+      uint16**  callStackBase;
+      uint64*   regStackBase;
+      uint8*    dataStackBase;
 
-    uint16**  callStackTop;
-    uint64*   regStackTop;
-    uint8*    dataStackTop;
+      uint16**  callStackTop;
+      uint64*   regStackTop;
+      uint8*    dataStackTop;
 
-    NativeCall* nativeCodeSymbol;
-    uint16**    codeSymbol;  
-    void**      dataSymbol;
-    uint32    status;
+      NativeCall* nativeCodeSymbol;
+      uint16**    codeSymbol;
+      void**      dataSymbol;
+      uint32    status;
 
-    size_t    regStackSize;
-    size_t    dataStackSize;
-    size_t    callStackSize;
-    
-    float64   totalTime;
-    float64   nativeTime;
+      size_t    regStackSize;
+      size_t    dataStackSize;
+      size_t    callStackSize;
 
-    uint16    nativeCodeSymbolCount;
-    uint16    codeSymbolCount;
-    uint16    dataSymbolCount;
+      float64   totalTime;
+      float64   nativeTime;
 
-    #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-      #include "vm_handlers.hpp"
-    #endif
-    static const char* statusCodes[];
+      uint16    nativeCodeSymbolCount;
+      uint16    codeSymbolCount;
+      uint16    dataSymbolCount;
 
-  public:
+      #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
+        #include "vm_handlers.hpp"
+      #endif
+      static const char* statusCodes[];
 
-    Interpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
-    ~Interpreter();
+    public:
 
-    uint32  getStatus() const {
-      return status;
-    }
+      Interpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
+      ~Interpreter();
 
-  public:
- 
-    void setNativeCodeSymbolTable(NativeCall* symbol, uint16 count);
-    void setCodeSymbolTable(uint16** symbol, uint16 count);
-    void setDataSymbolTable(void** symbol, uint16 count);
+      uint32  getStatus() const {
+        return status;
+      }
 
-    GPR& getReg(sint32 i) {
-      return gpr[(i & 0xF)];
-    }
+    public:
 
-    void setPC(uint16* newPC) {
-      pc.inst = newPC;
-    }
+      void setNativeCodeSymbolTable(NativeCall* symbol, uint16 count);
+      void setCodeSymbolTable(uint16** symbol, uint16 count);
+      void setDataSymbolTable(void** symbol, uint16 count);
 
-    void dump();
+      GPR& getReg(sint32 i) {
+        return gpr[(i & 0xF)];
+      }
 
-    void execute();
-    
-};
+      void setPC(uint16* newPC) {
+        pc.inst = newPC;
+      }
+
+      void dump();
+
+      void execute();
+
+  };
 
 }
 #endif

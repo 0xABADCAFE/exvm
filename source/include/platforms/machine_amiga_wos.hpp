@@ -19,22 +19,22 @@
 
 namespace ExVM {
 
-class MilliClock {
-  private:
-    timeval   mark;
+  class MilliClock {
+    private:
+      timeval   mark;
 
-  public:
-    void      set() {
-      ::GetSysTimePPC(&mark);
-    }
-    uint32    elapsed();
-    float64   elapsedFrac();
+    public:
+      void      set() {
+        ::GetSysTimePPC(&mark);
+      }
+      uint32    elapsed();
+      float64   elapsedFrac();
 
-  public:
-    MilliClock() {
-      set();
-    }
-};
+    public:
+      MilliClock() {
+        set();
+      }
+  };
 
 }
 
