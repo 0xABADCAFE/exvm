@@ -37,17 +37,15 @@ namespace ExVM {
   // Host provided function call
   typedef void (*NativeCall)(Interpreter* vm);
 
-
-  // types:
-  // .s8, .s16, .s32, .s64 - signed integer
-  // .u8, .u16, .u32, .u64 - unsigned integer
-  // .f32, .f64            - float
-  // .i                    - any integer type
-  // .f                    - any float type
-  // .a                    - any arithmetic type
-
-  // .8, .16, .32, .64     - size only (untyped)
-  // .x                    - any operand
+  // Generic error codes
+  class Error {
+    public:
+      enum {
+        SUCCESS          = 0,
+        ILLEGAL_ARGUMENT = -1,
+        OUT_OF_MEMORY    = -2
+      };
+  };
 
   class VMDefs {
     public:

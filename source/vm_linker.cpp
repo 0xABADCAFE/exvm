@@ -39,9 +39,12 @@ struct Linker::Resolved {
 Linker::Linker() :
   native(0),
   code(0),
-  data(0)
+  data(0),
+  nativeEnumerator(0),
+  codeEnumerator(0),
+  dataEnumerator(0),
 {
-  
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

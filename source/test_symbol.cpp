@@ -29,11 +29,11 @@ int main() {
     int         result; // the expected return value from add()
   } testData [] = {
     {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_", 0 }, // Expect this to get ID 0
-    {"Breaking Bad", SymbolEnumerator::ERR_ILLEGAL_SYMBOL_CHAR },             // Expect this to fail
+    {"Breaking Bad", SymbolEnumerator::Error::ILLEGAL_SYMBOL_CHAR },          // Expect this to fail
     {"_totallyLegit123", 1 },                                                 // Expect this to get ID 1
-    {"_totallyLegit123", SymbolEnumerator::ERR_DUPLICATE_SYMBOL },            // Expect this to fail
+    {"_totallyLegit123", SymbolEnumerator::Error::DUPLICATE_SYMBOL },         // Expect this to fail
     {"_totallyLegit456", 2 },                                                 // Expect this to get ID 2
-    {"alasNoMoreRoom", SymbolEnumerator::ERR_TABLE_FULL }                     // Expect this to fail
+    {"alasNoMoreRoom", SymbolEnumerator::Error::TABLE_FULL }                  // Expect this to fail
   };
 
   // Now test the behaviour of add()

@@ -1,7 +1,7 @@
 # Project: exvm_os4
 
 BIN      = bin/exvm_os4
-CXXFLAGS = -O3 -Wall -W -fomit-frame-pointer -fno-exceptions -D_VM_HOST_OS=_VM_HOST_AMIGAOS4_PPC -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE -D__USE_BASETYPE__
+CXXFLAGS = -O3 -Wall -W -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_AMIGAOS4_PPC -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE -D__USE_BASETYPE__
 OBJ      = obj/ppc_amigaos4/main.o \
            obj/ppc_amigaos4/vmprogram.o \
            obj/ppc_amigaos4/machine.o \
