@@ -28,10 +28,18 @@ namespace ExVM {
   class Linker {
 
     public:
+      class Error : public ExVM::Error {
+        public:
+          enum {
+            ILLEGAL_SYMBOL_ADDRESS = -200,
+          };
+      };
+
       enum {
         MAX_SYMBOLS_NATIVE = 65536,
         MAX_SYMBOLS_CODE   = 65536,
         MAX_SYMBOLS_DATA   = 65536,
+        INI_SIZE           = 128
       };
 
     int registerNative(const char* symbol, NativeCall func);
@@ -44,10 +52,15 @@ namespace ExVM {
     private:
       struct Resolved;
 
-      SymbolEnumerator* native;
-      SymbolEnumerator* code;
-      SymbolEnumerator* data;
+      Resolved* native;
+      Resolved* code;
+      Resolved* data;
+
+      SymbolEnumerator* nativeEnumerator;
+      SymbolEnumerator* codeEnumerator;
+      SymbolEnumerator* dataEnumerator;
   };
 
 }
+
 #endif

@@ -126,7 +126,7 @@ int SymbolEnumerator::mapChar(int c) const {
     return 63;
   }
 
-  return ERR_ILLEGAL_SYMBOL_CHAR;
+  return Error::ILLEGAL_SYMBOL_CHAR;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -202,7 +202,7 @@ int SymbolEnumerator::get(const char* symbol) const {
 
   // If there is no rootNode, then no symbols have been added. Ipso facto, cannot be known!
   if (!rootNode) {
-    return ERR_UNKNOWN_SYMBOL;
+    return Error::UNKNOWN_SYMBOL;
   }
 
   PNode* primaryNode;
@@ -226,11 +226,11 @@ int SymbolEnumerator::get(const char* symbol) const {
     indexPrimary   = code & 3;
     indexSecondary = code >> 3;
     if (!primaryNode->children[indexPrimary]) {
-      return ERR_UNKNOWN_SYMBOL;
+      return Error::UNKNOWN_SYMBOL;
     }
     secondaryNode = primaryNode->children[indexPrimary];
     if (!secondaryNode->children[indexSecondary]) {
-      return ERR_UNKNOWN_SYMBOL;
+      return Error::UNKNOWN_SYMBOL;
     }
     primaryNode = secondaryNode->children[indexSecondary];
   }
@@ -250,10 +250,10 @@ int SymbolEnumerator::add(const char* symbol) {
   if (nextSymbolID == maxSymbols) {
 
 #ifdef VM_FULL_DEBUG
-    std::fprintf(stderr, "[ERR] Cannot add symbol %s, table limit of %u entries reached\n", symbol, maxSymbolID);
+    std::fprintf(stderr, "[ERR] Cannot add symbol %s, table limit of %u entries reached\n", symbol, maxSymbols);
 #endif
 
-    return ERR_TABLE_FULL;
+    return Error::TABLE_FULL;
   }
 
   // If we haven't allocated a symbol map yet, we better do it.
@@ -263,7 +263,7 @@ int SymbolEnumerator::add(const char* symbol) {
     std::fprintf(stderr, "[ERR] Could not allocate symbol map\n");
 #endif
 
-    return ERR_OUT_OF_MEMORY;
+    return Error::OUT_OF_MEMORY;
   }
 
   // If we haven't allocated the root of our trie yet, we better do it.
@@ -273,7 +273,7 @@ int SymbolEnumerator::add(const char* symbol) {
     std::fprintf(stderr, "[ERR] Could not allocate root node\n");
 #endif
 
-    return ERR_OUT_OF_MEMORY;
+    return Error::OUT_OF_MEMORY;
   }
 
   const char* pChar = symbol;
@@ -304,7 +304,7 @@ int SymbolEnumerator::add(const char* symbol) {
       !primaryNode->children[indexPrimary] &&
       !(primaryNode->children[indexPrimary] = allocSNode())
     ) {
-      return ERR_OUT_OF_MEMORY;
+      return Error::OUT_OF_MEMORY;
     }
     secondaryNode = primaryNode->children[indexPrimary];
 
@@ -313,7 +313,7 @@ int SymbolEnumerator::add(const char* symbol) {
       !secondaryNode->children[indexSecondary] &&
       !(secondaryNode->children[indexSecondary] = allocPNode())
     ) {
-      return ERR_OUT_OF_MEMORY;
+      return Error::OUT_OF_MEMORY;
     }
     primaryNode = secondaryNode->children[indexSecondary];
 
@@ -325,7 +325,7 @@ int SymbolEnumerator::add(const char* symbol) {
     symbolMap[symbolID] = symbol;
     return symbolID;
   } else {
-    return ERR_DUPLICATE_SYMBOL;
+    return Error::DUPLICATE_SYMBOL;
   }
 }
 

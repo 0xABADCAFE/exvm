@@ -1,7 +1,7 @@
 # Project: exvm_arm32
 
 BIN      = bin/exvm_arm32
-CXXFLAGS = -O3 -Wall -W -march=native -fomit-frame-pointer -D_VM_HOST_OS=_VM_HOST_LINUX_I386 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE
+CXXFLAGS = -O3 -Wall -W -march=native -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_I386 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE
 OBJ      = obj/arm32_linux/main.o \
            obj/arm32_linux/vm_program.o \
            obj/arm32_linux/machine.o \

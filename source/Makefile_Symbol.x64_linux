@@ -1,7 +1,7 @@
 # Project: exvm_x64
 
 BIN      = bin/symbol_x64
-CXXFLAGS = -O3 -Wall -W -m64 -march=native -fomit-frame-pointer -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_GCC_USE_BUILTIN
+CXXFLAGS = -O3 -Wall -W -m64 -march=native -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_GCC_USE_BUILTIN
 OBJ      =  obj/x64_linux/vm_symbol.o \
             obj/x64_linux/test_symbol.o
 

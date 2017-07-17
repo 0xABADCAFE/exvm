@@ -14,6 +14,7 @@
 
 #ifndef _VM_SYMBOL_HPP_
   #define _VM_SYMBOL_HPP_
+  #include "vm.hpp"
   #include "machine.hpp"
 
 namespace ExVM {
@@ -39,13 +40,15 @@ namespace ExVM {
   class SymbolEnumerator {
 
     public:
-      // Error enumerations
-      enum {
-        ERR_TABLE_FULL           = -1, // We have reached the maximum number of allowed symbol ID entries.
-        ERR_UNKNOWN_SYMBOL       = -2, // The requested symbol is not in the table.
-        ERR_DUPLICATE_SYMBOL     = -3, // An attempt to register the same symbol was made.
-        ERR_ILLEGAL_SYMBOL_CHAR  = -4, // A symbol contained an illegal character.
-        ERR_OUT_OF_MEMORY        = -5, // There was insufficient memory to allocate storage for symbol data.
+      class Error : public ExVM::Error {
+        public:
+          // Error enumerations specific to this component
+          enum {
+            ILLEGAL_SYMBOL_CHAR = ILLEGAL_ARGUMENT, // A symbol contained an illegal character.
+            TABLE_FULL          = -100,             // We have reached the maximum number of allowed symbol ID entries.
+            UNKNOWN_SYMBOL      = -101,             // The requested symbol is not in the table.
+            DUPLICATE_SYMBOL    = -102,             // An attempt to register the same symbol was made.
+          };
       };
 
       explicit SymbolEnumerator(uint32 maxSize);
