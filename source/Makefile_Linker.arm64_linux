@@ -1,0 +1,26 @@
+# Project: exvm_x64
+
+BIN      = bin/linker_arm64
+CXXFLAGS = -O3 -Wall -W -march=native -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_GCC_USE_BUILTIN
+OBJ      =  obj/arm64_linux/vm_symbol.o \
+            obj/arm64_linux/vm_linker.o \
+            obj/arm64_linux/vm_debug.o \
+            obj/arm64_linux/test_linker.o
+
+$(BIN): $(OBJ) Makefile_Linker.arm64_linux
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN)
+
+obj/arm64_linux/vm_symbol.o: vm_symbol.cpp include/machine.hpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+obj/arm64_linux/vm_linker.o: vm_linker.cpp include/machine.hpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+obj/arm64_linux/vm_debug.o: vm_debug.cpp include/vm.hpp include/machine.hpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+obj/arm64_linux/test_linker.o: test_linker.cpp include/machine.hpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(TARGET) obj/arm64_linux/*.o *~ core
