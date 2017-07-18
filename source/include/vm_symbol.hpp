@@ -75,6 +75,10 @@ namespace ExVM {
         return get(symbol);
       }
 
+      int isFull() const {
+        return nextSymbolID == maxSymbols;
+      }
+
     private:
       // Trie implementation:
       // Rather than  defining a trie with a wide fan out (64 node pointers per node), instead we use two nodes per mapped

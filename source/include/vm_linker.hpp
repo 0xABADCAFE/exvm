@@ -32,6 +32,7 @@ namespace ExVM {
         public:
           enum {
             ILLEGAL_SYMBOL_ADDRESS = -200,
+            MAX_SYMBOLS_REACHED    = -201
           };
       };
 
@@ -39,7 +40,8 @@ namespace ExVM {
         MAX_SYMBOLS_NATIVE = 65536,
         MAX_SYMBOLS_CODE   = 65536,
         MAX_SYMBOLS_DATA   = 65536,
-        INI_TABLE_SIZE     = 128
+        INI_TABLE_SIZE     = 128,
+        INC_TABLE_DELTA    = 128
       };
 
     int registerNative(const char* symbol, NativeCall func);
@@ -51,6 +53,8 @@ namespace ExVM {
 
     private:
       struct Resolved;
+
+      int checkEnumerator(SymbolEnumerator*& symbolEnumerator);
 
       Resolved* native;
       Resolved* code;

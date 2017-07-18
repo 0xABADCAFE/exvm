@@ -67,39 +67,45 @@ Linker::~Linker() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int Linker::registerNative(const char* symbol, NativeCall func) {
-  if (
-    !nativeEnumerator &&
-    !(nativeEnumerator = new(std::nothrow)SymbolEnumerator(maxNative))
-  ) {
-    return Error::OUT_OF_MEMORY;
+  if (!symbol || !func) {
+    return Error::ILLEGAL_ARGUMENT;
   }
-
+  checkEnumerator(nativeEnumerator);
   return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int Linker::registerCode(const char* symbol, const uint16* func) {
-  if (
-    !codeEnumerator &&
-    !(codeEnumerator = new(std::nothrow)SymbolEnumerator(maxCode))
-  ) {
-    return Error::OUT_OF_MEMORY;
+  if (!symbol || !func) {
+    return Error::ILLEGAL_ARGUMENT;
   }
-
+  checkEnumerator(codeEnumerator);
   return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int Linker::registerData(const char* symbol, const void* data) {
+  if (!symbol || !data) {
+    return Error::ILLEGAL_ARGUMENT;
+  }
+  checkEnumerator(dataEnumerator);
+  return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int Linker::checkEnumerator(SymbolEnumerator*& symbolEnumerator) {
+
+  // Check #1 make sure the SynbolEnumerator exists
   if (
-    !dataEnumerator &&
-    !(dataEnumerator = new(std::nothrow)SymbolEnumerator(maxData))
+    !symbolEnumerator &&
+    !(symbolEnumerator = new(std::nothrow)SymbolEnumerator(INI_TABLE_SIZE))
   ) {
     return Error::OUT_OF_MEMORY;
   }
 
-  return 0;
+  return Error::SUCCESS;
 }
 

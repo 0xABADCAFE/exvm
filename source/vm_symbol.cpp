@@ -200,6 +200,11 @@ SymbolEnumerator::SNode* SymbolEnumerator::allocSNode() {
 
 int SymbolEnumerator::get(const char* symbol) const {
 
+  // Protect against null
+  if (!symbol) {
+    return Error::ILLEGAL_ARGUMENT;
+  }
+
   // If there is no rootNode, then no symbols have been added. Ipso facto, cannot be known!
   if (!rootNode) {
     return Error::UNKNOWN_SYMBOL;
@@ -246,8 +251,13 @@ int SymbolEnumerator::get(const char* symbol) const {
 
 int SymbolEnumerator::add(const char* symbol) {
 
+  // Protect against null
+  if (!symbol) {
+    return Error::ILLEGAL_ARGUMENT;
+  }
+
   // Check we haven't reached the table size limit
-  if (nextSymbolID == maxSymbols) {
+  if (isFull()) {
 
 #ifdef VM_FULL_DEBUG
     std::fprintf(stderr, "[ERR] Cannot add symbol %s, table limit of %u entries reached\n", symbol, maxSymbols);
@@ -336,10 +346,12 @@ int SymbolEnumerator::add(const char* symbol) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int SymbolEnumerator::raiseLimit(uint32 newLimit) {
+
+  // Thw new limit must be bigger
   if (newLimit <= maxSymbols) {
     return Error::ILLEGAL_ARGUMENT;
   }
-  //symbolMap = (const char**)std::calloc(maxSymbols, sizeof(const char*)
+
   const char** newSymbolMap = (const char**)std::realloc(symbolMap, newLimit * sizeof(const char*));
   if (newSymbolMap) {
     std::memset(&newSymbolMap[maxSymbols], 0, (newLimit - maxSymbols) * sizeof(const char*));
