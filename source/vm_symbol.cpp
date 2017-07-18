@@ -92,9 +92,7 @@ SymbolEnumerator::~SymbolEnumerator() {
     void* ptr = (void*) pBlock;
     pBlock    = pBlock->prevBlock;
 
-#ifdef VM_FULL_DEBUG
-    std::fprintf(stderr, "[INF] Freeing Block at %p\n", ptr);
-#endif
+    debuglog(LOG_DEBUG, "Freeing Block at %p", ptr);
 
     std::free(ptr);
   }
@@ -141,16 +139,12 @@ int SymbolEnumerator::checkBlock() {
     Block* newBlock = (Block*)std::calloc(1, sizeof(Block));
     if (!newBlock) {
 
-#ifdef VM_FULL_DEBUG
-      std::fprintf(stderr, "[ERR] Unable to allocate Block of %u bytes\n", (uint32)sizeof(Block));
-#endif
+      debuglog(LOG_ERROR, "Unable to allocate Block of %u bytes", (uint32)sizeof(Block));
 
       return 0;
     }
 
-#ifdef VM_FULL_DEBUG
-    std::fprintf(stderr, "[INF] Allocate Block of %u bytes at %p\n", (uint32)sizeof(Block), newBlock);
-#endif
+    debuglog(LOG_DEBUG, "Allocated Block of %u bytes at %p", (uint32)sizeof(Block), newBlock);
 
     // Make the newly allocated block the active one
     newBlock->prevBlock    = nodeBlock;
@@ -220,9 +214,7 @@ int SymbolEnumerator::get(const char* symbol) const {
     int code = mapChar(charCode);
     if (code < 0) {
 
-#ifdef VM_FULL_DEBUG
-      std::fprintf(stderr, "[ERR] Illegal Character \'%c\' in symbol\n", charCode);
-#endif
+      debuglog(LOG_ERROR, "Illegal Character \'%c\' in symbol\n", charCode);
 
       return code;
     }
@@ -259,9 +251,7 @@ int SymbolEnumerator::add(const char* symbol) {
   // Check we haven't reached the table size limit
   if (isFull()) {
 
-#ifdef VM_FULL_DEBUG
-    std::fprintf(stderr, "[ERR] Cannot add symbol %s, table limit of %u entries reached\n", symbol, maxSymbols);
-#endif
+    debuglog(LOG_WARN, "Cannot add symbol %s, table limit of %u entries reached", symbol, maxSymbols);
 
     return Error::TABLE_FULL;
   }
@@ -269,9 +259,7 @@ int SymbolEnumerator::add(const char* symbol) {
   // If we haven't allocated a symbol map yet, we better do it.
   if (!symbolMap && !(symbolMap = (const char**)std::calloc(maxSymbols, sizeof(const char*)))) {
 
-#ifdef VM_FULL_DEBUG
-    std::fprintf(stderr, "[ERR] Could not allocate symbol map\n");
-#endif
+    debuglog(LOG_ERROR, "Could not allocate symbol map");
 
     return Error::OUT_OF_MEMORY;
   }
@@ -279,9 +267,7 @@ int SymbolEnumerator::add(const char* symbol) {
   // If we haven't allocated the root of our trie yet, we better do it.
   if (!rootNode && !(rootNode = allocPNode())) {
 
-#ifdef VM_FULL_DEBUG
-    std::fprintf(stderr, "[ERR] Could not allocate root node\n");
-#endif
+    debuglog(LOG_ERROR, "Could not allocate root node for trie");
 
     return Error::OUT_OF_MEMORY;
   }
@@ -298,9 +284,7 @@ int SymbolEnumerator::add(const char* symbol) {
     int code = mapChar(charCode);
     if (code < 0) {
 
-#ifdef VM_FULL_DEBUG
-      std::fprintf(stderr, "[ERR] Illegal Character \'%c\' in symbol\n", charCode);
-#endif
+      debuglog(LOG_WARN, "Illegal Character \'%c\' in symbol", charCode);
 
       return code;
     }

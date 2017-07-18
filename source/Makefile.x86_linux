@@ -14,7 +14,8 @@ OBJ      = obj/x86_linux/main.o \
            obj/x86_linux/op_arithmetic.o \
            obj/x86_linux/op_logic.o \
            obj/x86_linux/vm_core.o \
-           obj/x86_linux/op_normal_table.o
+           obj/x86_linux/op_normal_table.o \
+           obj/x86_linux/vm_debug.o
 
 $(BIN): $(OBJ) Makefile.x86_linux
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN)
@@ -56,6 +57,9 @@ obj/x86_linux/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/x86_linux/op_normal_table.o: op_normal_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+obj/x86_linux/vm_debug.o: vm_debug.cpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 clean:

@@ -14,7 +14,8 @@ OBJ      = obj/arm64_linux/main.o \
            obj/arm64_linux/op_arithmetic.o \
            obj/arm64_linux/op_logic.o \
            obj/arm64_linux/vm_core.o \
-           obj/arm64_linux/op_normal_table.o
+           obj/arm64_linux/op_normal_table.o \
+           obj/arm64_linux/vm_debug.o
 
 $(BIN): $(OBJ) Makefile.arm64_linux
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN)
@@ -58,6 +59,8 @@ obj/arm64_linux/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp includ
 obj/arm64_linux/op_normal_table.o: op_normal_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
+obj/arm64_linux/vm_debug.o: vm_debug.cpp include/vm.hpp include/machine.hpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 clean:
 	$(RM) $(TARGET) obj/arm64_linux/*.o *~ core

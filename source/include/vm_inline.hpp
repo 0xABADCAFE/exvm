@@ -13,7 +13,7 @@
 //****************************************************************************//
 
 #ifndef _VM_INLINE_HPP_
-#define _VM_INLINE_HPP_
+  #define _VM_INLINE_HPP_
 
 namespace ExVM {
 
