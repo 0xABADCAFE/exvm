@@ -4,6 +4,7 @@ BIN      = bin/linker_x64
 CXXFLAGS = -O3 -Wall -W -m64 -march=native -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_GCC_USE_BUILTIN
 OBJ      =  obj/x64_linux/vm_symbol.o \
             obj/x64_linux/vm_linker.o \
+            obj/x64_linux/vm_debug.o \
             obj/x64_linux/test_linker.o
 
 $(BIN): $(OBJ) Makefile_Linker.x64_linux
@@ -13,6 +14,9 @@ obj/x64_linux/vm_symbol.o: vm_symbol.cpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/x64_linux/vm_linker.o: vm_linker.cpp include/machine.hpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+obj/x64_linux/vm_debug.o: vm_debug.cpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/x64_linux/test_linker.o: test_linker.cpp include/machine.hpp

@@ -32,6 +32,8 @@ namespace ExVM {
     public:
       enum {
         NUM_GPR         = 16,   // Number of general purpose registers
+        GPR_FIRST       = 0,
+        GPR_LAST        = NUM_GPR - 1,
         DEF_REG_STACK   = 1024, // Default register save/restore stack size, in entries
         DEF_DATA_STACK  = 4096, // Default data stack size, in bytes
         DEF_CALL_STACK  = 4096  // Default call stack size, in entries

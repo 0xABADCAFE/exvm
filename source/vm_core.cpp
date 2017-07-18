@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
 //** File:         vm_core.cpp                                              **//
-//** Description:  Interpreter class definition                                  **//
+//** Description:  Interpreter class definition                             **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-08-29                                               **//
@@ -64,7 +64,7 @@ Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize
   callStackTop = callStackBase ? callStackBase + callStackSize : 0;
 
   nativeCodeSymbol = 0;
-  codeSymbol       = 0;  
+  codeSymbol       = 0;
   dataSymbol       = 0;
 
 

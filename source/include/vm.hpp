@@ -17,7 +17,14 @@
 #define _VM_DEFS_HPP_
 #include "machine.hpp"
 
+#define VM_DEBUG
 #define VM_FULL_DEBUG
+#define _VM_LOG_LEVEL 3
+
+#define _VM_LOG_ERROR 0
+#define _VM_LOG_WARN 1
+#define _VM_LOG_INFO 2
+#define _VM_LOG_DEBUG 3
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -26,6 +33,15 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace ExVM {
+
+  #ifdef VM_DEBUG
+    extern const char* debugLevel(uint32 level);
+    #define debuglog(level, format, args...) if ( _VM_##level <= _VM_LOG_LEVEL) std::printf("[%s] " format "\n", debugLevel((uint32)(_VM_##level)), ## args)
+    #define dumpstate(v) (v)->dump()
+  #else
+    #define debuglog(level, format, args...)
+    #define dumpstate(v)
+  #endif
 
   // Runtime execution engine
   class Interpreter;
