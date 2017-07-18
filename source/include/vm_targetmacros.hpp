@@ -89,20 +89,20 @@
 
   #endif
 
-  #ifdef VM_FULL_DEBUG
+  #ifdef VM_DEBUG
     #define _DECLARE_DATA_SYMBOL(x)             \
     uint16 x = _EX_U16;                         \
     if (x >= vm->dataSymbolCount) {             \
       vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \
-      printf("Runtime error: Unknown data symbol : %d\n", (int)x); \
-      vm->dump();                               \
+      debuglog(LOG_ERROR, "Runtime error: Unknown data symbol : %d\n", (int)x); \
+      dumpstate(vm);                            \
       _THROW(-1)                                \
     }
   #else
     #define _DECLARE_DATA_SYMBOL(x)             \
     uint16 x = _EX_U16;                         \
     if (x >= vm->dataSymbolCount) {             \
-      vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \                             \
+      vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \
       _THROW(-1)                                \
     }
   #endif

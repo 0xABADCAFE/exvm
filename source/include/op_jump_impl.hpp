@@ -27,10 +27,8 @@ _DEFINE_OP(BCALL8) {
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
 
-#ifdef VM_FULL_DEBUG
-    printf("Runtime error: call stack overflow\n");
-    vm->dump();
-#endif
+    debuglog(LOG_ERROR, "Call stack overflow in BCALL8");
+    dumpstate(vm);
 
     _THROW(-1)
   }
@@ -48,10 +46,8 @@ _DEFINE_OP(BCALL16) {
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
 
-#ifdef VM_FULL_DEBUG
-    printf("Runtime error: call stack overflow\n");
-    vm->dump();
-#endif
+    debuglog(LOG_ERROR, "Call stack overflow in BCALL16");
+    dumpstate(vm);
 
     _THROW(-1)
   }
@@ -66,10 +62,8 @@ _DEFINE_OP(CALL) {
   if (symbol >= vm->codeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
 
-#ifdef VM_FULL_DEBUG
-    printf("Runtime error: Unknown code symbold : %d\n", (int)symbol);
-    vm->dump();
-#endif
+    debuglog(LOG_ERROR, "Unknown code symbold %d in CALL", (int)symbol);
+    dumpstate(vm);
 
     _THROW(-1)
   }
@@ -81,10 +75,8 @@ _DEFINE_OP(CALL) {
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
 
-#ifdef VM_FULL_DEBUG
-    printf("Runtime error: call stack overflow\n");
-    vm->dump();
-#endif
+    debuglog(LOG_ERROR, "Call stack overflow in CALL");
+    dumpstate(vm);
 
     _THROW(-1)
   }
@@ -98,10 +90,8 @@ _DEFINE_OP(CALLN) {
   if (symbol >= vm->nativeCodeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
 
-#ifdef VM_FULL_DEBUG
-    printf("Runtime error: Unknown native code symbold : %d\n", (int)symbol);
-    vm->dump();
-#endif
+    debuglog(LOG_ERROR, "Unknown native code symbold %d in CALLN", (int)symbol);
+    dumpstate(vm);
 
     _THROW(-1)
   }
@@ -114,10 +104,8 @@ _DEFINE_OP(CALLN) {
   } else {
     vm->status = VMDefs::CALL_EMPTY_NATIVE;
 
-#ifdef VM_FULL_DEBUG
-    printf("Runtime error: call native with null address\n");
-    vm->dump();
-#endif
+    debuglog(LOG_ERROR, "Empty native address in CALLN");
+    dumpstate(vm);
 
     _THROW(-1)
   }
