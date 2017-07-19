@@ -89,265 +89,75 @@ _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+
 _DEFINE_OP(SV) {
-  // TODO: Move to a function
-
-  // save r1,r2...
-  uint16  mask  = _EX_U16;
-  GPR*    r     = vm->gpr;
-
-  while (mask && (vm->regStack < vm->regStackTop)) {
-    if (mask & 0x0001) {
-      *vm->regStack++ = r->u64();
-    }
-    ++r;
-    mask >>= 1;
-  }
-  if (mask) {
-    // not all the registers were saved, signifying an overflow
-    vm->status = VMDefs::REG_STACK_OVERFLOW;
-
-    debuglog(LOG_ERROR, "Register stack overflow");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doSV(vm, op);
 }
 _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(RS) {
-  // TODO: Move to a function
-
-  // restore r1,r2...
-  uint16  mask  = _EX_U16;
-  GPR*    r     = vm->gpr + GPR_LAST;
-  while (mask && (vm->regStack > vm->regStackBase)) {
-    if (mask & 0x8000) {
-      r->u64() = *(--vm->regStack);
-    }
-    --r;
-    mask<<=1;
-  }
-  if (mask) {
-    // not all the registers were restored, signifying an underflow
-    vm->status = VMDefs::REG_STACK_UNDERFLOW;
-
-    debuglog(LOG_ERROR, "Register stack underflow");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
-
+  doRS(vm, op);
 }
 _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(PUSH_8) {
-  // TODO: Move to a function
-
-  uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr;
-  while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
-    if (mask & 1) {
-      *vm->dataStack.u16++ = r->u8();
-    }
-    r++;
-    mask >>= 1;
-  }
-  if (mask) {
-    // not all the data were pushed, signifying an overflow
-    vm->status = VMDefs::DATA_STACK_OVERFLOW;
-
-    debuglog(LOG_ERROR, "Data stack overflow in PUSH_8");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doPUSH_8(vm, op);
 }
 _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(PUSH_16) {
-  // TODO: Move to a function
-
-  uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr;
-  while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
-    if (mask & 1) {
-      *vm->dataStack.u16++ = r->u16();
-    }
-    ++r;
-    mask >>= 1;
-  }
-  if (mask) {
-    // not all the data were pushed, signifying an overflow
-    vm->status = VMDefs::DATA_STACK_OVERFLOW;
-
-    debuglog(LOG_ERROR, "Data stack overflow in PUSH_16");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doPUSH_16(vm, op);
 }
 _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(PUSH_32) {
-  // TODO: Move to a function
-
-  uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr;
-  while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
-    if (mask & 1) {
-      *vm->dataStack.u32++ = r->u32();
-    }
-    ++r;
-    mask >>= 1;
-  }
-  if (mask) {
-    // not all the data were pushed, signifying an overflow
-    vm->status = VMDefs::DATA_STACK_OVERFLOW;
-
-    debuglog(LOG_ERROR, "Data stack overflow in PUSH_32");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doPUSH_32(vm, op);
 }
 _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(PUSH_64) {
-  // TODO: Move to a function
-
-  uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr;
-  while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
-    if (mask & 1) {
-      *vm->dataStack.u64++ = r->u64();
-    }
-    ++r;
-    mask >>= 1;
-  }
-  if (mask) {
-    // not all the data were pushed, signifying an overflow
-    vm->status = VMDefs::DATA_STACK_OVERFLOW;
-
-    debuglog(LOG_ERROR, "Data stack overflow in PUSH_64");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doPUSH_64(vm, op);
 }
 _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(POP_8) {
-  // TODO: Move to a function
-
-  uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr + GPR_LAST;
-  while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
-    if (mask & 0x8000) {
-      r->u8() = *(--vm->dataStack.u16);
-    }
-    --r;
-    mask <<= 1;
-  }
-  if (mask) {
-    // not all the data were popped, signifying an underflow
-    vm->status = VMDefs::DATA_STACK_UNDERFLOW;
-
-    debuglog(LOG_ERROR, "Data stack underflow in POP_8");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doPOP_8(vm, op);
 }
 _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(POP_16) {
-  // TODO: Move to a function
-
-  uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr + GPR_LAST;
-  while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
-    if (mask & 0x8000) {
-      r->u16() = *(--vm->dataStack.u16);
-    }
-    --r;
-    mask <<= 1;
-  }
-  if (mask) {
-    // not all the data were popped, signifying an underflow
-    vm->status = VMDefs::DATA_STACK_UNDERFLOW;
-
-    debuglog(LOG_ERROR, "Data stack underflow in POP_16");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doPOP_16(vm, op);
 }
 _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(POP_32) {
-  // TODO: Move to a function
-
-  uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr + GPR_LAST;
-  while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
-    if (mask & 0x8000) {
-      r->u32() = *(--vm->dataStack.u32);
-    }
-    --r;
-    mask <<= 1;
-  }
-  if (mask) {
-    // not all the data were popped, signifying an underflow
-    vm->status = VMDefs::DATA_STACK_UNDERFLOW;
-
-    debuglog(LOG_ERROR, "Data stack underflow in POP_32");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doPOP_32(vm, op);
 }
 _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(POP_64) {
-  // TODO: Move to a function
-
-  uint16 mask =  _EX_U16;
-  GPR*  r = vm->gpr + GPR_LAST;
-  while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
-    if (mask & 0x8000) {
-      r->u64() = *(--vm->dataStack.u64);
-    }
-    --r;
-    mask <<= 1;
-  }
-  if (mask) {
-    // not all the data were popped, signifying an underflow
-    vm->status = VMDefs::DATA_STACK_UNDERFLOW;
-
-    debuglog(LOG_ERROR, "Data stack underflow in POP_64");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doPOP_64(vm, op);
 }
 _END_OP
+
+#endif
 
