@@ -54,6 +54,8 @@ namespace ExVM {
     private:
       struct Resolved;
 
+      template <class T> class SymbolResolver;
+
       int checkEnumerator(SymbolEnumerator*& symbolEnumerator);
 
       Resolved* native;
