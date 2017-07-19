@@ -21,6 +21,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(BCALL8) {
+  // TODO: Move to a function
+
   if (vm->callStack < vm->callStackTop) {
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst += _B8(op);
@@ -38,6 +40,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(BCALL16) {
+  // TODO: Move to a function
+
   if (vm->callStack < vm->callStackTop) {
     // for clarity, since _EX_S16 macro increments pc
     _DECLARE_OFFSET
@@ -58,6 +62,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(CALL) {
+  // TODO: Move to a function
+
   uint16 symbol = _EX_U16;
   if (symbol >= vm->codeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
@@ -86,6 +92,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(CALLN) {
+  // TODO: Move to a function
+
   uint16 symbol = _EX_U16;
   if (symbol >= vm->nativeCodeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;

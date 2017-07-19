@@ -90,6 +90,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(SV) {
+  // TODO: Move to a function
+
   // save r1,r2...
   uint16  mask  = _EX_U16;
   GPR*    r     = vm->gpr;
@@ -116,6 +118,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(RS) {
+  // TODO: Move to a function
+
   // restore r1,r2...
   uint16  mask  = _EX_U16;
   GPR*    r     = vm->gpr + GPR_LAST;
@@ -142,6 +146,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(PUSH_8) {
+  // TODO: Move to a function
+
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -166,6 +172,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(PUSH_16) {
+  // TODO: Move to a function
+
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -190,6 +198,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(PUSH_32) {
+  // TODO: Move to a function
+
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -214,6 +224,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(PUSH_64) {
+  // TODO: Move to a function
+
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -238,6 +250,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(POP_8) {
+  // TODO: Move to a function
+
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -262,6 +276,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(POP_16) {
+  // TODO: Move to a function
+
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -286,6 +302,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(POP_32) {
+  // TODO: Move to a function
+
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -310,6 +328,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(POP_64) {
+  // TODO: Move to a function
+
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {

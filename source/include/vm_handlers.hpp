@@ -19,6 +19,8 @@
 
 typedef void (*Handler)(Interpreter*, uint16);
 
+// TODO: Reorganise based on sizeless, 32-bit int only, 32-bit int+float, 64-bit contiguous blocks
+
 // control group
 _DECLARE_OP(NOP)
 _DECLARE_OP(BRK)
