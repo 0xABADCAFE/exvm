@@ -47,7 +47,7 @@ Linker::Linker() :
   maxCode(INI_TABLE_SIZE),
   maxData(INI_TABLE_SIZE)
 {
-
+  debuglog(LOG_DEBUG, "Created Linker");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,12 +62,14 @@ Linker::~Linker() {
   if (dataEnumerator) {
     delete dataEnumerator;
   }
+  debuglog(LOG_DEBUG, "Destroyed Linker");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int Linker::registerNative(const char* symbol, NativeCall func) {
   if (!symbol || !func) {
+    debuglog(LOG_ERROR, "Missing required symbol/native");
     return Error::ILLEGAL_ARGUMENT;
   }
   checkEnumerator(nativeEnumerator);
@@ -78,6 +80,7 @@ int Linker::registerNative(const char* symbol, NativeCall func) {
 
 int Linker::registerCode(const char* symbol, const uint16* func) {
   if (!symbol || !func) {
+    debuglog(LOG_ERROR, "Missing required symbol/code");
     return Error::ILLEGAL_ARGUMENT;
   }
   checkEnumerator(codeEnumerator);
@@ -88,6 +91,7 @@ int Linker::registerCode(const char* symbol, const uint16* func) {
 
 int Linker::registerData(const char* symbol, const void* data) {
   if (!symbol || !data) {
+    debuglog(LOG_ERROR, "Missing required symbol/data");
     return Error::ILLEGAL_ARGUMENT;
   }
   checkEnumerator(dataEnumerator);
@@ -103,8 +107,11 @@ int Linker::checkEnumerator(SymbolEnumerator*& symbolEnumerator) {
     !symbolEnumerator &&
     !(symbolEnumerator = new(std::nothrow)SymbolEnumerator(INI_TABLE_SIZE))
   ) {
+    debuglog(LOG_ERROR, "Unable to allocate SymbolEnumerator");  
     return Error::OUT_OF_MEMORY;
   }
+
+  debuglog(LOG_INFO, "SymbolEnumerator has %d entries", symbolEnumerator->length());
 
   return Error::SUCCESS;
 }

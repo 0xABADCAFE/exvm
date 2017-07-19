@@ -20,8 +20,8 @@ using ExVM::Linker;
 
 int main() {
 
-
-
+  Linker testLinker;
+  testLinker.registerNative(0, 0);
   return 0;
 }
 
