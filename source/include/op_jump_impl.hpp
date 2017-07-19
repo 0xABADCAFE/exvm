@@ -12,115 +12,30 @@
 //**                                                                        **//
 //****************************************************************************//
 
-#if X_PTRSIZE == XA_PTRSIZE64
-  #define _DECLARE_OFFSET sint64 offset = _EX_S16;
-#else
-  #define _DECLARE_OFFSET sint16 offset = _EX_S16;
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
+#if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
 
 _DEFINE_OP(BCALL8) {
-  // TODO: Move to a function
-
-  if (vm->callStack < vm->callStackTop) {
-    *vm->callStack++ = (uint16*)vm->pc.inst;
-    vm->pc.inst += _B8(op);
-  } else {
-    vm->status = VMDefs::CALL_STACK_OVERFLOW;
-
-    debuglog(LOG_ERROR, "Call stack overflow in BCALL8");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doBCALL8(vm, op);
 }
 _END_OP
-
-////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(BCALL16) {
-  // TODO: Move to a function
-
-  if (vm->callStack < vm->callStackTop) {
-    // for clarity, since _EX_S16 macro increments pc
-    _DECLARE_OFFSET
-    *vm->callStack++ = (uint16*)vm->pc.inst;
-    vm->pc.inst += offset;
-  } else {
-    vm->status = VMDefs::CALL_STACK_OVERFLOW;
-
-    debuglog(LOG_ERROR, "Call stack overflow in BCALL16");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
-
+  doBCALL16(vm, op);
 }
 _END_OP
-
-////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(CALL) {
-  // TODO: Move to a function
-
-  uint16 symbol = _EX_U16;
-  if (symbol >= vm->codeSymbolCount) {
-    vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
-
-    debuglog(LOG_ERROR, "Unknown code symbold %d in CALL", (int)symbol);
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
-  const uint16* newPC = vm->codeSymbol[symbol];
-  //printf("call 0x%08X\n", (unsigned)newPC);
-  if (vm->callStack < vm->callStackTop) {
-    *vm->callStack++ = (uint16*)vm->pc.inst;
-    vm->pc.inst = newPC;
-  } else {
-    vm->status = VMDefs::CALL_STACK_OVERFLOW;
-
-    debuglog(LOG_ERROR, "Call stack overflow in CALL");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doCALL(vm, op);
 }
 _END_OP
-
-////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(CALLN) {
-  // TODO: Move to a function
-
-  uint16 symbol = _EX_U16;
-  if (symbol >= vm->nativeCodeSymbolCount) {
-    vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
-
-    debuglog(LOG_ERROR, "Unknown native code symbold %d in CALLN", (int)symbol);
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
-  NativeCall func = vm->nativeCodeSymbol[symbol];
-  if (func) {
-    MilliClock native;
-    //printf("call native 0x%08X\n", (unsigned)func);
-    func(vm);
-    vm->nativeTime += native.elapsedFrac();
-  } else {
-    vm->status = VMDefs::CALL_EMPTY_NATIVE;
-
-    debuglog(LOG_ERROR, "Empty native address in CALLN");
-    dumpstate(vm);
-
-    _THROW(-1)
-  }
+  doCALLN(vm, op);
 }
 _END_OP
 
-////////////////////////////////////////////////////////////////////////////////
+#endif
+
 
 _DEFINE_OP(RET) {
   if (vm->callStack > vm->callStackBase) {
@@ -138,7 +53,7 @@ _DEFINE_OP(BRA8) {
 _END_OP
 
 _DEFINE_OP(BRA16) {
-  //for clarity, since _EX_S16 macro increments pc
+  // for clarity, since _EX_S16 macro increments pc
   _DECLARE_OFFSET
   vm->pc.inst += offset;
 }

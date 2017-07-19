@@ -123,6 +123,12 @@ namespace ExVM {
 
       void execute();
 
+    private:
+      // Specific handler functions for opcodes that require more than a couple of inline statements
+      static void doBCALL8(Interpreter* vm, uint16 op);
+      static void doBCALL16(Interpreter* vm, uint16 op);
+      static void doCALL(Interpreter* vm, uint16 op);
+      static void doCALLN(Interpreter* vm, uint16 op);
   };
 
 }
