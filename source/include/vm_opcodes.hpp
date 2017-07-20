@@ -16,6 +16,8 @@
 #define _VM_DEF_OPCODES_HPP_
 
 typedef enum {
+// TODO: Reorganise based on sizeless, 32-bit int only, 32-bit int+float, 64-bit contiguous blocks
+
   // control group ////////////////////////////////////////
   _NOP = 0,
   _BRK,

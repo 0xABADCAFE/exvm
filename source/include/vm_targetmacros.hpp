@@ -73,7 +73,7 @@
     #define PTR_S64  _ps64
     #define PTR_F32  _pf32
     #define PTR_F64  _pf64
-
+    #define _DECLARE_OFFSET sint64 offset = _EX_S16;
   #else
     #define PTR_CH   _pch[REGOFS_P]
     #define PTR_U8   _pu8[REGOFS_P]
@@ -86,7 +86,7 @@
     #define PTR_S64  _ps64[REGOFS_P]
     #define PTR_F32  _pf32[REGOFS_P]
     #define PTR_F64  _pf64[REGOFS_P]
-
+    #define _DECLARE_OFFSET sint16 offset = _EX_S16;
   #endif
 
   #ifdef VM_DEBUG
