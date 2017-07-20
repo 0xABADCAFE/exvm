@@ -26,6 +26,13 @@ namespace ExVM {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   class Linker {
+    private:
+      class SymbolResolver;
+      SymbolResolver* codeSymbolResolver;
+      SymbolResolver* nativeCodeSymbolResolver;
+      SymbolResolver* dataSymbolResolver;
+
+      int addSymbol(SymbolResolver*& resolver, const char* symbol, const void* address);
 
     public:
       class Error : public ExVM::Error {
@@ -44,31 +51,21 @@ namespace ExVM {
         INC_TABLE_DELTA    = 128
       };
 
-    int registerNative(const char* symbol, NativeCall func);
-    int registerCode(const char* symbol, const uint16* func);
-    int registerData(const char* symbol, const void* data);
+    int registerCode(const char* symbol, const uint16* func) {
+      return addSymbol(codeSymbolResolver, symbol, func);
+    }
+
+    int registerNative(const char* symbol, NativeCall func) {
+      return addSymbol(nativeCodeSymbolResolver, symbol, (const void*)func);
+    }
+
+    int registerData(const char* symbol, const void* data) {
+      return addSymbol(dataSymbolResolver, symbol, data);
+    }
 
     Linker();
     ~Linker();
 
-    private:
-      struct Resolved;
-
-      template <class T> class SymbolResolver;
-
-      int checkEnumerator(SymbolEnumerator*& symbolEnumerator);
-
-      Resolved* native;
-      Resolved* code;
-      Resolved* data;
-
-      SymbolEnumerator* nativeEnumerator;
-      SymbolEnumerator* codeEnumerator;
-      SymbolEnumerator* dataEnumerator;
-
-      uint32 maxNative;
-      uint32 maxCode;
-      uint32 maxData;
   };
 
 }

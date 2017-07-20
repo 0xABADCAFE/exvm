@@ -20,15 +20,26 @@
 
 using namespace ExVM;
 
-struct Linker::Resolved {
-  union {
-    NativeCall    native;
-    const uint16* func;
-    const uint8*  data;
-  };
-  const char* symbol;
-  int         symbolID;
+class Linker::SymbolResolver : private SymbolEnumerator {
+  public:
+
+    int length() const { return SymbolEnumerator::length(); }
+
+    int addSymbol(const char* symbol, const void* addr);
+
+    SymbolResolver(uint32 iniSize) : SymbolEnumerator(iniSize) {
+      debuglog(LOG_DEBUG, "Created Linker::SymbolResolver");
+    }
+
+    ~SymbolResolver() {
+      debuglog(LOG_DEBUG, "Destroyed Linker::SymbolResolver");
+    }
+
 };
+
+int Linker::SymbolResolver::addSymbol(const char* symbol, const void* addr) {
+  return SymbolEnumerator::add(symbol);
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -36,16 +47,7 @@ struct Linker::Resolved {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Linker::Linker() :
-  native(0),
-  code(0),
-  data(0),
-  nativeEnumerator(0),
-  codeEnumerator(0),
-  dataEnumerator(0),
-  maxNative(INI_TABLE_SIZE),
-  maxCode(INI_TABLE_SIZE),
-  maxData(INI_TABLE_SIZE)
+Linker::Linker() : codeSymbolResolver(0), nativeCodeSymbolResolver(0), dataSymbolResolver(0)
 {
   debuglog(LOG_DEBUG, "Created Linker");
 }
@@ -53,66 +55,45 @@ Linker::Linker() :
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Linker::~Linker() {
-  if (nativeEnumerator) {
-    delete nativeEnumerator;
+  if (codeSymbolResolver) {
+    delete codeSymbolResolver;
   }
-  if (codeEnumerator) {
-    delete codeEnumerator;
+  if (nativeCodeSymbolResolver) {
+    delete nativeCodeSymbolResolver;
   }
-  if (dataEnumerator) {
-    delete dataEnumerator;
+  if (dataSymbolResolver) {
+    delete dataSymbolResolver;
   }
   debuglog(LOG_DEBUG, "Destroyed Linker");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int Linker::registerNative(const char* symbol, NativeCall func) {
-  if (!symbol || !func) {
-    debuglog(LOG_ERROR, "Missing required symbol/native");
-    return Error::ILLEGAL_ARGUMENT;
-  }
-  checkEnumerator(nativeEnumerator);
-  return 0;
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int Linker::registerCode(const char* symbol, const uint16* func) {
-  if (!symbol || !func) {
-    debuglog(LOG_ERROR, "Missing required symbol/code");
+int Linker::addSymbol(SymbolResolver*& resolver, const char* symbol, const void* addr) {
+  if (!symbol) {
+    debuglog(LOG_ERROR, "NULL symbol passed to %s()", __FUNCTION__);
     return Error::ILLEGAL_ARGUMENT;
   }
-  checkEnumerator(codeEnumerator);
-  return 0;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-int Linker::registerData(const char* symbol, const void* data) {
-  if (!symbol || !data) {
-    debuglog(LOG_ERROR, "Missing required symbol/data");
-    return Error::ILLEGAL_ARGUMENT;
+  if (!addr) {
+    debuglog(LOG_ERROR, "NULL symbol address passed to %s()", __FUNCTION__);
+    return Error::ILLEGAL_SYMBOL_ADDRESS;
   }
-  checkEnumerator(dataEnumerator);
-  return 0;
-}
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-int Linker::checkEnumerator(SymbolEnumerator*& symbolEnumerator) {
-
-  // Check #1 make sure the SynbolEnumerator exists
+  // Check #1 make sure the SymbolResolver exists
   if (
-    !symbolEnumerator &&
-    !(symbolEnumerator = new(std::nothrow)SymbolEnumerator(INI_TABLE_SIZE))
+    !resolver &&
+    !(resolver = new(std::nothrow)SymbolResolver(INI_TABLE_SIZE))
   ) {
-    debuglog(LOG_ERROR, "Unable to allocate SymbolEnumerator");  
+    debuglog(LOG_ERROR, "Unable to allocate SymbolResolver");
     return Error::OUT_OF_MEMORY;
   }
 
-  debuglog(LOG_INFO, "SymbolEnumerator has %d entries", symbolEnumerator->length());
+  resolver->addSymbol(symbol, addr);
 
+  debuglog(LOG_INFO, "SymbolResolver has %d entries", resolver->length());
   return Error::SUCCESS;
 }
 

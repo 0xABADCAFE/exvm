@@ -18,10 +18,13 @@
 
 using ExVM::Linker;
 
+uint16 dummy[] = { 0 };
+
 int main() {
 
   Linker testLinker;
   testLinker.registerNative(0, 0);
+  testLinker.registerCode("main", dummy);
   return 0;
 }
 
