@@ -27,14 +27,15 @@ namespace ExVM {
 
   class Linker {
     private:
-      class SymbolResolver;
-      SymbolResolver* codeSymbolResolver;
-      SymbolResolver* nativeCodeSymbolResolver;
-      SymbolResolver* dataSymbolResolver;
+      class SymbolMap;
+      SymbolMap* codeSymbols;
+      SymbolMap* nativeCodeSymbols;
+      SymbolMap* dataSymbols;
 
-      int addSymbol(SymbolResolver*& resolver, const char* symbol, const void* address);
+      int add(SymbolMap*& map, const char* symbol);
 
     public:
+
       class Error : public ExVM::Error {
         public:
           enum {
@@ -43,28 +44,32 @@ namespace ExVM {
           };
       };
 
+      struct Symbol {
+        union {
+          const uint16* code;
+          const void*   data;
+          NativeCall    native;
+        };
+        const char* name;
+        uint32      symbolId;
+      };
+
       enum {
-        MAX_SYMBOLS_NATIVE = 65536,
-        MAX_SYMBOLS_CODE   = 65536,
-        MAX_SYMBOLS_DATA   = 65536,
+        MAX_SYMBOLS        = 65536,
         INI_TABLE_SIZE     = 128,
         INC_TABLE_DELTA    = 128
       };
 
-    int registerCode(const char* symbol, const uint16* func) {
-      return addSymbol(codeSymbolResolver, symbol, func);
-    }
+      int addCode(const char* symbol, const uint16* func);
+      int addData(const char* symbol, const void* data);
+      int addNative(const char* symbol, NativeCall func);
 
-    int registerNative(const char* symbol, NativeCall func) {
-      return addSymbol(nativeCodeSymbolResolver, symbol, (const void*)func);
-    }
+      Symbol* getCodeSymbols();
+      Symbol* getDataSymbols();
+      Symbol* getNativeCodeSymbols();
 
-    int registerData(const char* symbol, const void* data) {
-      return addSymbol(dataSymbolResolver, symbol, data);
-    }
-
-    Linker();
-    ~Linker();
+      Linker();
+      ~Linker();
 
   };
 
