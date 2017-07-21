@@ -52,15 +52,6 @@ int main() {
     }
   }
 
-  std::puts("Testing SymbolEnumerator::raiseLimit()...");
-  int newLimit = symbolTable.raiseLimit(8);
-  if (newLimit == 8) {
-    std::puts("\tSUCCESS");
-    symbolTable.add("sneakyExtraSymbol_FTW");
-  } else {
-    std::puts("\tFAILURE");
-  }
-
   size_t length = symbolTable.length();
 
   std::printf("\nAdded %d unique symbols\n\n", (int)length);
@@ -73,14 +64,6 @@ int main() {
       testData[i].symbol,
       (int)symbolTable.get(testData[i].symbol)
     );
-  }
-
-  // Now test the symbol map
-  std::printf("\nDumping full symbol map of %d valid entries...\n", (int)length);
-
-  const char** symbolMap = symbolTable.getMap();
-  for (size_t i = 0; i < length; i++) {
-    std::printf("\t%d : %s\n", (int)i, symbolMap[i]);
   }
 
   // Test the convenience methods:

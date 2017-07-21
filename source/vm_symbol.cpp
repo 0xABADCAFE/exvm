@@ -71,11 +71,10 @@ struct SymbolEnumerator::Block {
 SymbolEnumerator::SymbolEnumerator(uint32 maxSize) :
   nodeBlock(0),
   rootNode(0),
-  symbolMap(0),
   maxSymbols(maxSize),
   nextSymbolID(0)
 {
-
+  debuglog(LOG_DEBUG, "Created SymbolEnumerator");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -96,9 +95,7 @@ SymbolEnumerator::~SymbolEnumerator() {
 
     std::free(ptr);
   }
-  if (symbolMap) {
-    std::free(symbolMap);
-  }
+  debuglog(LOG_DEBUG, "Destroyed SymbolEnumerator");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,6 +191,11 @@ SymbolEnumerator::SNode* SymbolEnumerator::allocSNode() {
 
 int SymbolEnumerator::get(const char* symbol) const {
 
+  // Protect against null
+  if (!symbol) {
+    return Error::ILLEGAL_ARGUMENT;
+  }
+
   // If there is no rootNode, then no symbols have been added. Ipso facto, cannot be known!
   if (!rootNode) {
     return Error::UNKNOWN_SYMBOL;
@@ -238,20 +240,17 @@ int SymbolEnumerator::get(const char* symbol) const {
 
 int SymbolEnumerator::add(const char* symbol) {
 
+  // Protect against null
+  if (!symbol) {
+    return Error::ILLEGAL_ARGUMENT;
+  }
+
   // Check we haven't reached the table size limit
-  if (nextSymbolID == maxSymbols) {
+  if (isFull()) {
 
     debuglog(LOG_WARN, "Cannot add symbol %s, table limit of %u entries reached", symbol, maxSymbols);
 
     return Error::TABLE_FULL;
-  }
-
-  // If we haven't allocated a symbol map yet, we better do it.
-  if (!symbolMap && !(symbolMap = (const char**)std::calloc(maxSymbols, sizeof(const char*)))) {
-
-    debuglog(LOG_ERROR, "Could not allocate symbol map");
-
-    return Error::OUT_OF_MEMORY;
   }
 
   // If we haven't allocated the root of our trie yet, we better do it.
@@ -305,32 +304,9 @@ int SymbolEnumerator::add(const char* symbol) {
 
   // If this is the first time we landed on this particular PNode, it's a new symbol!
   if (primaryNode->symbolID < 0) {
-    int symbolID = primaryNode->symbolID = (int)nextSymbolID++;
-    symbolMap[symbolID] = symbol;
-    return symbolID;
+    return primaryNode->symbolID = (int)nextSymbolID++;
   } else {
     return Error::DUPLICATE_SYMBOL;
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Raise the maximum ID for enumeration
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-int SymbolEnumerator::raiseLimit(uint32 newLimit) {
-  if (newLimit <= maxSymbols) {
-    return Error::ILLEGAL_ARGUMENT;
-  }
-  //symbolMap = (const char**)std::calloc(maxSymbols, sizeof(const char*)
-  const char** newSymbolMap = (const char**)std::realloc(symbolMap, newLimit * sizeof(const char*));
-  if (newSymbolMap) {
-    std::memset(&newSymbolMap[maxSymbols], 0, (newLimit - maxSymbols) * sizeof(const char*));
-    symbolMap  = newSymbolMap;
-    maxSymbols = newLimit;
-    return newLimit;
-  }
-  return Error::OUT_OF_MEMORY;
 }
 

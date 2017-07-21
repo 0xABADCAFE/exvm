@@ -26,43 +26,51 @@ namespace ExVM {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   class Linker {
+    private:
+      class SymbolMap;
+      SymbolMap* codeSymbols;
+      SymbolMap* nativeCodeSymbols;
+      SymbolMap* dataSymbols;
+
+      int add(SymbolMap*& map, const char* symbol);
 
     public:
+
       class Error : public ExVM::Error {
         public:
           enum {
             ILLEGAL_SYMBOL_ADDRESS = -200,
+            MAX_SYMBOLS_REACHED    = -201
           };
       };
 
-      enum {
-        MAX_SYMBOLS_NATIVE = 65536,
-        MAX_SYMBOLS_CODE   = 65536,
-        MAX_SYMBOLS_DATA   = 65536,
-        INI_TABLE_SIZE     = 128
+      struct Symbol {
+        union {
+          const uint16* code;
+          const void*   data;
+          NativeCall    native;
+        };
+        const char* name;
+        uint32      symbolId;
       };
 
-    int registerNative(const char* symbol, NativeCall func);
-    int registerCode(const char* symbol, const uint16* func);
-    int registerData(const char* symbol, const void* data);
+      enum {
+        MAX_SYMBOLS        = 65536,
+        INI_TABLE_SIZE     = 128,
+        INC_TABLE_DELTA    = 128
+      };
 
-    Linker();
-    ~Linker();
+      int addCode(const char* symbol, const uint16* func);
+      int addData(const char* symbol, const void* data);
+      int addNative(const char* symbol, NativeCall func);
 
-    private:
-      struct Resolved;
+      Symbol* getCodeSymbols();
+      Symbol* getDataSymbols();
+      Symbol* getNativeCodeSymbols();
 
-      Resolved* native;
-      Resolved* code;
-      Resolved* data;
+      Linker();
+      ~Linker();
 
-      SymbolEnumerator* nativeEnumerator;
-      SymbolEnumerator* codeEnumerator;
-      SymbolEnumerator* dataEnumerator;
-
-      uint32 maxNative;
-      uint32 maxCode;
-      uint32 maxData;
   };
 
 }
