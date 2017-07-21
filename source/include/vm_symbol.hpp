@@ -54,8 +54,6 @@ namespace ExVM {
       explicit SymbolEnumerator(uint32 maxSize);
       ~SymbolEnumerator();
 
-      int raiseLimit(uint32 limit);
-
       // Add a new symbol to the table. Will return the uniquely assigned ID value for the symbol if successful, or
       // one of the enumerated error constants if not.
       int add(const char* symbol);
@@ -65,10 +63,6 @@ namespace ExVM {
 
       uint32 length() const {
         return nextSymbolID;
-      }
-
-      const char** getMap() const {
-        return symbolMap;
       }
 
       int operator[](const char* symbol) const {
@@ -116,9 +110,6 @@ namespace ExVM {
 
       // Root of the trie
       PNode*       rootNode;
-
-      // Array of symbols
-      const char** symbolMap;
 
       // Table size, set on construction
       uint32 maxSymbols;

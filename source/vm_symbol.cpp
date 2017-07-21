@@ -71,7 +71,6 @@ struct SymbolEnumerator::Block {
 SymbolEnumerator::SymbolEnumerator(uint32 maxSize) :
   nodeBlock(0),
   rootNode(0),
-  symbolMap(0),
   maxSymbols(maxSize),
   nextSymbolID(0)
 {
@@ -95,9 +94,6 @@ SymbolEnumerator::~SymbolEnumerator() {
     debuglog(LOG_DEBUG, "Freeing Block at %p", ptr);
 
     std::free(ptr);
-  }
-  if (symbolMap) {
-    std::free(symbolMap);
   }
   debuglog(LOG_DEBUG, "Destroyed SymbolEnumerator");
 }
@@ -257,14 +253,6 @@ int SymbolEnumerator::add(const char* symbol) {
     return Error::TABLE_FULL;
   }
 
-  // If we haven't allocated a symbol map yet, we better do it.
-  if (!symbolMap && !(symbolMap = (const char**)std::calloc(maxSymbols, sizeof(const char*)))) {
-
-    debuglog(LOG_ERROR, "Could not allocate symbol map");
-
-    return Error::OUT_OF_MEMORY;
-  }
-
   // If we haven't allocated the root of our trie yet, we better do it.
   if (!rootNode && !(rootNode = allocPNode())) {
 
@@ -316,34 +304,9 @@ int SymbolEnumerator::add(const char* symbol) {
 
   // If this is the first time we landed on this particular PNode, it's a new symbol!
   if (primaryNode->symbolID < 0) {
-    int symbolID = primaryNode->symbolID = (int)nextSymbolID++;
-    symbolMap[symbolID] = symbol;
-    return symbolID;
+    return primaryNode->symbolID = (int)nextSymbolID++;
   } else {
     return Error::DUPLICATE_SYMBOL;
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Raise the maximum ID for enumeration
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-int SymbolEnumerator::raiseLimit(uint32 newLimit) {
-
-  // Thw new limit must be bigger
-  if (newLimit <= maxSymbols) {
-    return Error::ILLEGAL_ARGUMENT;
-  }
-
-  const char** newSymbolMap = (const char**)std::realloc(symbolMap, newLimit * sizeof(const char*));
-  if (newSymbolMap) {
-    std::memset(&newSymbolMap[maxSymbols], 0, (newLimit - maxSymbols) * sizeof(const char*));
-    symbolMap  = newSymbolMap;
-    maxSymbols = newLimit;
-    return newLimit;
-  }
-  return Error::OUT_OF_MEMORY;
 }
 
