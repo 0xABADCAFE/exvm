@@ -20,9 +20,18 @@
 
 using namespace ExVM;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Linker::SymbolMap
+//
+// Implements an automatically enumerated map of registered symbols. Uses the SymbolEnumerator as an implementation
+// base.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 class Linker::SymbolMap : private SymbolEnumerator {
   private:
-    Linker::Symbol* symbols;
+    Linker::SymbolList symbolList;
     uint32 maxSize;
     uint32 currSize;
     uint32 delta;
@@ -33,8 +42,9 @@ class Linker::SymbolMap : private SymbolEnumerator {
       return SymbolEnumerator::length();
     }
 
-    Symbol* getMap() {
-      return symbols;
+    SymbolList* getList() {
+      symbolList.count = length();
+      return &symbolList;
     }
 
     int addSymbol(const char* symbol);
@@ -45,14 +55,19 @@ class Linker::SymbolMap : private SymbolEnumerator {
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// SymbolMap constructor
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Linker::SymbolMap::SymbolMap(uint32 iniSize, uint32 maxSize, uint32 delta) :
   SymbolEnumerator(iniSize),
-  symbols(0),
   maxSize(maxSize),
   currSize(iniSize),
   delta(delta)
 {
+  symbolList.symbols = 0;
+  symbolList.count   = 0;
   debuglog(
     LOG_DEBUG,
     "Created Linker::SymbolMap, initial size %u, max size %u, grow size %u",
@@ -63,8 +78,9 @@ Linker::SymbolMap::SymbolMap(uint32 iniSize, uint32 maxSize, uint32 delta) :
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Linker::SymbolMap::~SymbolMap() {
-  if (symbols) {
-    std::free(symbols);
+  if (symbolList.symbols) {
+    std::free(symbolList.symbols);
+    debuglog(LOG_DEBUG, "Freed Linker::SymbolMap::symbolList");
   }
   debuglog(LOG_DEBUG, "Destroyed Linker::SymbolMap");
 }
@@ -79,8 +95,8 @@ int Linker::SymbolMap::addSymbol(const char* symbol) {
 
     // First time allocation of Symbol table?
     if (
-      !symbols &&
-      !(symbols = (Linker::Symbol*)std::calloc(currSize, sizeof(Linker::Symbol)))
+      !symbolList.symbols &&
+      !(symbolList.symbols = (Linker::Symbol*)std::calloc(currSize, sizeof(Linker::Symbol)))
     ) {
       debuglog(LOG_ERROR, "Unable to allocate initial Symbol table for %u entries", currSize);
       return Error::OUT_OF_MEMORY;
@@ -89,19 +105,19 @@ int Linker::SymbolMap::addSymbol(const char* symbol) {
     // Time to expand symbol table?
     if ((uint32) result >= currSize) {
       uint32 newSize = currSize + delta;
-      Symbol* growSymbols = (Linker::Symbol*)std::realloc(symbols, newSize * sizeof(Linker::Symbol));
+      Symbol* growSymbols = (Linker::Symbol*)std::realloc(symbolList.symbols, newSize * sizeof(Linker::Symbol));
       if (!growSymbols) {
         debuglog(LOG_ERROR, "Unable to grow Symbol table to %u entries", newSize);
         return Error::OUT_OF_MEMORY;
       }
 
-      symbols  = growSymbols;
-      currSize = newSize;
+      symbolList.symbols = growSymbols;
+      currSize           = newSize;
       debuglog(LOG_INFO, "Expanded Symbol table to %u entries", currSize);
     }
 
-    symbols[result].name     = symbol;
-    symbols[result].symbolId = result;
+    symbolList.symbols[result].name     = symbol;
+    symbolList.symbols[result].symbolId = result;
   }
 
   return result;
@@ -116,7 +132,7 @@ int Linker::addCode(const char* symbol, const uint16* code) {
   }
   int result = add(codeSymbols, symbol);
   if (result >= 0) {
-    codeSymbols->getMap()[result].code = code;
+    codeSymbols->getList()->symbols[result].code = code;
     debuglog(LOG_INFO, "Stored code symbol \'%s\' ID:%d at address %p", symbol, result, code);
   }
   return result;
@@ -131,7 +147,7 @@ int Linker::addNative(const char* symbol, NativeCall native) {
   }
   int result = add(nativeCodeSymbols, symbol);
   if (result >= 0) {
-    nativeCodeSymbols->getMap()[result].native = native;
+    nativeCodeSymbols->getList()->symbols[result].native = native;
     debuglog(LOG_INFO, "Stored native call symbol \'%s\' ID:%d at address %p", symbol, result, (void*)native);
   }
   return result;
@@ -147,17 +163,15 @@ int Linker::addData(const char* symbol, const void* data) {
   int result = add(dataSymbols, symbol);
 
   if (result >= 0) {
-    dataSymbols->getMap()[result].data = data;
+    dataSymbols->getList()->symbols[result].data = data;
     debuglog(LOG_INFO, "Stored data symbol \'%s\' ID:%d at address %p", symbol, result, data);
   }
   return result;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// Constructor
+// Linker Constructor
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -183,17 +197,31 @@ Linker::~Linker() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Linker::Symbol* Linker::getCodeSymbols() {
+Linker::SymbolList* Linker::getCodeSymbols() {
+  if (codeSymbols) {
+    return codeSymbols->getList();
+  }
+  debuglog(LOG_WARN, "SymbolMap codeSymbols not instantiated");
   return 0;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Linker::Symbol* Linker::getNativeCodeSymbols() {
+Linker::SymbolList* Linker::getNativeCodeSymbols() {
+  if (nativeCodeSymbols) {
+    return nativeCodeSymbols->getList();
+  }
+  debuglog(LOG_WARN, "SymbolMap nativeCodeSymbols not instantiated");
   return 0;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Linker::Symbol* Linker::getDataSymbols() {
+Linker::SymbolList* Linker::getDataSymbols() {
+  if (dataSymbols) {
+    return dataSymbols->getList();
+  }
+  debuglog(LOG_WARN, "SymbolMap dataSymbols not instantiated");
   return 0;
 }
 
@@ -204,7 +232,6 @@ int Linker::add(SymbolMap*& map, const char* symbol) {
     debuglog(LOG_ERROR, "NULL symbol passed to %s()", __FUNCTION__);
     return Error::ILLEGAL_ARGUMENT;
   }
-
 
   // Check #1 make sure the SymbolMap exists
   if (

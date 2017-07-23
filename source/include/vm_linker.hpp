@@ -54,6 +54,11 @@ namespace ExVM {
         uint32      symbolId;
       };
 
+      struct SymbolList {
+        Symbol* symbols;
+        uint32  count;
+      };
+
       enum {
         MAX_SYMBOLS        = 65536,
         INI_TABLE_SIZE     = 128,
@@ -64,9 +69,9 @@ namespace ExVM {
       int addData(const char* symbol, const void* data);
       int addNative(const char* symbol, NativeCall func);
 
-      Symbol* getCodeSymbols();
-      Symbol* getDataSymbols();
-      Symbol* getNativeCodeSymbols();
+      SymbolList* getCodeSymbols();
+      SymbolList* getDataSymbols();
+      SymbolList* getNativeCodeSymbols();
 
       Linker();
       ~Linker();

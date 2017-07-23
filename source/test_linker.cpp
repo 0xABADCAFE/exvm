@@ -86,6 +86,26 @@ int main() {
     std::puts("\tFAILED");
   }
 
+  std::puts("Testing getCodeSymbols()...");
+  Linker::SymbolList*
+  list = testLinker.getCodeSymbols();
+
+  for (uint32 i=0; i < list->count; i++) {
+    std::printf("\t%i : %s : %p\n", i, list->symbols[i].name, list->symbols[i].data);
+  }
+
+  std::puts("Testing getDataSymbols()...");
+  list = testLinker.getDataSymbols();
+  for (uint32 i=0; i < list->count; i++) {
+    std::printf("\t%i : %s : %p\n", i, list->symbols[i].name, list->symbols[i].data);
+  }
+
+  std::puts("Testing getNativeCodeSymbols()...");
+  list = testLinker.getNativeCodeSymbols();
+  for (uint32 i=0; i < list->count; i++) {
+    std::printf("\t%i : %s : %p\n", i, list->symbols[i].name, list->symbols[i].data);
+  }
+
   return 0;
 }
 
