@@ -13,15 +13,21 @@
 //****************************************************************************//
 
 #include <cstdio>
-
 #include "include/vm_symbol.hpp"
 
-using ExVM::SymbolEnumerator;
+using namespace ExVM;
 
-int main() {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Perform some basic tests of the SymbolNameEnumerator class
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void testSymbolNameEnumerator() {
+  std::puts("Performing SymbolNameEnumerator tests...");
 
   // Create a symbol table big enough for 3 unique symbols
-  SymbolEnumerator symbolTable(3);
+  SymbolNameEnumerator symbolTable(3);
 
   // Strucuture up some conformance test data
   struct TestData {
@@ -29,15 +35,15 @@ int main() {
     int         result; // the expected return value from add()
   } testData [] = {
     {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_", 0 }, // Expect this to get ID 0
-    {"Breaking Bad", SymbolEnumerator::Error::ILLEGAL_SYMBOL_CHAR },          // Expect this to fail
+    {"Breaking Bad", SymbolNameEnumerator::Error::ILLEGAL_SYMBOL_CHAR },          // Expect this to fail
     {"_totallyLegit123", 1 },                                                 // Expect this to get ID 1
-    {"_totallyLegit123", SymbolEnumerator::Error::DUPLICATE_SYMBOL },         // Expect this to fail
+    {"_totallyLegit123", SymbolNameEnumerator::Error::DUPLICATE_SYMBOL },         // Expect this to fail
     {"_totallyLegit456", 2 },                                                 // Expect this to get ID 2
-    {"alasNoMoreRoom", SymbolEnumerator::Error::TABLE_FULL }                  // Expect this to fail
+    {"alasNoMoreRoom", SymbolNameEnumerator::Error::TABLE_FULL }                  // Expect this to fail
   };
 
   // Now test the behaviour of add()
-  std::puts("Testing SymbolEnumerator::add()...");
+  std::puts("Testing SymbolNameEnumerator::add()...");
   for (size_t i = 0; i < sizeof(testData) / sizeof(TestData); i++) {
     std::printf(
       "\tAttempting to add symbol: %-64s with expected result : %2d ... ",
@@ -57,7 +63,7 @@ int main() {
   std::printf("\nAdded %d unique symbols\n\n", (int)length);
 
   // Now test the behaviour of get()
-  std::puts("Testing SymbolEnumerator::get() with the original set of symbols...");
+  std::puts("Testing SymbolNameEnumerator::get() with the original set of symbols...");
   for (size_t i = 0; i < sizeof(testData) / sizeof(TestData); i++) {
     std::printf(
       "\t%-64s : %d\n",
@@ -65,11 +71,35 @@ int main() {
       (int)symbolTable.get(testData[i].symbol)
     );
   }
+}
 
-  // Test the convenience methods:
-  std::puts("\nTesting operator overloads...");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  std::printf("\tsymbolTable[\"_totallyLegit123\"] = %d\n\n", symbolTable["_totallyLegit123"]);
+const char* greeting = "Hello World!!!\n";
+const char* leaving  = "Bye World!!!\n";
+
+void testSymbolMap() {
+  std::puts("Performing SymbolMap tests...");
+
+  SymbolMap symbolMap;
+  symbolMap.add("greeting", greeting);
+  symbolMap.add("leaving",  leaving);
+  symbolMap.add("greeting", leaving);
+
+  const Symbol* list = symbolMap.getList();
+
+  for (uint32 i = 0; i < symbolMap.length(); i++) {
+    std::printf("\t%u : %s @ %p\n", i, list[i].name, list[i].address.raw);
+  }
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int main() {
+
+  testSymbolNameEnumerator();
+  testSymbolMap();
 
   return 0;
 }
