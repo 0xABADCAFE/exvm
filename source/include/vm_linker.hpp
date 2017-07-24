@@ -24,15 +24,14 @@ namespace ExVM {
 // Linker
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
   class Linker {
     private:
-      class SymbolMap;
       SymbolMap* codeSymbols;
       SymbolMap* nativeCodeSymbols;
       SymbolMap* dataSymbols;
 
-      int add(SymbolMap*& map, const char* symbol);
+      int add(SymbolMap*& map, const char* symbol, const void* address);
 
     public:
 
@@ -44,40 +43,19 @@ namespace ExVM {
           };
       };
 
-      struct Symbol {
-        union {
-          const uint16* code;
-          const void*   data;
-          NativeCall    native;
-        };
-        const char* name;
-        uint32      symbolId;
-      };
-
-      struct SymbolList {
-        Symbol* symbols;
-        uint32  count;
-      };
-
-      enum {
-        MAX_SYMBOLS        = 65536,
-        INI_TABLE_SIZE     = 128,
-        INC_TABLE_DELTA    = 128
-      };
-
       int addCode(const char* symbol, const uint16* func);
       int addData(const char* symbol, const void* data);
       int addNative(const char* symbol, NativeCall func);
 
-      SymbolList* getCodeSymbols();
-      SymbolList* getDataSymbols();
-      SymbolList* getNativeCodeSymbols();
+      Symbol* getCodeSymbols();
+      Symbol* getDataSymbols();
+      Symbol* getNativeCodeSymbols();
 
       Linker();
       ~Linker();
 
   };
-
+*/
 }
 
 #endif

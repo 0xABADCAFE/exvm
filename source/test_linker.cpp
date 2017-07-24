@@ -33,7 +33,7 @@ const char* greeting = "Hello World!!!\n";
 const char* leaving  = "Bye World!!!\n";
 
 int main() {
-
+/*
   Linker testLinker;
   int result;
 
@@ -105,7 +105,7 @@ int main() {
   for (uint32 i=0; i < list->count; i++) {
     std::printf("\t%i : %s : %p\n", i, list->symbols[i].name, list->symbols[i].data);
   }
-
+*/
   return 0;
 }
 
