@@ -69,13 +69,13 @@ struct SymbolNameEnumerator::Block {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-SymbolNameEnumerator::SymbolNameEnumerator(uint32 maxSize) :
+SymbolNameEnumerator::SymbolNameEnumerator(uint32 maxID) :
   nodeBlock(0),
   rootNode(0),
-  maxSymbols(maxSize),
+  maxSymbolID(maxID),
   nextSymbolID(0)
 {
-  debuglog(LOG_DEBUG, "Created SymbolNameEnumerator with maxSize %u", maxSize);
+  debuglog(LOG_DEBUG, "Created SymbolNameEnumerator with maxSize %u", maxSymbolID);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -190,10 +190,10 @@ SymbolNameEnumerator::SNode* SymbolNameEnumerator::allocSNode() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SymbolNameEnumerator::get(const char* symbol) const {
+int SymbolNameEnumerator::getID(const char* name) const {
 
   // Protect against null
-  if (!symbol) {
+  if (!name) {
     return Error::ILLEGAL_ARGUMENT;
   }
 
@@ -208,7 +208,7 @@ int SymbolNameEnumerator::get(const char* symbol) const {
 
   // Walk down the trie, one PNode and one SNode per mapped character
   primaryNode  = rootNode;
-  while ( (charCode = *symbol++) ) {
+  while ( (charCode = *name++) ) {
     int code = mapChar(charCode);
     if (code < 0) {
 
@@ -239,17 +239,17 @@ int SymbolNameEnumerator::get(const char* symbol) const {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SymbolNameEnumerator::add(const char* symbol) {
+int SymbolNameEnumerator::add(const char* name) {
 
   // Protect against null
-  if (!symbol) {
+  if (!name) {
     return Error::ILLEGAL_ARGUMENT;
   }
 
   // Check we haven't reached the table size limit
   if (isFull()) {
 
-    debuglog(LOG_WARN, "Cannot add symbol %s, table limit of %u entries reached", symbol, maxSymbols);
+    debuglog(LOG_WARN, "Cannot add symbol %s, table limit of %u entries reached", name, maxSymbolID);
 
     return Error::TABLE_FULL;
   }
@@ -262,7 +262,7 @@ int SymbolNameEnumerator::add(const char* symbol) {
     return Error::OUT_OF_MEMORY;
   }
 
-  const char* pChar = symbol;
+  const char* pChar = name;
   PNode* primaryNode;
   SNode* secondaryNode;
   int charCode, indexPrimary, indexSecondary;
@@ -345,7 +345,7 @@ SymbolMap::~SymbolMap() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SymbolMap::add(const char* symbol, const void* address) {
+int SymbolMap::define(const char* symbol, const void* address) {
   int result = SymbolNameEnumerator::add(symbol);
 
   // If we enumerated the symbol, we need to store it in our SymbolTable

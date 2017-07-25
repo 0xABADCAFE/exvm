@@ -81,26 +81,29 @@ namespace ExVM {
           };
       };
 
-      explicit SymbolNameEnumerator(uint32 maxSize);
+      explicit SymbolNameEnumerator(uint32 maxID);
       ~SymbolNameEnumerator();
 
       // Add a new symbol to the table. Will return the uniquely assigned ID value for the symbol if successful, or
       // one of the enumerated error constants if not.
-      int add(const char* symbol);
+      int add(const char* name);
 
       // Get the ID value of a previously registered symbol.
-      int get(const char* symbol) const;
+      int getID(const char* name) const;
 
-      uint32 length() const {
+      // Return the ID of the next symbol
+      uint32 getNextID() const {
         return nextSymbolID;
       }
 
-      uint32 getMaxSize() {
-        return maxSymbols;
+      // Get the maximum allowed Enumerated ID
+      uint32 getMaxID() const {
+        return maxSymbolID;
       }
 
+      // Check if the enumerated set has been filled
       int isFull() const {
-        return nextSymbolID == maxSymbols;
+        return nextSymbolID == maxSymbolID;
       }
 
     private:
@@ -142,7 +145,7 @@ namespace ExVM {
       PNode* rootNode;
 
       // Table size, set on construction
-      uint32 maxSymbols;
+      uint32 maxSymbolID;
 
       // The next ID we will allocate
       uint32 nextSymbolID;
@@ -160,8 +163,13 @@ namespace ExVM {
 
   class SymbolMap : private SymbolNameEnumerator {
     private:
+      // Symbol Array
       Symbol* symbols;
+
+      // Current allocation size for Symbol Array
       uint32  currSize;
+
+      // Increment size for Symbol Array
       uint32  delta;
 
     public:
@@ -176,11 +184,19 @@ namespace ExVM {
         return symbols;
       }
 
-      uint32 length() const {
-        return SymbolNameEnumerator::length();
+      uint32 size() const {
+        return SymbolNameEnumerator::getNextID();
       }
 
-      int add(const char* symbol, const void* address);
+      const Symbol* find(const char* name) const {
+        int i = SymbolNameEnumerator::getID(name);
+        if (i >= 0) {
+          return &symbols[i];
+        }
+        return 0;
+      }
+
+      int define(const char* name, const void* address);
 
       SymbolMap(uint32 maxSize = DEF_MAX_SYMBOLS, uint32 iniSize = DEF_INI_TABLE_SIZE, uint32 delta = DEF_INC_TABLE_DELTA);
       ~SymbolMap();

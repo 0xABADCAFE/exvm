@@ -27,7 +27,7 @@ void testSymbolNameEnumerator() {
   std::puts("Performing SymbolNameEnumerator tests...");
 
   // Create a symbol table big enough for 3 unique symbols
-  SymbolNameEnumerator symbolTable(3);
+  SymbolNameEnumerator symbolEnumerator(3);
 
   // Strucuture up some conformance test data
   struct TestData {
@@ -50,7 +50,7 @@ void testSymbolNameEnumerator() {
       testData[i].symbol,
       testData[i].result
     );
-    int result = symbolTable.add(testData[i].symbol);
+    int result = symbolEnumerator.add(testData[i].symbol);
     if (result == testData[i].result) {
       std::puts("SUCCESS!");
     } else {
@@ -58,7 +58,7 @@ void testSymbolNameEnumerator() {
     }
   }
 
-  size_t length = symbolTable.length();
+  size_t length = symbolEnumerator.getNextID();
 
   std::printf("\nAdded %d unique symbols\n\n", (int)length);
 
@@ -68,7 +68,7 @@ void testSymbolNameEnumerator() {
     std::printf(
       "\t%-64s : %d\n",
       testData[i].symbol,
-      (int)symbolTable.get(testData[i].symbol)
+      (int)symbolEnumerator.getID(testData[i].symbol)
     );
   }
 }
@@ -82,13 +82,13 @@ void testSymbolMap() {
   std::puts("Performing SymbolMap tests...");
 
   SymbolMap symbolMap;
-  symbolMap.add("greeting", greeting);
-  symbolMap.add("leaving",  leaving);
-  symbolMap.add("greeting", leaving);
+  symbolMap.define("greeting", greeting);
+  symbolMap.define("leaving",  leaving);
+  symbolMap.define("greeting", leaving);
 
   const Symbol* list = symbolMap.getList();
 
-  for (uint32 i = 0; i < symbolMap.length(); i++) {
+  for (uint32 i = 0; i < symbolMap.size(); i++) {
     std::printf("\t%u : %s @ %p\n", i, list[i].name, list[i].address.raw);
   }
 
