@@ -50,7 +50,7 @@ void testSymbolNameEnumerator() {
       testData[i].symbol,
       testData[i].result
     );
-    int result = symbolEnumerator.add(testData[i].symbol);
+    int result = symbolEnumerator.enumerate(testData[i].symbol);
     if (result == testData[i].result) {
       std::puts("SUCCESS!");
     } else {

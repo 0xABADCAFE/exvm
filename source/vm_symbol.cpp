@@ -239,7 +239,7 @@ int SymbolNameEnumerator::getID(const char* name) const {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SymbolNameEnumerator::add(const char* name) {
+int SymbolNameEnumerator::enumerate(const char* name) {
 
   // Protect against null
   if (!name) {
@@ -346,7 +346,7 @@ SymbolMap::~SymbolMap() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int SymbolMap::define(const char* symbol, const void* address) {
-  int result = SymbolNameEnumerator::add(symbol);
+  int result = SymbolNameEnumerator::enumerate(symbol);
 
   // If we enumerated the symbol, we need to store it in our SymbolTable
   if (result >= 0) {

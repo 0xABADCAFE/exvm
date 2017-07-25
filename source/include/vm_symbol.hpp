@@ -43,6 +43,7 @@ namespace ExVM {
 
       // raw address
       const void*   raw;
+
     } address;
 
     // Symbol name
@@ -86,7 +87,7 @@ namespace ExVM {
 
       // Add a new symbol to the table. Will return the uniquely assigned ID value for the symbol if successful, or
       // one of the enumerated error constants if not.
-      int add(const char* name);
+      int enumerate(const char* name);
 
       // Get the ID value of a previously registered symbol.
       int getID(const char* name) const;
@@ -180,14 +181,18 @@ namespace ExVM {
         DEF_INC_TABLE_DELTA    = 128
       };
 
+      // Return the current list of defined Symbols
       const Symbol* getList() const {
         return symbols;
       }
 
+      // Return the length of the current lsit of defined symbos
       uint32 size() const {
         return SymbolNameEnumerator::getNextID();
       }
 
+
+      // Lookup a defined symbol by name
       const Symbol* find(const char* name) const {
         int i = SymbolNameEnumerator::getID(name);
         if (i >= 0) {
@@ -196,6 +201,7 @@ namespace ExVM {
         return 0;
       }
 
+      // Define a new Symbol
       int define(const char* name, const void* address);
 
       SymbolMap(uint32 maxSize = DEF_MAX_SYMBOLS, uint32 iniSize = DEF_INI_TABLE_SIZE, uint32 delta = DEF_INC_TABLE_DELTA);
