@@ -21,7 +21,38 @@ namespace ExVM {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// SymbolEnumerator
+// Symbol
+//
+// Simple structure representing a symbol
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  struct Symbol {
+
+    // Symbol address. We use a union for simplicity and to avoid cast orgies or the need for templates.
+    union Address {
+
+      // VM code address
+      const uint16* code;
+
+      // VM data section
+      const uint8*  data;
+
+      // Host functon
+      NativeCall    native;
+
+      // raw address
+      const void*   raw;
+
+    } address;
+
+    // Symbol name
+    const char* name;
+  };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// SymbolNameEnumerator
 //
 // Assigns unique ID values to symbol strings. Symbol strings represent imported or exported identifiers and may only
 // contain the following 64 characters 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_
@@ -37,7 +68,7 @@ namespace ExVM {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  class SymbolEnumerator {
+  class SymbolNameEnumerator {
 
     public:
       class Error : public ExVM::Error {
@@ -51,26 +82,29 @@ namespace ExVM {
           };
       };
 
-      explicit SymbolEnumerator(uint32 maxSize);
-      ~SymbolEnumerator();
+      explicit SymbolNameEnumerator(uint32 maxID);
+      ~SymbolNameEnumerator();
 
       // Add a new symbol to the table. Will return the uniquely assigned ID value for the symbol if successful, or
       // one of the enumerated error constants if not.
-      int add(const char* symbol);
+      int enumerate(const char* name);
 
       // Get the ID value of a previously registered symbol.
-      int get(const char* symbol) const;
+      int getID(const char* name) const;
 
-      uint32 length() const {
+      // Return the ID of the next symbol
+      uint32 getNextID() const {
         return nextSymbolID;
       }
 
-      int operator[](const char* symbol) const {
-        return get(symbol);
+      // Get the maximum allowed Enumerated ID
+      uint32 getMaxID() const {
+        return maxSymbolID;
       }
 
+      // Check if the enumerated set has been filled
       int isFull() const {
-        return nextSymbolID == maxSymbols;
+        return nextSymbolID == maxSymbolID;
       }
 
     private:
@@ -106,18 +140,82 @@ namespace ExVM {
       // Data ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       // Location of the current Block.
-      Block*       nodeBlock;
+      Block* nodeBlock;
 
       // Root of the trie
-      PNode*       rootNode;
+      PNode* rootNode;
 
       // Table size, set on construction
-      uint32 maxSymbols;
+      uint32 maxSymbolID;
 
       // The next ID we will allocate
       uint32 nextSymbolID;
 
   };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// SymbolMap
+//
+// Extends SymbolNameEnumerator into a utility class that maintains a Symbol::List set of Symbol instances that have
+// been uniquely enumerated by the SymbolNameEnumerator.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  class SymbolMap : private SymbolNameEnumerator {
+    private:
+      // Symbol Array
+      Symbol* symbols;
+
+      // Current allocation size for Symbol Array
+      uint32  currSize;
+
+      // Increment size for Symbol Array
+      uint32  delta;
+
+    public:
+      enum {
+        // The default maximum number of symbols to allow. This is basically limited by the size of symbols in VM
+        DEF_MAX_SYMBOLS        = 1 << (VMDefs::SYMBOL_ID_SIZE * 8),
+        DEF_INI_TABLE_SIZE     = 128,
+        DEF_INC_TABLE_DELTA    = 128
+      };
+
+      // Return the current list of defined Symbols
+      const Symbol* getList() const {
+        return symbols;
+      }
+
+      // Return the length of the current lsit of defined symbos
+      uint32 size() const {
+        return SymbolNameEnumerator::getNextID();
+      }
+
+
+      // Lookup a defined symbol by name
+      const Symbol* find(const char* name) const {
+        int i = SymbolNameEnumerator::getID(name);
+        if (i >= 0) {
+          return &symbols[i];
+        }
+        return 0;
+      }
+
+      // Define a new Symbol
+      int define(const char* name, const void* address);
+
+      // obtain a symbol by a previous ID
+      const Symbol* get(uint32 symbolID) const {
+        if (!symbols || symbolID >= size()) {
+          return 0;
+        }
+        return &symbols[symbolID];
+      }
+
+      SymbolMap(uint32 maxSize = DEF_MAX_SYMBOLS, uint32 iniSize = DEF_INI_TABLE_SIZE, uint32 delta = DEF_INC_TABLE_DELTA);
+      ~SymbolMap();
+  };
+
 }
 
 #endif

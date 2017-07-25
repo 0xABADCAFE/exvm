@@ -27,50 +27,33 @@ namespace ExVM {
 
   class Linker {
     private:
-      class SymbolMap;
       SymbolMap* codeSymbols;
       SymbolMap* nativeCodeSymbols;
       SymbolMap* dataSymbols;
 
-      int add(SymbolMap*& map, const char* symbol);
+      int defineSymbol(SymbolMap*& map, const char* name, const void* address);
 
     public:
-
+/*
       class Error : public ExVM::Error {
-        public:
-          enum {
-            ILLEGAL_SYMBOL_ADDRESS = -200,
-            MAX_SYMBOLS_REACHED    = -201
-          };
+
       };
+*/
 
-      struct Symbol {
-        union {
-          const uint16* code;
-          const void*   data;
-          NativeCall    native;
-        };
-        const char* name;
-        uint32      symbolId;
-      };
+      int defineNativeCode(const char* name, NativeCall native) {
+        return defineSymbol(nativeCodeSymbols, name, (const void*)native);
+      }
 
-      enum {
-        MAX_SYMBOLS        = 65536,
-        INI_TABLE_SIZE     = 128,
-        INC_TABLE_DELTA    = 128
-      };
+      int defineCode(const char* name, const uint16* code) {
+        return defineSymbol(codeSymbols, name, code);
+      }
 
-      int addCode(const char* symbol, const uint16* func);
-      int addData(const char* symbol, const void* data);
-      int addNative(const char* symbol, NativeCall func);
-
-      Symbol* getCodeSymbols();
-      Symbol* getDataSymbols();
-      Symbol* getNativeCodeSymbols();
+      int defineData(const char* name, const void* data) {
+        return defineSymbol(dataSymbols, name, data);
+      }
 
       Linker();
       ~Linker();
-
   };
 
 }

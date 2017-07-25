@@ -14,6 +14,7 @@
 
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
 #include "include/vm_symbol.hpp"
 
 using namespace ExVM;
@@ -32,8 +33,8 @@ enum {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct SymbolEnumerator::PNode {
-  SymbolEnumerator::SNode* children[PNODE_TO_SNODE];
+struct SymbolNameEnumerator::PNode {
+  SymbolNameEnumerator::SNode* children[PNODE_TO_SNODE];
   int symbolID;
 };
 
@@ -43,8 +44,8 @@ struct SymbolEnumerator::PNode {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct SymbolEnumerator::SNode {
-  SymbolEnumerator::PNode* children[SNODE_TO_PNODE];
+struct SymbolNameEnumerator::SNode {
+  SymbolNameEnumerator::PNode* children[SNODE_TO_PNODE];
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,7 +54,7 @@ struct SymbolEnumerator::SNode {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct SymbolEnumerator::Block {
+struct SymbolNameEnumerator::Block {
   union {
     PNode primary;
     SNode secondary;
@@ -68,13 +69,13 @@ struct SymbolEnumerator::Block {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-SymbolEnumerator::SymbolEnumerator(uint32 maxSize) :
+SymbolNameEnumerator::SymbolNameEnumerator(uint32 maxID) :
   nodeBlock(0),
   rootNode(0),
-  maxSymbols(maxSize),
+  maxSymbolID(maxID),
   nextSymbolID(0)
 {
-  debuglog(LOG_DEBUG, "Created SymbolEnumerator");
+  debuglog(LOG_DEBUG, "Created SymbolNameEnumerator with maxSize %u", maxSymbolID);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +84,7 @@ SymbolEnumerator::SymbolEnumerator(uint32 maxSize) :
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-SymbolEnumerator::~SymbolEnumerator() {
+SymbolNameEnumerator::~SymbolNameEnumerator() {
   Block*   pBlock = nodeBlock;
 
   /* Free the block list */
@@ -95,7 +96,7 @@ SymbolEnumerator::~SymbolEnumerator() {
 
     std::free(ptr);
   }
-  debuglog(LOG_DEBUG, "Destroyed SymbolEnumerator");
+  debuglog(LOG_DEBUG, "Destroyed SymbolNameEnumerator");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -104,7 +105,7 @@ SymbolEnumerator::~SymbolEnumerator() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SymbolEnumerator::mapChar(int c) const {
+int SymbolNameEnumerator::mapChar(int c) const {
   if (c >= '0' && c <= '9') {
     return c - '0';
   }
@@ -130,7 +131,7 @@ int SymbolEnumerator::mapChar(int c) const {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SymbolEnumerator::checkBlock() {
+int SymbolNameEnumerator::checkBlock() {
   // Check if we need to allocate a new block of nodes
   if (!nodeBlock || nodeBlock->nextFree == NODE_BLOCKSIZE) {
     Block* newBlock = (Block*)std::calloc(1, sizeof(Block));
@@ -156,7 +157,7 @@ int SymbolEnumerator::checkBlock() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-SymbolEnumerator::PNode* SymbolEnumerator::allocPNode() {
+SymbolNameEnumerator::PNode* SymbolNameEnumerator::allocPNode() {
   if (!checkBlock()) {
     return 0;
   }
@@ -174,7 +175,7 @@ SymbolEnumerator::PNode* SymbolEnumerator::allocPNode() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-SymbolEnumerator::SNode* SymbolEnumerator::allocSNode() {
+SymbolNameEnumerator::SNode* SymbolNameEnumerator::allocSNode() {
   if (!checkBlock()) {
     return 0;
   }
@@ -189,10 +190,10 @@ SymbolEnumerator::SNode* SymbolEnumerator::allocSNode() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SymbolEnumerator::get(const char* symbol) const {
+int SymbolNameEnumerator::getID(const char* name) const {
 
   // Protect against null
-  if (!symbol) {
+  if (!name) {
     return Error::ILLEGAL_ARGUMENT;
   }
 
@@ -207,7 +208,7 @@ int SymbolEnumerator::get(const char* symbol) const {
 
   // Walk down the trie, one PNode and one SNode per mapped character
   primaryNode  = rootNode;
-  while ( (charCode = *symbol++) ) {
+  while ( (charCode = *name++) ) {
     int code = mapChar(charCode);
     if (code < 0) {
 
@@ -238,17 +239,17 @@ int SymbolEnumerator::get(const char* symbol) const {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SymbolEnumerator::add(const char* symbol) {
+int SymbolNameEnumerator::enumerate(const char* name) {
 
   // Protect against null
-  if (!symbol) {
+  if (!name) {
     return Error::ILLEGAL_ARGUMENT;
   }
 
   // Check we haven't reached the table size limit
   if (isFull()) {
 
-    debuglog(LOG_WARN, "Cannot add symbol %s, table limit of %u entries reached", symbol, maxSymbols);
+    debuglog(LOG_WARN, "Cannot add symbol %s, table limit of %u entries reached", name, maxSymbolID);
 
     return Error::TABLE_FULL;
   }
@@ -261,7 +262,7 @@ int SymbolEnumerator::add(const char* symbol) {
     return Error::OUT_OF_MEMORY;
   }
 
-  const char* pChar = symbol;
+  const char* pChar = name;
   PNode* primaryNode;
   SNode* secondaryNode;
   int charCode, indexPrimary, indexSecondary;
@@ -309,4 +310,98 @@ int SymbolEnumerator::add(const char* symbol) {
     return Error::DUPLICATE_SYMBOL;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// SymbolMap constructor
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+SymbolMap::SymbolMap(uint32 maxSize, uint32 iniSize, uint32 delta) :
+  SymbolNameEnumerator(maxSize),
+  symbols(0),
+  currSize(iniSize),
+  delta(delta)
+{
+  debuglog(
+    LOG_DEBUG,
+    "Created SymbolMap, initial size %u, max size %u, grow size %u",
+    currSize, maxSize, delta
+  );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+SymbolMap::~SymbolMap() {
+  if (symbols) {
+    std::free(symbols);
+
+    debuglog(LOG_DEBUG, "Freed SymbolMap::symbolList");
+
+  }
+
+  debuglog(LOG_DEBUG, "Destroyed SymbolMap");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int SymbolMap::define(const char* name, const void* address) {
+
+  // Protect against null
+  if (!address) {
+
+    debuglog(LOG_ERROR, "Unable to define Symbol %s at null address", name);
+
+    return Error::ILLEGAL_ARGUMENT;
+  }
+
+  int result = SymbolNameEnumerator::enumerate(name);
+
+  // If we enumerated the symbol, we need to store it in our SymbolTable
+  if (result >= 0) {
+
+    // First time allocation of Symbol table?
+    if (
+      !symbols &&
+      !(symbols = (Symbol*)std::calloc(currSize, sizeof(Symbol)))
+    ) {
+
+      debuglog(LOG_ERROR, "Unable to allocate initial Symbol table for %u entries", currSize);
+
+      return Error::OUT_OF_MEMORY;
+    }
+
+    // Time to expand symbol table?
+    if ((uint32) result >= currSize) {
+      uint32 newSize = currSize + delta;
+      Symbol* growSymbols = (Symbol*)std::realloc(symbols, newSize * sizeof(Symbol));
+      if (!growSymbols) {
+
+        debuglog(LOG_ERROR, "Unable to grow Symbol table to %u entries", newSize);
+
+        return Error::OUT_OF_MEMORY;
+      }
+
+      symbols  = growSymbols;
+      currSize = newSize;
+      debuglog(LOG_INFO, "Expanded Symbol table to %u entries", currSize);
+    }
+
+    symbols[result].name = name;
+    symbols[result].address.raw = address;
+
+    debuglog(LOG_INFO, "Added symbol #%d \'%s\' @ %p", result, name, address);
+
+  } else {
+
+      debuglog(LOG_WARN, "Failed to add \'%s\', result %d", name, result);
+
+  }
+
+  return result;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
