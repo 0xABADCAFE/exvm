@@ -5,5 +5,7 @@ CXXFLAGS = -O3 -Wall -W -m64 -march=native -fomit-frame-pointer -fno-exceptions 
 
 ARCH     = x64_ft_linux
 
+MEXT     = $(ARCH)
+
 include interpreter.make
 

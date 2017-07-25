@@ -1,14 +1,20 @@
 # Project: exvm_os4
 
 BIN      = bin/exvm_os4
+
 CXXFLAGS = -O3 -Wall -W -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_AMIGAOS4_PPC -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE -D__USE_BASETYPE__
 
 CC       = ppc-amigaos-gcc
+
 CXX      = ppc-amigaos-g++
+
 LD       = ppc-amigaos-ld
+
 AR       = ppc-amigaos-ar
 
 ARCH     = ppc_amigaos4
+
+MEXT     = os4-cross
 
 include interpreter.make
 

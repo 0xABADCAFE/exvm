@@ -14,7 +14,7 @@ OBJ      = obj/$(ARCH)/main.o \
            obj/$(ARCH)/op_normal_table.o \
            obj/$(ARCH)/vm_debug.o
 
-$(BIN): $(OBJ) Makefile.$(ARCH)
+$(BIN): $(OBJ) Makefile.$(MEXT)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN)
 
 obj/$(ARCH)/main.o: main.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
