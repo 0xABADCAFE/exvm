@@ -1,11 +1,13 @@
-# Project: exvm_x86
+# Project: ExVM Multiplatform
 
+# Target
 BIN      = bin/exvm_x86
 
+# Compiler settings
 CXXFLAGS = -O3 -Wall -W -m32 -march=native -mfpmath=sse -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_I386 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE
 
+# Makefile settings
 ARCH     = x86_linux
-
 MEXT     = $(ARCH)
 
 include interpreter.make

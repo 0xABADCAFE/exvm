@@ -1,11 +1,13 @@
-# Project: exvm_os4
+# Project: ExVM Multiplatform
 
+# Target
 BIN      = bin/exvm_os4
 
+# Compiler settings
 CXXFLAGS = -O3 -Wall -W -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_AMIGAOS4_PPC -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE -D__USE_BASETYPE__
 
+# Makefile settings
 ARCH     = ppc_amigaos4
-
 MEXT     = os4
 
 include interpreter.make

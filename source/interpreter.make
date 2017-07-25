@@ -1,3 +1,4 @@
+# Common include for building the interpreter
 
 OBJ      = obj/$(ARCH)/main.o \
            obj/$(ARCH)/vmprogram.o \
