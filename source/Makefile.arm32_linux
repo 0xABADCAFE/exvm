@@ -1,67 +1,14 @@
-# Project: exvm_arm32
+# Project: ExVM Multiplatform
 
+# Target
 BIN      = bin/exvm_arm32
+
+# Compiler settings
 CXXFLAGS = -O3 -Wall -W -march=native -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_I386 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE
-OBJ      = obj/arm32_linux/main.o \
-           obj/arm32_linux/vm_program.o \
-           obj/arm32_linux/machine.o \
-           obj/arm32_linux/op_control.o \
-           obj/arm32_linux/op_load.o \
-           obj/arm32_linux/op_store.o \
-           obj/arm32_linux/op_move.o \
-           obj/arm32_linux/op_jump.o  \
-           obj/arm32_linux/op_convert.o \
-           obj/arm32_linux/op_arithmetic.o \
-           obj/arm32_linux/op_logic.o \
-           obj/arm32_linux/vm_core.o \
-           obj/arm32_linux/op_normal_table.o \
-           obj/arm32_linux/vm_debug.o
 
-$(BIN): $(OBJ) Makefile.arm32_linux
-	$(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN)
+# Makefile settings
+ARCH     = arm32_linux
+MEXT     = $(ARCH)
 
-obj/arm32_linux/main.o: main.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/vmprogram.o: include/vmprogram.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/machine.o: machine.cpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/op_control.o: op_control.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/op_load.o: op_load.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/op_store.o: op_store.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/op_move.o: op_move.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/op_jump.o: op_jump.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/op_convert.o:op_convert.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/op_arithmetic.o: op_arithmetic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/op_logic.o: op_logic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/op_normal_table.o: op_normal_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/arm32_linux/vm_debug.o: vm_debug.cpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-clean:
-	$(RM) $(TARGET) obj/arm32_linux/*.o *~ core
+include interpreter.make
 
