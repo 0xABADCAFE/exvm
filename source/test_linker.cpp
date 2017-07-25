@@ -33,79 +33,61 @@ const char* greeting = "Hello World!!!\n";
 const char* leaving  = "Bye World!!!\n";
 
 int main() {
-/*
+
   Linker testLinker;
   int result;
 
-  std::puts("Testing testLinker.addData(\"greeting\"), expect ID 0");
+  std::puts("Testing testLinker.defineData(\"greeting\"), expect ID 0");
 
-  result = testLinker.addData("greeting", greeting);
+  result = testLinker.defineData("greeting", greeting);
   if (result == 0) {
     std::puts("\tSUCCESS");
   } else {
     std::puts("\tFAILED");
   }
 
-  std::puts("Testing testLinker.addData(\"leaving\"), expect ID 1");
-  result = testLinker.addData("leaving", leaving);
+  std::puts("Testing testLinker.defineData(\"leaving\"), expect ID 1");
+  result = testLinker.defineData("leaving", leaving);
   if (result == 1) {
     std::puts("\tSUCCESS");
   } else {
     std::puts("\tFAILED");
   }
 
-  std::puts("Testing testLinker.addData(\"greeting\"), expect SymbolEnumerator::Error::DUPLICATE_SYMBOL");
-  result = testLinker.addData("greeting", greeting);
-  if (result == SymbolEnumerator::Error::DUPLICATE_SYMBOL) {
+  std::puts("Testing testLinker.defineData(\"greeting\"), expect SymbolEnumerator::Error::DUPLICATE_SYMBOL");
+  result = testLinker.defineData("greeting", greeting);
+  if (result == SymbolNameEnumerator::Error::DUPLICATE_SYMBOL) {
     std::puts("\tSUCCESS");
   } else {
     std::puts("\tFAILED");
   }
 
-  std::puts("Testing testLinker.addData(\"leaving\"), expect SymbolEnumerator::Error::DUPLICATE_SYMBOL");
-  result = testLinker.addData("leaving", leaving);
-  if (result == SymbolEnumerator::Error::DUPLICATE_SYMBOL) {
+  std::puts("Testing testLinker.defineData(\"leaving\"), expect SymbolEnumerator::Error::DUPLICATE_SYMBOL");
+  result = testLinker.defineData("leaving", leaving);
+  if (result == SymbolNameEnumerator::Error::DUPLICATE_SYMBOL) {
     std::puts("\tSUCCESS");
   } else {
     std::puts("\tFAILED");
   }
 
-  std::puts("Testing testLinker.addNative(\"greeting\"), expect ID 0");
-  result = testLinker.addNative("print", nativePrint);
+  std::puts("Testing testLinker.defineNativeCode(\"greeting\"), expect ID 0");
+  result = testLinker.defineNativeCode("print", nativePrint);
   if (result == 0) {
     std::puts("\tSUCCESS");
   } else {
     std::puts("\tFAILED");
   }
 
-  std::puts("Testing testLinker.addCode(\"main\"), expect ID 0");
-  result = testLinker.addCode("main", dummy);
+  std::puts("Testing testLinker.defineCode(\"main\"), expect ID 0");
+  result = testLinker.defineCode("main", dummy);
   if (result == 0) {
     std::puts("\tSUCCESS");
   } else {
     std::puts("\tFAILED");
   }
 
-  std::puts("Testing getCodeSymbols()...");
-  Linker::SymbolList*
-  list = testLinker.getCodeSymbols();
 
-  for (uint32 i=0; i < list->count; i++) {
-    std::printf("\t%i : %s : %p\n", i, list->symbols[i].name, list->symbols[i].data);
-  }
 
-  std::puts("Testing getDataSymbols()...");
-  list = testLinker.getDataSymbols();
-  for (uint32 i=0; i < list->count; i++) {
-    std::printf("\t%i : %s : %p\n", i, list->symbols[i].name, list->symbols[i].data);
-  }
-
-  std::puts("Testing getNativeCodeSymbols()...");
-  list = testLinker.getNativeCodeSymbols();
-  for (uint32 i=0; i < list->count; i++) {
-    std::printf("\t%i : %s : %p\n", i, list->symbols[i].name, list->symbols[i].data);
-  }
-*/
   return 0;
 }
 

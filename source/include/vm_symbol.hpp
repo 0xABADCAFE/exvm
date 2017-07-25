@@ -204,6 +204,14 @@ namespace ExVM {
       // Define a new Symbol
       int define(const char* name, const void* address);
 
+      // obtain a symbol by a previous ID
+      const Symbol* get(uint32 symbolID) const {
+        if (!symbols || symbolID >= size()) {
+          return 0;
+        }
+        return &symbols[symbolID];
+      }
+
       SymbolMap(uint32 maxSize = DEF_MAX_SYMBOLS, uint32 iniSize = DEF_INI_TABLE_SIZE, uint32 delta = DEF_INC_TABLE_DELTA);
       ~SymbolMap();
   };

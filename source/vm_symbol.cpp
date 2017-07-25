@@ -345,8 +345,17 @@ SymbolMap::~SymbolMap() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SymbolMap::define(const char* symbol, const void* address) {
-  int result = SymbolNameEnumerator::enumerate(symbol);
+int SymbolMap::define(const char* name, const void* address) {
+
+  // Protect against null
+  if (!address) {
+
+    debuglog(LOG_ERROR, "Unable to define Symbol %s at null address", name);
+
+    return Error::ILLEGAL_ARGUMENT;
+  }
+
+  int result = SymbolNameEnumerator::enumerate(name);
 
   // If we enumerated the symbol, we need to store it in our SymbolTable
   if (result >= 0) {
@@ -378,14 +387,14 @@ int SymbolMap::define(const char* symbol, const void* address) {
       debuglog(LOG_INFO, "Expanded Symbol table to %u entries", currSize);
     }
 
-    symbols[result].name = symbol;
+    symbols[result].name = name;
     symbols[result].address.raw = address;
 
-    debuglog(LOG_INFO, "Added symbol #%d \'%s\' @ %p", result, symbol, address);
+    debuglog(LOG_INFO, "Added symbol #%d \'%s\' @ %p", result, name, address);
 
   } else {
 
-      debuglog(LOG_WARN, "Failed to add \'%s\', result %d", symbol, result);
+      debuglog(LOG_WARN, "Failed to add \'%s\', result %d", name, result);
 
   }
 
