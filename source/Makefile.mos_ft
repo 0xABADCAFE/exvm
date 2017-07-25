@@ -4,66 +4,8 @@ BIN      = bin/exvm_mos
 CXX		 = ppc-morphos-g++-5
 CXXFLAGS = -Ofast -Wall -W -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -mcpu=native -noixemul -D_VM_HOST_OS=_VM_HOST_MORPHOS_PPC -D_VM_INTERPRETER=_VM_INTERPRETER_FUNC_TABLE
 LDFLAGS	 = -noixemul
-OBJ      = obj/ppc_morphos/main.o \
-           obj/ppc_morphos/vmprogram.o \
-           obj/ppc_morphos/machine.o \
-           obj/ppc_morphos/op_control.o \
-           obj/ppc_morphos/op_load.o \
-           obj/ppc_morphos/op_store.o \
-           obj/ppc_morphos/op_move.o \
-           obj/ppc_morphos/op_jump.o  \
-           obj/ppc_morphos/op_convert.o \
-           obj/ppc_morphos/op_arithmetic.o \
-           obj/ppc_morphos/op_logic.o \
-           obj/ppc_morphos/vm_core.o \
-           obj/ppc_morphos/op_normal_table.o \
-           obj/ppc_morphos/vm_debug.o
 
-$(BIN): $(OBJ) Makefile.mos
-	$(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN)
+ARCH     = ppc_ft_morphos
 
-obj/ppc_morphos/main.o: main.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/vmprogram.o: vmprogram.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/machine.o: machine.cpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/op_control.o: op_control.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/op_load.o: op_load.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/op_store.o: op_store.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/op_move.o: op_move.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/op_jump.o: op_jump.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/op_convert.o:op_convert.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/op_arithmetic.o: op_arithmetic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/op_logic.o: op_logic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/op_normal_table.o: op_normal_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/ppc_morphos/vm_debug.o: vm_debug.cpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-clean:
-	$(RM) $(TARGET) obj/ppc_morphos/*.o *~ core
+include rules.make
 
