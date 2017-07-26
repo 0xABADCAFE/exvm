@@ -1,7 +1,7 @@
 # Project: ExVM Multiplatform
 
 # Target
-BIN      = bin/linker_arm64
+BIN      = bin/linker_arm32
 
 # Compiler settings
 CXXFLAGS = -O3 -Wall -W -march=native -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_I386
