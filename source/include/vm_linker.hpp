@@ -78,13 +78,41 @@ namespace ExVM {
     void*        dataSegment;
 
     // Location of the symbol name heap
-    const char*  symbolNames;
+    const char*  nameSegment;
 
     // Symbols that are exported
-    SymbolRef *exports;
+    SymbolRef*   exports;
 
     // Symbols that are imported
-    SymbolRef *imports;
+    SymbolRef*   imports;
+
+    // This section represents the beginning of the data that is actually loaded.
+
+    // Magic identifier
+    uint32 magic;
+
+    // The number of exported symbols
+    uint32 exportsLength;
+
+    // The number of imported synbo;s
+    uint32 importsLength;
+
+    // The number of ExVM instruction words (16-bit) in the full codeSegment
+    uint32 codeSegmentLength;
+
+    // The number of bytes in the dataSegment
+    uint32 dataSegmentLength;
+
+    // The number of bytes in the nameSegment
+    uint32 nameSegmentLength;
+
+    // This will actually be allocated along with all the data inlined in memory. What follows is the expected layout
+    // SymbolRef[exportsLength]  8 bytes per entry
+    // SymbolRef[importsLength]  8 bytes per entry
+    // uint16[codeSegmentLength] 2 bytes per etnry
+    // <padding to next 64-bit aligned address>
+    // uint8[dataSegmentLength]  1 byte per entry
+    // char[nameSegmentLength]   1 byte per entry
   };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,14 +127,17 @@ namespace ExVM {
       SymbolMap* nativeCodeSymbols;
       SymbolMap* dataSymbols;
 
+      RawSegmentData* rawSegments;
+      uint32          numRawSegments;
+
       int defineSymbol(SymbolMap*& map, const char* name, const void* address);
 
     public:
-/*
       class Error : public ExVM::Error {
-
+        enum {
+          INVALID_SEGMENT = -200
+        };
       };
-*/
 
       int defineNativeCode(const char* name, NativeCall native) {
         return defineSymbol(nativeCodeSymbols, name, (const void*)native);
@@ -120,8 +151,20 @@ namespace ExVM {
         return defineSymbol(dataSymbols, name, data);
       }
 
+      int addRawSegment(RawSegmentData* rawSegment);
+
+      // Run the linking Process
+      int link();
+
       Linker();
       ~Linker();
+
+    private:
+      // Add all the exported symbols in each RawSegmentData entry to the appropriate Map and enumerate
+      int enumerateAllSymbols();
+
+      // Inject the enumerated symbolID into the code for each RawSegmentData's import list.
+      int resolveToEnumerated();
   };
 
 }
