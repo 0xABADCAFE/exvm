@@ -127,17 +127,34 @@ namespace ExVM {
       SymbolMap* nativeCodeSymbols;
       SymbolMap* dataSymbols;
 
-      RawSegmentData* rawSegments;
-      uint32          numRawSegments;
+      // RawSegmentData pointer table, kkeeps track of all the RawSegmentData entries that have been added.
+      RawSegmentData** rawSegments;
+      uint32           numRawSegments;
+
+      // Current allocation size for RawSegmentData array
+      uint32 currSize;
+
+      // Increment size for RawSegmentData array
+      uint32 delta;
 
       int defineSymbol(SymbolMap*& map, const char* name, const void* address);
 
     public:
+
       class Error : public ExVM::Error {
         enum {
           INVALID_SEGMENT = -200
         };
       };
+
+      enum {
+        DEF_INI_TABLE_SIZE     = 128,
+        DEF_INC_TABLE_DELTA    = 128
+      };
+
+      uint32 getNumSegments() const {
+        return numRawSegments;
+      }
 
       int defineNativeCode(const char* name, NativeCall native) {
         return defineSymbol(nativeCodeSymbols, name, (const void*)native);
@@ -151,12 +168,13 @@ namespace ExVM {
         return defineSymbol(dataSymbols, name, data);
       }
 
+      // Add a RawSegmentData for linking
       int addRawSegment(RawSegmentData* rawSegment);
 
       // Run the linking Process
       int link();
 
-      Linker();
+      Linker(uint32 defSegmentCount = DEF_INI_TABLE_SIZE, uint32 defSegmentDelta = DEF_INC_TABLE_DELTA);
       ~Linker();
 
     private:

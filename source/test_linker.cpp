@@ -86,7 +86,7 @@ int main() {
     std::puts("\tFAILED");
   }
 
-
+  std::printf("Sizeof RawSegmentData: %u\n", sizeof(RawSegmentData));
 
   return 0;
 }

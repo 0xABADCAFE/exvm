@@ -191,7 +191,6 @@ namespace ExVM {
         return SymbolNameEnumerator::getNextID();
       }
 
-
       // Lookup a defined symbol by name
       const Symbol* find(const char* name) const {
         int i = SymbolNameEnumerator::getID(name);
