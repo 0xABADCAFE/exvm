@@ -81,7 +81,7 @@ int Linker::defineSymbol(SymbolMap*& map, const char* name, const void* address)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// Linker::addRawSegment
+// Linker::addRawSegment()
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -93,7 +93,7 @@ int Linker::addRawSegment(RawSegmentData* rawSegment) {
 
   // First time here? We need to allocate the RawSegmentData pointer table
   if (
-    !rawSegments ||
+    !rawSegments &&
     !(rawSegments = (RawSegmentData**)std::calloc(currSize, sizeof(RawSegmentData*)))
   ) {
     debuglog(LOG_ERROR, "Unable to allocate initial RawSegmentData pointer table for %u entries", currSize);
@@ -103,6 +103,8 @@ int Linker::addRawSegment(RawSegmentData* rawSegment) {
   // TODO - scan the table and make sure we aren't adding the same RawSegmentData address again
 
   // If the new segment will overflow the table, grow it now
+
+  uint32 entry = numRawSegments;
   if (++numRawSegments >= currSize) {
     uint32 newSize = currSize + delta;
     RawSegmentData** growSegments = (RawSegmentData**)std::realloc(rawSegments, newSize * sizeof(RawSegmentData*));
@@ -115,5 +117,167 @@ int Linker::addRawSegment(RawSegmentData* rawSegment) {
     currSize    = newSize;
     debuglog(LOG_INFO, "Expanded Symbol table to %u entries", currSize);
   }
+
+  rawSegments[entry] = rawSegment;
+  debuglog(LOG_INFO, "Added RawSegmentData instance at %p as entry %u", rawSegment, entry);
+
+  return Error::SUCCESS;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Linker::link()
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int Linker::link() {
+
+  debuglog(LOG_INFO, "Beginning link process");
+
+  int result = enumerateAllSymbols();
+  if (result == Error::SUCCESS) {
+    result = resolveToEnumerated();
+  }
+  return result;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Linker::enumerateAllSymbols()
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int Linker::enumerateAllSymbols() {
+  for (uint32 i = 0; i < numRawSegments; i++) {
+    RawSegmentData* segment = rawSegments[i];
+
+    debuglog(LOG_INFO, "Processing RawSegmentData[%u] %p Export Symbols", i, segment);
+    for (uint32 j = 0; j < segment->exportTableLength; j++) {
+      RawSegmentData::SymbolRef* symbolRef  = &segment->exportTable[j];
+      const char*                symbolName = symbolRef->getSymbolName(segment->nameSegment);
+      int                        result;
+
+      // Process the next symbol
+      switch (symbolRef->getSymbolType()) {
+
+        case RawSegmentData::TYPE_CODE:
+          {
+            uint16* codeAddress = segment->codeSegment + symbolRef->offset;
+            debuglog(LOG_INFO, "Processing exported TYPE_CODE symbol '%s' at %p", symbolName, codeAddress);
+            result = defineCode(symbolName, codeAddress);
+          }
+          break;
+
+        case RawSegmentData::TYPE_DATA:
+          {
+            uint8* dataAddress = (uint8*)segment->dataSegment + symbolRef->offset;
+            debuglog(LOG_INFO, "Processing exported TYPE_DATA symbol '%s' at %p", symbolName, dataAddress);
+            result = defineData(symbolName, dataAddress);
+          }
+          break;
+
+        // No other symbol types can be exported, so anything else here is an error
+        default:
+          debuglog(LOG_ERROR, "Illegal type for exported symbol '%s', must be one of TYPE_CODE or TYPE_DATA", symbolName);
+          result = Error::ILLEGAL_EXPORT_TYPE;
+          break;
+      }
+
+      if (result < Error::SUCCESS) {
+        return result;
+      }
+    }
+
+  }
+
+  return Error::SUCCESS;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Linker::resolveToEnumerated()
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int Linker::resolveToEnumerated() {
+  for (uint32 i = 0; i < numRawSegments; i++) {
+    RawSegmentData* segment = rawSegments[i];
+
+    debuglog(LOG_INFO, "Processing RawSegmentData[%u] %p Import Symbols", i, segment);
+    for (uint32 j = 0; j < segment->importTableLength; j++) {
+      RawSegmentData::SymbolRef* symbolRef  = &segment->importTable[j];
+      const char*                symbolName = symbolRef->getSymbolName(segment->nameSegment);
+      const Symbol*              symbol     = 0;
+      uint16*                    injectAddr = segment->codeSegment + symbolRef->offset;
+      int                        symbolID;
+      // Process the next symbol
+      switch (symbolRef->getSymbolType()) {
+
+        case RawSegmentData::TYPE_CODE:
+          {
+            debuglog(LOG_INFO, "Processing imported TYPE_CODE symbol '%s'", symbolName);
+            if (!codeSymbols) {
+              debuglog(LOG_ERROR, "TYPE_CODE symbol table is empty");
+              return Error::INVALID_SEGMENT;
+            }
+            symbolID = codeSymbols->getID(symbolName);
+            if (symbolID < 0) {
+              debuglog(LOG_ERROR, "TYPE_CODE symbol table '%s' did not resolve", symbolName);
+              return symbolID;
+            }
+            symbol = codeSymbols->get(symbolID);
+            debuglog(LOG_INFO, "\tResolved symbol '%s' to ID %d at %p", symbolName, symbolID, symbol->address.code);
+          }
+          break;
+
+        case RawSegmentData::TYPE_DATA:
+          {
+            debuglog(LOG_INFO, "Processing imported TYPE_DATA symbol '%s'", symbolName);
+            if (!dataSymbols) {
+              debuglog(LOG_ERROR, "TYPE_DATA symbol table is empty");
+              return Error::INVALID_SEGMENT;
+            }
+            symbolID = dataSymbols->getID(symbolName);
+            if (symbolID < 0) {
+              debuglog(LOG_ERROR, "TYPE_DATA symbol table '%s' did not resolve", symbolName);
+              return symbolID;
+            }
+            symbol = dataSymbols->get(symbolID);
+            debuglog(LOG_INFO, "\tResolved symbol '%s' to ID %d at %p", symbolName, symbolID, symbol->address.data);
+          }
+          break;
+
+        case RawSegmentData::TYPE_NATIVE:
+          {
+            debuglog(LOG_INFO, "Processing imported TYPE_NATIVE symbol '%s'", symbolName);
+            if (!nativeCodeSymbols) {
+              debuglog(LOG_ERROR, "TYPE_NATIVE symbol table is empty");
+              return Error::INVALID_SEGMENT;
+            }
+            symbolID = nativeCodeSymbols->getID(symbolName);
+            if (symbolID < 0) {
+              debuglog(LOG_ERROR, "TYPE_NATIVE symbol table '%s' did not resolve", symbolName);
+              return symbolID;
+            }
+            symbol = dataSymbols->get(symbolID);
+            debuglog(LOG_INFO, "\tResolved symbol '%s' to ID %d at %p", symbolName, symbolID, symbol->address.raw);
+          }
+          break;
+
+        // No other symbol types can be exported, so anything else here is an error
+        default:
+          debuglog(LOG_ERROR, "Illegal type for imported symbol '%s', must be one of TYPE_CODE, TYPE_DATA or TYPE_NATIVE", symbolName);
+          return Error::ILLEGAL_EXPORT_TYPE;
+          break;
+      }
+
+      debuglog(LOG_INFO, "Injecting symbol '%s' ID %d into code segment at offset %u [%p]", symbolName, symbolID, symbolRef->offset, injectAddr);
+      *injectAddr = (uint16)symbolID;
+    }
+
+  }
+
+  return Error::SUCCESS;
+}
+
 

@@ -39,14 +39,17 @@ namespace ExVM {
 
   struct RawSegmentData {
     enum {
-      // Valid for exported and imported symbols
-      TYPE_CODE   = 0x00000000,
+      MAGIC       = 0x4578564D, // E x V M
+      TYPE_UNDEF  = 0x00000000,
 
       // Valid for exported and imported symbols
-      TYPE_DATA   = 0x40000000,
+      TYPE_CODE   = 0x40000000,
+
+      // Valid for exported and imported symbols
+      TYPE_DATA   = 0x80000000,
 
       // Valid for imported symbols only
-      TYPE_NATIVE = 0x80000000,
+      TYPE_NATIVE = 0xC0000000,
 
       // Masks used in entries table
       TYPE_MASK   = 0xC0000000,
@@ -81,10 +84,10 @@ namespace ExVM {
     const char*  nameSegment;
 
     // Symbols that are exported
-    SymbolRef*   exports;
+    SymbolRef*   exportTable;
 
     // Symbols that are imported
-    SymbolRef*   imports;
+    SymbolRef*   importTable;
 
     // This section represents the beginning of the data that is actually loaded.
 
@@ -92,10 +95,10 @@ namespace ExVM {
     uint32 magic;
 
     // The number of exported symbols
-    uint32 exportsLength;
+    uint32 exportTableLength;
 
     // The number of imported synbo;s
-    uint32 importsLength;
+    uint32 importTableLength;
 
     // The number of ExVM instruction words (16-bit) in the full codeSegment
     uint32 codeSegmentLength;
@@ -142,8 +145,10 @@ namespace ExVM {
     public:
 
       class Error : public ExVM::Error {
+        public:
         enum {
-          INVALID_SEGMENT = -200
+          INVALID_SEGMENT     = -200,
+          ILLEGAL_EXPORT_TYPE = -201
         };
       };
 

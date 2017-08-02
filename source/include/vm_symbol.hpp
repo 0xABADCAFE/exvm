@@ -203,6 +203,10 @@ namespace ExVM {
       // Define a new Symbol
       int define(const char* name, const void* address);
 
+      int getID(const char* name) const {
+        return SymbolNameEnumerator::getID(name);
+      }
+
       // obtain a symbol by a previous ID
       const Symbol* get(uint32 symbolID) const {
         if (!symbols || symbolID >= size()) {
