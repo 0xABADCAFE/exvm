@@ -136,12 +136,9 @@ int SymbolNameEnumerator::checkBlock() {
   if (!nodeBlock || nodeBlock->nextFree == NODE_BLOCKSIZE) {
     Block* newBlock = (Block*)std::calloc(1, sizeof(Block));
     if (!newBlock) {
-
       debuglog(LOG_ERROR, "Unable to allocate Block of %u bytes", (uint32)sizeof(Block));
-
       return 0;
     }
-
     debuglog(LOG_DEBUG, "Allocated Block of %u bytes at %p", (uint32)sizeof(Block), newBlock);
 
     // Make the newly allocated block the active one
@@ -211,9 +208,7 @@ int SymbolNameEnumerator::getID(const char* name) const {
   while ( (charCode = *name++) ) {
     int code = mapChar(charCode);
     if (code < 0) {
-
       debuglog(LOG_ERROR, "Illegal Character \'%c\' in symbol\n", charCode);
-
       return code;
     }
 
@@ -248,17 +243,13 @@ int SymbolNameEnumerator::enumerate(const char* name) {
 
   // Check we haven't reached the table size limit
   if (isFull()) {
-
     debuglog(LOG_WARN, "Cannot add symbol %s, table limit of %u entries reached", name, maxSymbolID);
-
     return Error::TABLE_FULL;
   }
 
   // If we haven't allocated the root of our trie yet, we better do it.
   if (!rootNode && !(rootNode = allocPNode())) {
-
     debuglog(LOG_ERROR, "Could not allocate root node for trie");
-
     return Error::OUT_OF_MEMORY;
   }
 
@@ -273,9 +264,7 @@ int SymbolNameEnumerator::enumerate(const char* name) {
 
     int code = mapChar(charCode);
     if (code < 0) {
-
       debuglog(LOG_WARN, "Illegal Character \'%c\' in symbol", charCode);
-
       return code;
     }
 
@@ -335,11 +324,8 @@ SymbolMap::SymbolMap(uint32 maxSize, uint32 iniSize, uint32 delta) :
 SymbolMap::~SymbolMap() {
   if (symbols) {
     std::free(symbols);
-
     debuglog(LOG_DEBUG, "Freed SymbolMap::symbolList");
-
   }
-
   debuglog(LOG_DEBUG, "Destroyed SymbolMap");
 }
 
@@ -349,9 +335,7 @@ int SymbolMap::define(const char* name, const void* address) {
 
   // Protect against null
   if (!address) {
-
     debuglog(LOG_ERROR, "Unable to define Symbol %s at null address", name);
-
     return Error::ILLEGAL_ARGUMENT;
   }
 
@@ -365,20 +349,16 @@ int SymbolMap::define(const char* name, const void* address) {
       !symbols &&
       !(symbols = (Symbol*)std::calloc(currSize, sizeof(Symbol)))
     ) {
-
       debuglog(LOG_ERROR, "Unable to allocate initial Symbol table for %u entries", currSize);
-
       return Error::OUT_OF_MEMORY;
     }
 
     // Time to expand symbol table?
     if ((uint32) result >= currSize) {
-      uint32 newSize = currSize + delta;
+      uint32  newSize     = currSize + delta;
       Symbol* growSymbols = (Symbol*)std::realloc(symbols, newSize * sizeof(Symbol));
       if (!growSymbols) {
-
         debuglog(LOG_ERROR, "Unable to grow Symbol table to %u entries", newSize);
-
         return Error::OUT_OF_MEMORY;
       }
 
@@ -391,17 +371,13 @@ int SymbolMap::define(const char* name, const void* address) {
     symbols[result].address.raw = address;
 
     debuglog(LOG_INFO, "Added symbol #%d \'%s\' @ %p", result, name, address);
-
   } else {
-
-      debuglog(LOG_WARN, "Failed to add \'%s\', result %d", name, result);
-
+    debuglog(LOG_WARN, "Failed to add \'%s\', result %d", name, result);
   }
 
   return result;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
