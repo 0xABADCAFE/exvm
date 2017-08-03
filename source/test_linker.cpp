@@ -142,7 +142,7 @@ int main() {
   );
 
   std::puts("Code Segment before linking...");
-  for (uint32 i=0; i<mockLoadSegment.codeSegmentLength; i++) {
+  for (uint32 i = 0; i < mockLoadSegment.codeSegmentLength; i++) {
     std::printf("%u : 0x%04X\n", i, mockLoadSegment.codeSegment[i]);
   }
 
@@ -152,9 +152,44 @@ int main() {
   testLinker.link();
 
   std::puts("Code Segment after linking...");
-  for (uint32 i=0; i<mockLoadSegment.codeSegmentLength; i++) {
+  for (uint32 i = 0; i < mockLoadSegment.codeSegmentLength; i++) {
     std::printf("%u : 0x%04X\n", i, mockLoadSegment.codeSegment[i]);
   }
+
+  // Now get the linked executable
+
+  Executable* executable = testLinker.getExecutable();
+
+  std::printf(
+    "Executable {\n"
+    "\tnativeCodeAddresses : %p\n"
+    "\tcodeAddresses       : %p\n"
+    "\tdataAddresses       : %p\n"
+    "\tnativeCodeCount     : %u\n"
+    "\tcodeCount           : %u\n"
+    "\tdataCount           : %u\n"
+    "}\n",
+    executable->nativeCodeAddresses,
+    executable->codeAddresses,
+    executable->dataAddresses,
+    (uint32)executable->nativeCodeCount,
+    (uint32)executable->codeCount,
+    (uint32)executable->dataCount
+  );
+
+  for (uint32 i = 0; i < executable->nativeCodeCount; i++) {
+    std::printf("NativeCall Symbol ID : %u -> %p\n", i, executable->nativeCodeAddresses[i]);
+  }
+
+  for (uint32 i = 0; i < executable->codeCount; i++) {
+    std::printf("Code       Symbol ID : %u -> %p\n", i, executable->codeAddresses[i]);
+  }
+
+  for (uint32 i = 0; i < executable->dataCount; i++) {
+    std::printf("Data       Symbol ID : %u -> %p\n", i, executable->dataAddresses[i]);
+  }
+
+  Executable::release(executable);
 
   return 0;
 }

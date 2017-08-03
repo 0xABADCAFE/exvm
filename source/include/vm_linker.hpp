@@ -15,6 +15,7 @@
 #ifndef _VM_LINKER_HPP_
   #define _VM_LINKER_HPP_
   #include "vm.hpp"
+  #include "vm_core.hpp"
   #include "vm_symbol.hpp"
 
 namespace ExVM {
@@ -118,6 +119,7 @@ namespace ExVM {
     // char[nameSegmentLength]   1 byte per entry
   };
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Linker
@@ -140,7 +142,7 @@ namespace ExVM {
       // Increment size for RawSegmentData array
       uint32 delta;
 
-      int defineSymbol(SymbolMap*& map, const char* name, const void* address);
+      int defineSymbol(SymbolMap*& map, const char* name, void* address);
 
     public:
 
@@ -162,14 +164,14 @@ namespace ExVM {
       }
 
       int defineNativeCode(const char* name, NativeCall native) {
-        return defineSymbol(nativeCodeSymbols, name, (const void*)native);
+        return defineSymbol(nativeCodeSymbols, name, (void*)native);
       }
 
-      int defineCode(const char* name, const uint16* code) {
+      int defineCode(const char* name, uint16* code) {
         return defineSymbol(codeSymbols, name, code);
       }
 
-      int defineData(const char* name, const void* data) {
+      int defineData(const char* name, void* data) {
         return defineSymbol(dataSymbols, name, data);
       }
 
@@ -178,6 +180,9 @@ namespace ExVM {
 
       // Run the linking Process
       int link();
+
+
+      Executable* getExecutable();
 
       Linker(uint32 defSegmentCount = DEF_INI_TABLE_SIZE, uint32 defSegmentDelta = DEF_INC_TABLE_DELTA);
       ~Linker();

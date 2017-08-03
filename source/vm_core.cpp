@@ -179,12 +179,10 @@ void Interpreter::execute() {
   float64 virtualTime = totalTime - nativeTime;
   float64 mips        = (0.001*numStatements)/virtualTime;
   printf(
-    "Total: %.3f ms, native: %.3f ms, virtual: %.3f ms, %.3f MIPs\n",
+    "Total: %.3f ms, native: %.3f ms, virtual: %.3f ms, %.3f MIPS\n",
     totalTime, nativeTime, virtualTime, mips
   );
 
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

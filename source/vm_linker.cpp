@@ -67,7 +67,7 @@ Linker::~Linker() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int Linker::defineSymbol(SymbolMap*& map, const char* name, const void* address) {
+int Linker::defineSymbol(SymbolMap*& map, const char* name, void* address) {
   // Check #1 make sure the SymbolMap exists
   if (
     !map &&
@@ -280,4 +280,90 @@ int Linker::resolveToEnumerated() {
   return Error::SUCCESS;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Linker::getExecutable()
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Executable* Linker::getExecutable() {
+  Executable* executable = Executable::allocate(
+    nativeCodeSymbols ? nativeCodeSymbols->size() : 0,
+    codeSymbols       ? codeSymbols->size()       : 0,
+    dataSymbols       ? dataSymbols->size()       : 0
+  );
+
+  if (nativeCodeSymbols) {
+    const Symbol* native = nativeCodeSymbols->getList();
+    for (int i = 0; i < executable->nativeCodeCount; i++) {
+      executable->nativeCodeAddresses[i] = native[i].address.native;
+    }
+  }
+
+  if (codeSymbols) {
+    const Symbol* code = codeSymbols->getList();
+    for (int i = 0; i < executable->codeCount; i++) {
+      executable->codeAddresses[i] = code[i].address.code;
+    }
+  }
+
+  if (dataSymbols) {
+    const Symbol* data = dataSymbols->getList();
+    for (int i = 0; i < executable->dataCount; i++) {
+      executable->dataAddresses[i] = data[i].address.data;
+    }
+  }
+
+  return executable;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Executable::allocate()
+//
+// Allocate a new Executable structure with the space for the symbol lookup tables allocated inline.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Executable* Executable::allocate(uint16 nativeCount, uint16 codeCount, uint16 dataCount) {
+  size_t baseAllocSize   = sizeof(Executable);
+  size_t nativeTableSize = nativeCount * sizeof(NativeCall);
+  size_t codeTableSize   = codeCount   * sizeof(uint16*);
+  size_t dataTableSize   = dataCount   * sizeof(void*);
+
+  // Try to allocate enought space for all of the above in a single block
+  size_t totalAllocSize  = baseAllocSize + nativeTableSize + codeTableSize + dataTableSize;
+  uint8* baseAddress     = (uint8*)std::calloc(totalAllocSize, 1);
+  if (!baseAddress) {
+    debuglog(LOG_ERROR, "Unable to allocate %u bytes for Executable structure\n", totalAllocSize);
+    return 0;
+  }
+
+  // Populate the base Executable instance
+  Executable* executable      = (Executable*)baseAddress;
+  executable->nativeCodeCount = nativeCount;
+  executable->codeCount       = codeCount;
+  executable->dataCount       = dataCount;
+
+  // Set up the table pointers to
+  baseAddress += baseAllocSize;
+  executable->nativeCodeAddresses = (NativeCall*)baseAddress;
+
+  baseAddress += nativeTableSize;
+  executable->codeAddresses = (uint16**)baseAddress;
+
+  baseAddress += codeTableSize;
+  executable->dataAddresses = (void**)baseAddress;
+
+  debuglog(LOG_INFO, "Allocated Executable structure at %p\n", executable);
+
+  return executable;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void Executable::release(Executable* executable) {
+  if (executable) {
+    std::free(executable);
+  }
+}
