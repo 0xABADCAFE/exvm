@@ -305,6 +305,12 @@ Executable* Linker::getExecutable() {
     for (int i = 0; i < executable->codeCount; i++) {
       executable->codeAddresses[i] = code[i].address.code;
     }
+
+    // Look for a main entry point (TODO this should be something predefined)
+    int main = codeSymbols->getID("main");
+    if (main >= 0) {
+      executable->main = main;
+    }
   }
 
   if (dataSymbols) {

@@ -173,6 +173,7 @@ namespace ExVM {
     setNativeCodeSymbolTable(executable->nativeCodeAddresses, executable->nativeCodeCount);
     setCodeSymbolTable(executable->codeAddresses, executable->codeCount);
     setDataSymbolTable(executable->dataAddresses, executable->dataCount);
+    setPC(executable->codeAddresses[executable->main]);
   }
 }
 #endif
