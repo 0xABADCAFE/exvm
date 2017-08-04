@@ -259,7 +259,7 @@ int Linker::resolveToEnumerated() {
               debuglog(LOG_ERROR, "TYPE_NATIVE symbol table '%s' did not resolve", symbolName);
               return symbolID;
             }
-            symbol = dataSymbols->get(symbolID);
+            symbol = nativeCodeSymbols->get(symbolID);
             debuglog(LOG_INFO, "\tResolved symbol '%s' to ID %d at %p", symbolName, symbolID, symbol->address.raw);
           }
           break;

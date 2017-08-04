@@ -69,7 +69,6 @@ Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize
   codeSymbol       = 0;
   dataSymbol       = 0;
 
-
   for (int i = 0; i < NUM_GPR; i++) {
     gpr[i].u64() = 0;
   }
@@ -139,22 +138,16 @@ void Interpreter::dump() {
 void Interpreter::setNativeCodeSymbolTable(NativeCall* symbol, uint16 count) {
   nativeCodeSymbol      = symbol;
   nativeCodeSymbolCount = count;
-
-  printf("Native Code Symbols : %p [%d]\n", symbol, (int)count);
 }
 
 void Interpreter::setCodeSymbolTable(uint16** symbol, uint16 count) {
   codeSymbol      = symbol;
   codeSymbolCount = count;
-
-  printf("Code Symbols : %p [%d]\n", symbol, (int)count);
 }
 
 void Interpreter::setDataSymbolTable(void** symbol, uint16 count) {
   dataSymbol      = symbol;
   dataSymbolCount = count;
-
-  printf("Data Symbols : %p [%d]\n", symbol, (int)count);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
