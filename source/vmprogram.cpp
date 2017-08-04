@@ -34,15 +34,21 @@ void nativeAllocBuffer(Interpreter* vm) {
   // return buffer in r0
   int w = vm->getReg(_r1).s32();
   int h = vm->getReg(_r2).s32();
-  vm->getReg(_r0).pU8() = new(nothrow) uint8[w*h];
-  printf("Allocated buffer [%d x %d]\n", w, h);
+  uint8* buffer = (uint8*)std::calloc(w * h, 1);
+  vm->getReg(_r0).pU8() = buffer;
+  if (buffer) {
+    printf("Allocated buffer [%d x %d]\n", w, h);
+  }
 }
 
 void nativeFreeBuffer(Interpreter* vm) {
   // expects buffer in r0
-  delete[] vm->getReg(_r0).pCh();
+  uint8* buffer = vm->getReg(_r0).pU8();
+  if (buffer) {
+    std::free(buffer);
+    printf("Freed buffer\n");
+  }
   vm->getReg(_r0).pCh() = 0;
-  printf("Freed buffer\n");
 }
 
 void nativeWriteBuffer(Interpreter* vm) {
