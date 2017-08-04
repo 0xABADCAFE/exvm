@@ -1,0 +1,14 @@
+# Project: ExVM Multiplatform
+
+# Target
+BIN      = bin/exvm_x64_haiku
+
+# Compiler settings
+CXXFLAGS = -O3 -Wall -W -m64 -march=native -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE -D_GCC_USE_BUILTIN
+
+# Makefile settings
+ARCH     = x64_haiku
+MEXT     = $(ARCH)
+
+include interpreter.make
+
