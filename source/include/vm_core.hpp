@@ -17,6 +17,11 @@
 #include "vm.hpp"
 #include "vm_targetmacros.hpp"
 
+
+namespace ExVM {
+
+  struct Executable;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Interpreter
@@ -26,7 +31,6 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace ExVM {
 
   class Interpreter {
     public:
@@ -111,6 +115,8 @@ namespace ExVM {
       void setCodeSymbolTable(uint16** symbol, uint16 count);
       void setDataSymbolTable(void** symbol, uint16 count);
 
+      void setExecutable(Executable* executable);
+
       GPR& getReg(sint32 i) {
         return gpr[(i & 0xF)];
       }
@@ -129,7 +135,6 @@ namespace ExVM {
       static void doBCALL16(Interpreter* vm, uint16 op);
       static void doCALL(Interpreter* vm, uint16 op);
       static void doCALLN(Interpreter* vm, uint16 op);
-
       static void doSV(Interpreter* vn, uint16 op);
       static void doRS(Interpreter* vn, uint16 op);
       static void doPUSH_8(Interpreter* vm, uint16 op);
@@ -142,5 +147,33 @@ namespace ExVM {
       static void doPOP_64(Interpreter* vm, uint16 op);
   };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Executable
+//
+// Represents the runtime linked and ready to execute VM program.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  struct Executable {
+    NativeCall* nativeCodeAddresses;
+    uint16**    codeAddresses;
+    void**      dataAddresses;
+    uint16      nativeCodeCount;
+    uint16      codeCount;
+    uint16      dataCount;
+    uint16      main;
+
+    static Executable* allocate(uint16 nativeCount, uint16 codeCount, uint16 dataCount);
+    static void release(Executable* executable);
+  };
+
+  inline void Interpreter::setExecutable(Executable* executable) {
+    setNativeCodeSymbolTable(executable->nativeCodeAddresses, executable->nativeCodeCount);
+    setCodeSymbolTable(executable->codeAddresses, executable->codeCount);
+    setDataSymbolTable(executable->dataAddresses, executable->dataCount);
+    setPC(executable->codeAddresses[executable->main]);
+  }
 }
 #endif

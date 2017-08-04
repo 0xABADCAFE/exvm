@@ -236,6 +236,15 @@ inline uint16 _float32LSW(float32 f) {
 #define _ld_rii_16(s,i,f,d)   _MKOP(LD_RII_16)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _ld_rii_32(s,i,f,d)   _MKOP(LD_RII_32)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _ld_rii_64(s,i,f,d)   _MKOP(LD_RII_64)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
+
+// Ignores the actual symbol indicator and inserts an unresolved symbol ID
+#define _ld_8_unresolved(x,d)            _MKOP(LD_8)|(d), 0xFFFF,
+#define _ld_16_unresolved(x,d)           _MKOP(LD_16)|(d), 0xFFFF,
+#define _ld_32_unresolved(x,d)           _MKOP(LD_32)|(d), 0xFFFF,
+#define _ld_64_unresolved(x,d)           _MKOP(LD_64)|(d), 0xFFFF,
+#define _lda_unresolved(x,d)             _MKOP(LD_ADDR)|(d), 0xFFFF,
+
+// For testing mock resolved symbols
 #define _ld_8(x,d)            _MKOP(LD_8)|(d), (uint16)_SYM_DATA(x),
 #define _ld_16(x,d)           _MKOP(LD_16)|(d), (uint16)_SYM_DATA(x),
 #define _ld_32(x,d)           _MKOP(LD_32)|(d), (uint16)_SYM_DATA(x),
@@ -273,6 +282,14 @@ inline uint16 _float32LSW(float32 f) {
 #define _st_rii_16(s,d,i,f)   _MKOP(ST_RII_16)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _st_rii_32(s,d,i,f)   _MKOP(ST_RII_32)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
 #define _st_rii_64(s,d,i,f)   _MKOP(ST_RII_64)|(s)<<4|(d), ((f)<<8)|((i)&0xF),
+
+// Ignores the actual symbol indicator and inserts an unresolved symbol ID
+#define _st_8_unresolved(s,x)            _MKOP(ST_8)|(s), (uint16)_SYM_DATA(x),
+#define _st_16_unresolved(s,x)           _MKOP(ST_16)|(s), (uint16)_SYM_DATA(x),
+#define _st_32_unresolved(s,x)           _MKOP(ST_32)|(s), (uint16)_SYM_DATA(x),
+#define _st_64_unresolved(s,x)           _MKOP(ST_64)|(s), (uint16)_SYM_DATA(x),
+
+// For testing mock resolved symbols
 #define _st_8(s,x)            _MKOP(ST_8)|(s), (uint16)_SYM_DATA(x),
 #define _st_16(s,x)           _MKOP(ST_16)|(s), (uint16)_SYM_DATA(x),
 #define _st_32(s,x)           _MKOP(ST_32)|(s), (uint16)_SYM_DATA(x),
@@ -312,8 +329,19 @@ inline uint16 _float32LSW(float32 f) {
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+
+#define _bcall_8_unresolved(x) _MKOP(CALL), 0xFFFF,
+#define _bcall_unresolved(x)   _MKOP(CALLN), 0xFFFF,
+
+#define _bcall_8(x)           _MKOP(CALL), (uint16)_SYM_CODE(x),
+#define _bcall(x)             _MKOP(CALLN), (uint16)_SYM_NATIVE(x),
+
+#define _call_unresolved(x)   _MKOP(CALL), 0xFFFF,
+#define _calln_unresolved(x)  _MKOP(CALLN), 0xFFFF,
+
 #define _call(x)              _MKOP(CALL), (uint16)_SYM_CODE(x),
 #define _calln(x)             _MKOP(CALLN), (uint16)_SYM_NATIVE(x),
+
 #define _ret                  _MKOP(RET)
 #define _bra_8(o)             _MKOP(BRA8)|(o),
 #define _bra(o)               _MKOP(BRA16), (uint16)(o),

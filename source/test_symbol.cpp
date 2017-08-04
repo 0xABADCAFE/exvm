@@ -82,9 +82,9 @@ void testSymbolMap() {
   std::puts("Performing SymbolMap tests...");
 
   SymbolMap symbolMap;
-  symbolMap.define("greeting", greeting);
-  symbolMap.define("leaving",  leaving);
-  symbolMap.define("greeting", leaving);
+  symbolMap.define("greeting", (char*)greeting);
+  symbolMap.define("leaving",  (char*)leaving);
+  symbolMap.define("greeting", (char*)leaving);
 
   const Symbol* list = symbolMap.getList();
 

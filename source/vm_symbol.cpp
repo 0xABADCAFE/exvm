@@ -331,7 +331,7 @@ SymbolMap::~SymbolMap() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SymbolMap::define(const char* name, const void* address) {
+int SymbolMap::define(const char* name, void* address) {
 
   // Protect against null
   if (!address) {

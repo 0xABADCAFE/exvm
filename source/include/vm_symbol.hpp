@@ -33,16 +33,16 @@ namespace ExVM {
     union Address {
 
       // VM code address
-      const uint16* code;
+      uint16* code;
 
       // VM data section
-      const uint8*  data;
+      uint8*  data;
 
       // Host functon
       NativeCall    native;
 
       // raw address
-      const void*   raw;
+      void*   raw;
 
     } address;
 
@@ -186,7 +186,7 @@ namespace ExVM {
         return symbols;
       }
 
-      // Return the length of the current lsit of defined symbos
+      // Return the length of the current list of defined symbos
       uint32 size() const {
         return SymbolNameEnumerator::getNextID();
       }
@@ -201,7 +201,7 @@ namespace ExVM {
       }
 
       // Define a new Symbol
-      int define(const char* name, const void* address);
+      int define(const char* name, void* address);
 
       int getID(const char* name) const {
         return SymbolNameEnumerator::getID(name);
