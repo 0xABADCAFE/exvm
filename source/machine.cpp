@@ -28,5 +28,7 @@ using namespace ExVM;
   #include "include/platforms/machine_amiga_os4_impl.hpp"
 #elif (_VM_HOST_OS == _VM_HOST_MORPHOS_PPC)
   #include "include/platforms/machine_amiga_mos_impl.hpp"
+#elif (_VM_HOST_OS == _VM_HOST_HAIKU_X64)
+  #include "include/platforms/machine_haiku_generic_impl.hpp"
 #endif
 
