@@ -1,0 +1,14 @@
+# Project: ExVM Multiplatform
+
+# Target
+BIN      = bin/exvm_x86_haiku_gcc2
+
+# Compiler settings
+CXXFLAGS = -O3 -Wall -W -march=pentiumpro -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_HAIKU_X86 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE -D_GCC_USE_BUILTIN
+
+# Makefile settings
+ARCH     = x86_haiku_gcc2
+MEXT     = $(ARCH)
+
+include interpreter.make
+

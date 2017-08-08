@@ -124,7 +124,6 @@ any pointer %p
   #elif (_VM_HOST_OS == _VM_HOST_HAIKU_X86)
  	#define X_ENDIAN XA_LITTLEENDIAN
     #include "platforms/machine_haiku_generic.hpp"
-
   #else
     #error Unrecognised Machine
   #endif
