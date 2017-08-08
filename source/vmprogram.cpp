@@ -306,11 +306,13 @@ RawSegmentData mockLoadSegment = {
 void runTestExample() {
 
   std::printf(
-    "Stack allocated:\n"
+    "Structure Sizes\n"
     "\tsizeof(Linker)      : %u\n"
-    "\tsizeof(Interpreter) : %u\n",
+    "\tsizeof(Interpreter) : %u\n"
+    "\tsizeof(Executable)  : %u\n",
     sizeof(Linker),
-    sizeof(Interpreter)
+    sizeof(Interpreter),
+    sizeof(Executable)
   );
 
   std::puts(
@@ -318,20 +320,26 @@ void runTestExample() {
     "-----------------------\n"
   );
 
-  Linker linker;
+  Linker* linker = new(nothrow) Linker();
+
+  if (!linker) {
+    std::puts("Could not instantiate linker.");
+    return;
+  }
+
   // Add host defined native function symbols first.
-  linker.defineNativeCode("allocBuff", nativeAllocBuffer);
-  linker.defineNativeCode("freeBuff",  nativeFreeBuffer);
-  linker.defineNativeCode("writeBuff", nativeWriteBuffer);
+  linker->defineNativeCode("allocBuff", nativeAllocBuffer);
+  linker->defineNativeCode("freeBuff",  nativeFreeBuffer);
+  linker->defineNativeCode("writeBuff", nativeWriteBuffer);
 
   // Add the RawSegment
-  linker.addRawSegment(&mockLoadSegment);
+  linker->addRawSegment(&mockLoadSegment);
 
   // Link it
-  linker.link();
+  linker->link();
 
   // Grab the executable layout
-  Executable* executable = linker.getExecutable();
+  Executable* executable = linker->getExecutable();
 
   // Dump it
   if (executable) {
@@ -371,22 +379,27 @@ void runTestExample() {
     );
 
     // Create an Interpreter
-    Interpreter interpreter;
+    Interpreter* interpreter = new Interpreter();
+    if (interpreter) {
+      // Execute it
+      interpreter->setExecutable(executable);
+      interpreter->execute();
+      interpreter->dump();
 
-    // Execute it
-    interpreter.setExecutable(executable);
-    interpreter.execute();
-    interpreter.dump();
+      // Victory
+      std::puts(
+        "\n-----------------------\n"
+      );
 
-    // Victory
-    std::puts(
-      "\n-----------------------\n"
-    );
+      // Release the Executable
+      Executable::release(executable);
 
-    // Release the Executable
-    Executable::release(executable);
+      delete interpreter;
+    }
   } else {
     std::puts("\nDid not link an Executable.\n");
   }
+
+  delete linker;
 }
 
