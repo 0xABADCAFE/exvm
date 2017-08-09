@@ -19,6 +19,6 @@ _END_OP
 
 _DEFINE_OP(BRK) {
   vm->status = VMDefs::BREAKPOINT;
-  _THROW(-1)
+  _HALT
 }
 _END_OP
