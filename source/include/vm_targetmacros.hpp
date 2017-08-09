@@ -27,7 +27,6 @@
     #define  REGOFS_P 1
     #define  REG_MSW 0
     #define  REG_LSW 1
-    #define  EX_ADDR_32 1
     #define  _EX_U8_1 ((vm->pc.extU8)[0])
     #define  _EX_U8_2 ((vm->pc.extU8)[1])
   #else
@@ -42,7 +41,6 @@
     #define  REGOFS_P 0
     #define  REG_MSW 1
     #define  REG_LSW 0
-    #define  EX_ADDR_32 0
     #define  _EX_U8_1 ((vm->pc.extU8)[1])
     #define  _EX_U8_2 ((vm->pc.extU8)[0])
   #endif
@@ -56,10 +54,8 @@
   #define _B8(x)  ((sint8)((x)&0xFF))     // 8-bit branch (is operand byte)
   #define _EX_U16 (*vm->pc.extU16++)
   #define _EX_U32 (*vm->pc.extU32++)
-  #define _EX_U64 (*vm->pc.extU64++)
   #define _EX_S16 (*vm->pc.extS16++)
   #define _EX_S32 (*vm->pc.extS32++)
-  #define _EX_S64 (*vm->pc.extS64++)
 
   #if X_PTRSIZE == XA_PTRSIZE64
     #define PTR_CH   _pch
@@ -73,7 +69,7 @@
     #define PTR_S64  _ps64
     #define PTR_F32  _pf32
     #define PTR_F64  _pf64
-    #define _DECLARE_OFFSET sint64 offset = _EX_S16;
+    #define _DECLARE_OFFSET int offset = _EX_S16;
   #else
     #define PTR_CH   _pch[REGOFS_P]
     #define PTR_U8   _pu8[REGOFS_P]
@@ -86,7 +82,7 @@
     #define PTR_S64  _ps64[REGOFS_P]
     #define PTR_F32  _pf32[REGOFS_P]
     #define PTR_F64  _pf64[REGOFS_P]
-    #define _DECLARE_OFFSET sint16 offset = _EX_S16;
+    #define _DECLARE_OFFSET int offset = _EX_S16;
   #endif
 
   #ifdef VM_DEBUG
