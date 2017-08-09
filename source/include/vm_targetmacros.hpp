@@ -18,8 +18,6 @@
   #if (X_ENDIAN == XA_BIGENDIAN)
     // Big endian (680x0/Coldfire/PowerPC/Alpha/Delta/MIPS/ARM/SPARC/Radix...etc)
     // Instruction word layout [opcode byte][operand byte]
-    #define  OPCD_BYTE 0
-    #define  OPRD_BYTE 1
     #define  REGOFS_8 7
     #define  REGOFS_16 3
     #define  REGOFS_32 1
@@ -32,8 +30,6 @@
   #else
     // Little endian (x86)
     // Instruction word layout [operand byte][opcode byte]
-    #define  OPCD_BYTE 1
-    #define  OPRD_BYTE 0
     #define  REGOFS_8 0
     #define  REGOFS_16 0
     #define  REGOFS_32 0
