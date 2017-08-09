@@ -96,14 +96,14 @@
       vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \
       debuglog(LOG_ERROR, "Runtime error: Unknown data symbol : %d\n", (int)x); \
       dumpstate(vm);                            \
-      _THROW(-1)                                \
+      _HALT                                     \
     }
   #else
     #define _DECLARE_DATA_SYMBOL(x)             \
     uint16 x = _EX_U16;                         \
     if (x >= vm->dataSymbolCount) {             \
       vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \
-      _THROW(-1)                                \
+      _HALT                                     \
     }
   #endif
 

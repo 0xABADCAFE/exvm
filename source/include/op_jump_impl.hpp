@@ -53,7 +53,7 @@ _DEFINE_OP(RET) {
     vm->pc.inst = (const uint16*) *(--vm->callStack);
   } else {
     vm->status = VMDefs::COMPLETED;
-    _THROW(-1)
+    _HALT
   }
 }
 _END_OP

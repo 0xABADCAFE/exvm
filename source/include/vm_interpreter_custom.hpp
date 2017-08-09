@@ -25,7 +25,7 @@
     #define _DEFINE_OP(x)
     #define _END_OP
     #define _REFER_OP(x)
-    #define _THROW(x)
+    #define _HALT
   */
 #endif
 

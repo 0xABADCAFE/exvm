@@ -18,6 +18,6 @@
   #define _DEFINE_OP(x)   void ExVM::Interpreter::do##x(ExVM::Interpreter* vm, uint16 op)
   #define _REFER_OP(x)    ExVM::Interpreter::do##x
   #define _END_OP
-  #define _THROW(x) return;
+  #define _HALT return;
 #endif
 
