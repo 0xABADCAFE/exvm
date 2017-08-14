@@ -95,8 +95,6 @@ namespace ExVM {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
   struct DataHeader {
 
     // Total size of the data segment, in bytes, excluding tail padding (always to 8 bytes).
@@ -136,15 +134,24 @@ namespace ExVM {
     uint32 complexTypesTableLength;
   };
 
-  struct SimpleDataSwapTableEntry {
+  // Simple datatype used wherever there is a 32-bit offset/count pair such as the various swap tables
+  struct OffsetCountPair {
     uint32 offset;
-    uint32 length;
+    uint32 count;
   };
 
-  struct ComplexDataSwapTableEntry {
-    uint32 offset;
-    uint32 length;
-    uint32 typeLookup;
+  // Simple structure that defines a record in the dataComplexTypeSwapTable
+  struct ComplexDataSwapTableEntry : public OffsetCountPair {
+    // Additional field for the type lookup
+    uint32 type;
+  };
+
+  // Enumerations of Complex Type members
+  enum {
+    CT_ELEMENT_8   = 0,
+    CT_ELEMENT_16  = 1,
+    CT_ELEMENT_32  = 2,
+    CT_ELEMENT_64  = 3,
   };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
