@@ -181,7 +181,8 @@ namespace ExVM {
       // Run the linking Process
       int link();
 
-
+      // Return an executable ready for passing to the Interpreter class. Once we have this, we can delete
+      // the Linker instance, unless we want to keep it for debugging etc.
       Executable* getExecutable();
 
       Linker(uint32 defSegmentCount = DEF_INI_TABLE_SIZE, uint32 defSegmentDelta = DEF_INC_TABLE_DELTA);
