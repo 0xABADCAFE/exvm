@@ -142,7 +142,7 @@ namespace ExVM {
       // Increment size for RawSegmentData array
       uint32 delta;
 
-      int defineSymbol(SymbolMap*& map, const char* name, void* address);
+      int defineSymbol(SymbolMap*& map, const char* name, void* address, uint32 symbolIDSize);
 
     public:
 
@@ -164,15 +164,15 @@ namespace ExVM {
       }
 
       int defineNativeCode(const char* name, NativeCall native) {
-        return defineSymbol(nativeCodeSymbols, name, (void*)native);
+        return defineSymbol(nativeCodeSymbols, name, (void*)native, VMDefs::NATIVE_SYMBOL_ID_SIZE);
       }
 
       int defineCode(const char* name, uint16* code) {
-        return defineSymbol(codeSymbols, name, code);
+        return defineSymbol(codeSymbols, name, code, VMDefs::CODE_SYMBOL_ID_SIZE);
       }
 
       int defineData(const char* name, void* data) {
-        return defineSymbol(dataSymbols, name, data);
+        return defineSymbol(dataSymbols, name, data, VMDefs::DATA_SYMBOL_ID_SIZE);
       }
 
       // Add a RawSegmentData for linking
