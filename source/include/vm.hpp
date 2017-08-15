@@ -108,7 +108,10 @@ namespace ExVM {
       } VMStatus;
 
       enum {
-        SYMBOL_ID_SIZE = 2,
+        // Symbol sizes in bits
+        DATA_SYMBOL_ID_SIZE   = 20,
+        CODE_SYMBOL_ID_SIZE   = 20,
+        NATIVE_SYMBOL_ID_SIZE = 20
       };
   };
 
