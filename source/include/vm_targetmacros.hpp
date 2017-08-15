@@ -41,17 +41,18 @@
     #define  _EX_U8_2 ((vm->pc.extU8)[0])
   #endif
 
-  #define _SI(x)  (((x)&0x00F0)>>4)       // small immediate
-  #define _RS(x)  (((x)&0x00F0)>>4)       // source register in 2 operand
-  #define _RD(x)  ((x)&0x000F)            // dest register in 2 operand
-  #define _RX(x)  ((x)&0x000F)            // source/dest register in 1 operand
-  #define _SC(x)  ((x)>>8)                // scale
-  #define _RI(x)  ((x)&0xF)               // index register
-  #define _B8(x)  ((sint8)((x)&0xFF))     // 8-bit branch (is operand byte)
+  #define _SI(x)  (((x) & 0x00F0) >> 4)       // small immediate
+  #define _RS(x)  (((x) & 0x00F0) >> 4)       // source register in 2 operand
+  #define _RD(x)  ((x) & 0x000F)            // dest register in 2 operand
+  #define _RX(x)  ((x) & 0x000F)            // source/dest register in 1 operand
+  #define _SC(x)  ((x) >> 8)                // scale
+  #define _RI(x)  ((x) & 0xF)               // index register
+  #define _B8(x)  ((sint8)((x) & 0xFF))     // 8-bit branch (is operand byte)
   #define _EX_U16 (*vm->pc.extU16++)
   #define _EX_U32 (*vm->pc.extU32++)
   #define _EX_S16 (*vm->pc.extS16++)
   #define _EX_S32 (*vm->pc.extS32++)
+  #define _SU(x)  ((uint32)((x) & 0x00F0) << 12)
 
   #if X_PTRSIZE == XA_PTRSIZE64
     #define PTR_CH   _pch
@@ -83,7 +84,7 @@
 
   #ifdef VM_DEBUG
     #define _DECLARE_DATA_SYMBOL(x)             \
-    uint16 x = _EX_U16;                         \
+    uint32 x = _EX_U16 | _SU(op);               \
     if (x >= vm->dataSymbolCount) {             \
       vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \
       debuglog(LOG_ERROR, "Runtime error: Unknown data symbol : %d\n", (int)x); \
@@ -92,7 +93,7 @@
     }
   #else
     #define _DECLARE_DATA_SYMBOL(x)             \
-    uint16 x = _EX_U16;                         \
+    uint32 x = _EX_U16 | _SU(op);               \
     if (x >= vm->dataSymbolCount) {             \
       vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \
       _HALT                                     \

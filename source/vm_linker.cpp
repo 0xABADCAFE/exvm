@@ -67,11 +67,11 @@ Linker::~Linker() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int Linker::defineSymbol(SymbolMap*& map, const char* name, void* address) {
+int Linker::defineSymbol(SymbolMap*& map, const char* name, void* address, uint32 symbolIDSize) {
   // Check #1 make sure the SymbolMap exists
   if (
     !map &&
-    !(map = new(std::nothrow)SymbolMap())
+    !(map = new(std::nothrow)SymbolMap(1 << symbolIDSize))
   ) {
     debuglog(LOG_ERROR, "Unable to allocate SymbolMap");
     return Error::OUT_OF_MEMORY;
@@ -208,7 +208,13 @@ int Linker::resolveToEnumerated() {
       RawSegmentData::SymbolRef* symbolRef  = &segment->importTable[j];
       const char*                symbolName = symbolRef->getSymbolName(segment->nameSegment);
       const Symbol*              symbol     = 0;
-      uint16*                    injectAddr = segment->codeSegment + symbolRef->offset;
+
+      // The offset points to the space immediately after the instruction but we will be modifyin the instruction
+      // word too. Perhaps we should change the specification to match this behaviour.
+      uint16*                    injectAddr = segment->codeSegment + symbolRef->offset - 1;
+
+      // Capture the opcode word as the upper bits of the symbol ID are part of it.
+      uint16                     opcodeWord = *injectAddr;
       int                        symbolID;
       // Process the next symbol
       switch (symbolRef->getSymbolType()) {
@@ -225,6 +231,17 @@ int Linker::resolveToEnumerated() {
               debuglog(LOG_ERROR, "TYPE_CODE symbol table '%s' did not resolve", symbolName);
               return symbolID;
             }
+
+            debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
+
+            // Clear the bits of the opcode word that will hold the upper symbol bits
+            opcodeWord &= 0xFF00;
+
+            // Add the upper bits of the symbol ID to the opcode word at the required location
+            opcodeWord |= (symbolID & 0x00FF0000) >> 16;
+
+            debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
+
             symbol = codeSymbols->get(symbolID);
             debuglog(LOG_INFO, "\tResolved symbol '%s' to ID %d at %p", symbolName, symbolID, symbol->address.code);
           }
@@ -242,6 +259,17 @@ int Linker::resolveToEnumerated() {
               debuglog(LOG_ERROR, "TYPE_DATA symbol table '%s' did not resolve", symbolName);
               return symbolID;
             }
+
+            debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
+
+            // Clear the bits of the opcode word that will hold the upper symbol bits
+            opcodeWord &= 0xFF0F;
+
+            // Add the upper bits of the symbol ID to the opcode word at the required location
+            opcodeWord |= (symbolID & 0x000F0000) >> 12;
+
+            debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
+
             symbol = dataSymbols->get(symbolID);
             debuglog(LOG_INFO, "\tResolved symbol '%s' to ID %d at %p", symbolName, symbolID, symbol->address.data);
           }
@@ -259,6 +287,17 @@ int Linker::resolveToEnumerated() {
               debuglog(LOG_ERROR, "TYPE_NATIVE symbol table '%s' did not resolve", symbolName);
               return symbolID;
             }
+
+            debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
+
+            // Clear the bits of the opcode word that will hold the upper symbol bits
+            opcodeWord &= 0xFF00;
+
+            // Add the upper bits of the symbol ID to the opcode word at the required location
+            opcodeWord |= (symbolID & 0x00FF0000) >> 16;
+
+            debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
+
             symbol = nativeCodeSymbols->get(symbolID);
             debuglog(LOG_INFO, "\tResolved symbol '%s' to ID %d at %p", symbolName, symbolID, symbol->address.raw);
           }
@@ -272,7 +311,8 @@ int Linker::resolveToEnumerated() {
       }
 
       debuglog(LOG_INFO, "Injecting symbol '%s' ID %d into code segment at offset %u [%p]", symbolName, symbolID, symbolRef->offset, injectAddr);
-      *injectAddr = (uint16)symbolID;
+      *injectAddr++ = opcodeWord;
+      *injectAddr   = (uint16)(symbolID & 0xFFFF);
     }
 
   }

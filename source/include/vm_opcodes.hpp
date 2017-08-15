@@ -91,20 +91,16 @@ typedef enum {
 
   // load global reference
   // ld.x label,rX
-  // [opcode] [ 0 : rX]
-  // [ extension data ]
-  // [ extension data ]
-
-  // in object code format
-  // [ MSB : 1-bit internal/external, 15-bit index MSW ]
-  // [ 16-bit index LSW ]
-
-  // in memory
-  // [ 32-bit endian native operand address in host memory ]
+  // [opcode] [ Data Symbol ID {16:19} : rX ]
+  // [          Data Symbol ID {0:15}       ]
 
   _LD_8, _LD_16, _LD_32, _LD_64,
 
-  // loads the address of the operand into a register
+  // loads the address implied by the symbol ID into the specified address reguster:
+  // lda label, rX
+  // [opcode] [ Data Symbol ID {16:19} : rX ]
+  // [          Data Symbol ID {0:15}       ]
+
   _LD_ADDR,
 
   // store group ////////////////////////////////////////
@@ -138,16 +134,8 @@ typedef enum {
 
   // store global reference
   // st.x rX,label
-  // [opcode] [ 0 : rX]
-  // [ extension data ]
-  // [ extension data ]
-
-  // in object code format
-  // [ MSB : 1-bit internal/external, 15-bit index MSW ]
-  // [ 16-bit index LSW ]
-
-  // in memory
-  // [ 32-bit endian native operand address in host memory ]
+  // [opcode] [ Data Symbol ID {16:19} : rX ]
+  // [          Data Symbol ID {0:15}       ]
 
   _ST_8, _ST_16, _ST_32, _ST_64,
 
@@ -183,16 +171,8 @@ typedef enum {
 
   // call global reference
   // call label
-  // [opcode] [     0 ]
-  // [ extension data ]
-  // [ extension data ]
-
-  // in object code format
-  // [ MSB : 1-bit internal/external, 15-bit index MSW ]
-  // [ 16-bit index LSW ]
-
-  // in memory
-  // [ 32-bit endian native operand address in host memory ]
+  // [opcode] [ Code Symbol ID{16:24} ]
+  // [          Code Symbol ID{0-15}  ]
 
   _CALL, _CALLN, _RET,
 

@@ -175,8 +175,6 @@ namespace ExVM {
 
     public:
       enum {
-        // The default maximum number of symbols to allow. This is basically limited by the size of symbols in VM
-        DEF_MAX_SYMBOLS        = 1 << (VMDefs::SYMBOL_ID_SIZE * 8),
         DEF_INI_TABLE_SIZE     = 128,
         DEF_INC_TABLE_DELTA    = 128
       };
@@ -215,7 +213,7 @@ namespace ExVM {
         return &symbols[symbolID];
       }
 
-      SymbolMap(uint32 maxSize = DEF_MAX_SYMBOLS, uint32 iniSize = DEF_INI_TABLE_SIZE, uint32 delta = DEF_INC_TABLE_DELTA);
+      SymbolMap(uint32 maxSize, uint32 iniSize = DEF_INI_TABLE_SIZE, uint32 delta = DEF_INC_TABLE_DELTA);
       ~SymbolMap();
   };
 

@@ -69,7 +69,7 @@ void ExVM::Interpreter::doBCALL16(ExVM::Interpreter* vm, uint16 op) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doCALL(ExVM::Interpreter* vm, uint16 op) {
-  uint16 symbol = _EX_U16;
+  uint32 symbol = (uint32)_EX_U16 | ((uint32)op & 0xFF) << 16;
   if (symbol >= vm->codeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
 
@@ -97,7 +97,7 @@ void ExVM::Interpreter::doCALL(ExVM::Interpreter* vm, uint16 op) {
 
 void ExVM::Interpreter::doCALLN(ExVM::Interpreter* vm, uint16 op) {
 
-  uint16 symbol = _EX_U16;
+  uint32 symbol = (uint32)_EX_U16 | ((uint32)op & 0xFF) << 16;
   if (symbol >= vm->nativeCodeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
 

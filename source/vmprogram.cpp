@@ -341,7 +341,10 @@ void runTestExample() {
   // Grab the executable layout
   Executable* executable = linker->getExecutable();
 
-  // Dump it
+  // Dispose of the linker
+  delete linker;
+
+  // Dump the Executable
   if (executable) {
     printf(
       "Linked Executable at %p {\n"
@@ -400,6 +403,5 @@ void runTestExample() {
     std::puts("\nDid not link an Executable.\n");
   }
 
-  delete linker;
 }
 
