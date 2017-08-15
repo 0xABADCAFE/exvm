@@ -81,7 +81,7 @@ const char* leaving  = "Bye World!!!\n";
 void testSymbolMap() {
   std::puts("Performing SymbolMap tests...");
 
-  SymbolMap symbolMap;
+  SymbolMap symbolMap(10);
   symbolMap.define("greeting", (char*)greeting);
   symbolMap.define("leaving",  (char*)leaving);
   symbolMap.define("greeting", (char*)leaving);
