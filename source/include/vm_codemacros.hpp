@@ -136,11 +136,17 @@ inline uint16 _float32LSW(float32 f) {
 #define _mr14 16384
 #define _mr15 32768
 
-#define _SYM_NATIVE(x) sym_native_##x
-#define _SYM_CODE(x) sym_code_##x
+// Macros that define how to spread tye bits of an enumerated native code Symbol ID between the opcode and extension
+#define _SYM_NATIVE_LOWER(x) (uint16)(sym_native_##x & 0xFFFF)
+#define _SYM_NATIVE_UPPER(x) (uint16)((sym_native_##x & 0xFF0000) >> 16)
+
+// Macros that define how to spread tye bits of an enumerated code Symbol ID between the opcode and extension
+#define _SYM_CODE_LOWER(x) (uint16)(sym_code_##x & 0xFFFF)
+#define _SYM_CODE_UPPER(x) (uint16)((sym_code_##x & 0xFF0000) >> 16)
+
+// Macros that define how to spread tye bits of an enumerated data Symbol ID between the opcode and extension
 #define _SYM_DATA_LOWER(x) (uint16)(sym_data_##x & 0xFFFF)
 #define _SYM_DATA_UPPER(x) (uint16)((sym_data_##x & 0xF0000) >> 12)
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -334,22 +340,22 @@ inline uint16 _float32LSW(float32 f) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#define _bcall_8_unresolved(x) _MKOP(CALL), 0xFFFF,
-#define _bcall_unresolved(x)   _MKOP(CALLN), 0xFFFF,
+#define _bcall_8_unresolved(x) _MKOP(BCALL8)  | 0xFF, 0xFFFF,
+#define _bcall_unresolved(x)   _MKOP(BCALL16) | 0xFF, 0xFFFF,
 
-#define _bcall_8(x)           _MKOP(CALL), (uint16)_SYM_CODE(x),
-#define _bcall(x)             _MKOP(CALLN), (uint16)_SYM_NATIVE(x),
+#define _bcall_8(x)           _MKOP(BCALL8),  | _SYM_CODE_UPPER(x), _SYM_CODE_LOWER(x),
+#define _bcall(x)             _MKOP(BCALL16)  | _SYM_CODE_UPPER(x), _SYM_CODE_LOWER(x),
 
-#define _call_unresolved(x)   _MKOP(CALL), 0xFFFF,
-#define _calln_unresolved(x)  _MKOP(CALLN), 0xFFFF,
+#define _call_unresolved(x)   _MKOP(CALL)     | 0xFF, 0xFFFF,
+#define _calln_unresolved(x)  _MKOP(CALLN)    | 0xFF, 0xFFFF,
 
-#define _call(x)              _MKOP(CALL), (uint16)_SYM_CODE(x),
-#define _calln(x)             _MKOP(CALLN), (uint16)_SYM_NATIVE(x),
+#define _call(x)              _MKOP(CALL)     | _SYM_CODE_UPPER(x), _SYM_CODE_LOWER(x),
+#define _calln(x)             _MKOP(CALLN)    | _SYM_NATIVE_UPPER(x), _SYM_NATIVE_LOWER(x),
 
 #define _ret                  _MKOP(RET)
-#define _bra_8(o)             _MKOP(BRA8) | (o),
+#define _bra_8(o)             _MKOP(BRA8)   | (o),
 #define _bra(o)               _MKOP(BRA16), (uint16)(o),
-#define _case(r,sz)           _MKOP(CASE) | (r), (sz),
+#define _case(r,sz)           _MKOP(CASE)   | (r), (sz),
 
 #define _bnz_8(r,o)           _MKOP(BNZ_8)  | (r), (uint16)(o),
 #define _bnz_16(r,o)          _MKOP(BNZ_16) | (r), (uint16)(o),

@@ -200,6 +200,11 @@ int Linker::enumerateAllSymbols() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int Linker::resolveToEnumerated() {
+
+  #define MODIFY_OPCODE_FOR_CODE(o, s)   (o) &= 0xFF00; (o) |= ((s) & 0xFF0000) >> 16;
+  #define MODIFY_OPCODE_FOR_NATIVE(o, s) (o) &= 0xFF00; (o) |= ((s) & 0xFF0000) >> 16;
+  #define MODIFY_OPCODE_FOR_DATA(o, s)   (o) &= 0xFF0F; (o) |= ((s) & 0x0F0000) >> 12;
+
   for (uint32 i = 0; i < numRawSegments; i++) {
     RawSegmentData* segment = rawSegments[i];
 
@@ -216,6 +221,7 @@ int Linker::resolveToEnumerated() {
       // Capture the opcode word as the upper bits of the symbol ID are part of it.
       uint16                     opcodeWord = *injectAddr;
       int                        symbolID;
+
       // Process the next symbol
       switch (symbolRef->getSymbolType()) {
 
@@ -232,15 +238,11 @@ int Linker::resolveToEnumerated() {
               return symbolID;
             }
 
-            debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
+            //debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
 
-            // Clear the bits of the opcode word that will hold the upper symbol bits
-            opcodeWord &= 0xFF00;
+            MODIFY_OPCODE_FOR_CODE(opcodeWord, symbolID)
 
-            // Add the upper bits of the symbol ID to the opcode word at the required location
-            opcodeWord |= (symbolID & 0x00FF0000) >> 16;
-
-            debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
+            //debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
 
             symbol = codeSymbols->get(symbolID);
             debuglog(LOG_INFO, "\tResolved symbol '%s' to ID %d at %p", symbolName, symbolID, symbol->address.code);
@@ -260,15 +262,11 @@ int Linker::resolveToEnumerated() {
               return symbolID;
             }
 
-            debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
+            //debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
 
-            // Clear the bits of the opcode word that will hold the upper symbol bits
-            opcodeWord &= 0xFF0F;
+            MODIFY_OPCODE_FOR_DATA(opcodeWord, symbolID)
 
-            // Add the upper bits of the symbol ID to the opcode word at the required location
-            opcodeWord |= (symbolID & 0x000F0000) >> 12;
-
-            debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
+            //debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
 
             symbol = dataSymbols->get(symbolID);
             debuglog(LOG_INFO, "\tResolved symbol '%s' to ID %d at %p", symbolName, symbolID, symbol->address.data);
@@ -288,15 +286,11 @@ int Linker::resolveToEnumerated() {
               return symbolID;
             }
 
-            debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
+            //debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
 
-            // Clear the bits of the opcode word that will hold the upper symbol bits
-            opcodeWord &= 0xFF00;
+            MODIFY_OPCODE_FOR_NATIVE(opcodeWord, symbolID)
 
-            // Add the upper bits of the symbol ID to the opcode word at the required location
-            opcodeWord |= (symbolID & 0x00FF0000) >> 16;
-
-            debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
+            //debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
 
             symbol = nativeCodeSymbols->get(symbolID);
             debuglog(LOG_INFO, "\tResolved symbol '%s' to ID %d at %p", symbolName, symbolID, symbol->address.raw);
