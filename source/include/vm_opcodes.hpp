@@ -412,6 +412,12 @@ typedef enum {
   // Vector negate (flaot)
   _VNEG_F32, _VNEG_F64,
 
+  // Vector absolute (signed integer)
+  _VABS_S8,  _VABS_S16,  _VABS_S32,  _VABS_S64,
+
+  // Vector absolute (float)
+  _VABS_F32, _VABS_F64,
+
   // Vector AND/OR/XOR/NOT - All operate at a byte size since there is no behavioural differences for other word sizes.
   _VAND_8,   _VOR_8,     _VXOR_8,    _VINV_8,
 
@@ -427,7 +433,7 @@ typedef enum {
   // Vector rotate right
   _VROR_8,   _VROR_16,   _VROR_32,   _VROR_64,
 
-  _MAX_VEC
+  MAX_VEC
 } VectorOp;
 
 #endif
