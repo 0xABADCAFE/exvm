@@ -78,12 +78,12 @@ Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize
   dataSymbolCount       = 0;
 
   printf("VM compiled %d-bit native\n", X_PTRSIZE);
-  printf("There are presently %d core instructions defined\n", VMDefs::MAX_OP);
+  printf("There are presently %d scalar and %d vector instructions defined\n", VMDefs::MAX_OP, VMDefs::MAX_VEC);
 
 /*
   printf("sizeof (VMDefs) = %zd\n", sizeof(VMDefs));
   printf("sizeof (Interpreter) = %zd\n", sizeof(Interpreter));
-  printf("There are presently %d core instructions defined\n", VMDefs::MAX_OP);
+  printf("There are presently %d scalar and %d vector instructions defined\n", VMDefs::MAX_OP, VMDefs::MAX_VEC);
   printf("Constructed Interpreter:\nreg Stack %zd entries\ndataStack %zd bytes\ncallStack %zd levels\n", regStackSize, dataStackSize, callStackSize);
 */
 }

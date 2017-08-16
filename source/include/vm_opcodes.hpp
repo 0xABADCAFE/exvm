@@ -15,6 +15,8 @@
 #ifndef _VM_DEF_OPCODES_HPP_
 #define _VM_DEF_OPCODES_HPP_
 
+// Standard instruction set, basic scalar operations.
+
 typedef enum {
 // TODO: Reorganise based on sizeless, 32-bit int only, 32-bit int+float, 64-bit contiguous blocks
 
@@ -315,7 +317,117 @@ typedef enum {
   // ror.x rS,rD (rD @>= rS) - rotate right
   _ROR_8, _ROR_16, _ROR_32, _ROR_64,
 
+  // prefixes
+  // _VEC,
+
   MAX_OP
 } NormalOp;
+
+
+// Vector Instruction set. These are invoked by the scalar _VEC prefix. Vector instructions perform block operations
+// directly on memory regions indicated by the addresses in the scalar registers. This is endian safe since all the
+// vector operations affect every element in the set.
+
+// While the intention is that these instructions should make use of host native vector units and memory streaming
+// they can be implemented in a purely scalar fashion on machines without any such hardware. In these cases it is
+// expected that vector calls will still significantly outperform any non vector implementation in virtual code as a
+// direct consequence of the elimiation of the interpretation overhead.
+
+typedef enum {
+  // Vector fill
+  _VFILL_8,  _VFILL_16,  _VFILL_32,  _VFILL_64,
+
+  // Vector addition (integer)
+  _VADD_I8,  _VADD_I16,  _VADD_I32,  _VADD_I64,
+
+  // Vector addition (float)
+  _VADD_F32, _VADD_F64,
+
+  // Vector addition (unsigned integer, saturated)
+  _VADDS_U8, _VADDS_U16, _VADDS_U32, _VADDS_U64,
+
+  // Vector addition (signed integer, saturated)
+  _VADDS_S8, _VADDS_S16, _VADDS_S32, _VADDS_S64,
+
+  // Vector subtraction (integer)
+  _VSUB_I8,  _VSUB_I16,  _VSUB_I32,  _VSUB_I64,
+
+  // Vector subtraction (float)
+  _VSUB_F32, _VSUB_F64,
+
+  // Vector subtraction (unsigned integer, saturated)
+  _VSUBS_U8, _VSUBS_U16, _VSUBS_U32, _VSUBS_U64,
+
+  // Vector subtraction (signed integer, saturated)
+  _VSUBS_S8, _VSUBS_S16, _VSUBS_S32, _VSUBS_S64,
+
+  // Vector multiply (unsigned integer)
+  _VMUL_U8,  _VMUL_U16,  _VMUL_U32,  _VMUL_U64,
+
+  // Vector multiply (signed integer)
+  _VMUL_S8,  _VMUL_S16,  _VMUL_S32,  _VMUL_S64,
+
+  // Vector multiply (float)
+  _VMUL_F32, _VMUL_F64,
+
+  // Vector multiply (unsigned integer, saturated)
+  _VMULS_U8, _VMULS_U16, _VMULS_U32, _VMULS_U64,
+
+  // Vector multiply (signed integer, saturated)
+  _VMULS_S8, _VMULS_S16, _VMULS_S32, _VMULS_S64,
+
+  // Vector division (unsigned integer)
+  _VDIV_U8,  _VDIV_U16,  _VDIV_U32,  _VDIV_U64,
+
+  // Vector division (signed integer)
+  _VDIV_S8,  _VDIV_S16,  _VDIV_S32,  _VDIV_S64,
+
+  // Vector division (float)
+  _VDIV_F32, _VDIV_F64,
+
+  // Vector division (unsigned integer, saturated)
+  _VDIVS_U8, _VDIVS_U16, _VDIVS_U32, _VDIVS_U64,
+
+  // Vector division (signed integer, saturated)
+  _VDIVS_S8, _VDIVS_S16, _VDIVS_S32, _VDIVS_S64,
+
+  // Vector modulus (unsigned integer)
+  _VMOD_U8,  _VMOD_U16,  _VMOD_U32,  _VMOD_U64,
+
+  // Vector modulus (signed integer)
+  _VMOD_S8,  _VMOD_S16,  _VMOD_S32,  _VMOD_S64,
+
+  // Vector modulus (float)
+  _VMOD_F32, _VMOD_F64,
+
+  // Vector modulus (unsigned integer, saturated)
+  _VMODS_U8, _VMODS_U16, _VMODS_U32, _VMODS_U64,
+
+  // Vector modulus (signed integer, saturated)
+  _VMODS_S8, _VMODS_S16, _VMODS_S32, _VMODS_S64,
+
+  // Vector negate (integer)
+  _VNEG_S8,  _VNEG_S16,  _VNEG_S32,  _VNEG_S64,
+
+  // Vector negate (flaot)
+  _VNEG_F32, _VNEG_F64,
+
+  // Vector AND/OR/XOR/NOT - All operate at a byte size since there is no behavioural differences for other word sizes.
+  _VAND_8,   _VOR_8,     _VXOR_8,    _VINV_8,
+
+  // Vector logical shift left
+  _VLSL_8,   _VLSL_16,   _VLSL_32,   _VLSL_64,
+
+  // Vector logical shift right
+  _VLSR_8,   _VLSR_16,   _VLSR_32,   _VLSR_64,
+
+  // Vector rotate left
+  _VROL_8,   _VROL_16,   _VROL_32,   _VROL_64,
+
+  // Vector rotate right
+  _VROR_8,   _VROR_16,   _VROR_32,   _VROR_64,
+
+  _MAX_VEC
+} VectorOp;
 
 #endif
