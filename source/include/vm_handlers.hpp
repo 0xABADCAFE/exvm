@@ -95,6 +95,8 @@ _DECLARE_OP(BSWP_16)
 _DECLARE_OP(BSWP_32)
 _DECLARE_OP(BSWP_64)
 _DECLARE_OP(EXG)
+
+// These functions are defined in the class even for switch-case
 //_DECLARE_OP(SV)
 //_DECLARE_OP(RS)
 //_DECLARE_OP(PUSH_8)
@@ -285,6 +287,7 @@ _DECLARE_OP(ROR_16)
 _DECLARE_OP(ROR_32)
 _DECLARE_OP(ROR_64)
 
+// These functions are defined in the class even for switch-case
 //_DECLARE_OP(VEC)
 
 // misc group
