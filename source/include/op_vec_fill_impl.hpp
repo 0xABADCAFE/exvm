@@ -1,10 +1,10 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         vm_vec_interpreter_switch_case.hpp                       **//
-//** Description:  Interpreter class definition                             **//
+//** File:         op_vec_fill.hpp                                          **//
+//** Description:  Vector filling (splat)                                   **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
-//** Created:      2001-08-29                                               **//
+//** Created:      2001-09-02                                               **//
 //** Author(s):    Karl Churchill                                           **//
 //** Note(s):                                                               **//
 //** Copyright:    (C)1996 - , eXtropia Studios                             **//
@@ -12,15 +12,20 @@
 //**                                                                        **//
 //****************************************************************************//
 
-{
 
-  switch (op & 0xFF) {
-    #include "op_vec_fill_impl.hpp"
+_DEFINE_OP(VFILL_8) {
 
-    default:
-      printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
-      vm->status = VMDefs::BREAKPOINT;
-      return;
-  }
+}
+
+_DEFINE_OP(VFILL_16) {
+
+}
+
+_DEFINE_OP(VFILL_32 {
+
+}
+
+_DEFINE_OP(VFILL_64) {
+
 }
 
