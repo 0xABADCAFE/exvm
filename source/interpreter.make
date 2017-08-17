@@ -11,6 +11,7 @@ OBJ      = obj/$(ARCH)/main.o \
            obj/$(ARCH)/op_convert.o \
            obj/$(ARCH)/op_arithmetic.o \
            obj/$(ARCH)/op_logic.o \
+           obj/$(ARCH)/op_misc.o \
            obj/$(ARCH)/vm_core.o \
            obj/$(ARCH)/op_normal_table.o \
            obj/$(ARCH)/vm_symbol.o \
@@ -51,6 +52,9 @@ obj/$(ARCH)/op_arithmetic.o: op_arithmetic.cpp include/vm_core.hpp include/vm.hp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/$(ARCH)/op_logic.o: op_logic.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+obj/$(ARCH)/op_misc.o: op_misc.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/$(ARCH)/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp

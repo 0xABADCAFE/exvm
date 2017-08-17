@@ -1,6 +1,6 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         vm_interpreter_switch_case.hpp                           **//
+//** File:         vm_vec_interpreter_switch_case.hpp                       **//
 //** Description:  Interpreter class definition                             **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
@@ -13,38 +13,12 @@
 //****************************************************************************//
 
 {
-  register Interpreter* vm = this;
-  register uint16  op;
 
-forever:
-  op = *pc.inst++;
-  switch (op >> 8) {
-    #include "op_control_impl.hpp"
-    #include "op_load_impl.hpp"
-    #include "op_store_impl.hpp"
-    #include "op_move_impl.hpp"
-    #include "op_jump_impl.hpp"
-    #include "op_convert_impl.hpp"
-    #include "op_arithmetic_impl.hpp"
-    #include "op_logic_impl.hpp"
-
-    _DEFINE_OP(VEC) {
-      doVEC(vm, op);
-      if (vm->status != VMDefs::RUNNING) {
-        _HALT
-      }
-    }
-    _END_OP
-
+  switch (op & 0xFF) {
     default:
-      printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
-        status = VMDefs::BREAKPOINT;
-        _HALT
-    }
-    ++numStatements;
-  goto forever;
-
-interpreter_bailout:
-  ++numStatements; // include the statement last executed that led here
+      printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
+      vm->status = VMDefs::BREAKPOINT;
+      return;
+  }
 }
 
