@@ -14,6 +14,7 @@ OBJ      = obj/$(ARCH)/main.o \
            obj/$(ARCH)/op_misc.o \
            obj/$(ARCH)/vm_core.o \
            obj/$(ARCH)/op_normal_table.o \
+           obj/$(ARCH)/op_vector_table.o \
            obj/$(ARCH)/vm_symbol.o \
            obj/$(ARCH)/vm_linker.o \
            obj/$(ARCH)/vm_debug.o
@@ -61,6 +62,9 @@ obj/$(ARCH)/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/ma
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/$(ARCH)/op_normal_table.o: op_normal_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+obj/$(ARCH)/op_vector_table.o: op_vector_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/$(ARCH)/vm_symbol.o: vm_symbol.cpp include/machine.hpp

@@ -285,11 +285,11 @@ _DECLARE_OP(ROR_16)
 _DECLARE_OP(ROR_32)
 _DECLARE_OP(ROR_64)
 
-_DECLARE_OP(VEC)
+//_DECLARE_OP(VEC)
 
 // misc group
 _DECLARE_OP(ILLEGAL);
 
-static const Handler handlers[256]; // normal handlers
-
+static const Handler handlers[256];       // normal handlers
+static const Handler vectorHandlers[256]; // vector handlers
 
