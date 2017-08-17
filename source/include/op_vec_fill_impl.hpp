@@ -21,7 +21,7 @@ _DEFINE_OP(VFILL_16) {
 
 }
 
-_DEFINE_OP(VFILL_32 {
+_DEFINE_OP(VFILL_32) {
 
 }
 
