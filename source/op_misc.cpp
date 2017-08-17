@@ -15,6 +15,16 @@
 #include "include/vm_inline.hpp"
 #include "include/machine.hpp"
 #include <cstdio>
+
+#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
+  #include "include/vm_interpreter_func_table.hpp"
+#elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+  #include "include/vm_interpreter_switch_case.hpp"
+#elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
+  #include "include/vm_interpreter_custom.hpp"
+#endif
+
+
 /*
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
 
@@ -37,16 +47,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
 
-
-#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include "include/vm_interpreter_func_table.hpp"
-#elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
-  #include "include/vm_interpreter_switch_case.hpp"
-#elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
-  #include "include/vm_interpreter_custom.hpp"
-#endif
-
 void ExVM::Interpreter::doVEC(ExVM::Interpreter* vm, uint16 op) {
+
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
   #include "include/vm_interpreter_vec_func_table_impl.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
@@ -54,5 +56,6 @@ void ExVM::Interpreter::doVEC(ExVM::Interpreter* vm, uint16 op) {
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
   #include "include/vm_interpreter_vec_custom_impl.hpp"
 #endif
+
 }
 
