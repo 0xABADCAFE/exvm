@@ -1,4 +1,5 @@
 exvm_*
 symbol_*
 linker_*
+vectortest_*
 *.pgm

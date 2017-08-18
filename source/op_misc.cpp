@@ -50,7 +50,7 @@
 void ExVM::Interpreter::doVEC(ExVM::Interpreter* vm, uint16 op) {
 
   // The next word in the instruction stream defines up to 4 registers
-  uint16 varg = *vm->pc.inst++;
+  uint16 vArgs = *vm->pc.inst++;
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
   #include "include/vm_interpreter_vec_func_table_impl.hpp"
