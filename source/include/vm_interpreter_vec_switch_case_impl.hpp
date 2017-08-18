@@ -16,7 +16,7 @@
 
   switch (op & 0xFF) {
     #include "op_vec_fill_impl.hpp"
-
+    #include "op_vec_neg_impl.hpp"
     default:
       printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
       vm->status = VMDefs::BREAKPOINT;
