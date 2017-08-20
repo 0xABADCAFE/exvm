@@ -507,11 +507,20 @@ typedef enum {
 
   // No saturating modulus.
 
-  // Scalar on Vector AND/OR/XOR - All operate at a byte size since there is no behavioural differences for other word sizes.
+  // Scalar on Vector bitwise AND
   //
-  // vd[i] = vs[i] &|^ x
+  // vd[i] = vs[i] & x
+  _VSAND_8,   _VSAND_16,   _VSAND_32,   _VSAND_64, // op_vec_sand_impl.hpp
 
-  _VSAND_8,   _VSOR_8,     _VSXOR_8,
+  // Scalar on Vector bitwise OR
+  //
+  // vd[i] = vs[i] | x
+  _VSOR_8,    _VSOR_16,    _VSOR_32,    _VSOR_64, // op_vec_sor_impl.hpp
+
+  // Scalar on Vector XOR
+  //
+  // vd[i] = vs[i] ^ x
+  _VSXOR_8,   _VSXOR_16,   _VSXOR_32,   _VSXOR_64, // op_vec_sxor_impl.hpp
 
   // Scalar on Vector logical shift left
   //
