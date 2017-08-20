@@ -15,6 +15,7 @@
 {
 
   switch (op & 0xFF) {
+    // Includes added in strict order of the opcode enumerations
     #include "op_vec_fill_impl.hpp"
     #include "op_vec_neg_impl.hpp"
     #include "op_vec_abs_impl.hpp"
@@ -23,7 +24,7 @@
     #include "op_vec_sadd_saturated_impl.hpp"
     #include "op_vec_ssub_impl.hpp"
     #include "op_vec_ssub_saturated_impl.hpp"
-
+    #include "op_vec_smul_impl.hpp"
 
     default:
       printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);

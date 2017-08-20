@@ -69,8 +69,6 @@ _DEFINE_OP(VSADDS_U64) {
 }
 _END_OP
 
-
-
 _DEFINE_OP(VSADDS_S8) {
   vm->status = VMDefs::BREAKPOINT;
   return;

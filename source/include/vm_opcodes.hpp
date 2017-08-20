@@ -357,7 +357,7 @@ typedef enum {
   //
   // vd[i] = -vs[i]
 
-  _VNEG_S8,  _VNEG_S16,  _VNEG_S32,  _VNEG_S64,, // op_vec_neg_impl.hpp
+  _VNEG_S8,  _VNEG_S16,  _VNEG_S32,  _VNEG_S64, // op_vec_neg_impl.hpp
 
   // Vector negate (flaot)
   //
@@ -429,25 +429,25 @@ typedef enum {
   //
   // vd[i] = vs[i] - x
 
-  _VSSUBS_S8, _VSSUBS_S16, _VSSUBS_S32, _VSSUBS_S64,// op_vec_ssub_saturated_impl.hpp
+  _VSSUBS_S8, _VSSUBS_S16, _VSSUBS_S32, _VSSUBS_S64, // op_vec_ssub_saturated_impl.hpp
 
   // Scalar Scalar Vector multiply (unsigned integer)
   //
   // vd[i] = vs[i] * x
 
-  _VSMUL_U8,  _VSMUL_U16,  _VSMUL_U32,  _VSMUL_U64,
+  _VSMUL_U8,  _VSMUL_U16,  _VSMUL_U32,  _VSMUL_U64, // op_vec_smul_impl.hpp
 
   // Scalar on Vector multiply (signed integer)
   //
   // vd[i] = vs[i] * x
 
-  _VSMUL_S8,  _VSMUL_S16,  _VSMUL_S32,  _VSMUL_S64,
+  _VSMUL_S8,  _VSMUL_S16,  _VSMUL_S32,  _VSMUL_S64, // op_vec_smul_impl.hpp
 
   // Scalar on Vector multiply (float)
   //
   // vd[i] = vs[i] * x
 
-  _VSMUL_F32, _VSMUL_F64,
+  _VSMUL_F32, _VSMUL_F64, // op_vec_smul_impl.hpp
 
   // Scalar on Vector multiply (unsigned integer, saturated)
   //

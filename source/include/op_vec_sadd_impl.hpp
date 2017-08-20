@@ -68,7 +68,7 @@ _DEFINE_OP(VSADD_F32) {
   float32* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pF32();
   uint32   i   = vm->gpr[(vArgs & 0x000F)].u32();
   while (i--) {
-    *dst++ = - *src++;
+    *dst++ = val + *src++;
   }
 }
 _END_OP
