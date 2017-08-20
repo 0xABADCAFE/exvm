@@ -526,13 +526,13 @@ typedef enum {
   //
   // vd[i] = vs[i] << x
 
-  _VSLSL_8,   _VSLSL_16,   _VSLSL_32,   _VSLSL_64,
+  _VSLSL_8,   _VSLSL_16,   _VSLSL_32,   _VSLSL_64, // op_vec_slsl_impl.hpp
 
   // Scalar on Vector logical shift right
   //
   // vd[i] = vs[i] >> x
 
-  _VSLSR_8,   _VSLSR_16,   _VSLSR_32,   _VSLSR_64,
+  _VSLSR_8,   _VSLSR_16,   _VSLSR_32,   _VSLSR_64, // op_vec_slsr_impl.hpp
 
   // Scalar on Vector rotate left
   //
