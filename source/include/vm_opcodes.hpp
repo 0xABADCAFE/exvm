@@ -453,31 +453,31 @@ typedef enum {
   //
   // vd[i] = vs[i] * x
 
-  _VSMULS_U8, _VSMULS_U16, _VSMULS_U32, _VSMULS_U64,
+  _VSMULS_U8, _VSMULS_U16, _VSMULS_U32, _VSMULS_U64, // op_vec_smul_saturated_impl.hpp
 
   // Scalar on Vector multiply (signed integer, saturated)
   //
   // vd[i] = vs[i] * x
 
-  _VSMULS_S8, _VSMULS_S16, _VSMULS_S32, _VSMULS_S64,
+  _VSMULS_S8, _VSMULS_S16, _VSMULS_S32, _VSMULS_S64, // op_vec_smul_saturated_impl.hpp
 
   // Scalar on Vector division (unsigned integer)
   //
   // vd[i] = vs[i] / x
 
-  _VSDIV_U8,  _VSDIV_U16,  _VSDIV_U32,  _VSDIV_U64,
+  _VSDIV_U8,  _VSDIV_U16,  _VSDIV_U32,  _VSDIV_U64, // op_vec_sdiv_impl.hpp
 
   // Scalar on Vector division (signed integer)
   //
   // vd[i] = vs[i] / x
 
-  _VSDIV_S8,  _VSDIV_S16,  _VSDIV_S32,  _VSDIV_S64,
+  _VSDIV_S8,  _VSDIV_S16,  _VSDIV_S32,  _VSDIV_S64, // op_vec_sdiv_impl.hpp
 
   // Scalar on Vector division (float)
   //
   // vd[i] = vs[i] / x
 
-  _VSDIV_F32, _VSDIV_F64,
+  _VSDIV_F32, _VSDIV_F64, // op_vec_sdiv_impl.hpp
 
   // Scalar on Vector division (unsigned integer, saturated)
   //

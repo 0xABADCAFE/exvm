@@ -25,6 +25,9 @@
     #include "op_vec_ssub_impl.hpp"
     #include "op_vec_ssub_saturated_impl.hpp"
     #include "op_vec_smul_impl.hpp"
+    #include "op_vec_smul_saturated_impl.hpp"
+    #include "op_vec_sdiv_impl.hpp"
+    #include "op_vec_sdiv_saturated_impl.hpp"
 
     default:
       printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
