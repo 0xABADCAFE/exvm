@@ -345,7 +345,7 @@ typedef enum {
   //
   // vd[i] = x
 
-  _VFILL_8,  _VFILL_16,  _VFILL_32,  _VFILL_64,
+  _VFILL_8,  _VFILL_16,  _VFILL_32,  _VFILL_64, // op_vec_fill_impl.hpp
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //
@@ -357,79 +357,79 @@ typedef enum {
   //
   // vd[i] = -vs[i]
 
-  _VNEG_S8,  _VNEG_S16,  _VNEG_S32,  _VNEG_S64,
+  _VNEG_S8,  _VNEG_S16,  _VNEG_S32,  _VNEG_S64,, // op_vec_neg_impl.hpp
 
   // Vector negate (flaot)
   //
   // vd[i] = -vs[i]
 
-  _VNEG_F32, _VNEG_F64,
+  _VNEG_F32, _VNEG_F64, // op_vec_neg_impl.hpp
 
   // Vector absolute (signed integer)
   //
   // vd[i] = |vs[i]|
 
-  _VABS_S8,  _VABS_S16,  _VABS_S32,  _VABS_S64,
+  _VABS_S8,  _VABS_S16,  _VABS_S32,  _VABS_S64, // op_vec_abs_impl.hpp
 
   // Vector absolute (float)
   //
   // vd[i] = abs(vs[i])
 
-  _VABS_F32, _VABS_F64,
+  _VABS_F32, _VABS_F64, // op_vec_abs_impl.hpp
 
   // Vector inverse (int)
   //
   // vd[i] = ~vs[i]
 
-  _VINV_8,
+  _VINV_8, // op_vec_inv_impl.hpp
 
   // Scalar on Vector addition (integer)
   //
   // vd[i] = vs[i] + x
 
-  _VSADD_I8,  _VSADD_I16,  _VSADD_I32,  _VSADD_I64,
+  _VSADD_I8,  _VSADD_I16,  _VSADD_I32,  _VSADD_I64, // op_vec_sadd_impl.hpp
 
   // Scalar on Vector addition (float)
   //
   // vd[i] = vs[i] + x
 
-  _VSADD_F32, _VSADD_F64,
+  _VSADD_F32, _VSADD_F64, // op_vec_sadd_impl.hpp
 
   // Scalar on Vector addition (unsigned integer, saturated)
   //
   // vd[i] = vs[i] + x
 
-  _VSADDS_U8, _VSADDS_U16, _VSADDS_U32, _VSADDS_U64,
+  _VSADDS_U8, _VSADDS_U16, _VSADDS_U32, _VSADDS_U64, // op_vec_sadd_saturated_impl.hpp
 
   // Scalar on Vector addition (signed integer, saturated)
   //
   // vd[i] = vs[i] + x
 
-  _VSADDS_S8, _VSADDS_S16, _VSADDS_S32, _VSADDS_S64,
+  _VSADDS_S8, _VSADDS_S16, _VSADDS_S32, _VSADDS_S64, // op_vec_sadd_saturated_impl.hpp
 
   // Scalar on Vector subtraction (integer)
   //
   // vd[i] = vs[i] + x
 
-  _VSSUB_I8,  _VSSUB_I16,  _VSSUB_I32,  _VSSUB_I64,
+  _VSSUB_I8,  _VSSUB_I16,  _VSSUB_I32,  _VSSUB_I64, // op_vec_ssub_impl.hpp
 
   // Scalar on Vector subtraction (float)
   //
   // vd[i] = vs[i] + x
 
-  _VSSUB_F32, _VSSUB_F64,
+  _VSSUB_F32, _VSSUB_F64, // op_vec_ssub_impl.hpp
 
   // Scalar on Vector subtraction (unsigned integer, saturated)
   //
   // vd[i] = vs[i] - x
 
-  _VSSUBS_U8, _VSSUBS_U16, _VSSUBS_U32, _VSSUBS_U64,
+  _VSSUBS_U8, _VSSUBS_U16, _VSSUBS_U32, _VSSUBS_U64, // op_vec_ssub_saturated_impl.hpp
 
   // Scalar on Vector subtraction (signed integer, saturated)
   //
   // vd[i] = vs[i] - x
 
-  _VSSUBS_S8, _VSSUBS_S16, _VSSUBS_S32, _VSSUBS_S64,
+  _VSSUBS_S8, _VSSUBS_S16, _VSSUBS_S32, _VSSUBS_S64,// op_vec_ssub_saturated_impl.hpp
 
   // Scalar Scalar Vector multiply (unsigned integer)
   //

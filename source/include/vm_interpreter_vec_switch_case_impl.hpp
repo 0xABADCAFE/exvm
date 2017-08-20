@@ -20,6 +20,10 @@
     #include "op_vec_abs_impl.hpp"
     #include "op_vec_inv_impl.hpp"
     #include "op_vec_sadd_impl.hpp"
+    #include "op_vec_sadd_saturated_impl.hpp"
+    #include "op_vec_ssub_impl.hpp"
+    #include "op_vec_ssub_saturated_impl.hpp"
+
 
     default:
       printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
