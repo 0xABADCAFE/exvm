@@ -12,7 +12,7 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
+// Integer
 _DEFINE_OP(VNEG_S8) {
   // Super naive reference implementation
   sint8* src = vm->gpr[(vArgs & 0x0F00) >> 8].pS8();
@@ -57,6 +57,7 @@ _DEFINE_OP(VNEG_S64) {
 }
 _END_OP
 
+// Float
 _DEFINE_OP(VNEG_F32) {
   // Super naive reference implementation
   float32* src = vm->gpr[(vArgs & 0x0F00) >> 8].pF32();

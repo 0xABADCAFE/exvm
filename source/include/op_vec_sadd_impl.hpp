@@ -12,7 +12,7 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
+// Integer
 _DEFINE_OP(VSADD_I8) {
   // Super naive reference implementation
   sint8  val = vm->gpr[(vArgs & 0xF000) >> 12].s8();
@@ -61,6 +61,7 @@ _DEFINE_OP(VSADD_I64) {
 }
 _END_OP
 
+// Float
 _DEFINE_OP(VSADD_F32) {
   // Super naive reference implementation
   float32  val = vm->gpr[(vArgs & 0xF000) >> 12].f32();

@@ -479,47 +479,33 @@ typedef enum {
 
   _VSDIV_F32, _VSDIV_F64, // op_vec_sdiv_impl.hpp
 
-  // Scalar on Vector division (unsigned integer, saturated)
-  //
-  // vd[i] = vs[i] / x
-
-  _VSDIVS_U8, _VSDIVS_U16, _VSDIVS_U32, _VSDIVS_U64,
+  // No saturating unsigned division as it can never overflow.
 
   // Scalar on Vector division (signed integer, saturated)
   //
   // vd[i] = vs[i] / x
 
-  _VSDIVS_S8, _VSDIVS_S16, _VSDIVS_S32, _VSDIVS_S64,
+  _VSDIVS_S8, _VSDIVS_S16, _VSDIVS_S32, _VSDIVS_S64, // op_vec_sdiv_saturated_impl.hpp
 
   // Scalar on Vector modulus (unsigned integer)
   //
   // vd[i] = vs[i] % x
 
-  _VSMOD_U8,  _VSMOD_U16,  _VSMOD_U32,  _VSMOD_U64,
+  _VSMOD_U8,  _VSMOD_U16,  _VSMOD_U32,  _VSMOD_U64, // op_vec_smod_impl.hpp
 
   // Scalar on Vector modulus (signed integer)
   //
   // vd[i] = vs[i] % x
 
-  _VSMOD_S8,  _VSMOD_S16,  _VSMOD_S32,  _VSMOD_S64,
+  _VSMOD_S8,  _VSMOD_S16,  _VSMOD_S32,  _VSMOD_S64, // op_vec_smod_impl.hpp
 
   // Scalar on Vector modulus (float)
   //
   // vd[i] = vs[i] % x
 
-  _VSMOD_F32, _VSMOD_F64,
+  _VSMOD_F32, _VSMOD_F64, // op_vec_smod_impl.hpp
 
-  // Scalar on Vector modulus (unsigned integer, saturated)
-  //
-  // vd[i] = vs[i] % x
-
-  _VSMODS_U8, _VSMODS_U16, _VSMODS_U32, _VSMODS_U64,
-
-  // Scalar on Vector modulus (signed integer, saturated)
-  //
-  // vd[i] = vs[i] % x
-
-  _VSMODS_S8, _VSMODS_S16, _VSMODS_S32, _VSMODS_S64,
+  // No saturating modulus.
 
   // Scalar on Vector AND/OR/XOR - All operate at a byte size since there is no behavioural differences for other word sizes.
   //

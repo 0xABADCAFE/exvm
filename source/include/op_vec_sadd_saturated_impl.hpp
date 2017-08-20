@@ -12,7 +12,7 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
+// Unsigned
 _DEFINE_OP(VSADDS_U8) {
   // Super naive reference implementation
   uint8  val = vm->gpr[(vArgs & 0xF000) >> 12].u8();
@@ -69,6 +69,7 @@ _DEFINE_OP(VSADDS_U64) {
 }
 _END_OP
 
+// Signed
 _DEFINE_OP(VSADDS_S8) {
   vm->status = VMDefs::BREAKPOINT;
   return;

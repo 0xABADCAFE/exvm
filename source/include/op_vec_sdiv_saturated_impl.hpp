@@ -12,7 +12,9 @@
 //**                                                                        **//
 //****************************************************************************//
 
+// Unsigned - no different to non-saturating version
 
+// Signed
 _DEFINE_OP(VSDIVS_S8) {
   vm->status = VMDefs::BREAKPOINT;
   return;
@@ -85,67 +87,3 @@ _DEFINE_OP(VSDIVS_S64) {
 }
 _END_OP
 
-_DEFINE_OP(VSDIVS_U8) {
-
-  // Super naive reference implementation
-  uint8  val = vm->gpr[(vArgs & 0xF000) >> 12].u8();
-  if (!val) {
-    vm->status = VMDefs::ZERO_DIVIDE;
-    return;
-  }
-  uint8* src = vm->gpr[(vArgs & 0x0F00) >>  8].pU8();
-  uint8* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pU8();
-  uint32 i   = vm->gpr[(vArgs & 0x000F)].u32();
-  while (i--) {
-    *dst++ = *src++ / val;
-  }
-}
-_END_OP
-
-_DEFINE_OP(VSDIVS_U16) {
-  // Super naive reference implementation
-  uint16  val = vm->gpr[(vArgs & 0xF000) >> 12].u16();
-  if (!val) {
-    vm->status = VMDefs::ZERO_DIVIDE;
-    return;
-  }
-  uint16* src = vm->gpr[(vArgs & 0x0F00) >>  8].pU16();
-  uint16* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pU16();
-  uint32 i    = vm->gpr[(vArgs & 0x000F)].u32();
-  while (i--) {
-    *dst++ = *src++ / val;
-  }
-}
-_END_OP
-
-_DEFINE_OP(VSDIVS_U32) {
-  // Super naive reference implementation
-  uint32  val = vm->gpr[(vArgs & 0xF000) >> 12].u32();
-  if (!val) {
-    vm->status = VMDefs::ZERO_DIVIDE;
-    return;
-  }
-  uint32* src = vm->gpr[(vArgs & 0x0F00) >>  8].pU32();
-  uint32* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pU32();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
-  while (i--) {
-    *dst++ = *src++ / val;
-  }
-}
-_END_OP
-
-_DEFINE_OP(VSDIVS_U64) {
-  // Super naive reference implementation
-  uint64  val = vm->gpr[(vArgs & 0xF000) >> 12].u64();
-  if (!val) {
-    vm->status = VMDefs::ZERO_DIVIDE;
-    return;
-  }
-  uint64* src = vm->gpr[(vArgs & 0x0F00) >>  8].pU64();
-  uint64* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pU64();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
-  while (i--) {
-    *dst++ = *src++ / val;
-  }
-}
-_END_OP
