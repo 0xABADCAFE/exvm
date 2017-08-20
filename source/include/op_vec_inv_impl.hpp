@@ -1,10 +1,10 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         vm_vec_interpreter_switch_case.hpp                       **//
-//** Description:  Interpreter class definition                             **//
+//** File:         op_vec_inv_impl.hpp                                      **//
+//** Description:  Vector bitwise inverse                                   **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
-//** Created:      2001-08-29                                               **//
+//** Created:      2017-08-19                                               **//
 //** Author(s):    Karl Churchill                                           **//
 //** Note(s):                                                               **//
 //** Copyright:    (C)1996 - , eXtropia Studios                             **//
@@ -12,19 +12,15 @@
 //**                                                                        **//
 //****************************************************************************//
 
-{
 
-  switch (op & 0xFF) {
-    #include "op_vec_fill_impl.hpp"
-    #include "op_vec_neg_impl.hpp"
-    #include "op_vec_abs_impl.hpp"
-    #include "op_vec_inv_impl.hpp"
-    #include "op_vec_sadd_impl.hpp"
-
-    default:
-      printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
-      vm->status = VMDefs::BREAKPOINT;
-      return;
+_DEFINE_OP(VINV_8) {
+  // Super naive reference implementation
+  sint8* src = vm->gpr[(vArgs & 0x0F00) >> 8].pS8();
+  sint8* dst = vm->gpr[(vArgs & 0x00F0) >> 4].pS8();
+  uint32 i   = vm->gpr[(vArgs & 0x000F)].u32();
+  while (i--) {
+    *dst++     = ~(*src++);
   }
 }
+_END_OP
 

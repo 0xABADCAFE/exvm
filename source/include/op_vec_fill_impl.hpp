@@ -4,7 +4,7 @@
 //** Description:  Vector filling (splat)                                   **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
-//** Created:      2001-09-02                                               **//
+//** Created:      2017-08-15                                               **//
 //** Author(s):    Karl Churchill                                           **//
 //** Note(s):                                                               **//
 //** Copyright:    (C)1996 - , eXtropia Studios                             **//
