@@ -48,6 +48,8 @@
     #include "op_vec_vadd_saturated_impl.hpp"
     #include "op_vec_vsub_impl.hpp"
     #include "op_vec_vsub_saturated_impl.hpp"
+    #include "op_vec_vmul_impl.hpp"
+    #include "op_vec_vmul_saturated_impl.hpp"
 
     default:
       printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);

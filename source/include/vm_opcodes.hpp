@@ -604,43 +604,43 @@ typedef enum {
   //
   // vd[i] = va[i] - vb[i]
 
-  _VSUBS_U8, _VSUBS_U16, _VSUBS_U32, _VSUBS_U64,
+  _VSUBS_U8, _VSUBS_U16, _VSUBS_U32, _VSUBS_U64, // op_vec_vsub_saturated_impl.hpp
 
   // Vector subtraction (signed integer, saturated)
   //
   // vd[i] = va[i] - vb[i]
 
-  _VSUBS_S8, _VSUBS_S16, _VSUBS_S32, _VSUBS_S64,
+  _VSUBS_S8, _VSUBS_S16, _VSUBS_S32, _VSUBS_S64, // op_vec_vsub_saturated_impl.hpp
 
   // Vector multiply (unsigned integer)
   //
   // vd[i] = va[i] * vb[i]
 
-  _VMUL_U8,  _VMUL_U16,  _VMUL_U32,  _VMUL_U64,
+  _VMUL_U8,  _VMUL_U16,  _VMUL_U32,  _VMUL_U64, // op_vec_vmul_impl.hpp
 
   // Vector multiply (signed integer)
   //
   // vd[i] = va[i] * vb[i]
 
-  _VMUL_S8,  _VMUL_S16,  _VMUL_S32,  _VMUL_S64,
+  _VMUL_S8,  _VMUL_S16,  _VMUL_S32,  _VMUL_S64, // op_vec_vmul_impl.hpp
 
   // Vector multiply (float)
   //
   // vd[i] = va[i] * vb[i]
 
-  _VMUL_F32, _VMUL_F64,
+  _VMUL_F32, _VMUL_F64, // op_vec_vmul_impl.hpp
 
   // Vector multiply (unsigned integer, saturated)
   //
   // vd[i] = va[i] * vb[i]
 
-  _VMULS_U8, _VMULS_U16, _VMULS_U32, _VMULS_U64,
+  _VMULS_U8, _VMULS_U16, _VMULS_U32, _VMULS_U64, // op_vec_vmul_saturated_impl.hpp
 
   // Vector multiply (signed integer, saturated)
   //
   // vd[i] = va[i] * vb[i]
 
-  _VMULS_S8, _VMULS_S16, _VMULS_S32, _VMULS_S64,
+  _VMULS_S8, _VMULS_S16, _VMULS_S32, _VMULS_S64, // op_vec_vmul_saturated_impl.hpp
 
   // Vector division (unsigned integer)
   //
