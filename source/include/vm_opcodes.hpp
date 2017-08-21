@@ -568,25 +568,25 @@ typedef enum {
   //
   // vd[i] = va[i] + vb[i]
 
-  _VADD_I8,  _VADD_I16,  _VADD_I32,  _VADD_I64,
+  _VADD_I8,  _VADD_I16,  _VADD_I32,  _VADD_I64, // op_vec_vadd_impl.hpp
 
   // Vector addition (float)
   //
   // vd[i] = va[i] + vb[i]
 
-  _VADD_F32, _VADD_F64,
+  _VADD_F32, _VADD_F64, // op_vec_vadd_impl.hpp
 
   // Vector addition (unsigned integer, saturated)
   //
   // vd[i] = va[i] + vb[i]
 
-  _VADDS_U8, _VADDS_U16, _VADDS_U32, _VADDS_U64,
+  _VADDS_U8, _VADDS_U16, _VADDS_U32, _VADDS_U64, // op_vec_vadd_saturated_impl.hpp
 
   // Vector addition (signed integer, saturated)
   //
   // vd[i] = va[i] + vb[i]
 
-  _VADDS_S8, _VADDS_S16, _VADDS_S32, _VADDS_S64,
+  _VADDS_S8, _VADDS_S16, _VADDS_S32, _VADDS_S64, // op_vec_vadd_saturated_impl.hpp
 
   // Vector subtraction (integer)
   //

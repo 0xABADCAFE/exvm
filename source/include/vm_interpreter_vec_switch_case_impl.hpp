@@ -16,7 +16,11 @@
 
   switch (op & 0xFF) {
     // Includes added in strict order of the opcode enumerations
+
+    // Single vector operations (destination or source only)
     #include "op_vec_fill_impl.hpp"
+
+    // Two vector operations (usually scalar and source to destination)
     #include "op_vec_neg_impl.hpp"
     #include "op_vec_abs_impl.hpp"
     #include "op_vec_inv_impl.hpp"
@@ -38,6 +42,10 @@
     #include "op_vec_sasr_impl.hpp"
     #include "op_vec_srol_impl.hpp"
     #include "op_vec_sror_impl.hpp"
+
+    // Three vector operations (source1 and source2 to destination)
+    #include "op_vec_vadd_impl.hpp"
+    #include "op_vec_vadd_saturated_impl.hpp"
 
     default:
       printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
