@@ -28,8 +28,8 @@ forever:
     #include "op_arithmetic_impl.hpp"
     #include "op_logic_impl.hpp"
 
-    _DEFINE_OP(VEC) {
-      doVEC(vm, op);
+    _DEFINE_OP(VEC1) {
+      doVEC1(vm, op);
       if (vm->status != VMDefs::RUNNING) {
         _HALT
       }

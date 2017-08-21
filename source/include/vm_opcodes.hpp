@@ -318,7 +318,7 @@ typedef enum {
   _ROR_8, _ROR_16, _ROR_32, _ROR_64,
 
   // prefixes
-  _VEC,
+  _VEC1,
 
   MAX_OP
 } NormalOp;

@@ -62,14 +62,14 @@ int main() {
 
     // Test 8 bit vector fill
     printf("Testing 8-bit vector fill...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VFILL_8;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VFILL_8;
     interpreter->setPC(code);
     interpreter->execute();
     dumpTestArray();
 
     // test 16 bit vector fill
     printf("Testing 16-bit vector fill...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VFILL_16;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VFILL_16;
     interpreter->getReg(_r2).u32() = sizeof(test)/sizeof(uint16);
     interpreter->setPC(code);
     interpreter->execute();
@@ -77,7 +77,7 @@ int main() {
 
     // test 32 bit vector fill
     printf("Testing 32-bit vector fill...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VFILL_32;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VFILL_32;
     interpreter->getReg(_r2).u32() = sizeof(test)/sizeof(uint32);
     interpreter->setPC(code);
     interpreter->execute();
@@ -85,7 +85,7 @@ int main() {
 
     // test 64 bit vector fill
     printf("Testing 64-bit vector fill...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VFILL_64;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VFILL_64;
     interpreter->getReg(_r2).u32() = sizeof(test)/sizeof(uint64);
     interpreter->setPC(code);
     interpreter->execute();
@@ -96,7 +96,7 @@ int main() {
     interpreter->getReg(_r2).u32() = sizeof(test);
     interpreter->getReg(_r0).pU8() = test;
     printf("Testing 8-bit vector negate (overwriting self) #1...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VNEG_S8;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VNEG_S8;
     interpreter->setPC(code);
     interpreter->execute();
     dumpTestArray();
@@ -105,7 +105,7 @@ int main() {
     interpreter->getReg(_r2).u32() = sizeof(test);
     interpreter->getReg(_r0).pU8() = test;
     printf("Testing 8-bit vector negate (overwriting self) #2...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VNEG_S8;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VNEG_S8;
     interpreter->setPC(code);
     interpreter->execute();
     dumpTestArray();
@@ -114,7 +114,7 @@ int main() {
     interpreter->getReg(_r2).u32() = sizeof(test)/sizeof(uint16);
     interpreter->getReg(_r0).pU8() = test;
     printf("Testing 16-bit vector negate (overwriting self) #1...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VNEG_S16;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VNEG_S16;
     interpreter->setPC(code);
     interpreter->execute();
     dumpTestArray();
@@ -123,7 +123,7 @@ int main() {
     interpreter->getReg(_r2).u32() = sizeof(test)/sizeof(uint16);
     interpreter->getReg(_r0).pU8() = test;
     printf("Testing 16-bit vector negate (overwriting self) #2...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VNEG_S16;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VNEG_S16;
     interpreter->setPC(code);
     interpreter->execute();
     dumpTestArray();
@@ -132,7 +132,7 @@ int main() {
     interpreter->getReg(_r2).u32() = sizeof(test)/sizeof(uint32);
     interpreter->getReg(_r0).pU8() = test;
     printf("Testing 32-bit vector negate (overwriting self) #1...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VNEG_S32;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VNEG_S32;
     interpreter->setPC(code);
     interpreter->execute();
     dumpTestArray();
@@ -141,7 +141,7 @@ int main() {
     interpreter->getReg(_r2).u32() = sizeof(test)/sizeof(uint32);
     interpreter->getReg(_r0).pU8() = test;
     printf("Testing 32-bit vector negate (overwriting self) #2...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VNEG_S32;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VNEG_S32;
     interpreter->setPC(code);
     interpreter->execute();
     dumpTestArray();
@@ -150,7 +150,7 @@ int main() {
     interpreter->getReg(_r2).u32() = sizeof(test)/sizeof(uint64);
     interpreter->getReg(_r0).pU8() = test;
     printf("Testing 64-bit vector negate (overwriting self) #1...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VNEG_S64;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VNEG_S64;
     interpreter->setPC(code);
     interpreter->execute();
     dumpTestArray();
@@ -159,7 +159,7 @@ int main() {
     interpreter->getReg(_r2).u32() = sizeof(test)/sizeof(uint64);
     interpreter->getReg(_r0).pU8() = test;
     printf("Testing 64-bit vector negate (overwriting self) #2...\n");
-    code[0] = VMDefs::_VEC<<8 | VMDefs::_VNEG_S64;
+    code[0] = VMDefs::_VEC1<<8 | VMDefs::_VNEG_S64;
     interpreter->setPC(code);
     interpreter->execute();
     dumpTestArray();
