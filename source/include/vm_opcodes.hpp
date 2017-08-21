@@ -592,13 +592,13 @@ typedef enum {
   //
   // vd[i] = va[i] - vb[i]
 
-  _VSUB_I8,  _VSUB_I16,  _VSUB_I32,  _VSUB_I64,
+  _VSUB_I8,  _VSUB_I16,  _VSUB_I32,  _VSUB_I64, // op_vec_vsub_impl.hpp
 
   // Vector subtraction (float)
   //
   // vd[i] = va[i] - vb[i]
 
-  _VSUB_F32, _VSUB_F64,
+  _VSUB_F32, _VSUB_F64, // op_vec_vsub_impl.hpp
 
   // Vector subtraction (unsigned integer, saturated)
   //

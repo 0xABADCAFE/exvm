@@ -38,7 +38,7 @@ _DEFINE_OP(VSDIV_U16) {
   }
   uint16* src = vm->gpr[(vArgs & 0x0F00) >>  8].pU16();
   uint16* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pU16();
-  uint32 i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
   while (i--) {
     *dst++ = *src++ / val;
   }
@@ -103,7 +103,7 @@ _DEFINE_OP(VSDIV_S16) {
   }
   sint16* src = vm->gpr[(vArgs & 0x0F00) >>  8].pS16();
   sint16* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pS16();
-  uint32 i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
   while (i--) {
     *dst++ = *src++ / val;
   }
@@ -160,7 +160,7 @@ _DEFINE_OP(VSDIV_F64) {
   float64  val = vm->gpr[(vArgs & 0xF000) >> 12].f64();
   float64* src = vm->gpr[(vArgs & 0x0F00) >>  8].pF64();
   float64* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pF64();
-  uint32  i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint32   i   = vm->gpr[(vArgs & 0x000F)].u32();
   while (i--) {
     *dst++ = *src++ / val;
   }

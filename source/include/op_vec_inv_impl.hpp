@@ -19,7 +19,7 @@ _DEFINE_OP(VINV_8) {
   sint8* dst = vm->gpr[(vArgs & 0x00F0) >> 4].pS8();
   uint32 i   = vm->gpr[(vArgs & 0x000F)].u32();
   while (i--) {
-    *dst++     = ~(*src++);
+    *dst++ = ~(*src++);
   }
 }
 _END_OP

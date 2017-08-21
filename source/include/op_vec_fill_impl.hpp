@@ -28,7 +28,7 @@ _DEFINE_OP(VFILL_16) {
   // Super naive reference implementation
   uint16  val = vm->gpr[(vArgs & 0x0F00) >> 8].u16();
   uint16* dst = vm->gpr[(vArgs & 0x00F0) >> 4].pU16();
-  uint32 i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
   while (i--) {
     *dst++ = val;
   }
@@ -50,7 +50,7 @@ _DEFINE_OP(VFILL_64) {
   // Super naive reference implementation
   uint64  val = vm->gpr[(vArgs & 0x0F00) >> 8].u64();
   uint64* dst = vm->gpr[(vArgs & 0x00F0) >> 4].pU64();
-  uint32 i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
   while (i--) {
     *dst++ = val;
   }

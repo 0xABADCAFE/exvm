@@ -15,14 +15,14 @@
 // Unsigned
 _DEFINE_OP(VSADDS_U8) {
   // Super naive reference implementation
-  uint8  val = vm->gpr[(vArgs & 0xF000) >> 12].u8();
+  uint8   val = vm->gpr[(vArgs & 0xF000) >> 12].u8();
   uint8*  src = vm->gpr[(vArgs & 0x0F00) >>  8].pU8();
   uint8*  dst = vm->gpr[(vArgs & 0x00F0) >>  4].pU8();
   uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
   while (i--) {
     // TODO - validate correctness
     uint8 res = val + *src++;
-    *dst++ = res | -(res < val);
+    *dst++    = res | -(res < val);
   }
 }
 _END_OP
@@ -36,7 +36,7 @@ _DEFINE_OP(VSADDS_U16) {
   while (i--) {
     // TODO - validate correctness
     uint16 res = val + *src++;
-    *dst++ = res | -(res < val);
+    *dst++     = res | -(res < val);
   }
 }
 _END_OP
@@ -50,7 +50,7 @@ _DEFINE_OP(VSADDS_U32) {
   while (i--) {
     // TODO - validate correctness
     uint32 res = val + *src++;
-    *dst++ = res | -(res < val);
+    *dst++     = res | -(res < val);
   }
 }
 _END_OP
@@ -64,7 +64,7 @@ _DEFINE_OP(VSADDS_U64) {
   while (i--) {
     // TODO - validate correctness
     uint64 res = val + *src++;
-    *dst++ = res | -(res < val);
+    *dst++     = res | -(res < val);
   }
 }
 _END_OP
