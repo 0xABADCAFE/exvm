@@ -550,13 +550,13 @@ typedef enum {
   //
   // vd[i] = vs[i] <<@ x
 
-  _VSROL_8,   _VSROL_16,   _VSROL_32,   _VSROL_64,
+  _VSROL_8,   _VSROL_16,   _VSROL_32,   _VSROL_64, // op_vec_srol_impl.hpp
 
   // Scalar on Vector rotate right
   //
   // vd[i] = vs[i] @>> x
 
-  _VSROR_8,   _VSROR_16,   _VSROR_32,   _VSROR_64,
+  _VSROR_8,   _VSROR_16,   _VSROR_32,   _VSROR_64, // op_vec_sror_impl.hpp
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //

@@ -36,6 +36,8 @@
     #include "op_vec_slsr_impl.hpp"
     #include "op_vec_sasl_impl.hpp"
     #include "op_vec_sasr_impl.hpp"
+    #include "op_vec_srol_impl.hpp"
+    #include "op_vec_sror_impl.hpp"
 
     default:
       printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
