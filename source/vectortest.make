@@ -60,10 +60,7 @@ obj/$(ARCH)/op_vector.o: op_vector.cpp include/vm_core.hpp include/vm.hpp includ
 obj/$(ARCH)/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/$(ARCH)/op_normal_table.o: op_normal_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/$(ARCH)/op_vector_table.o: op_vector_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
+obj/$(ARCH)/op_jump_table.o: op_jump_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/$(ARCH)/vm_symbol.o: vm_symbol.cpp include/machine.hpp

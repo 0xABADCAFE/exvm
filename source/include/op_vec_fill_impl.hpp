@@ -14,6 +14,9 @@
 
 
 _DEFINE_OP(VFILL_8) {
+
+  printf("vArgs %04X\n", (unsigned)vArgs);
+
   // Super naive reference implementation
   uint8  val = vm->gpr[(vArgs & 0x0F00) >> 8].u8();
   uint8* dst = vm->gpr[(vArgs & 0x00F0) >> 4].pU8();
