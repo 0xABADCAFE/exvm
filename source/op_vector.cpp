@@ -63,10 +63,11 @@ void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
 }
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-
+  #include <cmath>
   #undef _DEFINE_OP
   #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm, uint16 vArgs)
 
+  #include "include/op_vec_fill_impl.hpp"
   #include "include/op_vec_neg_impl.hpp"
   #include "include/op_vec_abs_impl.hpp"
   #include "include/op_vec_inv_impl.hpp"

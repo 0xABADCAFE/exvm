@@ -288,7 +288,6 @@ _DECLARE_OP(ROR_32)
 _DECLARE_OP(ROR_64)
 
 // These functions are defined in the class even for switch-case
-_DECLARE_OP(VEC1)
 
 // misc group
 _DECLARE_OP(ILLEGAL);
