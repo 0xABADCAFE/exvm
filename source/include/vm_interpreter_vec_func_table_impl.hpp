@@ -14,7 +14,6 @@
 
 // simple model, no exception based return, check status after each instruction
 {
-  uint16 vArgs = *this->pc++
-  vectorHandlers[(op & 0xFF)](this, vArgs);
+  vectorHandlers[(op & 0xFF)](vm, op);
 }
 
