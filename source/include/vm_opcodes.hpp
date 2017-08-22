@@ -646,61 +646,47 @@ typedef enum {
   //
   // vd[i] = va[i] / vb[i]
 
-  _VDIV_U8,  _VDIV_U16,  _VDIV_U32,  _VDIV_U64,
+  _VDIV_U8,  _VDIV_U16,  _VDIV_U32,  _VDIV_U64, // op_vec_vdiv_impl.hpp
 
   // Vector division (signed integer)
   //
   // vd[i] = va[i] / vb[i]
 
-  _VDIV_S8,  _VDIV_S16,  _VDIV_S32,  _VDIV_S64,
+  _VDIV_S8,  _VDIV_S16,  _VDIV_S32,  _VDIV_S64, // op_vec_vdiv_impl.hpp
 
   // Vector division (float)
   //
   // vd[i] = va[i] / vb[i]
 
-  _VDIV_F32, _VDIV_F64,
+  _VDIV_F32, _VDIV_F64, // op_vec_vdiv_impl.hpp
 
-  // Vector division (unsigned integer, saturated)
-  //
-  // vd[i] = va[i] / vb[i]
-
-  _VDIVS_U8, _VDIVS_U16, _VDIVS_U32, _VDIVS_U64,
+  // No unsigned saturating vector division
 
   // Vector division (signed integer, saturated)
   //
   // vd[i] = va[i] / vb[i]
 
-  _VDIVS_S8, _VDIVS_S16, _VDIVS_S32, _VDIVS_S64,
+  _VDIVS_S8, _VDIVS_S16, _VDIVS_S32, _VDIVS_S64, // op_vec_vdiv_saturated_impl.hpp
 
   // Vector modulus (unsigned integer)
   //
   // vd[i] = va[i] % vb[i]
 
-  _VMOD_U8,  _VMOD_U16,  _VMOD_U32,  _VMOD_U64,
+  _VMOD_U8,  _VMOD_U16,  _VMOD_U32,  _VMOD_U64, // op_vec_vmod_impl.hpp
 
   // Vector modulus (signed integer)
   //
   // vd[i] = va[i] % vb[i]
 
-  _VMOD_S8,  _VMOD_S16,  _VMOD_S32,  _VMOD_S64,
+  _VMOD_S8,  _VMOD_S16,  _VMOD_S32,  _VMOD_S64, // op_vec_vmod_impl.hpp
 
   // Vector modulus (float)
   //
   // vd[i] = va[i] % vb[i]
 
-  _VMOD_F32, _VMOD_F64,
+  _VMOD_F32, _VMOD_F64, // op_vec_vmod_impl.hpp
 
-  // Vector modulus (unsigned integer, saturated)
-  //
-  // vd[i] = va[i] % vb[i]
-
-  _VMODS_U8, _VMODS_U16, _VMODS_U32, _VMODS_U64,
-
-  // Vector modulus (signed integer, saturated)
-  //
-  // vd[i] = va[i] % vb[i]
-
-  _VMODS_S8, _VMODS_S16, _VMODS_S32, _VMODS_S64,
+  // No saturating vector modulus
 
   // Vector AND/OR/XOR - All operate at a byte size since there is no behavioural differences for other word sizes.
   //
