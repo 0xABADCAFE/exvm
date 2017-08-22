@@ -13,8 +13,7 @@ OBJ      = obj/$(ARCH)/test_vector.o \
            obj/$(ARCH)/op_logic.o \
            obj/$(ARCH)/op_vector.o \
            obj/$(ARCH)/vm_core.o \
-           obj/$(ARCH)/op_normal_table.o \
-           obj/$(ARCH)/op_vector_table.o \
+           obj/$(ARCH)/op_jump_table.o \
            obj/$(ARCH)/vm_symbol.o \
            obj/$(ARCH)/vm_linker.o \
            obj/$(ARCH)/vm_debug.o

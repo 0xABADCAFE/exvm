@@ -62,3 +62,5 @@ void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
 
 }
 
+#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
+#endif
