@@ -18,6 +18,9 @@
 
 _DEFINE_OP(BCALL8) {
   doBCALL8(vm, op);
+  if (vm->status != VMDefs::RUNNING) {
+    _HALT
+  }
 }
 _END_OP
 
@@ -25,6 +28,9 @@ _END_OP
 
 _DEFINE_OP(BCALL16) {
   doBCALL16(vm, op);
+  if (vm->status != VMDefs::RUNNING) {
+    _HALT
+  }
 }
 _END_OP
 
@@ -32,6 +38,9 @@ _END_OP
 
 _DEFINE_OP(CALL) {
   doCALL(vm, op);
+  if (vm->status != VMDefs::RUNNING) {
+    _HALT
+  }
 }
 _END_OP
 
@@ -39,6 +48,9 @@ _END_OP
 
 _DEFINE_OP(CALLN) {
   doCALLN(vm, op);
+  if (vm->status != VMDefs::RUNNING) {
+    _HALT
+  }
 }
 _END_OP
 

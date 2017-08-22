@@ -1,6 +1,6 @@
 # Common include for building the interpreter
 
-OBJ      = obj/$(ARCH)/main.o \
+OBJ      = obj/$(ARCH)/test_vector.o \
            obj/$(ARCH)/vmprogram.o \
            obj/$(ARCH)/machine.o \
            obj/$(ARCH)/op_control.o \
@@ -21,7 +21,7 @@ OBJ      = obj/$(ARCH)/main.o \
 $(BIN): $(OBJ) Makefile.$(MEXT)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN)
 
-obj/$(ARCH)/main.o: main.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
+obj/$(ARCH)/test_vector.o: test_vector.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/$(ARCH)/vmprogram.o: vmprogram.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
@@ -61,9 +61,6 @@ obj/$(ARCH)/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/ma
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/$(ARCH)/op_jump_table.o: op_jump_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/$(ARCH)/op_vector_table.o: op_vector_table.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/$(ARCH)/vm_symbol.o: vm_symbol.cpp include/machine.hpp

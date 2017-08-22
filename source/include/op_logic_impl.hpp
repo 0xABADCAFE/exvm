@@ -173,7 +173,7 @@ _END_OP
 _DEFINE_OP(ROL_8) {
   uint32 val              = vm->gpr[_RD(op)].u8();
   uint32 shift            = vm->gpr[_RS(op)].u8() & 0x7;
-  vm->gpr[_RD(op)].u8() = (val << shift | val >> (8 - shift));
+  vm->gpr[_RD(op)].u8()   = (val << shift | val >> (8 - shift));
 }
 _END_OP
 
@@ -187,7 +187,7 @@ _END_OP
 _DEFINE_OP(ROL_32) {
   uint32 val              = vm->gpr[_RD(op)].u32();
   uint32 shift            = vm->gpr[_RS(op)].u8() & 0x1F;
-  vm->gpr[_RD(op)].u32()  = (val << shift | val >> ( 32 - shift));
+  vm->gpr[_RD(op)].u32()  = (val << shift | val >> (32 - shift));
 }
 _END_OP
 

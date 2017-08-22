@@ -17,3 +17,5 @@ make -f Makefile_Linker.x64_linux
 make -f Makefile_Linker.x86_linux
 make -f Makefile_Symbol.x64_linux
 make -f Makefile_Symbol.x86_linux
+make -f Makefile_Vector.x64_linux
+make -f Makefile_Vector.x64_ft_linux

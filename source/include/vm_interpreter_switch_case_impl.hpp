@@ -27,10 +27,19 @@ forever:
     #include "op_convert_impl.hpp"
     #include "op_arithmetic_impl.hpp"
     #include "op_logic_impl.hpp"
+
+    _DEFINE_OP(VEC1) {
+      doVEC1(vm, op);
+      if (vm->status != VMDefs::RUNNING) {
+        _HALT
+      }
+    }
+    _END_OP
+
     default:
       printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
         status = VMDefs::BREAKPOINT;
-        goto interpreter_bailout;
+        _HALT
     }
     ++numStatements;
   goto forever;
