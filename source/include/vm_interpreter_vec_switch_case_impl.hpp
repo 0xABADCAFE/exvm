@@ -53,6 +53,7 @@
     #include "op_vec_vdiv_impl.hpp"
     #include "op_vec_vdiv_saturated_impl.hpp"
     #include "op_vec_vmod_impl.hpp"
+    #include "op_vec_vbitwise_impl.hpp"
 
     default:
       printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
