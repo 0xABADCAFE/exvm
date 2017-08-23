@@ -733,5 +733,102 @@ inline uint16 _float32LSW(float32 f) {
 #define _vsror_32(v,s,d,n)      _MKVOP(SROR_32),    (v) << 12 | (s) << 8 | (d) << 4 | (n),
 #define _vsror_64(v,s,d,n)      _MKVOP(SROR_64),    (v) << 12 | (s) << 8 | (d) << 4 | (n),
 
+
+// d[0..n-1] = a[0..n-1] + b[0..n-1]
+#define _vadd_8(a,b,d,n)       _MKVOP(ADD_I8),      (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadd_16(a,b,d,n)      _MKVOP(ADD_I16),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadd_32(a,b,d,n)      _MKVOP(ADD_I32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadd_64(a,b,d,n)      _MKVOP(ADD_I64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadd_f32(a,b,d,n)     _MKVOP(ADD_F32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadd_f64(a,b,d,n)     _MKVOP(ADD_F64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// Saturating versions
+#define _vadds_u8(a,b,d,n)     _MKVOP(ADDS_U8),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadds_u16(a,b,d,n)    _MKVOP(ADDS_U16),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadds_u32(a,b,d,n)    _MKVOP(ADDS_U32),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadds_u64(a,b,d,n)    _MKVOP(ADDS_U64),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadds_s8(a,b,d,n)     _MKVOP(ADDS_S8),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadds_s16(a,b,d,n)    _MKVOP(ADDS_S16),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadds_s32(a,b,d,n)    _MKVOP(ADDS_S32),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vadds_s64(a,b,d,n)    _MKVOP(ADDS_S64),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// d[0..n-1] = a[0..n-1] - b[0..n-1]
+#define _vsub_8(a,b,d,n)       _MKVOP(SUB_I8),      (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsub_16(a,b,d,n)      _MKVOP(SUB_I16),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsub_32(a,b,d,n)      _MKVOP(SUB_I32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsub_64(a,b,d,n)      _MKVOP(SUB_I64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsub_f32(a,b,d,n)     _MKVOP(SUB_F32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsub_f64(a,b,d,n)     _MKVOP(SUB_F64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// Saturating versions
+#define _vsubs_u8(a,b,d,n)     _MKVOP(SUBS_U8),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsubs_u16(a,b,d,n)    _MKVOP(SUBS_U16),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsubs_u32(a,b,d,n)    _MKVOP(SUBS_U32),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsubs_u64(a,b,d,n)    _MKVOP(SUBS_U64),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsubs_s8(a,b,d,n)     _MKVOP(SUBS_S8),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsubs_s16(a,b,d,n)    _MKVOP(SUBS_S16),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsubs_s32(a,b,d,n)    _MKVOP(SUBS_S32),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vsubs_s64(a,b,d,n)    _MKVOP(SUBS_S64),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// d[0..n-1] = a[0..n-1] * b[0..n-1]
+#define _vmul_u8(a,b,d,n)      _MKVOP(MUL_U8),      (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmul_u16(a,b,d,n)     _MKVOP(MUL_U16),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmul_u32(a,b,d,n)     _MKVOP(MUL_U32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmul_u64(a,b,d,n)     _MKVOP(MUL_U64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmul_s8(a,b,d,n)      _MKVOP(MUL_S8),      (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmul_s16(a,b,d,n)     _MKVOP(MUL_S16),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmul_s32(a,b,d,n)     _MKVOP(MUL_S32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmul_s64(a,b,d,n)     _MKVOP(MUL_S64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmul_f32(a,b,d,n)     _MKVOP(MUL_F32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmul_f64(a,b,d,n)     _MKVOP(MUL_F64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// Saturating versions
+#define _vmuls_u8(a,b,d,n)     _MKVOP(MULS_U8),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmuls_u16(a,b,d,n)    _MKVOP(MULS_U16),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmuls_u32(a,b,d,n)    _MKVOP(MULS_U32),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmuls_u64(a,b,d,n)    _MKVOP(MULS_U64),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmuls_s8(a,b,d,n)     _MKVOP(MULS_S8),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmuls_s16(a,b,d,n)    _MKVOP(MULS_S16),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmuls_s32(a,b,d,n)    _MKVOP(MULS_S32),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmuls_s64(a,b,d,n)    _MKVOP(MULS_S64),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// d[0..n-1] = a[0..n-1] / b[0..n-1]
+#define _vdiv_u8(a,b,d,n)      _MKVOP(DIV_U8),      (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdiv_u16(a,b,d,n)     _MKVOP(DIV_U16),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdiv_u32(a,b,d,n)     _MKVOP(DIV_U32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdiv_u64(a,b,d,n)     _MKVOP(DIV_U64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdiv_s8(a,b,d,n)      _MKVOP(DIV_S8),      (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdiv_s16(a,b,d,n)     _MKVOP(DIV_S16),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdiv_s32(a,b,d,n)     _MKVOP(DIV_S32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdiv_s64(a,b,d,n)     _MKVOP(DIV_S64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdiv_f32(a,b,d,n)     _MKVOP(DIV_F32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdiv_f64(a,b,d,n)     _MKVOP(DIV_F64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// Saturating versions
+#define _vdivs_s8(a,b,d,n)     _MKVOP(DIVS_S8),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdivs_s16(a,b,d,n)    _MKVOP(DIVS_S16),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdivs_s32(a,b,d,n)    _MKVOP(DIVS_S32),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vdivs_s64(a,b,d,n)    _MKVOP(DIVS_S64),    (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// d[0..n-1] = a[0..n-1] % b[0..n-1]
+#define _vmod_u8(a,b,d,n)      _MKVOP(MOD_U8),      (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmod_u16(a,b,d,n)     _MKVOP(MOD_U16),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmod_u32(a,b,d,n)     _MKVOP(MOD_U32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmod_u64(a,b,d,n)     _MKVOP(MOD_U64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmod_s8(a,b,d,n)      _MKVOP(MOD_S8),      (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmod_s16(a,b,d,n)     _MKVOP(MOD_S16),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmod_s32(a,b,d,n)     _MKVOP(MOD_S32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmod_s64(a,b,d,n)     _MKVOP(MOD_S64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmod_f32(a,b,d,n)     _MKVOP(MOD_F32),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+#define _vmod_f64(a,b,d,n)     _MKVOP(MOD_F64),     (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// d[0..n-1] = a[0..n-1] & b[0..n-1]
+#define _vand_8(a,b,d,n)       _MKVOP(AND_8),       (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// d[0..n-1] = a[0..n-1] | b[0..n-1]
+#define _vor_8(a,b,d,n)        _MKVOP(OR_8),        (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// d[0..n-1] = a[0..n-1] ^ b[0..n-1]
+#define _vxor_8(a,b,d,n)       _MKVOP(XOR_8),       (a) << 12 | (b) << 8 | (d) << 4 | (n),
 #endif
 
