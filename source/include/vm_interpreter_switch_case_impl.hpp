@@ -37,7 +37,7 @@ forever:
     _END_OP
 
     default:
-      printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
+      debuglog(LOG_ERROR, "No handler yet defined for opcode 0x%04X\n", (unsigned)op);
         status = VMDefs::BREAKPOINT;
         _HALT
     }

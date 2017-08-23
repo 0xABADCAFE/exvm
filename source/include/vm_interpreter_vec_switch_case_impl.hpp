@@ -56,7 +56,7 @@
     #include "op_vec_vbitwise_impl.hpp"
 
     default:
-      printf("No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
+      debuglog(LOG_ERROR, "No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
       vm->status = VMDefs::BREAKPOINT;
       return;
   }

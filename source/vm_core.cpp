@@ -77,15 +77,9 @@ Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize
   codeSymbolCount       = 0;
   dataSymbolCount       = 0;
 
-  printf("VM compiled %d-bit native\n", X_PTRSIZE);
-  printf("There are presently %d scalar and %d vector instructions defined\n", VMDefs::MAX_OP, VMDefs::MAX_VEC);
+  debuglog(LOG_INFO, "VM compiled %d-bit native", X_PTRSIZE);
+  debuglog(LOG_INFO, "There are presently %d scalar and %d vector instructions defined", VMDefs::MAX_OP, VMDefs::MAX_VEC);
 
-/*
-  printf("sizeof (VMDefs) = %zd\n", sizeof(VMDefs));
-  printf("sizeof (Interpreter) = %zd\n", sizeof(Interpreter));
-  printf("There are presently %d scalar and %d vector instructions defined\n", VMDefs::MAX_OP, VMDefs::MAX_VEC);
-  printf("Constructed Interpreter:\nreg Stack %zd entries\ndataStack %zd bytes\ncallStack %zd levels\n", regStackSize, dataStackSize, callStackSize);
-*/
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,7 +88,7 @@ Interpreter::~Interpreter() {
   delete[] callStackBase;
   delete[] dataStackBase;
   delete[] regStackBase;
-  printf("Destroyed Interpreter\n");
+  debuglog(LOG_INFO, "Destroyed Interpreter");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,11 +162,12 @@ void Interpreter::execute() {
 #endif
 
   totalTime = total.elapsedFrac();
-  printf("Executed %d statements\n", numStatements);
+  debuglog(LOG_INFO, "Executed %d statements\n", numStatements);
   float64 virtualTime = totalTime - nativeTime;
   float64 mips        = (0.001*numStatements)/virtualTime;
-  printf(
-    "Total: %.3f ms, native: %.3f ms, virtual: %.3f ms, %.3f MIPS\n",
+  debuglog(
+    LOG_INFO,
+    "Total: %.3f ms, native: %.3f ms, virtual: %.3f ms, %.3f MIPS",
     totalTime, nativeTime, virtualTime, mips
   );
 
