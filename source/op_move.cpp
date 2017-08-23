@@ -36,7 +36,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doSV(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doSV(ExVM::Interpreter* vm, uint16 op UNUSED) {
   // TODO: Move to a function
 
   // save r1,r2...
@@ -63,7 +63,7 @@ void ExVM::Interpreter::doSV(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doRS(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doRS(ExVM::Interpreter* vm, uint16 op UNUSED) {
   // TODO: Move to a function
 
   // restore r1,r2...
@@ -90,7 +90,7 @@ void ExVM::Interpreter::doRS(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPUSH_8(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doPUSH_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
   // TODO: Move to a function
 
   uint16 mask =  _EX_U16;
@@ -115,7 +115,7 @@ void ExVM::Interpreter::doPUSH_8(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPUSH_16(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doPUSH_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
   // TODO: Move to a function
 
   uint16 mask =  _EX_U16;
@@ -140,7 +140,7 @@ void ExVM::Interpreter::doPUSH_16(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPUSH_32(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doPUSH_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
   // TODO: Move to a function
 
   uint16 mask =  _EX_U16;
@@ -165,7 +165,7 @@ void ExVM::Interpreter::doPUSH_32(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPUSH_64(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doPUSH_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
   // TODO: Move to a function
 
   uint16 mask =  _EX_U16;
@@ -190,7 +190,7 @@ void ExVM::Interpreter::doPUSH_64(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPOP_8(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doPOP_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
   // TODO: Move to a function
 
   uint16 mask =  _EX_U16;
@@ -215,7 +215,7 @@ void ExVM::Interpreter::doPOP_8(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPOP_16(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doPOP_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
   // TODO: Move to a function
 
   uint16 mask =  _EX_U16;
@@ -240,7 +240,7 @@ void ExVM::Interpreter::doPOP_16(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPOP_32(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doPOP_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
   // TODO: Move to a function
 
   uint16 mask =  _EX_U16;
@@ -265,7 +265,7 @@ void ExVM::Interpreter::doPOP_32(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPOP_64(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doPOP_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
   // TODO: Move to a function
 
   uint16 mask =  _EX_U16;

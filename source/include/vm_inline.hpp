@@ -28,7 +28,9 @@ namespace ExVM {
   inline void*    Interpreter::GPR::data16()       { return &_u16[REGOFS_16];  }
   inline void*    Interpreter::GPR::data32()       { return &_u32[REGOFS_32];  }
   inline void*    Interpreter::GPR::data64()       { return &_u64;             }
-  inline void*    Interpreter::GPR::data(uint32 s) { return &_u8[REGOFS_S(s)]; }
+  inline void*    Interpreter::GPR::data(uint32 s UNUSED) {
+    return &_u8[REGOFS_S(s)];
+  }
 
   // obtain pointer interpretation of register operand
 
