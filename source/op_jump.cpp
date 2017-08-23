@@ -51,7 +51,7 @@ void ExVM::Interpreter::doBCALL8(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doBCALL16(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doBCALL16(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (vm->callStack < vm->callStackTop) {
     // for clarity, since _EX_S16 macro increments pc
     _DECLARE_OFFSET

@@ -22,7 +22,7 @@
 using namespace ExVM;
 
 _DEFINE_OP(ILLEGAL) {
-  printf("No handler yet defined for opcode 0x%04X\n", (unsigned)op);
+  debuglog(LOG_ERROR, "No handler yet defined for opcode 0x%04X\n", (unsigned)op);
   vm->status = VMDefs::BREAKPOINT;
 }
 

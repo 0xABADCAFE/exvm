@@ -19,8 +19,6 @@
 
 namespace ExVM {
 
-
-
   enum {
     OF_MASK_ENDIANNESS    = 0x01,
     OF_MASK_SECTIONS      = 0x06,
