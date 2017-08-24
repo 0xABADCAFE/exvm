@@ -19,6 +19,8 @@
 
     // Single vector operations (destination or source only)
     #include "op_vec_fill_impl.hpp"
+    #include "op_vec_smin_impl.hpp"
+    #include "op_vec_smax_impl.hpp"
 
     // Two vector operations (usually scalar and source to destination)
     #include "op_vec_neg_impl.hpp"
@@ -54,6 +56,8 @@
     #include "op_vec_vdiv_saturated_impl.hpp"
     #include "op_vec_vmod_impl.hpp"
     #include "op_vec_vbitwise_impl.hpp"
+
+    #include "op_vec_vmap_impl.hpp"
 
     default:
       debuglog(LOG_ERROR, "No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);

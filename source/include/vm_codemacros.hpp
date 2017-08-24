@@ -572,6 +572,28 @@ inline uint16 _float32LSW(float32 f) {
 #define _vfill_32(v,d,n)        _MKVOP(FILL_32),    (v) << 8 | (d) << 4 | (n),
 #define _vfill_64(v,d,n)        _MKVOP(FILL_64),    (v) << 8 | (d) << 4 | (n),
 
+#define _vsmin_u8(v,s,n)        _MKVOP(SMIN_U8),    (v) << 8 | (s) << 4 | (n),
+#define _vsmin_u16(v,s,n)       _MKVOP(SMIN_U16),   (v) << 8 | (s) << 4 | (n),
+#define _vsmin_u32(v,s,n)       _MKVOP(SMIN_U32),   (v) << 8 | (s) << 4 | (n),
+#define _vsmin_u64(v,s,n)       _MKVOP(SMIN_U64),   (v) << 8 | (s) << 4 | (n),
+#define _vsmin_s8(v,s,n)        _MKVOP(SMIN_S8),    (v) << 8 | (s) << 4 | (n),
+#define _vsmin_s16(v,s,n)       _MKVOP(SMIN_S16),   (v) << 8 | (s) << 4 | (n),
+#define _vsmin_s32(v,s,n)       _MKVOP(SMIN_S32),   (v) << 8 | (s) << 4 | (n),
+#define _vsmin_s64(v,s,n)       _MKVOP(SMIN_S64),   (v) << 8 | (s) << 4 | (n),
+#define _vsmin_f32(v,s,n)       _MKVOP(SMIN_F32),   (v) << 8 | (s) << 4 | (n),
+#define _vsmin_f64(v,s,n)       _MKVOP(SMIN_F64),   (v) << 8 | (s) << 4 | (n),
+
+#define _vsmax_u8(v,s,n)        _MKVOP(SMAX_U8),    (v) << 8 | (s) << 4 | (n),
+#define _vsmax_u16(v,s,n)       _MKVOP(SMAX_U16),   (v) << 8 | (s) << 4 | (n),
+#define _vsmax_u32(v,s,n)       _MKVOP(SMAX_U32),   (v) << 8 | (s) << 4 | (n),
+#define _vsmax_u64(v,s,n)       _MKVOP(SMAX_U64),   (v) << 8 | (s) << 4 | (n),
+#define _vsmax_s8(v,s,n)        _MKVOP(SMAX_S8),    (v) << 8 | (s) << 4 | (n),
+#define _vsmax_s16(v,s,n)       _MKVOP(SMAX_S16),   (v) << 8 | (s) << 4 | (n),
+#define _vsmax_s32(v,s,n)       _MKVOP(SMAX_S32),   (v) << 8 | (s) << 4 | (n),
+#define _vsmax_s64(v,s,n)       _MKVOP(SMAX_S64),   (v) << 8 | (s) << 4 | (n),
+#define _vsmax_f32(v,s,n)       _MKVOP(SMAX_F32),   (v) << 8 | (s) << 4 | (n),
+#define _vsmax_f64(v,s,n)       _MKVOP(SMAX_F64),   (v) << 8 | (s) << 4 | (n),
+
 // d[0..n-1] = -s[0..n-1]
 #define _vneg_s8(s,d,n)         _MKVOP(NEG_S8),     (s) << 8 | (d) << 4 | (n),
 #define _vneg_s16(s,d,n)        _MKVOP(NEG_S16),    (s) << 8 | (d) << 4 | (n),
@@ -830,5 +852,13 @@ inline uint16 _float32LSW(float32 f) {
 
 // d[0..n-1] = a[0..n-1] ^ b[0..n-1]
 #define _vxor_8(a,b,d,n)       _MKVOP(XOR_8),       (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// d[0..n-1] = m[s[0..n-1]]
+#define _vmap_8_16(s,m,d,n)    _MKVOP(MAP_8_16),    (s) << 12 | (m) << 8 | (d) << 4 | (n),
+#define _vmap_8_32(s,m,d,n)    _MKVOP(MAP_8_32),    (s) << 12 | (m) << 8 | (d) << 4 | (n),
+#define _vmap_8_64(s,m,d,n)    _MKVOP(MAP_8_64),    (s) << 12 | (m) << 8 | (d) << 4 | (n),
+#define _vmap_16_32(s,m,d,n)   _MKVOP(MAP_16_32),   (s) << 12 | (m) << 8 | (d) << 4 | (n),
+#define _vmap_16_64(s,m,d,n)   _MKVOP(MAP_16_64),   (s) << 12 | (m) << 8 | (d) << 4 | (n),
+
 #endif
 
