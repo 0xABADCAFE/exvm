@@ -55,6 +55,8 @@
     #include "op_vec_vmod_impl.hpp"
     #include "op_vec_vbitwise_impl.hpp"
 
+    #include "op_vec_vmap_impl.hpp"
+
     default:
       debuglog(LOG_ERROR, "No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);
       vm->status = VMDefs::BREAKPOINT;

@@ -495,6 +495,12 @@ const Interpreter::Handler Interpreter::vectorHandlers[256] = {
   _REFER_OP(VAND_8),
   _REFER_OP(VOR_8),
   _REFER_OP(VXOR_8),
+
+  _REFER_OP(VMAP_8_16),
+  _REFER_OP(VMAP_8_32),
+  _REFER_OP(VMAP_8_64),
+  _REFER_OP(VMAP_16_32),
+  _REFER_OP(VMAP_16_64),
 };
 
 

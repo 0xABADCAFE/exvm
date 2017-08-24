@@ -101,4 +101,7 @@ void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
   #include "include/op_vec_vdiv_saturated_impl.hpp"
   #include "include/op_vec_vmod_impl.hpp"
   #include "include/op_vec_vbitwise_impl.hpp"
+
+  #include "include/op_vec_vmap_impl.hpp"
+
 #endif

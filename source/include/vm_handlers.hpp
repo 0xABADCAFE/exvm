@@ -544,6 +544,12 @@ _DECLARE_OP(VMOD_F64)
 _DECLARE_OP(VAND_8)
 _DECLARE_OP(VOR_8)
 _DECLARE_OP(VXOR_8)
+// op_vec_vmap_impl.hpp
+_DECLARE_OP(VMAP_8_16)
+_DECLARE_OP(VMAP_8_32)
+_DECLARE_OP(VMAP_8_64)
+_DECLARE_OP(VMAP_16_32)
+_DECLARE_OP(VMAP_16_64)
 
 static const Handler handlers[256];       // normal handlers
 static const Handler vectorHandlers[256]; // vector handlers
