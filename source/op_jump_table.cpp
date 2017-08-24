@@ -303,6 +303,29 @@ const Interpreter::Handler Interpreter::vectorHandlers[256] = {
   _REFER_OP(VFILL_16),
   _REFER_OP(VFILL_32),
   _REFER_OP(VFILL_64), // op_vec_fill_impl.hpp
+
+  _REFER_OP(VSMIN_U8),
+  _REFER_OP(VSMIN_U16),
+  _REFER_OP(VSMIN_U32),
+  _REFER_OP(VSMIN_U64),
+  _REFER_OP(VSMIN_S8),
+  _REFER_OP(VSMIN_S16),
+  _REFER_OP(VSMIN_S32),
+  _REFER_OP(VSMIN_S64),
+  _REFER_OP(VSMIN_F32),
+  _REFER_OP(VSMIN_F64), // op_vec_smin_impl.hpp
+
+  _REFER_OP(VSMAX_U8),
+  _REFER_OP(VSMAX_U16),
+  _REFER_OP(VSMAX_U32),
+  _REFER_OP(VSMAX_U64),
+  _REFER_OP(VSMAX_S8),
+  _REFER_OP(VSMAX_S16),
+  _REFER_OP(VSMAX_S32),
+  _REFER_OP(VSMAX_S64),
+  _REFER_OP(VSMAX_F32),
+  _REFER_OP(VSMAX_F64), // op_vec_smax_impl.hpp
+
   _REFER_OP(VNEG_S8),
   _REFER_OP(VNEG_S16),
   _REFER_OP(VNEG_S32),

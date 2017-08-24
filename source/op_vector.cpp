@@ -68,6 +68,9 @@ void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
   #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm, uint16 vArgs UNUSED)
 
   #include "include/op_vec_fill_impl.hpp"
+  #include "include/op_vec_smin_impl.hpp"
+  #include "include/op_vec_smax_impl.hpp"
+
   #include "include/op_vec_neg_impl.hpp"
   #include "include/op_vec_abs_impl.hpp"
   #include "include/op_vec_inv_impl.hpp"
