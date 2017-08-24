@@ -830,5 +830,13 @@ inline uint16 _float32LSW(float32 f) {
 
 // d[0..n-1] = a[0..n-1] ^ b[0..n-1]
 #define _vxor_8(a,b,d,n)       _MKVOP(XOR_8),       (a) << 12 | (b) << 8 | (d) << 4 | (n),
+
+// d[0..n-1] = m[s[0..n-1]]
+#define _vmap_8_16(s,m,d,n)    _MKVOP(MAP_8_16),    (s) << 12 | (m) << 8 | (d) << 4 | (n),
+#define _vmap_8_32(s,m,d,n)    _MKVOP(MAP_8_32),    (s) << 12 | (m) << 8 | (d) << 4 | (n),
+#define _vmap_8_64(s,m,d,n)    _MKVOP(MAP_8_64),    (s) << 12 | (m) << 8 | (d) << 4 | (n),
+#define _vmap_16_32(s,m,d,n)   _MKVOP(MAP_16_32),   (s) << 12 | (m) << 8 | (d) << 4 | (n),
+#define _vmap_16_64(s,m,d,n)   _MKVOP(MAP_16_64),   (s) << 12 | (m) << 8 | (d) << 4 | (n),
+
 #endif
 

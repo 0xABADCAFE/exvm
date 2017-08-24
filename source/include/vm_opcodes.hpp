@@ -816,7 +816,7 @@ typedef enum {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // Vector mapping
+  // Vector mapping - convert an array of indexed values into values
   //
   // vd[i] = vm[vs[i]]
   _VMAP_8_16, _VMAP_8_32, _VMAP_8_64, _VMAP_16_32, _VMAP_16_64, // op_vec_map_impl.hpp
