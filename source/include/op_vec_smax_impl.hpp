@@ -40,7 +40,7 @@ _DEFINE_OP(VSMAX_U16) {
   uint16  max = (uint16)(-1);
   uint16  val = *src;
 
-  // Bail if we find zero
+  // Bail if we find max
   while (val != max && i--) {
     uint16 val2 = *src++;
     if (val2 > val) {
@@ -60,7 +60,7 @@ _DEFINE_OP(VSMAX_U32) {
   uint32  max = (uint32)(-1);
   uint32  val = *src;
 
-  // Bail if we find zero
+  // Bail if we find max
   while (val != max && i--) {
     uint32 val2 = *src++;
     if (val2 > val) {
@@ -80,7 +80,7 @@ _DEFINE_OP(VSMAX_U64) {
   uint64  max = (uint64)(-1LL);
   uint64  val = *src;
 
-  // Bail if we find zero
+  // Bail if we find max
   while (val != max && i--) {
     uint64 val2 = *src++;
     if (val2 > val) {
