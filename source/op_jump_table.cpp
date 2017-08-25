@@ -326,6 +326,17 @@ const Interpreter::Handler Interpreter::vectorHandlers[256] = {
   _REFER_OP(VSMAX_F32),
   _REFER_OP(VSMAX_F64), // op_vec_smax_impl.hpp
 
+  _REFER_OP(VSSUM_U8),
+  _REFER_OP(VSSUM_U16),
+  _REFER_OP(VSSUM_U32),
+  _REFER_OP(VSSUM_U64),
+  _REFER_OP(VSSUM_S8),
+  _REFER_OP(VSSUM_S16),
+  _REFER_OP(VSSUM_S32),
+  _REFER_OP(VSSUM_S64),
+  _REFER_OP(VSSUM_F32),
+  _REFER_OP(VSSUM_F64),
+
   _REFER_OP(VNEG_S8),
   _REFER_OP(VNEG_S16),
   _REFER_OP(VNEG_S32),
