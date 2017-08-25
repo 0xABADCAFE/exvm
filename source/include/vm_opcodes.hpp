@@ -347,15 +347,20 @@ typedef enum {
 
   _VFILL_8,  _VFILL_16,  _VFILL_32,  _VFILL_64, // op_vec_fill_impl.hpp
 
-  // Scalar minimum in vector
+  // Scalar minimum in vector v = min(vs[])
   _VSMIN_U8, _VSMIN_U16, _VSMIN_U32, _VSMIN_U64, // op_vec_smin_impl.hpp
   _VSMIN_S8, _VSMIN_S16, _VSMIN_S32, _VSMIN_S64,
   _VSMIN_F32,_VSMIN_F64,
 
-  // Scalar maximum in vector
+  // Scalar maximum in vector v = max(vs[])
   _VSMAX_U8, _VSMAX_U16, _VSMAX_U32, _VSMAX_U64, // op_vec_smax_impl.hpp
   _VSMAX_S8, _VSMAX_S16, _VSMAX_S32, _VSMAX_S64,
   _VSMAX_F32,_VSMAX_F64,
+
+  // Scalar sum v = sum(vs[])
+  _VSSUM_U8, _VSSUM_U16, _VSSUM_U32, _VSSUM_U64, // op_vec_ssum_impl.hpp
+  _VSSUM_S8, _VSSUM_S16, _VSSUM_S32, _VSSUM_S64,
+  _VSSUM_F32,_VSSUM_F64,
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //

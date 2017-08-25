@@ -70,6 +70,7 @@ void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
   #include "include/op_vec_fill_impl.hpp"
   #include "include/op_vec_smin_impl.hpp"
   #include "include/op_vec_smax_impl.hpp"
+  #include "include/op_vec_ssum_impl.hpp"
 
   #include "include/op_vec_neg_impl.hpp"
   #include "include/op_vec_abs_impl.hpp"

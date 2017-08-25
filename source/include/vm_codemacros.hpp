@@ -594,6 +594,17 @@ inline uint16 _float32LSW(float32 f) {
 #define _vsmax_f32(v,s,n)       _MKVOP(SMAX_F32),   (v) << 8 | (s) << 4 | (n),
 #define _vsmax_f64(v,s,n)       _MKVOP(SMAX_F64),   (v) << 8 | (s) << 4 | (n),
 
+#define _vssum_u8(v,s,n)        _MKVOP(SSUM_U8),    (v) << 8 | (s) << 4 | (n),
+#define _vssum_u16(v,s,n)       _MKVOP(SSUM_U16),   (v) << 8 | (s) << 4 | (n),
+#define _vssum_u32(v,s,n)       _MKVOP(SSUM_U32),   (v) << 8 | (s) << 4 | (n),
+#define _vssum_u64(v,s,n)       _MKVOP(SSUM_U64),   (v) << 8 | (s) << 4 | (n),
+#define _vssum_s8(v,s,n)        _MKVOP(SSUM_S8),    (v) << 8 | (s) << 4 | (n),
+#define _vssum_s16(v,s,n)       _MKVOP(SSUM_S16),   (v) << 8 | (s) << 4 | (n),
+#define _vssum_s32(v,s,n)       _MKVOP(SSUM_S32),   (v) << 8 | (s) << 4 | (n),
+#define _vssum_s64(v,s,n)       _MKVOP(SSUM_S64),   (v) << 8 | (s) << 4 | (n),
+#define _vssum_f32(v,s,n)       _MKVOP(SSUM_F32),   (v) << 8 | (s) << 4 | (n),
+#define _vssum_f64(v,s,n)       _MKVOP(SSUM_F64),   (v) << 8 | (s) << 4 | (n),
+
 // d[0..n-1] = -s[0..n-1]
 #define _vneg_s8(s,d,n)         _MKVOP(NEG_S8),     (s) << 8 | (d) << 4 | (n),
 #define _vneg_s16(s,d,n)        _MKVOP(NEG_S16),    (s) << 8 | (d) << 4 | (n),

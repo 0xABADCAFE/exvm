@@ -22,6 +22,8 @@
     #include "op_vec_smin_impl.hpp"
     #include "op_vec_smax_impl.hpp"
 
+    #include "op_vec_ssum_impl.hpp"
+
     // Two vector operations (usually scalar and source to destination)
     #include "op_vec_neg_impl.hpp"
     #include "op_vec_abs_impl.hpp"
