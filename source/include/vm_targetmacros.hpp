@@ -52,6 +52,7 @@
   #define _EX_U32 (*vm->pc.extU32++)
   #define _EX_S16 (*vm->pc.extS16++)
   #define _EX_S32 (*vm->pc.extS32++)
+  #define _EX_F32 (*vm->pc.extF32++)
   #define _SU(x)  ((uint32)((x) & 0x00F0) << 12)
 
   #if X_PTRSIZE == XA_PTRSIZE64

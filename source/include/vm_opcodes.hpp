@@ -31,38 +31,23 @@ typedef enum {
   // [opcode] [#n : rX]
   _LDQ,
 
-  // immediate 16-bit literal, -32768 to 32767
+  // immediate 16-bit integer literal, -32768 to 32767
   // allowed for 8/16-bit destination operands,
   // values outside the 8-bit range are truncated for 8-bit.
   //
   // ld.i #n, rX
   // [opcode] [0 : rX]
   // [ literal data  ]
-  _LD_I16_8, _LD_I16_16, _LD_I16_32, _LD_I16_64,
+  _LD_16_I8, _LD_16_I16, _LD_16_I32, _LD_16_I64,
 
-  // immediate 32-bit literal
-  // allowed for 32/64-bit desination operands
-  // object file stores MSW first, after loading, convert
-  // all 32-bit immediate data to endian native represntation
-  // during resolution stage.
+  // immediate 32-bit literal, can be 32-bit integer or floating point.
+  // allowed for 32/64-bit destination operands.
   //
-  // ld.i #n, rX
+  // ld.x #n, rX
   // [opcode] [0 : rX]
   // [ literal data  ]
   // [ literal data  ]
-  _LD_I32_32, _LD_I32_64,
-
-  // immediate 32-bit literal float
-  // allowed for 32/64-bit desination operands
-  // object file stores MSW first, after loading, convert
-  // all 32-bit immediate data to endian native represntation
-  // during resolution stage.
-  //
-  // ld.f32 #123.123, rX
-  // [opcode] [0 : rX]
-  // [ literal data  ]
-  // [ literal data  ]
-  _LD_F32,
+  _LD_32_32, _LD_32_I64, _LD_32_F64,
 
   // register indirect
   // ld.x (rS), rD

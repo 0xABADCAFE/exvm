@@ -53,11 +53,10 @@ namespace ExVM {
         const uint8*              extU8;
         const uint16*             extU16;
         const uint32*             extU32;
-        const uint64*             extU64;
         const sint8*              extS8;
         const sint16*             extS16;
         const sint32*             extS32;
-        const sint64*             extS64;
+        const float32*            extF32;
         const uint16* const *     extCodeAddr;
         const NativeCall* const * extNativeCodeAddr;
       } pc;         // program counter
