@@ -19,53 +19,52 @@ _DEFINE_OP(LDQ) {
 }
 _END_OP
 
-_DEFINE_OP(LD_I16_8) {
+_DEFINE_OP(LD_16_I8) {
   // ld.8 #n,rX, #n = -128 - 127
   // #n is in the lower 8 bits of the extension word
   vm->gpr[_RD(op)].u8() = _EX_U16 & 0xFF;
 }
 _END_OP
 
-_DEFINE_OP(LD_I16_16) {
+_DEFINE_OP(LD_16_I16) {
   // ld.16 #n,rX, #n = -32768 - 32767
   // #n is in the extension word
   vm->gpr[_RD(op)].u16() = _EX_U16;
 }
 _END_OP
 
-_DEFINE_OP(LD_I16_32) {
+_DEFINE_OP(LD_16_I32) {
   // ld.32 #n,rX, #n = -32768 - 32767
   // #n is in the extension word, treat as signed for expansion.
   vm->gpr[_RD(op)].s32() = _EX_S16;
 }
 _END_OP
 
-_DEFINE_OP(LD_I16_64) {
+_DEFINE_OP(LD_16_I64) {
   // ld.64 #n,rX, #n = -32768 - 32767
   // #n is in the extension word, treat as signed for expansion.
   vm->gpr[_RD(op)].s64() = _EX_S16;
 }
 _END_OP
 
-_DEFINE_OP(LD_I32_32) {
+_DEFINE_OP(LD_32_32) {
   // ld.32 #n,rX, #n = -2^31 - (2^31)-1
   // #n is in the 32-bit extension word.
   vm->gpr[_RD(op)].u32() = _EX_U32;
 }
 _END_OP
 
-_DEFINE_OP(LD_I32_64) {
+_DEFINE_OP(LD_32_I64) {
   // ld.64 #n,rX, #n = -2^31 - (2^31)-1
   // #n is in the 32-bit extension word, treat as signed for expansion.
   vm->gpr[_RD(op)].s64() = _EX_S32;
 }
 _END_OP
 
-_DEFINE_OP(LD_F32) {
-  // ld.f32 #n,rX, #n = MIN_FLOAT - MAX_FLOAT
-  // #n is in the 32-bit extension word, equivalent to LD_I32_32.
-  // FIXME: update instruction set?
-  vm->gpr[_RD(op)].u32() = _EX_U32;
+_DEFINE_OP(LD_32_F64) {
+  // ld.f64 #n,rX, #n = FLOAT_MIN - FLOAT_MAX
+  // #n is in the 32-bit extension word, treat as single precision floating point for expansion.s
+  vm->gpr[_RD(op)].f64() = _EX_F32;
 }
 _END_OP
 
