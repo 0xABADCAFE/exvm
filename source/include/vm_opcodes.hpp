@@ -302,8 +302,15 @@ typedef enum {
   // ror.x rS,rD (rD @>= rS) - rotate right
   _ROR_8, _ROR_16, _ROR_32, _ROR_64,
 
-  // prefixes
+  // prefixes //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Advanced operations (transcendal arithmetic etc)
+  _ADV,
+
+  // Vector operations (array primitives)
   _VEC1,
+
+
 
   MAX_OP
 } NormalOp;

@@ -1,6 +1,6 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         vm_vec_interpreter_switch_case.hpp                       **//
+//** File:         vm_interpreter_vec_switch_case.hpp                       **//
 //** Description:  Interpreter class definition                             **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//

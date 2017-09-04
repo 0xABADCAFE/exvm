@@ -1,10 +1,10 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         op_vector.cpp                                            **//
-//** Description:  Vectorised instructions (array primitives)               **//
+//** File:         op_advanced.cpp                                          **//
+//** Description:  Advanced instructions                                    **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
-//** Created:      2017-08                                                  **//
+//** Created:      2017-09-04                                               **//
 //** Author(s):    Karl Churchill                                           **//
 //** Note(s):                                                               **//
 //** Copyright:    (C)1996 - , eXtropia Studios                             **//
@@ -47,17 +47,17 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
 
-void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
 
   // The next word in the instruction stream defines up to 4 registers
   uint16 vArgs = *vm->pc.inst++;
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include "include/vm_interpreter_vec_func_table_impl.hpp"
+  #include "include/vm_interpreter_adv_func_table_impl.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
-  #include "include/vm_interpreter_vec_switch_case_impl.hpp"
+  #include "include/vm_interpreter_adv_switch_case_impl.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
-  #include "include/vm_interpreter_vec_custom_impl.hpp"
+  #include "include/vm_interpreter_adv_custom_impl.hpp"
 #endif
 
 }
@@ -67,45 +67,6 @@ void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
   #undef _DEFINE_OP
   #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm, uint16 vArgs UNUSED)
 
-  #include "include/op_vec_fill_impl.hpp"
-  #include "include/op_vec_smin_impl.hpp"
-  #include "include/op_vec_smax_impl.hpp"
-  #include "include/op_vec_ssum_impl.hpp"
 
-  #include "include/op_vec_neg_impl.hpp"
-  #include "include/op_vec_abs_impl.hpp"
-  #include "include/op_vec_inv_impl.hpp"
-  #include "include/op_vec_sadd_impl.hpp"
-  #include "include/op_vec_sadd_saturated_impl.hpp"
-  #include "include/op_vec_ssub_impl.hpp"
-  #include "include/op_vec_ssub_saturated_impl.hpp"
-  #include "include/op_vec_smul_impl.hpp"
-  #include "include/op_vec_smul_saturated_impl.hpp"
-  #include "include/op_vec_sdiv_impl.hpp"
-  #include "include/op_vec_sdiv_saturated_impl.hpp"
-  #include "include/op_vec_smod_impl.hpp"
-  #include "include/op_vec_sand_impl.hpp"
-  #include "include/op_vec_sor_impl.hpp"
-  #include "include/op_vec_sxor_impl.hpp"
-  #include "include/op_vec_slsl_impl.hpp"
-  #include "include/op_vec_slsr_impl.hpp"
-  #include "include/op_vec_sasl_impl.hpp"
-  #include "include/op_vec_sasr_impl.hpp"
-  #include "include/op_vec_srol_impl.hpp"
-  #include "include/op_vec_sror_impl.hpp"
-
-  // Three vector operations (source1 and source2 to destination)
-  #include "include/op_vec_vadd_impl.hpp"
-  #include "include/op_vec_vadd_saturated_impl.hpp"
-  #include "include/op_vec_vsub_impl.hpp"
-  #include "include/op_vec_vsub_saturated_impl.hpp"
-  #include "include/op_vec_vmul_impl.hpp"
-  #include "include/op_vec_vmul_saturated_impl.hpp"
-  #include "include/op_vec_vdiv_impl.hpp"
-  #include "include/op_vec_vdiv_saturated_impl.hpp"
-  #include "include/op_vec_vmod_impl.hpp"
-  #include "include/op_vec_vbitwise_impl.hpp"
-
-  #include "include/op_vec_vmap_impl.hpp"
 
 #endif

@@ -290,10 +290,10 @@ const Interpreter::Handler Interpreter::handlers[256] = {
   _REFER_OP(ROR_16),
   _REFER_OP(ROR_32),
   _REFER_OP(ROR_64),
-  _REFER_OP(VEC1),
-  // misc group
 
-  _REFER_OP(ILLEGAL),
+  // prefix group
+  _REFER_OP(ADV),
+  _REFER_OP(VEC1),
 
   _REFER_OP(ILLEGAL)
 };
