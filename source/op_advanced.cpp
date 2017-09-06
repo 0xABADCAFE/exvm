@@ -15,6 +15,9 @@
 #include "include/vm_inline.hpp"
 #include "include/machine.hpp"
 #include <cstdio>
+#include <cmath>
+
+const float64 INV_LN_2 = 1.44269504089;
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
   #include "include/vm_interpreter_func_table.hpp"
@@ -63,10 +66,16 @@ void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
 }
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include <cmath>
+
   #undef _DEFINE_OP
   #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm, uint16 vArgs UNUSED)
 
-
+  #include "include/op_adv_const_impl.hpp"
+  #include "include/op_adv_roots_impl.hpp"
+  #include "include/op_adv_trig_impl.hpp"
+  #include "include/op_adv_powers_impl.hpp"
+  #include "include/op_adv_logs_impl.hpp"
+  #include "include/op_adv_trunc_impl.hpp"
+  #include "include/op_adv_lerp_impl.hpp"
 
 #endif

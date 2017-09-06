@@ -347,8 +347,9 @@ typedef enum {
 
   // Logarithms
   _LOGN_F32,   _LOGN_F64,
-  _LOG_F32,    _LOG_F64,
   _LOG2_F32,   _LOG2_F64,
+  _LOG10_F32,  _LOG10_F64,
+  _LOGX_F32,   _LOGX_F64,
 
   // Truncation and rounding
   _CEIL_F32,   _CEIL_F64,
@@ -356,6 +357,8 @@ typedef enum {
 
   // Interpolaton
   _LERP_F32,   _LERP_F64,
+
+  MAX_ADV
 } AdvancedOp;
 
 // Vector Instruction set. These are invoked by the scalar _VEC prefix. Vector instructions perform block operations

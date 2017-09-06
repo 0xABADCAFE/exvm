@@ -292,6 +292,56 @@ _DECLARE_OP(ROR_64)
 // misc group
 _DECLARE_OP(ILLEGAL);
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Advanced opcodes
+_DECLARE_OP(LD_CONST_F32)
+_DECLARE_OP(LD_CONST_F64)
+_DECLARE_OP(SQRT_F32)
+_DECLARE_OP(SQRT_F64)
+_DECLARE_OP(ISQRT_F32)
+_DECLARE_OP(ISQRT_F64)
+_DECLARE_OP(ACOS_F32)
+_DECLARE_OP(ACOS_F64)
+_DECLARE_OP(ASIN_F32)
+_DECLARE_OP(ASIN_F64)
+_DECLARE_OP(ATAN_F32)
+_DECLARE_OP(ATAN_F64)
+_DECLARE_OP(COS_F32)
+_DECLARE_OP(COS_F64)
+_DECLARE_OP(SIN_F32)
+_DECLARE_OP(SIN_F64)
+_DECLARE_OP(TAN_F32)
+_DECLARE_OP(TAN_F64)
+_DECLARE_OP(COSH_F32)
+_DECLARE_OP(COSH_F64)
+_DECLARE_OP(SINH_F32)
+_DECLARE_OP(SINH_F64)
+_DECLARE_OP(TANH_F32)
+_DECLARE_OP(TANH_F64)
+_DECLARE_OP(SINCOS_F32)
+_DECLARE_OP(SINCOS_F64)
+_DECLARE_OP(EXP_F32)
+_DECLARE_OP(EXP_F64)
+_DECLARE_OP(POW_F32)
+_DECLARE_OP(POW_F64)
+_DECLARE_OP(LOGN_F32)
+_DECLARE_OP(LOGN_F64)
+_DECLARE_OP(LOG2_F32)
+_DECLARE_OP(LOG2_F64)
+_DECLARE_OP(LOG10_F32)
+_DECLARE_OP(LOG10_F64)
+_DECLARE_OP(LOGX_F32)
+_DECLARE_OP(LOGX_F64)
+_DECLARE_OP(CEIL_F32)
+_DECLARE_OP(CEIL_F64)
+_DECLARE_OP(FLOOR_F32)
+_DECLARE_OP(FLOOR_F64)
+_DECLARE_OP(LERP_F32)
+_DECLARE_OP(LERP_F64)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Vector instructions
 _DECLARE_OP(VFILL_8)
 _DECLARE_OP(VFILL_16)
@@ -586,6 +636,7 @@ _DECLARE_OP(VMAP_8_64)
 _DECLARE_OP(VMAP_16_32)
 _DECLARE_OP(VMAP_16_64)
 
-static const Handler handlers[256];       // normal handlers
-static const Handler vectorHandlers[256]; // vector handlers
+static const Handler handlers[256];         // normal handlers
+static const Handler advancedHandlers[256]; // advanced handlers
+static const Handler vectorHandlers[256];   // vector handlers
 
