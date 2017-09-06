@@ -29,7 +29,7 @@ uint8 test[512] = { 0 };
 
 void dumpTestArray() {
   printf("Target array:");
-  for (int i = 0; i < sizeof(test); i++) {
+  for (uint32 i = 0; i < sizeof(test); i++) {
 
     if (!(i & 0x1F)) {
       putchar('\n');

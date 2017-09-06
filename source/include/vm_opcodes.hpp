@@ -820,6 +820,12 @@ typedef enum {
   // vd[i] = vm[vs[i]]
   _VMAP_8_16, _VMAP_8_32, _VMAP_8_64, _VMAP_16_32, _VMAP_16_64, // op_vec_map_impl.hpp
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Vector multiply-accumulate
+
+  _VMAC_F32, _VMAC_F64,
+
   MAX_VEC
 } VectorOp;
 

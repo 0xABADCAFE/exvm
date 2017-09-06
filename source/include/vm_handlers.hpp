@@ -636,6 +636,10 @@ _DECLARE_OP(VMAP_8_64)
 _DECLARE_OP(VMAP_16_32)
 _DECLARE_OP(VMAP_16_64)
 
+// op_vec_vmac_impl.hpp
+_DECLARE_OP(VMAC_F32)
+_DECLARE_OP(VMAC_F64)
+
 static const Handler handlers[256];         // normal handlers
 static const Handler advancedHandlers[256]; // advanced handlers
 static const Handler vectorHandlers[256];   // vector handlers

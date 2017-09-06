@@ -60,6 +60,7 @@
     #include "opcodes/vector/op_vec_vbitwise_impl.hpp"
 
     #include "opcodes/vector/op_vec_vmap_impl.hpp"
+    #include "opcodes/vector/op_vec_vmac_impl.hpp"
 
     default:
       debuglog(LOG_ERROR, "No vector handler yet defined for opcode 0x%04X\n", (unsigned)op);

@@ -107,5 +107,7 @@ void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
   #include "include/opcodes/vector/op_vec_vbitwise_impl.hpp"
 
   #include "include/opcodes/vector/op_vec_vmap_impl.hpp"
+  
+  #include "include/opcodes/vector/op_vec_vmac_impl.hpp"
 
 #endif
