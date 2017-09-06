@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         op_load.cpp                                              **//
-//** Description:  Load group opcode implementation                         **//
+//** File:         vm_custom_interpreter_impl.hpp                           **//
+//** Description:  VMCore class definition                                  **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2001-08-29                                               **//
@@ -12,23 +12,8 @@
 //**                                                                        **//
 //****************************************************************************//
 
-#include "include/machine.hpp"
-
-#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include "include/vm_core.hpp"
-  #include "include/vm_inline.hpp"
-  #include "include/vm_interpreter_func_table.hpp"
-  #include <cstdio>
-
-// Upon entry, the pc points to the 16-bit word following the current opcode.
-// Normally, this would be the address of the next opcode. Handlers that use
-// extension words must ensure that they increment the pc so that it points
-// to the next opcode.
-
-// Arguments:
-// vm is a pointer to the VMCore instance
-// op is the current opcode word
-
-  #include "include/opcodes/scalar/op_load_impl.hpp"
-
+#if (_VM_HOST_OS == _VM_HOST_AMIGAOS3_68K)
+  #include "platforms/vm_custom_interpreter_amiga_68k_impl.hpp"
+#else
+  #error No custom interpreter for the current target
 #endif

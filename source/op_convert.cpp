@@ -29,6 +29,6 @@
 // vm is a pointer to the VMCore instance
 // op is the current opcode word
 
-  #include "include/op_convert_impl.hpp"
+  #include "include/opcodes/scalar/op_convert_impl.hpp"
 
 #endif

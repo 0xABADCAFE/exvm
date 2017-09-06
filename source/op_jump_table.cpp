@@ -290,12 +290,59 @@ const Interpreter::Handler Interpreter::handlers[256] = {
   _REFER_OP(ROR_16),
   _REFER_OP(ROR_32),
   _REFER_OP(ROR_64),
-  _REFER_OP(VEC1),
-  // misc group
 
-  _REFER_OP(ILLEGAL),
+  // prefix group
+  _REFER_OP(ADV),
+  _REFER_OP(VEC1),
 
   _REFER_OP(ILLEGAL)
+};
+
+const Interpreter::Handler Interpreter::advancedHandlers[256] = {
+  _REFER_OP(LD_CONST_F32),
+  _REFER_OP(LD_CONST_F64),
+  _REFER_OP(SQRT_F32),
+  _REFER_OP(SQRT_F64),
+  _REFER_OP(ISQRT_F32),
+  _REFER_OP(ISQRT_F64),
+  _REFER_OP(ACOS_F32),
+  _REFER_OP(ACOS_F64),
+  _REFER_OP(ASIN_F32),
+  _REFER_OP(ASIN_F64),
+  _REFER_OP(ATAN_F32),
+  _REFER_OP(ATAN_F64),
+  _REFER_OP(COS_F32),
+  _REFER_OP(COS_F64),
+  _REFER_OP(SIN_F32),
+  _REFER_OP(SIN_F64),
+  _REFER_OP(TAN_F32),
+  _REFER_OP(TAN_F64),
+  _REFER_OP(COSH_F32),
+  _REFER_OP(COSH_F64),
+  _REFER_OP(SINH_F32),
+  _REFER_OP(SINH_F64),
+  _REFER_OP(TANH_F32),
+  _REFER_OP(TANH_F64),
+  _REFER_OP(SINCOS_F32),
+  _REFER_OP(SINCOS_F64),
+  _REFER_OP(EXP_F32),
+  _REFER_OP(EXP_F64),
+  _REFER_OP(POW_F32),
+  _REFER_OP(POW_F64),
+  _REFER_OP(LOGN_F32),
+  _REFER_OP(LOGN_F64),
+  _REFER_OP(LOG2_F32),
+  _REFER_OP(LOG2_F64),
+  _REFER_OP(LOG10_F32),
+  _REFER_OP(LOG10_F64),
+  _REFER_OP(LOGX_F32),
+  _REFER_OP(LOGX_F64),
+  _REFER_OP(CEIL_F32),
+  _REFER_OP(CEIL_F64),
+  _REFER_OP(FLOOR_F32),
+  _REFER_OP(FLOOR_F64),
+  _REFER_OP(LERP_F32),
+  _REFER_OP(LERP_F64),
 };
 
 const Interpreter::Handler Interpreter::vectorHandlers[256] = {
@@ -535,6 +582,9 @@ const Interpreter::Handler Interpreter::vectorHandlers[256] = {
   _REFER_OP(VMAP_8_64),
   _REFER_OP(VMAP_16_32),
   _REFER_OP(VMAP_16_64),
+
+  _REFER_OP(VMAC_F32),
+  _REFER_OP(VMAC_F64),
 };
 
 

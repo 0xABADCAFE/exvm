@@ -46,8 +46,8 @@ any pointer %p
   #define _VM_HOST_LINUX_X64        5
   #define _VM_HOST_AMIGAOS4_PPC     6
   #define _VM_HOST_MORPHOS_PPC      7
-  #define _VM_HOST_HAIKU_X64		8
-  #define _VM_HOST_HAIKU_X86		9
+  #define _VM_HOST_HAIKU_X64        8
+  #define _VM_HOST_HAIKU_X86        9
 
 
   #define _VM_INTERPRETER_FUNC_TABLE     1
@@ -119,10 +119,10 @@ any pointer %p
   #elif (_VM_HOST_OS == _VM_HOST_MORPHOS_PPC)
     #include "platforms/machine_amiga_mos.hpp"
   #elif (_VM_HOST_OS == _VM_HOST_HAIKU_X64)
- 	#define X_ENDIAN XA_LITTLEENDIAN
+    #define X_ENDIAN XA_LITTLEENDIAN
     #include "platforms/machine_haiku_generic.hpp"
   #elif (_VM_HOST_OS == _VM_HOST_HAIKU_X86)
- 	#define X_ENDIAN XA_LITTLEENDIAN
+    #define X_ENDIAN XA_LITTLEENDIAN
     #include "platforms/machine_haiku_generic.hpp"
   #else
     #error Unrecognised Machine

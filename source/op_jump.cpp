@@ -30,7 +30,7 @@
 // vm is a pointer to the VMCore instance
 // op is the current opcode word
 
-  #include "include/op_jump_impl.hpp"
+  #include "include/opcodes/scalar/op_jump_impl.hpp"
 
 #endif
 

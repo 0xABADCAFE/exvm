@@ -1,10 +1,10 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         op_misv.cpp                                              **//
-//** Description:  Miscellanous special instructions like prefixes etc      **//
+//** File:         op_vector.cpp                                            **//
+//** Description:  Vectorised instructions (array primitives)               **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
-//** Created:      2001-08-29                                               **//
+//** Created:      2017-08                                                  **//
 //** Author(s):    Karl Churchill                                           **//
 //** Note(s):                                                               **//
 //** Copyright:    (C)1996 - , eXtropia Studios                             **//
@@ -67,45 +67,47 @@ void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
   #undef _DEFINE_OP
   #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm, uint16 vArgs UNUSED)
 
-  #include "include/op_vec_fill_impl.hpp"
-  #include "include/op_vec_smin_impl.hpp"
-  #include "include/op_vec_smax_impl.hpp"
-  #include "include/op_vec_ssum_impl.hpp"
+  #include "include/opcodes/vector/op_vec_fill_impl.hpp"
+  #include "include/opcodes/vector/op_vec_smin_impl.hpp"
+  #include "include/opcodes/vector/op_vec_smax_impl.hpp"
+  #include "include/opcodes/vector/op_vec_ssum_impl.hpp"
 
-  #include "include/op_vec_neg_impl.hpp"
-  #include "include/op_vec_abs_impl.hpp"
-  #include "include/op_vec_inv_impl.hpp"
-  #include "include/op_vec_sadd_impl.hpp"
-  #include "include/op_vec_sadd_saturated_impl.hpp"
-  #include "include/op_vec_ssub_impl.hpp"
-  #include "include/op_vec_ssub_saturated_impl.hpp"
-  #include "include/op_vec_smul_impl.hpp"
-  #include "include/op_vec_smul_saturated_impl.hpp"
-  #include "include/op_vec_sdiv_impl.hpp"
-  #include "include/op_vec_sdiv_saturated_impl.hpp"
-  #include "include/op_vec_smod_impl.hpp"
-  #include "include/op_vec_sand_impl.hpp"
-  #include "include/op_vec_sor_impl.hpp"
-  #include "include/op_vec_sxor_impl.hpp"
-  #include "include/op_vec_slsl_impl.hpp"
-  #include "include/op_vec_slsr_impl.hpp"
-  #include "include/op_vec_sasl_impl.hpp"
-  #include "include/op_vec_sasr_impl.hpp"
-  #include "include/op_vec_srol_impl.hpp"
-  #include "include/op_vec_sror_impl.hpp"
+  #include "include/opcodes/vector/op_vec_neg_impl.hpp"
+  #include "include/opcodes/vector/op_vec_abs_impl.hpp"
+  #include "include/opcodes/vector/op_vec_inv_impl.hpp"
+  #include "include/opcodes/vector/op_vec_sadd_impl.hpp"
+  #include "include/opcodes/vector/op_vec_sadd_saturated_impl.hpp"
+  #include "include/opcodes/vector/op_vec_ssub_impl.hpp"
+  #include "include/opcodes/vector/op_vec_ssub_saturated_impl.hpp"
+  #include "include/opcodes/vector/op_vec_smul_impl.hpp"
+  #include "include/opcodes/vector/op_vec_smul_saturated_impl.hpp"
+  #include "include/opcodes/vector/op_vec_sdiv_impl.hpp"
+  #include "include/opcodes/vector/op_vec_sdiv_saturated_impl.hpp"
+  #include "include/opcodes/vector/op_vec_smod_impl.hpp"
+  #include "include/opcodes/vector/op_vec_sand_impl.hpp"
+  #include "include/opcodes/vector/op_vec_sor_impl.hpp"
+  #include "include/opcodes/vector/op_vec_sxor_impl.hpp"
+  #include "include/opcodes/vector/op_vec_slsl_impl.hpp"
+  #include "include/opcodes/vector/op_vec_slsr_impl.hpp"
+  #include "include/opcodes/vector/op_vec_sasl_impl.hpp"
+  #include "include/opcodes/vector/op_vec_sasr_impl.hpp"
+  #include "include/opcodes/vector/op_vec_srol_impl.hpp"
+  #include "include/opcodes/vector/op_vec_sror_impl.hpp"
 
   // Three vector operations (source1 and source2 to destination)
-  #include "include/op_vec_vadd_impl.hpp"
-  #include "include/op_vec_vadd_saturated_impl.hpp"
-  #include "include/op_vec_vsub_impl.hpp"
-  #include "include/op_vec_vsub_saturated_impl.hpp"
-  #include "include/op_vec_vmul_impl.hpp"
-  #include "include/op_vec_vmul_saturated_impl.hpp"
-  #include "include/op_vec_vdiv_impl.hpp"
-  #include "include/op_vec_vdiv_saturated_impl.hpp"
-  #include "include/op_vec_vmod_impl.hpp"
-  #include "include/op_vec_vbitwise_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vadd_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vadd_saturated_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vsub_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vsub_saturated_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vmul_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vmul_saturated_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vdiv_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vdiv_saturated_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vmod_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vbitwise_impl.hpp"
 
-  #include "include/op_vec_vmap_impl.hpp"
+  #include "include/opcodes/vector/op_vec_vmap_impl.hpp"
+  
+  #include "include/opcodes/vector/op_vec_vmac_impl.hpp"
 
 #endif

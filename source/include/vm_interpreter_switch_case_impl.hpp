@@ -19,14 +19,14 @@
 forever:
   op = *pc.inst++;
   switch (op >> 8) {
-    #include "op_control_impl.hpp"
-    #include "op_load_impl.hpp"
-    #include "op_store_impl.hpp"
-    #include "op_move_impl.hpp"
-    #include "op_jump_impl.hpp"
-    #include "op_convert_impl.hpp"
-    #include "op_arithmetic_impl.hpp"
-    #include "op_logic_impl.hpp"
+    #include "opcodes/scalar/op_control_impl.hpp"
+    #include "opcodes/scalar/op_load_impl.hpp"
+    #include "opcodes/scalar/op_store_impl.hpp"
+    #include "opcodes/scalar/op_move_impl.hpp"
+    #include "opcodes/scalar/op_jump_impl.hpp"
+    #include "opcodes/scalar/op_convert_impl.hpp"
+    #include "opcodes/scalar/op_arithmetic_impl.hpp"
+    #include "opcodes/scalar/op_logic_impl.hpp"
 
     _DEFINE_OP(VEC1) {
       doVEC1(vm, op);
