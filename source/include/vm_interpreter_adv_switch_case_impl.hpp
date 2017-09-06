@@ -16,13 +16,13 @@
 
   switch (op & 0xFF) {
     // Includes added in strict order of the opcode enumerations
-    #include "op_adv_const_impl.hpp"
-    #include "op_adv_roots_impl.hpp"
-    #include "op_adv_trig_impl.hpp"
-    #include "op_adv_powers_impl.hpp"
-    #include "op_adv_logs_impl.hpp"
-    #include "op_adv_trunc_impl.hpp"
-    #include "op_adv_lerp_impl.hpp"
+    #include "opcodes/advanced/op_adv_const_impl.hpp"
+    #include "opcodes/advanced/op_adv_roots_impl.hpp"
+    #include "opcodes/advanced/op_adv_trig_impl.hpp"
+    #include "opcodes/advanced/op_adv_powers_impl.hpp"
+    #include "opcodes/advanced/op_adv_logs_impl.hpp"
+    #include "opcodes/advanced/op_adv_trunc_impl.hpp"
+    #include "opcodes/advanced/op_adv_lerp_impl.hpp"
 
     default:
       debuglog(LOG_ERROR, "No handler yet defined for opcode 0x%04X\n", (unsigned)op);
