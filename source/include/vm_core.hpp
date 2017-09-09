@@ -31,8 +31,11 @@ namespace ExVM {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+  class FunctionalTest;
   class Interpreter {
+
+    friend ExVM::FunctionalTest;
+
     public:
       enum {
         NUM_GPR         = 16,   // Number of general purpose registers
@@ -46,19 +49,17 @@ namespace ExVM {
       #include "vm_gpr.hpp"
 
     private:
-      GPR       gpr[Interpreter::NUM_GPR];    // register set
+      GPR gpr[Interpreter::NUM_GPR];    // register set
 
       union {
-        const uint16*             inst;   // normal interpretation
-        const uint8*              extU8;
-        const uint16*             extU16;
-        const uint32*             extU32;
-        const sint8*              extS8;
-        const sint16*             extS16;
-        const sint32*             extS32;
-        const float32*            extF32;
-        const uint16* const *     extCodeAddr;
-        const NativeCall* const * extNativeCodeAddr;
+        const uint16*  inst;   // normal interpretation
+        const uint8*   extU8;
+        const uint16*  extU16;
+        const uint32*  extU32;
+        const sint8*   extS8;
+        const sint16*  extS16;
+        const sint32*  extS32;
+        const float32* extF32;
       } pc;         // program counter
 
       uint16**  callStack;  // return address stack
@@ -81,18 +82,18 @@ namespace ExVM {
       NativeCall* nativeCodeSymbol;
       uint16**    codeSymbol;
       void**      dataSymbol;
-      uint32    status;
+      uint32      status;
 
-      size_t    regStackSize;
-      size_t    dataStackSize;
-      size_t    callStackSize;
+      size_t  regStackSize;
+      size_t  dataStackSize;
+      size_t  callStackSize;
 
-      float64   totalTime;
-      float64   nativeTime;
+      float64 totalTime;
+      float64 nativeTime;
 
-      uint16    nativeCodeSymbolCount;
-      uint16    codeSymbolCount;
-      uint16    dataSymbolCount;
+      uint32  nativeCodeSymbolCount;
+      uint32  codeSymbolCount;
+      uint32  dataSymbolCount;
 
       #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
         #include "vm_handlers.hpp"
@@ -108,24 +109,19 @@ namespace ExVM {
         return status;
       }
 
-    public:
-
-      void setNativeCodeSymbolTable(NativeCall* symbol, uint16 count);
-      void setCodeSymbolTable(uint16** symbol, uint16 count);
-      void setDataSymbolTable(void** symbol, uint16 count);
-
-      void setExecutable(Executable* executable);
-
-      GPR& getReg(sint32 i) {
+      GPR&    getReg(sint32 i) {
         return gpr[(i & 0xF)];
       }
 
+      void setNativeCodeSymbolTable(NativeCall* symbol, uint32 count);
+      void setCodeSymbolTable(uint16** symbol, uint32 count);
+      void setDataSymbolTable(void** symbol, uint32 count);
+      void setExecutable(Executable* executable);
       void setPC(uint16* newPC) {
         pc.inst = newPC;
       }
 
       void dump();
-
       void execute();
 
     private:
@@ -144,9 +140,7 @@ namespace ExVM {
       static void doPOP_16(Interpreter* vm, uint16 op);
       static void doPOP_32(Interpreter* vm, uint16 op);
       static void doPOP_64(Interpreter* vm, uint16 op);
-
       static void doVEC1(Interpreter* vm, uint16 op);
-
       static void doADV(Interpreter* vm, uint16 op);
   };
 
@@ -163,12 +157,12 @@ namespace ExVM {
     NativeCall* nativeCodeAddresses;
     uint16**    codeAddresses;
     void**      dataAddresses;
-    uint16      nativeCodeCount;
-    uint16      codeCount;
-    uint16      dataCount;
-    uint16      main;
+    uint32      nativeCodeCount;
+    uint32      codeCount;
+    uint32      dataCount;
+    uint32      main;
 
-    static Executable* allocate(uint16 nativeCount, uint16 codeCount, uint16 dataCount);
+    static Executable* allocate(uint32 nativeCount, uint32 codeCount, uint32 dataCount);
     static void release(Executable* executable);
   };
 

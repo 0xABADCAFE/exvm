@@ -129,17 +129,17 @@ void Interpreter::dump() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Interpreter::setNativeCodeSymbolTable(NativeCall* symbol, uint16 count) {
+void Interpreter::setNativeCodeSymbolTable(NativeCall* symbol, uint32 count) {
   nativeCodeSymbol      = symbol;
   nativeCodeSymbolCount = count;
 }
 
-void Interpreter::setCodeSymbolTable(uint16** symbol, uint16 count) {
+void Interpreter::setCodeSymbolTable(uint16** symbol, uint32 count) {
   codeSymbol      = symbol;
   codeSymbolCount = count;
 }
 
-void Interpreter::setDataSymbolTable(void** symbol, uint16 count) {
+void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
   dataSymbol      = symbol;
   dataSymbolCount = count;
 }

@@ -365,7 +365,7 @@ Executable* Linker::getExecutable() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Executable* Executable::allocate(uint16 nativeCount, uint16 codeCount, uint16 dataCount) {
+Executable* Executable::allocate(uint32 nativeCount, uint32 codeCount, uint32 dataCount) {
   size_t baseAllocSize   = sizeof(Executable);
   size_t nativeTableSize = nativeCount * sizeof(NativeCall);
   size_t codeTableSize   = codeCount   * sizeof(uint16*);
