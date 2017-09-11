@@ -75,7 +75,7 @@ SymbolNameEnumerator::SymbolNameEnumerator(uint32 maxID) :
   maxSymbolID(maxID),
   nextSymbolID(0)
 {
-  debuglog(LOG_DEBUG, "Created SymbolNameEnumerator with maxSize %u", maxSymbolID);
+  debuglog(LOG_DEBUG, "Created SymbolNameEnumerator with maxSize %" FU32, maxSymbolID);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -136,10 +136,10 @@ int SymbolNameEnumerator::checkBlock() {
   if (!nodeBlock || nodeBlock->nextFree == NODE_BLOCKSIZE) {
     Block* newBlock = (Block*)std::calloc(1, sizeof(Block));
     if (!newBlock) {
-      debuglog(LOG_ERROR, "Unable to allocate Block of %u bytes", (uint32)sizeof(Block));
+      debuglog(LOG_ERROR, "Unable to allocate Block of %" FU32 " bytes", (uint32)sizeof(Block));
       return 0;
     }
-    debuglog(LOG_DEBUG, "Allocated Block of %u bytes at %p", (uint32)sizeof(Block), newBlock);
+    debuglog(LOG_DEBUG, "Allocated Block of %" FU32 " bytes at %p", (uint32)sizeof(Block), newBlock);
 
     // Make the newly allocated block the active one
     newBlock->prevBlock    = nodeBlock;
@@ -243,7 +243,7 @@ int SymbolNameEnumerator::enumerate(const char* name) {
 
   // Check we haven't reached the table size limit
   if (isFull()) {
-    debuglog(LOG_WARN, "Cannot add symbol %s, table limit of %u entries reached", name, maxSymbolID);
+    debuglog(LOG_WARN, "Cannot add symbol %s, table limit of %" FU32 " entries reached", name, maxSymbolID);
     return Error::TABLE_FULL;
   }
 
@@ -314,7 +314,7 @@ SymbolMap::SymbolMap(uint32 maxSize, uint32 iniSize, uint32 delta) :
 {
   debuglog(
     LOG_DEBUG,
-    "Created SymbolMap, initial size %u, max size %u, grow size %u",
+    "Created SymbolMap, initial size %" FU32 ", max size %" FU32 ", grow size %" FU32,
     currSize, maxSize, delta
   );
 }
@@ -349,7 +349,7 @@ int SymbolMap::define(const char* name, void* address) {
       !symbols &&
       !(symbols = (Symbol*)std::calloc(currSize, sizeof(Symbol)))
     ) {
-      debuglog(LOG_ERROR, "Unable to allocate initial Symbol table for %u entries", currSize);
+      debuglog(LOG_ERROR, "Unable to allocate initial Symbol table for %" FU32 " entries", currSize);
       return Error::OUT_OF_MEMORY;
     }
 
@@ -358,13 +358,13 @@ int SymbolMap::define(const char* name, void* address) {
       uint32  newSize     = currSize + delta;
       Symbol* growSymbols = (Symbol*)std::realloc(symbols, newSize * sizeof(Symbol));
       if (!growSymbols) {
-        debuglog(LOG_ERROR, "Unable to grow Symbol table to %u entries", newSize);
+        debuglog(LOG_ERROR, "Unable to grow Symbol table to %" FU32 " entries", newSize);
         return Error::OUT_OF_MEMORY;
       }
 
       symbols  = growSymbols;
       currSize = newSize;
-      debuglog(LOG_INFO, "Expanded Symbol table to %u entries", currSize);
+      debuglog(LOG_INFO, "Expanded Symbol table to %" FU32 " entries", currSize);
     }
 
     symbols[result].name = name;

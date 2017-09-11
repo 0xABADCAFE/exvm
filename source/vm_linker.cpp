@@ -96,7 +96,7 @@ int Linker::addRawSegment(RawSegmentData* rawSegment) {
     !rawSegments &&
     !(rawSegments = (RawSegmentData**)std::calloc(currSize, sizeof(RawSegmentData*)))
   ) {
-    debuglog(LOG_ERROR, "Unable to allocate initial RawSegmentData pointer table for %u entries", currSize);
+    debuglog(LOG_ERROR, "Unable to allocate initial RawSegmentData pointer table for %" FU32 " entries", currSize);
     return Error::OUT_OF_MEMORY;
   }
 
@@ -109,17 +109,17 @@ int Linker::addRawSegment(RawSegmentData* rawSegment) {
     uint32 newSize = currSize + delta;
     RawSegmentData** growSegments = (RawSegmentData**)std::realloc(rawSegments, newSize * sizeof(RawSegmentData*));
     if (!growSegments) {
-      debuglog(LOG_ERROR, "Unable to grow RawSegmentData pointer table to %u entries", newSize);
+      debuglog(LOG_ERROR, "Unable to grow RawSegmentData pointer table to %" FU32 " entries", newSize);
       return Error::OUT_OF_MEMORY;
     }
 
     rawSegments = growSegments;
     currSize    = newSize;
-    debuglog(LOG_INFO, "Expanded Symbol table to %u entries", currSize);
+    debuglog(LOG_INFO, "Expanded Symbol table to %" FU32 " entries", currSize);
   }
 
   rawSegments[entry] = rawSegment;
-  debuglog(LOG_INFO, "Added RawSegmentData instance at %p as entry %u", rawSegment, entry);
+  debuglog(LOG_INFO, "Added RawSegmentData instance at %p as entry %" FU32, rawSegment, entry);
 
   return Error::SUCCESS;
 }
@@ -151,7 +151,7 @@ int Linker::enumerateAllSymbols() {
   for (uint32 i = 0; i < numRawSegments; i++) {
     RawSegmentData* segment = rawSegments[i];
 
-    debuglog(LOG_INFO, "Processing RawSegmentData[%u] %p Export Symbols", i, segment);
+    debuglog(LOG_INFO, "Processing RawSegmentData[%" FU32 "] %p Export Symbols", i, segment);
     for (uint32 j = 0; j < segment->exportTableLength; j++) {
       RawSegmentData::SymbolRef* symbolRef  = &segment->exportTable[j];
       const char*                symbolName = symbolRef->getSymbolName(segment->nameSegment);
@@ -208,7 +208,7 @@ int Linker::resolveToEnumerated() {
   for (uint32 i = 0; i < numRawSegments; i++) {
     RawSegmentData* segment = rawSegments[i];
 
-    debuglog(LOG_INFO, "Processing RawSegmentData[%u] %p Import Symbols", i, segment);
+    debuglog(LOG_INFO, "Processing RawSegmentData[%" FU32 "] %p Import Symbols", i, segment);
     for (uint32 j = 0; j < segment->importTableLength; j++) {
       RawSegmentData::SymbolRef* symbolRef  = &segment->importTable[j];
       const char*                symbolName = symbolRef->getSymbolName(segment->nameSegment);
@@ -304,7 +304,7 @@ int Linker::resolveToEnumerated() {
           break;
       }
 
-      debuglog(LOG_INFO, "Injecting symbol '%s' ID %d into code segment at offset %u [%p]", symbolName, symbolID, symbolRef->offset, injectAddr);
+      debuglog(LOG_INFO, "Injecting symbol '%s' ID %d into code segment at offset %" FU32 " [%p]", symbolName, symbolID, symbolRef->offset, injectAddr);
       *injectAddr++ = opcodeWord;
       *injectAddr   = (uint16)(symbolID & 0xFFFF);
     }
@@ -329,14 +329,14 @@ Executable* Linker::getExecutable() {
 
   if (nativeCodeSymbols) {
     const Symbol* native = nativeCodeSymbols->getList();
-    for (int i = 0; i < executable->nativeCodeCount; i++) {
+    for (uint32 i = 0; i < executable->nativeCodeCount; i++) {
       executable->nativeCodeAddresses[i] = native[i].address.native;
     }
   }
 
   if (codeSymbols) {
     const Symbol* code = codeSymbols->getList();
-    for (int i = 0; i < executable->codeCount; i++) {
+    for (uint32 i = 0; i < executable->codeCount; i++) {
       executable->codeAddresses[i] = code[i].address.code;
     }
 
@@ -349,7 +349,7 @@ Executable* Linker::getExecutable() {
 
   if (dataSymbols) {
     const Symbol* data = dataSymbols->getList();
-    for (int i = 0; i < executable->dataCount; i++) {
+    for (uint32 i = 0; i < executable->dataCount; i++) {
       executable->dataAddresses[i] = data[i].address.data;
     }
   }

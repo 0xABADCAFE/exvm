@@ -66,6 +66,14 @@ any pointer %p
     typedef unsigned long int uint64;
     typedef float float32;
     typedef double float64;
+
+    // Formatting Templates
+    #define FS16 "hd"
+    #define FU16 "hu"
+    #define FS32 "d"
+    #define FU32 "u"
+    #define FS64 "ld"
+    #define FU64 "lu"
   #else
     #define X_PTRSIZE XA_PTRSIZE32
     typedef signed char sint8;
@@ -78,6 +86,14 @@ any pointer %p
     typedef unsigned long long int uint64;
     typedef float float32;
     typedef double float64;
+
+    // Formatting Templates
+    #define FS16 "hd"
+    #define FU16 "hu"
+    #define FS32 "ld"
+    #define FU32 "lu"
+    #define FS64 "lld"
+    #define FU64 "llu"
   #endif
 
   // Target sanity checks

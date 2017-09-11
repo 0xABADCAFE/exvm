@@ -104,7 +104,7 @@ void Interpreter::dump() {
   for (int i = 0; i < NUM_GPR; i++) {
     printf("%2d: 0x%08X%08X : %12d : %6d : %4d : %c : %.8f\n", i,
       (unsigned)gpr[i].getMSW(), (unsigned)gpr[i].getLSW(),
-      gpr[i].s32(),
+      (int)gpr[i].s32(),
       (int)gpr[i].s16(),
       (int)gpr[i].s8(),
       (int)((gpr[i].u8()>32 && gpr[i].u8() < 127) ? gpr[i].u8() : '.'),
