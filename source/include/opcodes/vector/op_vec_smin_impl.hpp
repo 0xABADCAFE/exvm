@@ -93,7 +93,7 @@ _DEFINE_OP(VSMIN_S8) {
   // Super naive reference implementation
   sint8* src = vm->gpr[(vArgs & 0x00F0) >> 4].pS8();
   uint32 i   = vm->gpr[(vArgs & 0x000F)].u32();
-  sint8  min = -128;
+  sint8  min = 0x80;
   sint8  val = *src;
 
   // Bail if we find min
@@ -113,7 +113,7 @@ _DEFINE_OP(VSMIN_S16) {
   // Super naive reference implementation
   sint16* src = vm->gpr[(vArgs & 0x00F0) >> 4].pS16();
   uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
-  sint16  min = -32768;
+  sint16  min = 0x8000;
   sint16  val = *src;
 
   // Bail if we find min
@@ -133,7 +133,7 @@ _DEFINE_OP(VSMIN_S32) {
   // Super naive reference implementation
   sint32* src = vm->gpr[(vArgs & 0x00F0) >> 4].pS32();
   uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
-  sint32  min = -2147483648L;
+  sint32  min = 0x80000000;
   sint32  val = *src;
 
   // Bail if we find min
@@ -153,7 +153,7 @@ _DEFINE_OP(VSMIN_S64) {
   // Super naive reference implementation
   sint64* src = vm->gpr[(vArgs & 0x00F0) >> 4].pS64();
   uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
-  sint64  min = -9223372036854775807LL;
+  sint64  min = 0x8000000000000000;
   sint64  val = *src;
 
   // Bail if we find min

@@ -16,6 +16,8 @@
 #include "include/machine.hpp"
 #include <cstdio>
 
+#include <limits.h>
+
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
   #include "include/vm_interpreter_func_table.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
@@ -65,7 +67,7 @@ void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
   #include <cmath>
   #undef _DEFINE_OP
-  #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm, uint16 vArgs UNUSED)
+  #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm UNUSED, uint16 vArgs UNUSED)
 
   #include "include/opcodes/vector/op_vec_fill_impl.hpp"
   #include "include/opcodes/vector/op_vec_smin_impl.hpp"
@@ -107,7 +109,7 @@ void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
   #include "include/opcodes/vector/op_vec_vbitwise_impl.hpp"
 
   #include "include/opcodes/vector/op_vec_vmap_impl.hpp"
-  
+
   #include "include/opcodes/vector/op_vec_vmac_impl.hpp"
 
 #endif

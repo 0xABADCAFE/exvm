@@ -366,16 +366,16 @@ Executable* Linker::getExecutable() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Executable* Executable::allocate(uint32 nativeCount, uint32 codeCount, uint32 dataCount) {
-  size_t baseAllocSize   = sizeof(Executable);
-  size_t nativeTableSize = nativeCount * sizeof(NativeCall);
-  size_t codeTableSize   = codeCount   * sizeof(uint16*);
-  size_t dataTableSize   = dataCount   * sizeof(void*);
+  uint32 baseAllocSize   = sizeof(Executable);
+  uint32 nativeTableSize = nativeCount * sizeof(NativeCall);
+  uint32 codeTableSize   = codeCount   * sizeof(uint16*);
+  uint32 dataTableSize   = dataCount   * sizeof(void*);
 
   // Try to allocate enought space for all of the above in a single block
-  size_t totalAllocSize  = baseAllocSize + nativeTableSize + codeTableSize + dataTableSize;
+  uint32 totalAllocSize  = baseAllocSize + nativeTableSize + codeTableSize + dataTableSize;
   uint8* baseAddress     = (uint8*)std::calloc(totalAllocSize, 1);
   if (!baseAddress) {
-    debuglog(LOG_ERROR, "Unable to allocate %u bytes for Executable structure\n", totalAllocSize);
+    debuglog(LOG_ERROR, "Unable to allocate %" FU32 " bytes for Executable structure\n", totalAllocSize);
     return 0;
   }
 
