@@ -19,7 +19,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-struct timezone MilliClock::tz = { 0 };
+struct timezone MilliClock::tz = { 0, 0 };
 
 uint32 MilliClock::elapsed() {
   timeval current;

@@ -89,7 +89,7 @@ void testSymbolMap() {
   const Symbol* list = symbolMap.getList();
 
   for (uint32 i = 0; i < symbolMap.size(); i++) {
-    std::printf("\t%u : %s @ %p\n", i, list[i].name, list[i].address.raw);
+    std::printf("\t%" FU32 " : %s @ %p\n", i, list[i].name, list[i].address.raw);
   }
 
 }

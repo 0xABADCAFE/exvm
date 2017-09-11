@@ -68,7 +68,7 @@ void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
 
   #undef _DEFINE_OP
-  #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm, uint16 vArgs UNUSED)
+  #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm UNUSED, uint16 vArgs UNUSED)
 
   #include "include/opcodes/advanced/op_adv_const_impl.hpp"
   #include "include/opcodes/advanced/op_adv_roots_impl.hpp"

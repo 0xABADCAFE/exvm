@@ -66,7 +66,7 @@ void nativeWriteBuffer(Interpreter* vm) {
   FILE *f = fopen(fileName, "wb");
   if (f) {
     fprintf(f, "P5\n%d\n%d\n255\n", w, h);
-    fwrite(vm->getReg(_r0).pCh(), 1, w*h, f);
+    fwrite(vm->getReg(_r0).pCh(), 1, w * h, f);
     fclose(f);
     printf("Wrote buffer '%s'\n", fileName);
   }
@@ -307,12 +307,12 @@ void runTestExample() {
 
   std::printf(
     "Structure Sizes\n"
-    "\tsizeof(Linker)      : %u\n"
-    "\tsizeof(Interpreter) : %u\n"
-    "\tsizeof(Executable)  : %u\n",
-    sizeof(Linker),
-    sizeof(Interpreter),
-    sizeof(Executable)
+    "\tsizeof(Linker)      : %" FU32 "\n"
+    "\tsizeof(Interpreter) : %" FU32 "\n"
+    "\tsizeof(Executable)  : %" FU32 "\n",
+    (uint32)sizeof(Linker),
+    (uint32)sizeof(Interpreter),
+    (uint32)sizeof(Executable)
   );
 
   std::puts(
@@ -351,9 +351,9 @@ void runTestExample() {
       "\tnativeCodeAddresses : %p\n"
       "\tcodeAddresses       : %p\n"
       "\tdataAddresses       : %p\n"
-      "\tnativeCodeCount     : %u\n"
-      "\tcodeCount           : %u\n"
-      "\tdataCount           : %u\n"
+      "\tnativeCodeCount     : %" FU32 "\n"
+      "\tcodeCount           : %" FU32 "\n"
+      "\tdataCount           : %" FU32 "\n"
       "}\n",
       executable,
       executable->nativeCodeAddresses,
@@ -365,15 +365,15 @@ void runTestExample() {
     );
     std::puts("NativeCall Symbol Table");
     for (uint32 i = 0; i < executable->nativeCodeCount; i++) {
-      std::printf("\tSymbol ID : %u -> %p\n", i, executable->nativeCodeAddresses[i]);
+      std::printf("\tSymbol ID : %" FU32 " -> %p\n", i, executable->nativeCodeAddresses[i]);
     }
     std::puts("Code Symbol Table");
     for (uint32 i = 0; i < executable->codeCount; i++) {
-      std::printf("\tSymbol ID : %u -> %p\n", i, executable->codeAddresses[i]);
+      std::printf("\tSymbol ID : %" FU32 " -> %p\n", i, executable->codeAddresses[i]);
     }
     std::puts("Data Symbol Table");
     for (uint32 i = 0; i < executable->dataCount; i++) {
-      std::printf("\tSymbol ID : %u -> %p\n", i, executable->dataAddresses[i]);
+      std::printf("\tSymbol ID : %" FU32 " -> %p\n", i, executable->dataAddresses[i]);
     }
 
     std::puts(

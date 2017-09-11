@@ -122,18 +122,18 @@ int main() {
     "\texportTable       : %p\n"
     "\timportTable       : %p\n"
     "\tmagic             : 0x%08X\n"
-    "\texportTableLength : %u\n"
-    "\timportTableLength : %u\n"
-    "\tcodeSegmentLength : %u\n"
-    "\tdataSegmentLength : %u\n"
-    "\tnameSegmentLength : %u\n"
+    "\texportTableLength : %" FU32 "\n"
+    "\timportTableLength : %" FU32 "\n"
+    "\tcodeSegmentLength : %" FU32 "\n"
+    "\tdataSegmentLength : %" FU32 "\n"
+    "\tnameSegmentLength : %" FU32 "\n"
     "}\n",
     mockLoadSegment.codeSegment,
     mockLoadSegment.dataSegment,
     mockLoadSegment.nameSegment,
     mockLoadSegment.exportTable,
     mockLoadSegment.importTable,
-    mockLoadSegment.magic,
+    (unsigned)mockLoadSegment.magic,
     mockLoadSegment.exportTableLength,
     mockLoadSegment.importTableLength,
     mockLoadSegment.codeSegmentLength,
@@ -143,7 +143,7 @@ int main() {
 
   std::puts("Code Segment before linking...");
   for (uint32 i = 0; i < mockLoadSegment.codeSegmentLength; i++) {
-    std::printf("%u : 0x%04X\n", i, mockLoadSegment.codeSegment[i]);
+    std::printf("%" FU32 " : 0x%04X\n", i, mockLoadSegment.codeSegment[i]);
   }
 
   Linker testLinker;
@@ -153,7 +153,7 @@ int main() {
 
   std::puts("Code Segment after linking...");
   for (uint32 i = 0; i < mockLoadSegment.codeSegmentLength; i++) {
-    std::printf("%u : 0x%04X\n", i, mockLoadSegment.codeSegment[i]);
+    std::printf("%" FU32 " : 0x%04X\n", i, mockLoadSegment.codeSegment[i]);
   }
 
   // Now get the linked executable
@@ -165,9 +165,9 @@ int main() {
     "\tnativeCodeAddresses : %p\n"
     "\tcodeAddresses       : %p\n"
     "\tdataAddresses       : %p\n"
-    "\tnativeCodeCount     : %u\n"
-    "\tcodeCount           : %u\n"
-    "\tdataCount           : %u\n"
+    "\tnativeCodeCount     : %" FU32 "\n"
+    "\tcodeCount           : %" FU32 "\n"
+    "\tdataCount           : %" FU32 "\n"
     "}\n",
     executable->nativeCodeAddresses,
     executable->codeAddresses,
@@ -178,15 +178,15 @@ int main() {
   );
 
   for (uint32 i = 0; i < executable->nativeCodeCount; i++) {
-    std::printf("NativeCall Symbol ID : %u -> %p\n", i, executable->nativeCodeAddresses[i]);
+    std::printf("NativeCall Symbol ID : %" FU32 " -> %p\n", i, executable->nativeCodeAddresses[i]);
   }
 
   for (uint32 i = 0; i < executable->codeCount; i++) {
-    std::printf("Code       Symbol ID : %u -> %p\n", i, executable->codeAddresses[i]);
+    std::printf("Code       Symbol ID : %" FU32 " -> %p\n", i, executable->codeAddresses[i]);
   }
 
   for (uint32 i = 0; i < executable->dataCount; i++) {
-    std::printf("Data       Symbol ID : %u -> %p\n", i, executable->dataAddresses[i]);
+    std::printf("Data       Symbol ID : %" FU32 " -> %p\n", i, executable->dataAddresses[i]);
   }
 
   Executable::release(executable);

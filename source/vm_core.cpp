@@ -104,7 +104,7 @@ void Interpreter::dump() {
   for (int i = 0; i < NUM_GPR; i++) {
     printf("%2d: 0x%08X%08X : %12d : %6d : %4d : %c : %.8f\n", i,
       (unsigned)gpr[i].getMSW(), (unsigned)gpr[i].getLSW(),
-      gpr[i].s32(),
+      (int)gpr[i].s32(),
       (int)gpr[i].s16(),
       (int)gpr[i].s8(),
       (int)((gpr[i].u8()>32 && gpr[i].u8() < 127) ? gpr[i].u8() : '.'),
@@ -129,17 +129,17 @@ void Interpreter::dump() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Interpreter::setNativeCodeSymbolTable(NativeCall* symbol, uint16 count) {
+void Interpreter::setNativeCodeSymbolTable(NativeCall* symbol, uint32 count) {
   nativeCodeSymbol      = symbol;
   nativeCodeSymbolCount = count;
 }
 
-void Interpreter::setCodeSymbolTable(uint16** symbol, uint16 count) {
+void Interpreter::setCodeSymbolTable(uint16** symbol, uint32 count) {
   codeSymbol      = symbol;
   codeSymbolCount = count;
 }
 
-void Interpreter::setDataSymbolTable(void** symbol, uint16 count) {
+void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
   dataSymbol      = symbol;
   dataSymbolCount = count;
 }
