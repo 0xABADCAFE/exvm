@@ -29,13 +29,13 @@ _END_OP
 _DEFINE_OP(LOG2_F32) {
   vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::log(
     (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
-  ) * INV_LN_2;
+  ) * predefinedConstants[VMDefs::CONST_INV_LN_2];
 }
 _END_OP
 
 
 _DEFINE_OP(LOG2_F64) {
-  vm->gpr[(vArgs & 0x000F)].f64() = std::log(vm->gpr[(vArgs & 0x00F0) >> 4].f64()) * INV_LN_2;
+  vm->gpr[(vArgs & 0x000F)].f64() = std::log(vm->gpr[(vArgs & 0x00F0) >> 4].f64()) * predefinedConstants[VMDefs::CONST_INV_LN_2];
 }
 _END_OP
 
