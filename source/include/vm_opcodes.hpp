@@ -361,6 +361,29 @@ typedef enum {
   MAX_ADV
 } AdvancedOp;
 
+typedef enum {
+  // Common multiples of PI
+  CONST_PI         = 0,
+  CONST_2PI        = 1,
+  CONST_HALF_PI    = 2,
+  CONST_INV_PI     = 3,
+
+  // Golden ratio
+  CONST_PHI        = 4,
+
+  // Euler's Number
+  CONST_E          = 4,
+
+  // Pythagoras' Constant
+  CONST_SQRT_2     = 5,
+  CONST_INV_SQRT_2 = 6,
+
+  CONST_LN_2       = 7,
+  CONST_INV_LN_2   = 8,
+
+  MAX_CONST        = 16 // for now
+} AdvancedOpConstant;
+
 // Vector Instruction set. These are invoked by the scalar _VEC prefix. Vector instructions perform block operations
 // directly on memory regions indicated by the addresses in the scalar registers. This is endian safe since all the
 // vector operations affect every element in the set.
