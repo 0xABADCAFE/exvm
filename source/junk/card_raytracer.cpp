@@ -12,17 +12,17 @@ struct vec3 {
   float32 x, y, z;
 
   // vector add
-  vec3 operator+(const vec3& r) {
+  vec3 operator+(const vec3& r) const {
     return vec3(x + r.x, y + r.y, z + r.z);
   }
 
   // scale
-  vec3 operator*(float32 r) {
+  vec3 operator*(float32 r) const {
     return vec3(x * r, y * r, z * r);
   }
 
   // dot product
-  float32 operator%(const vec3& r) {
+  float32 operator%(const vec3& r) const {
     return x * r.x + y * r.y + z * r.z;
   }
 
@@ -30,7 +30,7 @@ struct vec3 {
   vec3() { }
 
   // Cross product
-  vec3 operator^(const vec3& r) {
+  vec3 operator^(const vec3& r) const {
     return vec3(y * r.z - z * r.y, z * r.x - x * r.z, x * r.y - y * r.x);
   }
 
@@ -42,7 +42,7 @@ struct vec3 {
   }
 
   // Normalise
-  vec3 operator!() {
+  vec3 operator!() const {
     return *this * (1.0 / sqrt(*this % *this));
   }
 };
@@ -66,9 +66,9 @@ float32 frand() {
 }
 
 // Trace
-int32 trace(vec3 o, vec3 d, float32& t, vec3& n) {
-  t   = 1e9;
-  int32 m = 0;
+int32 trace(const vec3 o, const vec3 d, float32& t, vec3& n) {
+  t         = 1e9;
+  int32   m = 0;
   float32 p = -o.z / d.z;
 
   if (0.01 < p) {
@@ -99,7 +99,7 @@ int32 trace(vec3 o, vec3 d, float32& t, vec3& n) {
 }
 
 // Sampling
-vec3 sample(vec3 o,vec3 d) {
+vec3 sample(const vec3& o, const vec3& d) {
   float32 t;
   vec3 n;
 
