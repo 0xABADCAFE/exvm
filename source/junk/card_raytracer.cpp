@@ -61,12 +61,12 @@ int32 data[] = {
 };
 
 // Random
-float32 frand() {
+static inline float32 frand() {
   return (float32) rand() / RAND_MAX;
 }
 
 // Trace
-int32 trace(const vec3 o, const vec3 d, float32& t, vec3& n) {
+static inline int32 trace(const vec3& o, const vec3& d, float32& t, vec3& n) {
   t         = 1e9;
   int32   m = 0;
   float32 p = -o.z / d.z;
@@ -99,7 +99,7 @@ int32 trace(const vec3 o, const vec3 d, float32& t, vec3& n) {
 }
 
 // Sampling
-vec3 sample(const vec3& o, const vec3& d) {
+static inline vec3 sample(const vec3& o, const vec3& d) {
   float32 t;
   vec3 n;
 
@@ -108,7 +108,7 @@ vec3 sample(const vec3& o, const vec3& d) {
 
   // No intersection, sky
   if (!m) {
-    return vec3(0.7,0.6, 1.0) * pow(1.0 - d.z, 4.0);
+    return vec3(0.7, 0.6, 1.0) * pow(1.0 - d.z, 4.0);
   }
 
   vec3 h = o + d * t;
