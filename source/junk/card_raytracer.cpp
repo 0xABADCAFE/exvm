@@ -152,9 +152,12 @@ vec3 sample(cvr3 o, cvr3 d) {
 
   // Hit nothing? Sky shade
   if (!m) {
+    t = 1.0 - d.z;
+    t *= t;
+    t *= t;
     return vec3_scale(
       vec3(0.7, 0.6, 1.0),
-      pow(1.0 - d.z, 4.0)
+      t
     );
   }
 
