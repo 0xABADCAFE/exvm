@@ -12,17 +12,17 @@ struct vec3 {
   float32 x, y, z;
 
   // vector add
-  vec3 operator+(const vec3& r) const {
+  vec3 operator+(const vec3 r) {
     return vec3(x + r.x, y + r.y, z + r.z);
   }
 
   // scale
-  vec3 operator*(float32 r) const {
+  vec3 operator*(float32 r) {
     return vec3(x * r, y * r, z * r);
   }
 
   // dot product
-  float32 operator%(const vec3& r) const {
+  float32 operator%(const vec3 r) {
     return x * r.x + y * r.y + z * r.z;
   }
 
@@ -30,7 +30,7 @@ struct vec3 {
   vec3() { }
 
   // Cross product
-  vec3 operator^(const vec3& r) const {
+  vec3 operator^(const vec3 r) {
     return vec3(y * r.z - z * r.y, z * r.x - x * r.z, x * r.y - y * r.x);
   }
 
@@ -42,8 +42,8 @@ struct vec3 {
   }
 
   // Normalise
-  vec3 operator!() const {
-    return *this * (1.0 / sqrt((x * x) + (y * y) + (z * z)));
+  vec3 operator!() {
+    return *this * (1.0 / sqrt(*this % *this));
   }
 };
 
@@ -61,34 +61,34 @@ int32 data[] = {
 };
 
 // Random
-static inline float32 frand() {
+float32 frand() {
   return (float32) rand() / RAND_MAX;
 }
 
 // Trace
-int32 trace(const vec3& o, const vec3& d, float32& t, vec3& n) {
+int32 trace(vec3 o, vec3 d, float32& t, vec3& n) {
   t         = 1e9;
   int32   m = 0;
   float32 p = -o.z / d.z;
 
   if (0.01 < p) {
-    t = p, n = vec3(0, 0, 1), m = 1;
+    t = p;
+    n = vec3(0, 0, 1);
+    m = 1;
   }
 
   for (int32 k = 19; k--;) {
     for (int32 j = 9; j--;) {
       if (data[j] & 1 << k) {
         vec3 p = o + vec3(-k, 0.0, -j - 4.0);
-        float32
-          b = p % d,
-          c = p % p - 1.0,
-          q = b * b - c
-        ;
+        float32 b = p % d;
+        float32 c = p % p - 1.0;
+        float32 q = b * b - c;
         if (q > 0) {
           float32 s = -b - sqrt(q);
           if (s < t && s > 0.01) {
-            t = s,
-            n = !(p + d * t),
+            t = s;
+            n = !(p + d * t);
             m = 2;
           }
         }
@@ -99,7 +99,7 @@ int32 trace(const vec3& o, const vec3& d, float32& t, vec3& n) {
 }
 
 // Sampling
-vec3 sample(const vec3& o, const vec3& d) {
+vec3 sample(vec3 o, vec3 d) {
   float32 t;
   vec3 n;
 
@@ -111,12 +111,9 @@ vec3 sample(const vec3& o, const vec3& d) {
     return vec3(0.7, 0.6, 1.0) * pow(1.0 - d.z, 4.0);
   }
 
-  vec3
-    h = o + d * t,
-    l = !(vec3(9.0 + frand(), 9.0 + frand(), 16.0) + h * -1.0),
-    r = d + n * (n % d * -2)
-  ;
-
+  vec3 h = o + d * t;
+  vec3 l = !(vec3(9.0 + frand(), 9.0 + frand(), 16.0) + h * -1.0);
+  vec3 r = d + n * (n % d * -2);
   float32 b = l % n;
   if (b < 0 || trace(h, l, t, n)) {
     b = 0;
@@ -135,12 +132,10 @@ vec3 sample(const vec3& o, const vec3& d) {
 int32 main() {
   printf("P6 512 512 255 ");
   // camera direction
-  vec3
-    g = !vec3(-6.0, -16.0, 0.0),
-    a = !(vec3(0.0, 0.0, 1.0) ^ g) * 0.002,
-    b = !(g ^ a) * 0.002,
-    c = (a + b) * -256 + g
-  ;
+  vec3 g = !vec3(-6.0, -16.0, 0.0);
+  vec3 a = !(vec3(0.0, 0.0, 1.0) ^ g) * 0.002;
+  vec3 b = !(g ^ a) * 0.002;
+  vec3 c = (a + b) * -256 + g;
   for (int32 y = 512; y--;) {
     for (int32 x = 512; x--;) {
       vec3 pixel(13.0, 13.0, 13.0);
