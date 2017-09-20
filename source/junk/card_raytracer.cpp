@@ -7,6 +7,8 @@
 typedef int int32;
 typedef float float32;
 
+///////////////////////////////////////////////////////////////////////////////
+
 // Vector
 struct vec3 {
   float32 x, y, z;
@@ -14,11 +16,6 @@ struct vec3 {
   // vector add
   vec3 operator+(const vec3& r) const {
     return vec3(x + r.x, y + r.y, z + r.z);
-  }
-
-  // scale
-  vec3 operator*(float32 r) const {
-    return vec3(x * r, y * r, z * r);
   }
 
   // default constructor
@@ -33,7 +30,7 @@ struct vec3 {
 
 };
 
-
+///////////////////////////////////////////////////////////////////////////////
 
 // Data
 int32 data[] = {
@@ -104,7 +101,7 @@ int32 trace(const vec3& o, const vec3& d, float32& t, vec3& n) {
           float32 s = -b - sqrt(q);
           if (s < t && s > 0.01) {
             t = s,
-            n = normalize(p + d * t),
+            n = normalize(p + scale(d, t)),
             m = 2;
           }
         }
@@ -131,7 +128,7 @@ vec3 sample(const vec3& o, const vec3& d) {
 
   vec3
     h = o + scale(d, t),
-    l = normalize(vec3(9.0 + frand(), 9.0 + frand(), 16.0) + h * -1.0),
+    l = normalize(vec3(9.0 + frand(), 9.0 + frand(), 16.0) + scale(h, -1.0)),
     r = d + scale(n, (dot(n, d) * -2.0))
   ;
 
@@ -145,7 +142,14 @@ vec3 sample(const vec3& o, const vec3& d) {
   // Floor plane
   if (m & 1) {
     h = scale(h, 0.2);
-    return ( (int32) (ceil(h.x) + ceil(h.y)) & 1 ? vec3(3.0, 1.0, 1.0) : vec3(3.0, 3.0, 3.0)) * (b * 0.2 + 0.1);
+    return scale(
+      (
+        (int32) (ceil(h.x) + ceil(h.y)) & 1 ?
+        vec3(3.0, 1.0, 1.0) :
+        vec3(3.0, 3.0, 3.0)
+      ),
+      (b * 0.2 + 0.1)
+    );
   }
   return vec3(p, p, p) + scale(sample(h, r), 0.5);
 }
@@ -169,12 +173,20 @@ int32 main() {
       // Cast 64 rays per pixel
       for (int32 r = 64; r--;) {
         vec3 t = scale(a, (frand() - 0.5) * 99.0) + scale(b, (frand() - 0.5) * 99.0);
-        pixel  = sample(
+        pixel  = scale(sample(
           vec3(17.0, 16.0, 8.0) + t,
           normalize(
-            scale(t, -1.0) + scale(( a * (frand() + x) + b * (y + frand()) + c), 16.0)
+            scale(t, -1.0) +
+            scale(
+              (
+                scale(a, (frand() + x)) +
+                scale(b, (y + frand())) +
+                c
+              ),
+              16.0
+            )
           )
-        ) * 3.5 + pixel;
+        ), 3.5) + pixel;
       }
       printf("%c%c%c", (int32)pixel.x, (int32)pixel.y, (int32)pixel.z);
     }
