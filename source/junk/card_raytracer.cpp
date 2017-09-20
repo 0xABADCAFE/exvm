@@ -25,6 +25,10 @@ struct vec3 {
 
 };
 
+typedef const vec3& cvr3;
+//typedef const vec3 cvr3;
+
+
 ///////////////////////////////////////////////////////////////////////////////
 
 // Data - bitvector of sphere locations
@@ -42,7 +46,7 @@ int32 data[] = {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-static vec3 vec3_add(const vec3& v1, const vec3& v2) {
+static vec3 vec3_add(cvr3 v1, cvr3 v2) {
   return vec3(
     v1.x + v2.x,
     v1.y + v2.y,
@@ -50,8 +54,15 @@ static vec3 vec3_add(const vec3& v1, const vec3& v2) {
   );
 }
 
+static vec3 vec3_sub(cvr3 v1, cvr3 v2) {
+  return vec3(
+    v1.x - v2.x,
+    v1.y - v2.y,
+    v1.z - v2.z
+  );
+}
 
-static vec3 vec3_scale(const vec3& v, float32 s) {
+static vec3 vec3_scale(cvr3 v, float32 s) {
   return vec3(
     v.x * s,
     v.y * s,
@@ -59,7 +70,7 @@ static vec3 vec3_scale(const vec3& v, float32 s) {
   );
 }
 
-static vec3 vec3_normalize(const vec3& v) {
+static vec3 vec3_normalize(cvr3 v) {
   return vec3_scale(v, (1.0 / sqrt(
     (v.x * v.x) +
     (v.y * v.y) +
@@ -67,19 +78,17 @@ static vec3 vec3_normalize(const vec3& v) {
   )));
 }
 
-static float32 dot(const vec3& v1, const vec3& v2) {
+static float32 dot(cvr3 v1, cvr3 v2) {
   return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
-static vec3 vec3_cross(const vec3& v1, const vec3& v2) {
+static vec3 vec3_cross(cvr3 v1, cvr3 v2) {
   return vec3(
     v1.y * v2.z - v1.z * v2.y,
     v1.z * v2.x - v1.x * v2.z,
     v1.x * v2.y - v1.y * v2.x
   );
 }
-
-
 
 static const float32 invRM = 1.0 / RAND_MAX;
 
@@ -91,7 +100,7 @@ static inline float32 frand() {
 ///////////////////////////////////////////////////////////////////////////////
 
 // Trace
-int32 trace(const vec3& o, const vec3& d, float32& t, vec3& n) {
+int32 trace(cvr3 o, cvr3 d, float32& t, vec3& n) {
   t         = 1e9;
 
   // Assume trace hits nothing
@@ -134,7 +143,7 @@ int32 trace(const vec3& o, const vec3& d, float32& t, vec3& n) {
 ///////////////////////////////////////////////////////////////////////////////
 
 // Sampling
-vec3 sample(const vec3& o, const vec3& d) {
+vec3 sample(cvr3 o, cvr3 d) {
   float32 t;
   vec3 n;
 
@@ -153,13 +162,13 @@ vec3 sample(const vec3& o, const vec3& d) {
     h = vec3_add(o, vec3_scale(d, t)),
 
     l = vec3_normalize(
-      vec3_add(
+      vec3_sub(
         vec3(
           9.0 + frand(),
           9.0 + frand(),
           16.0
         ),
-        vec3_scale(h, -1.0)
+        h
       )
     ),
 
@@ -177,8 +186,6 @@ vec3 sample(const vec3& o, const vec3& d) {
     b = 0;
   }
 
-  float32 p = pow(dot(l, r) * (b > 0.0), 99.0);
-
   // Hit the floor plane
   if (m & 1) {
     h = vec3_scale(h, 0.2);
@@ -192,6 +199,8 @@ vec3 sample(const vec3& o, const vec3& d) {
       (b * 0.2 + 0.1)
     );
   }
+
+  float32 p = pow(dot(l, r) * (b > 0.0), 99.0);
 
   // Hit a sphere
   return vec3_add(
@@ -207,7 +216,8 @@ vec3 sample(const vec3& o, const vec3& d) {
 
 // Main
 int32 main() {
-  printf("P6 512 512 255 ");
+  int dim = 512;
+  printf("P6 %d %d 255 ", dim, dim);
   // camera direction
   vec3
     g = vec3_normalize(
@@ -234,13 +244,13 @@ int32 main() {
     c = vec3_add(
       vec3_scale(
         vec3_add(a, b),
-        -256.0
+        -(dim >> 1)
       ),
       g
     )
   ;
-  for (int32 y = 512; y--;) {
-    for (int32 x = 512; x--;) {
+  for (int32 y = dim; y--;) {
+    for (int32 x = dim; x--;) {
 
       // Use a vector for the pixel
       vec3 pixel(13.0, 13.0, 13.0);
@@ -259,8 +269,7 @@ int32 main() {
                 t
               ),
               vec3_normalize(
-                vec3_add(
-                  vec3_scale(t, -1.0),
+                vec3_sub(
                   vec3_scale(
                     vec3_add(
                       vec3_scale(a, frand() + x),
@@ -270,7 +279,8 @@ int32 main() {
                       )
                     ),
                     16.0
-                  )
+                  ),
+                  t
                 )
               )
             ),
