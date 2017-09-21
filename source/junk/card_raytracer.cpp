@@ -9,7 +9,7 @@ typedef float float32;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-// Vector
+// Vector class. Replaced operator overloads with
 struct vec3 {
   float32 x, y, z;
 
@@ -17,36 +17,42 @@ struct vec3 {
   vec3() { }
 
   // constructor
-  vec3(float32 a, float32 b, float32 c) {
+  vec3(float32 a, float32 b, float32 eye_offset) {
     x = a;
     y = b;
-    z = c;
+    z = eye_offset;
   }
 
 };
 
-typedef const vec3& cvr3;
-//typedef const vec3 cvr3;
+///////////////////////////////////////////////////////////////////////////////
 
+#ifdef NO_PASS_BY_REF
+typedef const vec3 cvr3;
+#else
+typedef const vec3& cvr3;
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 
-// Data - bitvector of sphere locations
+// Data - bitvector of sphere locations, 1 means a sphere, 0 means empty space
+//
 int32 data[] = {
-  247570,
-  280596,
-  280600,
-  249748,
-  18578,
-  18577,
-  231184,
-  16,
-  16
+  247570, // 0111100011100010010
+  280596, // 1000100100000010100
+  280600, // 1000100100000011000
+  249748, // 0111100111110010100
+  18578,  // 0000100100010010010
+  18577,  // 0000100100010010001
+  231184, // 0111000011100010000
+  16,     // 0000000000000010000
+  16      // 0000000000000010000
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 
-static vec3 vec3_add(cvr3 v1, cvr3 v2) {
+// Sum two vec3
+static inline vec3 vec3_add(cvr3 v1, cvr3 v2) {
   return vec3(
     v1.x + v2.x,
     v1.y + v2.y,
@@ -54,7 +60,8 @@ static vec3 vec3_add(cvr3 v1, cvr3 v2) {
   );
 }
 
-static vec3 vec3_sub(cvr3 v1, cvr3 v2) {
+// Subtract two vec3
+static inline vec3 vec3_sub(cvr3 v1, cvr3 v2) {
   return vec3(
     v1.x - v2.x,
     v1.y - v2.y,
@@ -62,7 +69,8 @@ static vec3 vec3_sub(cvr3 v1, cvr3 v2) {
   );
 }
 
-static vec3 vec3_scale(cvr3 v, float32 s) {
+// Scale a vec3 by a float
+static inline vec3 vec3_scale(cvr3 v, float32 s) {
   return vec3(
     v.x * s,
     v.y * s,
@@ -70,7 +78,8 @@ static vec3 vec3_scale(cvr3 v, float32 s) {
   );
 }
 
-static vec3 vec3_normalize(cvr3 v) {
+// Get a normalised vec3
+static inline vec3 vec3_normalize(cvr3 v) {
   return vec3_scale(v, (1.0 / sqrt(
     (v.x * v.x) +
     (v.y * v.y) +
@@ -78,11 +87,13 @@ static vec3 vec3_normalize(cvr3 v) {
   )));
 }
 
-static float32 dot(cvr3 v1, cvr3 v2) {
+// Get the dot product of two vec3
+static inline float32 dot(cvr3 v1, cvr3 v2) {
   return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
-static vec3 vec3_cross(cvr3 v1, cvr3 v2) {
+// Get the cross product for two vec3
+static inline vec3 vec3_cross(cvr3 v1, cvr3 v2) {
   return vec3(
     v1.y * v2.z - v1.z * v2.y,
     v1.z * v2.x - v1.x * v2.z,
@@ -92,7 +103,7 @@ static vec3 vec3_cross(cvr3 v1, cvr3 v2) {
 
 static const float32 invRM = 1.0 / RAND_MAX;
 
-// Random
+// Get a random number in the range 0.0 - 1.0
 static inline float32 frand() {
   return invRM * rand();
 }
@@ -121,8 +132,8 @@ int32 trace(cvr3 o, cvr3 d, float32& t, vec3& n) {
         vec3 p = vec3_add(o, vec3(-k, 0.0, -j - 4.0));
         float32
           b = dot(p, d),
-          c = dot(p, p) - 1.0,
-          q = b * b - c
+          eye_offset = dot(p, p) - 1.0,
+          q = b * b - eye_offset
         ;
         if (q > 0) {
           float32 s = -b - sqrt(q);
@@ -143,73 +154,75 @@ int32 trace(cvr3 o, cvr3 d, float32& t, vec3& n) {
 ///////////////////////////////////////////////////////////////////////////////
 
 // Sampling
-vec3 sample(cvr3 o, cvr3 d) {
+vec3 sample(cvr3 origin, cvr3 direction) {
   float32 t;
-  vec3 n;
+  vec3 normal;
 
   // Find where the ray intersects the world
-  int32 m = trace(o, d, t, n);
+  int32 m = trace(origin, direction, t, normal);
 
   // Hit nothing? Sky shade
   if (!m) {
-    t = 1.0 - d.z;
+    t = 1.0 - direction.z;
     t *= t;
     t *= t;
     return vec3_scale(
-      vec3(0.7, 0.6, 1.0),
+      vec3(0.7, 0.6, 1.0), // Blueish sky colour
       t
     );
   }
 
   vec3
-    h = vec3_add(o, vec3_scale(d, t)),
+    intersection = vec3_add(origin, vec3_scale(direction, t)),
 
-    l = vec3_normalize(
+    light = vec3_normalize(
       vec3_sub(
         vec3(
           9.0 + frand(),
           9.0 + frand(),
           16.0
         ),
-        h
+        intersection
       )
     ),
 
-    r = vec3_add(
-      d,
+    half_vector = vec3_add(
+      direction,
       vec3_scale(
-        n,
-        dot(n, d) * -2.0
+        normal,
+        dot(normal, direction) * -2.0
       )
     )
   ;
 
-  float32 b = dot(l, n);
-  if (b < 0 || trace(h, l, t, n)) {
-    b = 0;
+  // Calculate the lambertian illumuination factor
+  float32 lambertian = dot(light, normal);
+  if (lambertian < 0 || trace(intersection, light, t, normal)) {
+    lambertian = 0; // in shadow
   }
 
   // Hit the floor plane
   if (m & 1) {
-    h = vec3_scale(h, 0.2);
+    intersection = vec3_scale(intersection, 0.2);
     return vec3_scale(
       (
-        // Compute check colour
-        (int32) (ceil(h.x) + ceil(h.y)) & 1 ?
+        // Compute check colour based on the position
+        (int32) (ceil(intersection.x) + ceil(intersection.y)) & 1 ?
         vec3(3.0, 1.0, 1.0) : // red
         vec3(3.0, 3.0, 3.0)   // white
       ),
-      (b * 0.2 + 0.1)
+      (lambertian * 0.2 + 0.1)
     );
   }
 
-  float32 p = pow(dot(l, r) * (b > 0.0), 99.0);
+  // Compute the specular highlight power
+  float32 specular = pow(dot(light, half_vector) * (lambertian > 0.0), 99.0);
 
   // Hit a sphere
   return vec3_add(
-    vec3(p, p, p),
+    vec3(specular, specular, specular),
     vec3_scale(
-      sample(h, r),
+      sample(intersection, half_vector),
       0.5
     )
   );
@@ -219,71 +232,76 @@ vec3 sample(cvr3 o, cvr3 d) {
 
 // Main
 int32 main() {
-  int dim = 512;
-  printf("P6 %d %d 255 ", dim, dim);
-  // camera direction
+  int image_size = 512;
+  printf("P6 %d %d 255 ", image_size, image_size);
+
+  // camera direction vectors
   vec3
-    g = vec3_normalize(
+    camera_forward = vec3_normalize( // Unit forwards
       vec3(-6.0, -16.0, 0.0)
     ),
 
-    a = vec3_scale(
+    camera_up = vec3_scale( // Unit up - Z is up in this system
       vec3_normalize(
         vec3_cross(
           vec3(0.0, 0.0, 1.0),
-          g
+          camera_forward
         )
       ),
       0.002
     ),
 
-    b = vec3_scale(
+    camera_right = vec3_scale( // Unit right
       vec3_normalize(
-        vec3_cross(g, a)
+        vec3_cross(camera_forward, camera_up)
       ),
       0.002
     ),
 
-    c = vec3_add(
+    eye_offset = vec3_add( // Offset frm eye to coner of focal plane
       vec3_scale(
-        vec3_add(a, b),
-        -(dim >> 1)
+        vec3_add(camera_up, camera_right),
+        -(image_size >> 1)
       ),
-      g
+      camera_forward
     )
   ;
-  for (int32 y = dim; y--;) {
-    for (int32 x = dim; x--;) {
+  for (int32 y = image_size; y--;) {
+    for (int32 x = image_size; x--;) {
 
-      // Use a vector for the pixel
+      // Use a vector for the pixel. The values here are in the range 0.0 - 255.0 rather than the 0.0 - 1.0
       vec3 pixel(13.0, 13.0, 13.0);
 
-      // Cast 64 rays per pixel
-      for (int32 r = 64; r--;) {
-        vec3 t = vec3_add(
-          vec3_scale(a, (frand() - 0.5) * 99.0),
-          vec3_scale(b, (frand() - 0.5) * 99.0)
+      // Cast 64 rays per pixel for sampling
+      for (int32 ray_count = 64; ray_count--;) {
+
+        // Random delta to be added for depth of field effects
+        vec3 delta = vec3_add(
+          vec3_scale(camera_up, (frand() - 0.5) * 99.0),
+          vec3_scale(camera_right, (frand() - 0.5) * 99.0)
         );
+
+        // Accumulate the sample result into the current pixel
         pixel  = vec3_add(
           vec3_scale(
             sample(
               vec3_add(
-                vec3(17.0, 16.0, 8.0),
-                t
+                vec3(17.0, 16.0, 8.0), // Focal point
+                delta
               ),
               vec3_normalize(
                 vec3_sub(
                   vec3_scale(
                     vec3_add(
-                      vec3_scale(a, frand() + x),
+                      vec3_scale(camera_up, frand() + x),
                       vec3_add(
-                        vec3_scale(b, frand() + y),
-                        c
+                        vec3_scale(camera_right, frand() + y),
+                        eye_offset
                       )
                     ),
                     16.0
                   ),
-                  t
+                  delta
                 )
               )
             ),
@@ -292,6 +310,8 @@ int32 main() {
           pixel
         );
       }
+
+      // Convert to integers and push out to ppm outpu stream
       printf("%c%c%c", (int32)pixel.x, (int32)pixel.y, (int32)pixel.z);
     }
   }
