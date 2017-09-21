@@ -111,73 +111,79 @@ static inline float32 frand() {
 ///////////////////////////////////////////////////////////////////////////////
 
 // Trace
-int32 trace(cvr3 o, cvr3 d, float32& t, vec3& n) {
-  t         = 1e9;
+int32 trace(cvr3 origin, cvr3 direction, float32& distance, vec3& normal) {
+  distance         = 1e9;
 
   // Assume trace hits nothing
-  int32   m = 0;
-  float32 p = -o.z / d.z;
+  int32   material = 0;
+  float32 p = -origin.z / direction.z;
 
   // Check if trace maybe hits floor
   if (0.01 < p) {
-    t = p,
-    n = vec3(0.0, 0.0, 1.0),
-    m = 1;
+    distance = p,
+    normal   = vec3(0.0, 0.0, 1.0),
+    material = 1;
   }
 
   // Check if trace maybe hits a sphere
   for (int32 k = 19; k--;) {
     for (int32 j = 9; j--;) {
       if (data[j] & 1 << k) {
-        vec3 p = vec3_add(o, vec3(-k, 0.0, -j - 4.0));
+        vec3 p = vec3_sub(
+          origin,
+          vec3(k, 0.0, j + 4.0) // Sphere coordinate
+        );
+
         float32
-          b = dot(p, d),
+          b = dot(p, direction),
           eye_offset = dot(p, p) - 1.0,
           q = b * b - eye_offset
         ;
         if (q > 0) {
           float32 s = -b - sqrt(q);
-          if (s < t && s > 0.01) {
-            t = s,
-            n = vec3_normalize(
-              vec3_add(p, vec3_scale(d, t))
+          if (s < distance && s > 0.01) {
+            distance = s,
+            normal   = vec3_normalize(
+              vec3_add(p, vec3_scale(direction, distance))
             ),
-            m = 2;
+            material = 2;
+            //return material;
           }
         }
       }
     }
   }
-  return m;
+  return material;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
 // Sampling
 vec3 sample(cvr3 origin, cvr3 direction) {
-  float32 t;
+  float32 distance;
   vec3 normal;
 
   // Find where the ray intersects the world
-  int32 m = trace(origin, direction, t, normal);
+  int32 material = trace(origin, direction, distance, normal);
 
   // Hit nothing? Sky shade
-  if (!m) {
-    t = 1.0 - direction.z;
-    t *= t;
-    t *= t;
+  if (!material) {
+    float32 gradient = 1.0 - direction.z;
+    gradient *= gradient;
+    gradient *= gradient;
     return vec3_scale(
       vec3(0.7, 0.6, 1.0), // Blueish sky colour
-      t
+      gradient
     );
   }
 
   vec3
-    intersection = vec3_add(origin, vec3_scale(direction, t)),
+    intersection = vec3_add(origin, vec3_scale(direction, distance)),
 
+    // Calculate the lighting vector
     light = vec3_normalize(
       vec3_sub(
-        vec3(
+        vec3( // lighting direction, plus a bit of randomness to generate soft shadows.
           9.0 + frand(),
           9.0 + frand(),
           16.0
@@ -197,12 +203,12 @@ vec3 sample(cvr3 origin, cvr3 direction) {
 
   // Calculate the lambertian illumuination factor
   float32 lambertian = dot(light, normal);
-  if (lambertian < 0 || trace(intersection, light, t, normal)) {
+  if (lambertian < 0 || trace(intersection, light, distance, normal)) {
     lambertian = 0; // in shadow
   }
 
   // Hit the floor plane
-  if (m & 1) {
+  if (material & 1) {
     intersection = vec3_scale(intersection, 0.2);
     return vec3_scale(
       (
