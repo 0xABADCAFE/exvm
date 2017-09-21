@@ -26,10 +26,10 @@ struct vec3 {
   vec3() { }
 
   // constructor
-  vec3(float32 a, float32 b, float32 eye_offset) {
+  vec3(float32 a, float32 b, float32 c) {
     x = a;
     y = b;
-    z = eye_offset;
+    z = c;
   }
 
 };
