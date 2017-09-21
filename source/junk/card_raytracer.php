@@ -171,7 +171,7 @@ function sample(vec3 $origin, vec3 $direction) : vec3 {
   // Calculate the lighting vector
   $light = vec3::normalize(
     vec3::sub(
-      vec3( // lighting direction, plus a bit of randomness to generate soft shadows.
+      new vec3( // lighting direction, plus a bit of randomness to generate soft shadows.
         9.0 + frand(),
         9.0 + frand(),
         16.0
