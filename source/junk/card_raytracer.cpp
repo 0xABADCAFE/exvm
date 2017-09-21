@@ -1,4 +1,13 @@
 // De-golfed version of the Business Card Raytracer by Andrew Kensler
+//
+// Changes
+//   * Renaming of types, functions and variables
+//   * Replaced operator overloads with vanilla functions
+//   * Added functions for explicit vector subtract which was realised
+//     previously as v1 + (v2 * -1);
+//   * Optimised away a pow() call for the sky gradient
+//   * Moved the specular calculation to the point where the ray definitely
+//     intersects a sphere.
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -140,14 +149,13 @@ int32 trace(cvr3 origin, cvr3 direction, float32& distance, vec3& normal) {
           q = b * b - eye_offset
         ;
         if (q > 0) {
-          float32 s = -b - sqrt(q);
-          if (s < distance && s > 0.01) {
-            distance = s,
+          float32 sphere_distance = -b - sqrt(q);
+          if (sphere_distance < distance && sphere_distance > 0.01) {
+            distance = sphere_distance,
             normal   = vec3_normalize(
               vec3_add(p, vec3_scale(direction, distance))
             ),
-            material = 2;
-            //return material;
+            material = 2; // Returning here is fast, but we'd get z fighting
           }
         }
       }
