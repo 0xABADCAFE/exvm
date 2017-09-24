@@ -331,6 +331,8 @@ inline uint16 _float32LSW(float32 f) {
 #define _pop_16(m)            _MKOP(POP_16), (m),
 #define _pop_32(m)            _MKOP(POP_32), (m),
 #define _pop_64(m)            _MKOP(POP_64), (m),
+#define _salloc(n,d)          _MKOP(SALLOC) | (n), (s),
+#define _sfree(s)             _MKOP(SFREE)  | (s),
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
