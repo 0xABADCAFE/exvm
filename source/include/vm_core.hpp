@@ -140,6 +140,8 @@ namespace ExVM {
       static void doPOP_16(Interpreter* vm, uint16 op);
       static void doPOP_32(Interpreter* vm, uint16 op);
       static void doPOP_64(Interpreter* vm, uint16 op);
+      static void doSALLOC(Interpreter* vm, uint16 op);
+      static void doSFREE(Interpreter* vm, uint16 op);
       static void doVEC1(Interpreter* vm, uint16 op);
       static void doADV(Interpreter* vm, uint16 op);
   };

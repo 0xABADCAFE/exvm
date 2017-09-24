@@ -56,9 +56,7 @@ void ExVM::Interpreter::doSV(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
     debuglog(LOG_ERROR, "Register stack overflow");
     dumpstate(vm);
-
-    return;
-  }
+ }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,8 +80,6 @@ void ExVM::Interpreter::doRS(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
     debuglog(LOG_ERROR, "Register stack underflow");
     dumpstate(vm);
-
-    return;
   }
 
 }
@@ -108,8 +104,6 @@ void ExVM::Interpreter::doPUSH_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_8");
     dumpstate(vm);
-
-    return;
   }
 }
 
@@ -133,8 +127,6 @@ void ExVM::Interpreter::doPUSH_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_16");
     dumpstate(vm);
-
-    return;
   }
 }
 
@@ -158,8 +150,6 @@ void ExVM::Interpreter::doPUSH_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_32");
     dumpstate(vm);
-
-    return;
   }
 }
 
@@ -183,8 +173,6 @@ void ExVM::Interpreter::doPUSH_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_64");
     dumpstate(vm);
-
-    return;
   }
 }
 
@@ -208,8 +196,6 @@ void ExVM::Interpreter::doPOP_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
     debuglog(LOG_ERROR, "Data stack underflow in POP_8");
     dumpstate(vm);
-
-    return;
   }
 }
 
@@ -233,8 +219,6 @@ void ExVM::Interpreter::doPOP_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
     debuglog(LOG_ERROR, "Data stack underflow in POP_16");
     dumpstate(vm);
-
-    return;
   }
 }
 
@@ -258,8 +242,6 @@ void ExVM::Interpreter::doPOP_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
     debuglog(LOG_ERROR, "Data stack underflow in POP_32");
     dumpstate(vm);
-
-    return;
   }
 }
 
@@ -283,8 +265,17 @@ void ExVM::Interpreter::doPOP_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
     debuglog(LOG_ERROR, "Data stack underflow in POP_64");
     dumpstate(vm);
-
-    return;
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void ExVM::Interpreter::doSALLOC(ExVM::Interpreter* vm, uint16 op UNUSED) {
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void ExVM::Interpreter::doSFREE(ExVM::Interpreter* vm, uint16 op UNUSED) {
+
+}

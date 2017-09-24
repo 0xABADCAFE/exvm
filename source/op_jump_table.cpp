@@ -115,6 +115,8 @@ const Interpreter::Handler Interpreter::handlers[256] = {
   _REFER_OP(POP_16),
   _REFER_OP(POP_32),
   _REFER_OP(POP_64),
+  _REFER_OP(SALLOC),
+  _REFER_OP(SFREE),
 
   // jump group
   _REFER_OP(BCALL8),
