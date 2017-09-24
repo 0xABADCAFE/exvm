@@ -251,7 +251,7 @@ void ExVM::Interpreter::doSALLOC(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doSFREE(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::Interpreter::doSFREE(ExVM::Interpreter* vm, uint16 op) {
   uint8* last = vm->gpr[_RD(op)].pU8();
   if (last < vm->dataStackBase) {
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
