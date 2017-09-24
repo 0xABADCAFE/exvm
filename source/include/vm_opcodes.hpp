@@ -139,16 +139,33 @@ typedef enum {
 
   // push / pop group ///////////////////////////////////
 
-  // save multiple regs to register stack, save/restore rF, rL
-  // [opcode] [rF : rL]
+  // save multiple regs to register stack, save/restore
+
+  // sv/rs.x rA,rB,rC...
+  // [opcode] [0 : 0]
+  // [#register mask]
   _SV, _RS,
 
-  // [opcode] [rF : rL]
-  // push.x rF,rL
+  // Push values from register(s) to data stack
+  // push.x rA,rB,rC...
+  // [opcode] [0 : 0]
+  // [#register mask]
   _PUSH_8, _PUSH_16, _PUSH_32, _PUSH_64,
 
-  // pop.x rF,rL
+  // Pop values from stack to register(s)
+  // pop.x rA,rB,rC...
+  // [opcode] [0 : 0]
+  // [#register mask]
   _POP_8, _POP_16, _POP_32, _POP_64,
+
+  // Reserve space on the data stack
+  // [opcode] [0 : rX]
+  // [#size]
+  _SALLOC,
+
+  // Free stack reserved space
+  // [opcode] [0 : rX]
+  _SFREE,
 
   // jump/branch group //////////////////////////////////
 

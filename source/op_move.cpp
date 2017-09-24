@@ -37,9 +37,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doSV(ExVM::Interpreter* vm, uint16 op UNUSED) {
-  // TODO: Move to a function
-
-  // save r1,r2...
   uint16  mask  = _EX_U16;
   GPR*    r     = vm->gpr;
 
@@ -53,20 +50,14 @@ void ExVM::Interpreter::doSV(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (mask) {
     // not all the registers were saved, signifying an overflow
     vm->status = VMDefs::REG_STACK_OVERFLOW;
-
     debuglog(LOG_ERROR, "Register stack overflow");
     dumpstate(vm);
-
-    return;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doRS(ExVM::Interpreter* vm, uint16 op UNUSED) {
-  // TODO: Move to a function
-
-  // restore r1,r2...
   uint16  mask  = _EX_U16;
   GPR*    r     = vm->gpr + GPR_LAST;
   while (mask && (vm->regStack > vm->regStackBase)) {
@@ -79,20 +70,14 @@ void ExVM::Interpreter::doRS(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (mask) {
     // not all the registers were restored, signifying an underflow
     vm->status = VMDefs::REG_STACK_UNDERFLOW;
-
     debuglog(LOG_ERROR, "Register stack underflow");
     dumpstate(vm);
-
-    return;
   }
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doPUSH_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
-  // TODO: Move to a function
-
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -105,19 +90,14 @@ void ExVM::Interpreter::doPUSH_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (mask) {
     // not all the data were pushed, signifying an overflow
     vm->status = VMDefs::DATA_STACK_OVERFLOW;
-
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_8");
     dumpstate(vm);
-
-    return;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doPUSH_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
-  // TODO: Move to a function
-
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -130,19 +110,14 @@ void ExVM::Interpreter::doPUSH_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (mask) {
     // not all the data were pushed, signifying an overflow
     vm->status = VMDefs::DATA_STACK_OVERFLOW;
-
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_16");
     dumpstate(vm);
-
-    return;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doPUSH_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
-  // TODO: Move to a function
-
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -155,19 +130,14 @@ void ExVM::Interpreter::doPUSH_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (mask) {
     // not all the data were pushed, signifying an overflow
     vm->status = VMDefs::DATA_STACK_OVERFLOW;
-
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_32");
     dumpstate(vm);
-
-    return;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doPUSH_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
-  // TODO: Move to a function
-
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -180,19 +150,14 @@ void ExVM::Interpreter::doPUSH_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (mask) {
     // not all the data were pushed, signifying an overflow
     vm->status = VMDefs::DATA_STACK_OVERFLOW;
-
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_64");
     dumpstate(vm);
-
-    return;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doPOP_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
-  // TODO: Move to a function
-
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -205,19 +170,14 @@ void ExVM::Interpreter::doPOP_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (mask) {
     // not all the data were popped, signifying an underflow
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
-
     debuglog(LOG_ERROR, "Data stack underflow in POP_8");
     dumpstate(vm);
-
-    return;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doPOP_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
-  // TODO: Move to a function
-
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -230,19 +190,14 @@ void ExVM::Interpreter::doPOP_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (mask) {
     // not all the data were popped, signifying an underflow
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
-
     debuglog(LOG_ERROR, "Data stack underflow in POP_16");
     dumpstate(vm);
-
-    return;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doPOP_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
-  // TODO: Move to a function
-
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -255,19 +210,14 @@ void ExVM::Interpreter::doPOP_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (mask) {
     // not all the data were popped, signifying an underflow
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
-
     debuglog(LOG_ERROR, "Data stack underflow in POP_32");
     dumpstate(vm);
-
-    return;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doPOP_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
-  // TODO: Move to a function
-
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -280,11 +230,38 @@ void ExVM::Interpreter::doPOP_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
   if (mask) {
     // not all the data were popped, signifying an underflow
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
-
     debuglog(LOG_ERROR, "Data stack underflow in POP_64");
     dumpstate(vm);
-
-    return;
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void ExVM::Interpreter::doSALLOC(ExVM::Interpreter* vm, uint16 op) {
+  uint16 size =  _EX_U16;
+  if ((vm->dataStack.u8 + size) < vm->dataStackTop) {
+    vm->gpr[_RD(op)].pU8() = vm->dataStack.u8;
+    vm->dataStack.u8 += size;
+  } else {
+    vm->status = VMDefs::DATA_STACK_OVERFLOW;
+    debuglog(LOG_ERROR, "Data stack overflow in SALLOC");
+    dumpstate(vm);
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void ExVM::Interpreter::doSFREE(ExVM::Interpreter* vm, uint16 op) {
+  uint8* last = vm->gpr[_RD(op)].pU8();
+  if (last < vm->dataStackBase) {
+    vm->status = VMDefs::DATA_STACK_UNDERFLOW;
+    debuglog(LOG_ERROR, "Data stack underflow in SFREE");
+    dumpstate(vm);
+  } else if (last >= vm->dataStackTop) {
+    vm->status = VMDefs::DATA_STACK_OVERFLOW;
+    debuglog(LOG_ERROR, "Data stack overflow in SFREE");
+    dumpstate(vm);
+  } else {
+    vm->dataStack.u8 = last;
+  }
+}
