@@ -395,8 +395,14 @@ typedef enum {
   CONST_SQRT_2     = 5,
   CONST_INV_SQRT_2 = 6,
 
-  CONST_LN_2       = 7,
-  CONST_INV_LN_2   = 8,
+  // Theodorus' Constant
+  CONST_SQRT_3     = 7,
+
+  // Root of 5, used in several other definitions
+  CONST_SQRT_5     = 8,
+
+  CONST_LN_2       = 9,
+  CONST_INV_LN_2   = 10,
 
   MAX_CONST        = 16 // for now
 } AdvancedOpConstant;
