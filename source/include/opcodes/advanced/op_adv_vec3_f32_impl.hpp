@@ -54,6 +54,22 @@ _DEFINE_OP(DOTV3_F32) {
 }
 _END_OP
 
+_DEFINE_OP(SCLV3_F32) {
+  float32        fac = vm->gpr[(vArgs & 0x0F00) >> 8].f32();
+  const float32* src = vm->gpr[(vArgs & 0x00F0) >> 4].pF32();
+  float32*       dst = vm->gpr[(vArgs & 0x000F)].pF32();
+  dst[0] = src[0] * fac;
+  dst[1] = src[1] * fac;
+  dst[2] = src[2] * fac;
+}
+_END_OP
+
+_DEFINE_OP(MAGV3_F32) {
+  const float32* src  = vm->gpr[(vArgs & 0x00F0) >> 4].pF32();
+  vm->gpr[(vArgs & 0x000F)].f32()  = sqrt(src[0] * src[0] + src[1] * src[1] + src[2] * src[2]);
+}
+_END_OP
+
 _DEFINE_OP(NRMV3_F32) {
   const float32* src  = vm->gpr[(vArgs & 0x00F0) >> 4].pF32();
   float32*       dst  = vm->gpr[(vArgs & 0x000F)].pF32();

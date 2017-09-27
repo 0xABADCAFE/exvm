@@ -350,6 +350,8 @@ const Interpreter::Handler Interpreter::advancedHandlers[256] = {
   _REFER_OP(SUBV3_F32), // subtract
   _REFER_OP(CRSV3_F32), // cross product
   _REFER_OP(DOTV3_F32), // dot product
+  _REFER_OP(SCLV3_F32), // scale
+  _REFER_OP(MAGV3_F32), // magnitude
   _REFER_OP(NRMV3_F32), // normalise
 };
 

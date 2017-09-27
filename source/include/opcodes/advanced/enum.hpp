@@ -66,6 +66,8 @@ typedef enum {
   _SUBV3_F32, // subtract
   _CRSV3_F32, // cross product
   _DOTV3_F32, // dot product
+  _SCLV3_F32, // scale
+  _MAGV3_F32, // magnitude
   _NRMV3_F32, // normalise
 
   MAX_ADV
