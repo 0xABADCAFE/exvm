@@ -87,9 +87,12 @@ typedef enum {
   // Root of 5, used in several other definitions
   CONST_SQRT_5     = 8,
 
+  // Binary natural log
   CONST_LN_2       = 9,
   CONST_INV_LN_2   = 10,
 
+  // Misc - Universal Parabolic Constant
+  CONST_UNIPB      - 11,
   MAX_CONST        = 16 // for now
 } AdvancedOpConstant;
 
