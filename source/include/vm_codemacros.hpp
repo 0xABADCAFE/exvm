@@ -608,6 +608,11 @@ inline uint16 _float32LSW(float32 f) {
 #define _lerp_f32(x,y,l,d)    _MKAOP(LERP_F32),     (x) << 12 | (y) << 8 | (l) << 4 | (d),
 #define _lerp_f64(x,y,l,d)    _MKAOP(LERP_F64),     (x) << 12 | (y) << 8 | (l) << 4 | (d),
 
+#define _add_v3f32(x,y,d)     _MKAOP(ADDV3_F32),    (x) << 8 | (y) << 4 | (d)
+#define _sub_v3f32(x,y,d)     _MKAOP(ADDV3_F32),    (x) << 8 | (y) << 4 | (d)
+#define _cross_v3f32(x,y,d)   _MKAOP(CRSV3_F32),    (x) << 8 | (y) << 4 | (d)
+#define _dot_v3f32(x,y,d)     _MKAOP(DOTV3_F32),    (x) << 8 | (y) << 4 | (d)
+#define _norm_v3f32(s,d)      _MKAOP(NRMV3_F32),    (s) << 4 | (d)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
