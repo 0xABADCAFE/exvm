@@ -61,6 +61,13 @@ typedef enum {
   // Interpolaton
   _LERP_F32,   _LERP_F64,
 
+  // Fixed vectors of float32[3]
+  _ADDV3_F32, // add
+  _SUBV3_F32, // subtract
+  _CRSV3_F32, // cross product
+  _DOTV3_F32, // dot product
+  _NRMV3_F32, // normalise
+
   MAX_ADV
 } AdvancedOp;
 
@@ -92,7 +99,7 @@ typedef enum {
   CONST_INV_LN_2   = 10,
 
   // Misc - Universal Parabolic Constant
-  CONST_UNIPB      - 11,
+  CONST_UNIPB      = 11,
   MAX_CONST        = 16 // for now
 } AdvancedOpConstant;
 
