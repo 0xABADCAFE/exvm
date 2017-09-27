@@ -342,6 +342,14 @@ _DECLARE_OP(FLOOR_F64)
 _DECLARE_OP(LERP_F32)
 _DECLARE_OP(LERP_F64)
 
+_DECLARE_OP(ADDV3_F32) // add
+_DECLARE_OP(SUBV3_F32) // subtract
+_DECLARE_OP(CRSV3_F32) // cross product
+_DECLARE_OP(DOTV3_F32) // dot product
+_DECLARE_OP(SCLV3_F32) // scale
+_DECLARE_OP(MAGV3_F32) // magnitude
+_DECLARE_OP(NRMV3_F32) // normalise
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Vector instructions
