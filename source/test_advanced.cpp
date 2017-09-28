@@ -50,15 +50,18 @@ void printVec3f(Interpreter* vm) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 uint16 mockCodeSegment[] = {
-  _salloc(10*3*sizeof(float32), _r15) // 0
-  _move_64(_r15, _r0)                 // 2
-  _ld_32_f32(1.75, _r1)               // 3
-  _spl_v3f32(_r1, _r0)                // 6
-  _calln_unresolved(@printVec3f)      // 8
-  _norm_v3f32(_r0, _r0)               // 10
-  _calln_unresolved(@printVec3f)      // 12
-  _sfree(_r15)                        // 14
-  _ret                                // 15
+  _salloc(3*sizeof(float32), _r15)     // 0      Allocate space for a vec3f on the stack
+  _move_64(_r15, _r0)                  // 2      Copy the vec3f address to r0
+  _ld_32_f32(1.75, _r1)                // 3      Load a nice recognisable value into r1
+  _spl_v3f32(_r1, _r0)                 // 6      Splat fill vec3f with value in r1
+  _calln_unresolved(@printVec3f)       // 8      Print out the vec3f
+  _norm_v3f32(_r0, _r0)                // 10     Normalise the vec3f referenced in r0
+  _calln_unresolved(@printVec3f)       // 12     Print out the vec3f
+  _ld_const_f32(VMDefs::CONST_PI, _r2) // 14     Load 32-bit PI into r2
+  _scale_v3f32(_r2, _r0, _r0)          // 16     Scale the vec3f in r0 by r2
+  _calln_unresolved(@printVec3f)       // 18     Print out the vec3f
+  _sfree(_r15)                         // 20
+  _ret                                 // 21
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -114,10 +117,14 @@ RawSegmentData::SymbolRef mockImports[] = {
     // @printVec3f
     5 | RawSegmentData::TYPE_NATIVE,  // Offset of the symbol name "printVec3f" in the name segment OR'd with NATIVE
     9                                 // Offset into the code segment where the symbol ID will be injected
-  },  {
+  }, {
     // @printVec3f
     5 | RawSegmentData::TYPE_NATIVE,  // Offset of the symbol name "printVec3f" in the name segment OR'd with NATIVE
-    13                                 // Offset into the code segment where the symbol ID will be injected
+    13                                // Offset into the code segment where the symbol ID will be injected
+  }, {
+    // @printVec3f
+    5 | RawSegmentData::TYPE_NATIVE,  // Offset of the symbol name "printVec3f" in the name segment OR'd with NATIVE
+    19                                // Offset into the code segment where the symbol ID will be injected
   },
 
 

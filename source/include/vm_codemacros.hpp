@@ -614,6 +614,8 @@ inline uint16 _float32LSW(float32 f) {
 #define _sub_v3f32(x,y,d)     _MKAOP(SUVV3_F32),    (x) << 8 | (y) << 4 | (d),
 #define _cross_v3f32(x,y,d)   _MKAOP(CRSV3_F32),    (x) << 8 | (y) << 4 | (d),
 #define _dot_v3f32(x,y,d)     _MKAOP(DOTV3_F32),    (x) << 8 | (y) << 4 | (d),
+#define _scale_v3f32(f,s,d)   _MKAOP(SCLV3_F32),    (f) << 8 | (s) << 4 | (d),
+#define _mag_v3f32(s,d)       _MKAOP(MAGV3_F32),    (s) << 4 | (d),
 #define _norm_v3f32(s,d)      _MKAOP(NRMV3_F32),    (s) << 4 | (d),
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
