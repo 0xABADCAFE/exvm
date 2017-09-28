@@ -62,6 +62,8 @@ typedef enum {
   _LERP_F32,   _LERP_F64,
 
   // Fixed vectors of float32[3]
+  _SPLV3_F32, // splat fill, all elements set to the same value
+  _MOVV3_F32, // copy
   _ADDV3_F32, // add
   _SUBV3_F32, // subtract
   _CRSV3_F32, // cross product

@@ -346,6 +346,8 @@ const Interpreter::Handler Interpreter::advancedHandlers[256] = {
   _REFER_OP(LERP_F32),
   _REFER_OP(LERP_F64),
 
+  _REFER_OP(SPLV3_F32), // splat fill
+  _REFER_OP(MOVV3_F32), // move
   _REFER_OP(ADDV3_F32), // add
   _REFER_OP(SUBV3_F32), // subtract
   _REFER_OP(CRSV3_F32), // cross product
