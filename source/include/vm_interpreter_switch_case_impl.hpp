@@ -28,6 +28,14 @@ forever:
     #include "opcodes/scalar/op_arithmetic_impl.hpp"
     #include "opcodes/scalar/op_logic_impl.hpp"
 
+    _DEFINE_OP(ADV) {
+      doADV(vm, op);
+      if (vm->status != VMDefs::RUNNING) {
+        _HALT
+      }
+    }
+    _END_OP
+
     _DEFINE_OP(VEC1) {
       doVEC1(vm, op);
       if (vm->status != VMDefs::RUNNING) {

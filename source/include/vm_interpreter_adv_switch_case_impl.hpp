@@ -23,9 +23,10 @@
     #include "opcodes/advanced/op_adv_logs_impl.hpp"
     #include "opcodes/advanced/op_adv_trunc_impl.hpp"
     #include "opcodes/advanced/op_adv_lerp_impl.hpp"
+    #include "opcodes/advanced/op_adv_vec3_f32_impl.hpp"
 
     default:
-      debuglog(LOG_ERROR, "No handler yet defined for opcode 0x%04X\n", (unsigned)op);
+      debuglog(LOG_ERROR, "No handler yet defined for advanced opcode 0x%04X\n", (unsigned)op);
       vm->status = VMDefs::BREAKPOINT;
       return;
   }

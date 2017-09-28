@@ -33,7 +33,7 @@ const float64 predefinedConstants[ExVM::VMDefs::MAX_CONST] = {
   2.236067977499790, //..89 696409173668731276235440618359611525724270 // CONST_SQRT_5
   0.693147180559945, //..5 309417232121458176568075500134360255254120  // CONST_LN_2
   1.442695040888963, //..3 407359924681001892137426645954152985934135  // CONST_INV_LN_2
-
+  2.295587149392638, //..3 074034298049189490387597832203638583483929  // CONST_UNIPB
 };
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
@@ -94,5 +94,5 @@ void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
   #include "include/opcodes/advanced/op_adv_logs_impl.hpp"
   #include "include/opcodes/advanced/op_adv_trunc_impl.hpp"
   #include "include/opcodes/advanced/op_adv_lerp_impl.hpp"
-
+  #include "include/opcodes/advanced/op_adv_vec3_f32_impl.hpp"
 #endif

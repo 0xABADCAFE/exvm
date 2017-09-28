@@ -345,6 +345,16 @@ const Interpreter::Handler Interpreter::advancedHandlers[256] = {
   _REFER_OP(FLOOR_F64),
   _REFER_OP(LERP_F32),
   _REFER_OP(LERP_F64),
+
+  _REFER_OP(SPLV3_F32), // splat fill
+  _REFER_OP(MOVV3_F32), // move
+  _REFER_OP(ADDV3_F32), // add
+  _REFER_OP(SUBV3_F32), // subtract
+  _REFER_OP(CRSV3_F32), // cross product
+  _REFER_OP(DOTV3_F32), // dot product
+  _REFER_OP(SCLV3_F32), // scale
+  _REFER_OP(MAGV3_F32), // magnitude
+  _REFER_OP(NRMV3_F32), // normalise
 };
 
 const Interpreter::Handler Interpreter::vectorHandlers[256] = {
