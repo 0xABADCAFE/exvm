@@ -252,8 +252,6 @@ _DECLARE_OP(MAX_S32)
 _DECLARE_OP(MAX_S64)
 _DECLARE_OP(MAX_F32)
 _DECLARE_OP(MAX_F64)
-_DECLARE_OP(MUL_ADD_F32)
-_DECLARE_OP(MUL_ADD_F64)
 
 // logic group
 _DECLARE_OP(AND_8)
@@ -297,6 +295,8 @@ _DECLARE_OP(ILLEGAL);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Advanced opcodes
+_DECLARE_OP(MADD_F32)
+_DECLARE_OP(MADD_F64)
 _DECLARE_OP(LD_CONST_F32)
 _DECLARE_OP(LD_CONST_F64)
 _DECLARE_OP(SQRT_F32)

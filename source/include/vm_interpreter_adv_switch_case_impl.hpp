@@ -16,6 +16,7 @@
 
   switch (op & 0xFF) {
     // Includes added in strict order of the opcode enumerations
+    #include "opcodes/advanced/op_adv_madd_impl.hpp"
     #include "opcodes/advanced/op_adv_const_impl.hpp"
     #include "opcodes/advanced/op_adv_roots_impl.hpp"
     #include "opcodes/advanced/op_adv_trig_impl.hpp"

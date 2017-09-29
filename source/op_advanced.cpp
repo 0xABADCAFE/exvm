@@ -86,7 +86,7 @@ void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
 
   #undef _DEFINE_OP
   #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm UNUSED, uint16 vArgs UNUSED)
-
+  #include "include/opcodes/advanced/op_adv_madd_impl.hpp"
   #include "include/opcodes/advanced/op_adv_const_impl.hpp"
   #include "include/opcodes/advanced/op_adv_roots_impl.hpp"
   #include "include/opcodes/advanced/op_adv_trig_impl.hpp"

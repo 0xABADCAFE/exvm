@@ -285,12 +285,6 @@ typedef enum {
   _MAX_S8,  _MAX_S16, _MAX_S32, _MAX_S64,
   _MAX_F32, _MAX_F64,
 
-  // madd.f32|f64 rS,rD,rM,rA
-  // rD = rS*rM + rA
-  // [ opcode ][rS : rD]
-  // [ 0 : rM ][ 0 : rA]
-  _MUL_ADD_F32, _MUL_ADD_F64,
-
   // Logic commands, data treat as unsigned binary
 
   // and.x rS,RD (rD &= rS)
