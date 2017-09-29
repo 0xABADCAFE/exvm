@@ -19,6 +19,9 @@
 // functions that otherwise would require the use of native function calls to expose.
 
 typedef enum {
+  // Multiply Add
+  _MADD_F32,   _MADD_F64,
+
   // Load constants
   _LD_CONST_F32, _LD_CONST_F64,
 

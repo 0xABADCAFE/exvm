@@ -78,7 +78,7 @@ Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize
   dataSymbolCount       = 0;
 
   debuglog(LOG_INFO, "VM compiled %d-bit native", X_PTRSIZE);
-  debuglog(LOG_INFO, "There are presently %d scalar and %d vector instructions defined", VMDefs::MAX_OP, VMDefs::MAX_VEC);
+  debuglog(LOG_INFO, "There are presently %d scalar, %d advanced and %d stream instructions defined", VMDefs::MAX_OP, VMDefs::MAX_ADV, VMDefs::MAX_VEC);
 
 }
 

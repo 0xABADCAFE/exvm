@@ -257,8 +257,7 @@ const Interpreter::Handler Interpreter::handlers[256] = {
   _REFER_OP(MAX_S64),
   _REFER_OP(MAX_F32),
   _REFER_OP(MAX_F64),
-  _REFER_OP(MUL_ADD_F32),
-  _REFER_OP(MUL_ADD_F64),
+
   // logic group
   _REFER_OP(AND_8),
   _REFER_OP(AND_16),
@@ -301,6 +300,8 @@ const Interpreter::Handler Interpreter::handlers[256] = {
 };
 
 const Interpreter::Handler Interpreter::advancedHandlers[256] = {
+  _REFER_OP(MADD_F32),
+  _REFER_OP(MADD_F64),
   _REFER_OP(LD_CONST_F32),
   _REFER_OP(LD_CONST_F64),
   _REFER_OP(SQRT_F32),
