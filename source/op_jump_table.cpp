@@ -1,6 +1,6 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         op_normal_table.cpp                                      **//
+//** File:         op_jump_table.cpp                                        **//
 //** Description:  Function Table build model                               **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
