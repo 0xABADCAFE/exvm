@@ -62,10 +62,7 @@
 #define _ld_rid_16(s,o,d)     _MKOP(LD_RID_16)  | (s) << 4 | (d), (uint16)(o),
 #define _ld_rid_32(s,o,d)     _MKOP(LD_RID_32)  | (s) << 4 | (d), (uint16)(o),
 #define _ld_rid_64(s,o,d)     _MKOP(LD_RID_64)  | (s) << 4 | (d), (uint16)(o),
-#define _ld_rii_8(s,i,f,d)    _MKOP(LD_RII_8)   | (s) << 4 | (d), ((f) << 8) | ((i)&0xF),
-#define _ld_rii_16(s,i,f,d)   _MKOP(LD_RII_16)  | (s) << 4 | (d), ((f) << 8) | ((i)&0xF),
-#define _ld_rii_32(s,i,f,d)   _MKOP(LD_RII_32)  | (s) << 4 | (d), ((f) << 8) | ((i)&0xF),
-#define _ld_rii_64(s,i,f,d)   _MKOP(LD_RII_64)  | (s) << 4 | (d), ((f) << 8) | ((i)&0xF),
+
 
 // Ignores the actual symbol indicator and inserts an unresolved symbol ID
 #define _ld_8_unresolved(x,d)            _MKOP(LD_8)    | 0xF0 | (d), 0xFFFF,
@@ -108,10 +105,6 @@
 #define _st_rid_16(s,d,o)     _MKOP(ST_RID_16)  | (s) << 4 | (d), (uint16)(o),
 #define _st_rid_32(s,d,o)     _MKOP(ST_RID_32)  | (s) << 4 | (d), (uint16)(o),
 #define _st_rid_64(s,d,o)     _MKOP(ST_RID_64)  | (s) << 4 | (d), (uint16)(o),
-#define _st_rii_8(s,d,i,f)    _MKOP(ST_RII_8)   | (s) << 4 | (d), ((f) << 8) | ((i)&0xF),
-#define _st_rii_16(s,d,i,f)   _MKOP(ST_RII_16)  | (s) << 4 | (d), ((f) << 8) | ((i)&0xF),
-#define _st_rii_32(s,d,i,f)   _MKOP(ST_RII_32)  | (s) << 4 | (d), ((f) << 8) | ((i)&0xF),
-#define _st_rii_64(s,d,i,f)   _MKOP(ST_RII_64)  | (s) << 4 | (d), ((f) << 8) | ((i)&0xF),
 
 // Ignores the actual symbol indicator and inserts an unresolved symbol ID
 #define _st_8_unresolved(s,x)            _MKOP(ST_8)  | 0xF0 | (s), 0xFFFF,

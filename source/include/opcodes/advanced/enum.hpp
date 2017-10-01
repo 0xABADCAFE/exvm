@@ -25,6 +25,14 @@ typedef enum {
   // Load constants
   _LD_CONST_F32, _LD_CONST_F64,
 
+  // register indirect, scale indexed
+  // ld.x (rS,rI,#s), rD
+  _LD_RII_8, _LD_RII_16, _LD_RII_32, _LD_RII_64,
+
+  // register indirect, scale indexed
+  // st.x rS, (rD,rI,#d)
+  _ST_RII_8, _ST_RII_16, _ST_RII_32, _ST_RII_64,
+
   // Roots
   _SQRT_F32,   _SQRT_F64,
   _ISQRT_F32,  _ISQRT_F64,
