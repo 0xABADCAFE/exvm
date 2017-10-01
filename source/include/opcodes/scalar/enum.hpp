@@ -68,12 +68,6 @@ typedef enum {
   // [ displacement16 ]
   _LD_RID_8,  _LD_RID_16, _LD_RID_32, _LD_RID_64,
 
-  // register indirect, scale indexed
-  // ld.x (rS,rI,#s), rD
-  // [opcode] [rS : rD]
-  // [#scale] [ 0 : rI]
-  _LD_RII_8, _LD_RII_16, _LD_RII_32, _LD_RII_64,
-
   // load global reference
   // ld.x label,rX
   // [opcode] [ Data Symbol ID {16:19} : rX ]
@@ -110,12 +104,6 @@ typedef enum {
   // [opcode] [rS : rD]
   // [ displacement16 ]
   _ST_RID_8, _ST_RID_16, _ST_RID_32, _ST_RID_64,
-
-  // register indirect, scale indexed
-  // st.x rS, (rD,rI,#d)
-  // [opcode] [rS : rD]
-  // [#scale] [ 0 : rI]
-  _ST_RII_8, _ST_RII_16, _ST_RII_32, _ST_RII_64,
 
   // store global reference
   // st.x rX,label

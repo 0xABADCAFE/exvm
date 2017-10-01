@@ -18,6 +18,10 @@
     // Includes added in strict order of the opcode enumerations
     #include "opcodes/advanced/op_adv_madd_impl.hpp"
     #include "opcodes/advanced/op_adv_const_impl.hpp"
+
+    #include "opcodes/advanced/op_adv_load_impl.hpp"
+    #include "opcodes/advanced/op_adv_store_impl.hpp"
+
     #include "opcodes/advanced/op_adv_roots_impl.hpp"
     #include "opcodes/advanced/op_adv_trig_impl.hpp"
     #include "opcodes/advanced/op_adv_powers_impl.hpp"
