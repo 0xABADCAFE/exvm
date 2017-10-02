@@ -96,8 +96,8 @@ uint16 mockCodeSegment[] = {
   // r9 = iStep (1)
 
   _save       (_mr0|_mr2)                // 2 : save pixel base address
-  _ld_32_f32  (4.0f, _r4)                // 3 : bailout = 4.0
-  _ld_16_i32  (255,  _r9)                // 2 : max iters
+  _ld_32_f32  (16.0f, _r4)                // 3 : bailout = 4.0
+  _ld_16_i32  (512,  _r9)                // 2 : max iters
 
   // y loop
   _ldq        (0,    _r8)                // 1 : x = 0
@@ -166,8 +166,8 @@ uint16 mockCodeSegment[] = {
   _ret,
 
   // Offset 62 : @main
-  _ld_16_i16         (512, _r1)      // 62
-  _ld_16_i16         (512, _r2)      // 64
+  _ld_16_i16         (1024, _r1)      // 62
+  _ld_16_i16         (1024, _r2)      // 64
   _calln_unresolved  (@allocBuff)    // 66 : insert @allocBuff -> 67
   _ld_32_f32         (-1.25f, _r3)   // 68
   _ld_32_f32         (1.25f, _r4)    // 71
