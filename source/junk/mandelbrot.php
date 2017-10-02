@@ -1,8 +1,8 @@
 <?php
 
-$iSize     = 512;
-$iMaxIters = 256;
-$fBailout  = 4.0;
+$iSize     = 1024;
+$iMaxIters = 512;
+$fBailout  = 16.0;
 
 $fYMin = -1.25;
 $fYMax = 1.25;
@@ -35,7 +35,7 @@ for ($y = 0; $y<$iSize; $y++, $fCY -= $fStep) {
   }
 }
 
-$f = fopen('out.ppm', 'wb');
+$f = fopen("php_out.ppm", "wb");
 fprintf($f, "P5\n%d\n%d\n255\n", $iSize,$iSize);
 $sBuff = '';
 foreach ($aPixels as $iPix) {

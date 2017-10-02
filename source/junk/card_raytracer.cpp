@@ -34,6 +34,29 @@ struct vec3 {
 
 };
 
+const vec3 camera_dir(
+  -6.0, -16.0, 0.0
+);
+
+const vec3 focal_point(
+  17.0, 16.0, 8.0
+);
+
+const vec3 normal_up(
+  0.0, 0.0, 1.0
+);
+
+const vec3 sky_rgb(
+  0.7, 0.6, 1.0
+);
+
+const vec3 floor_red_rgb(
+  3.0, 1.0, 1.0
+);
+
+const vec3 floor_white_rgb(
+  3.0, 1.0, 1.0
+);
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifdef NO_PASS_BY_REF
@@ -130,7 +153,7 @@ int32 trace(cvr3 origin, cvr3 direction, float32& distance, vec3& normal) {
   // Check if trace maybe hits floor
   if (0.01 < p) {
     distance = p,
-    normal   = vec3(0.0, 0.0, 1.0),
+    normal   = normal_up,
     material = 1;
   }
 
@@ -161,6 +184,7 @@ int32 trace(cvr3 origin, cvr3 direction, float32& distance, vec3& normal) {
       }
     }
   }
+
   return material;
 }
 
@@ -180,7 +204,7 @@ vec3 sample(cvr3 origin, cvr3 direction) {
     gradient *= gradient;
     gradient *= gradient;
     return vec3_scale(
-      vec3(0.7, 0.6, 1.0), // Blueish sky colour
+      sky_rgb, // Blueish sky colour
       gradient
     );
   }
@@ -222,8 +246,8 @@ vec3 sample(cvr3 origin, cvr3 direction) {
       (
         // Compute check colour based on the position
         (int32) (ceil(intersection.x) + ceil(intersection.y)) & 1 ?
-        vec3(3.0, 1.0, 1.0) : // red
-        vec3(3.0, 3.0, 3.0)   // white
+        floor_red_rgb : // red
+        floor_white_rgb   // white
       ),
       (lambertian * 0.2 + 0.1)
     );
@@ -252,13 +276,13 @@ int32 main() {
   // camera direction vectors
   vec3
     camera_forward = vec3_normalize( // Unit forwards
-      vec3(-6.0, -16.0, 0.0)
+      camera_dir
     ),
 
     camera_up = vec3_scale( // Unit up - Z is up in this system
       vec3_normalize(
         vec3_cross(
-          vec3(0.0, 0.0, 1.0),
+          normal_up,
           camera_forward
         )
       ),
@@ -291,7 +315,7 @@ int32 main() {
 
         // Random delta to be added for depth of field effects
         vec3 delta = vec3_add(
-          vec3_scale(camera_up, (frand() - 0.5) * 99.0),
+          vec3_scale(camera_up,    (frand() - 0.5) * 99.0),
           vec3_scale(camera_right, (frand() - 0.5) * 99.0)
         );
 
@@ -300,7 +324,7 @@ int32 main() {
           vec3_scale(
             sample(
               vec3_add(
-                vec3(17.0, 16.0, 8.0), // Focal point
+                focal_point,
                 delta
               ),
               vec3_normalize(

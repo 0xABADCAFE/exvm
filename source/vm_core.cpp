@@ -148,10 +148,10 @@ void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
 
 void Interpreter::execute() {
   MilliClock total;
-  int numStatements = 0;
-  totalTime         = 0;
-  nativeTime        = 0;
-  status            = VMDefs::RUNNING;
+  uint64 numStatements = 0;
+  totalTime            = 0;
+  nativeTime           = 0;
+  status               = VMDefs::RUNNING;
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
   #include "include/vm_interpreter_func_table_impl.hpp"
@@ -162,7 +162,7 @@ void Interpreter::execute() {
 #endif
 
   totalTime = total.elapsedFrac();
-  debuglog(LOG_INFO, "Executed %d statements\n", numStatements);
+  debuglog(LOG_INFO, "Executed %" FU64 " statements\n", numStatements);
   float64 virtualTime = totalTime - nativeTime;
   float64 mips        = (0.001*numStatements)/virtualTime;
   debuglog(
