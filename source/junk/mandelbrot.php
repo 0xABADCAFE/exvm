@@ -1,7 +1,7 @@
 <?php
 
 $iSize     = 1024;
-$iMaxIters = 512;
+$iMaxIters = 256;
 $fBailout  = 16.0;
 
 $fYMin = -1.25;
@@ -18,7 +18,6 @@ $fCY   = $fYMax;
 for ($y = 0; $y<$iSize; $y++, $fCY -= $fStep) {
   $fCX = $fXMin;
   for ($x = 0; $x<$iSize; $x++, $fCX += $fStep) {
-    $i   = $iMaxIters;
     $fZX = $fCX;
     $fZY = $fCY;
     $i   = $iMaxIters;

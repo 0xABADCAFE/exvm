@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int iSize       = 1024;
-int iMaxIters   = 512;
+int iMaxIters   = 256;
 float fBailout  = 16.0;
 float fYMin     = -1.25;
 float fYMax     = 1.25;
