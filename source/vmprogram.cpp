@@ -88,7 +88,7 @@ uint16 mockCodeSegment[] = {
   // r1 = width in pixels
   // r2 = height in pixels
   // r3 = cY (float pos, starting at yMin)
-  // r4 = 4.0 (bailout)
+  // r4 = 16.0 (bailout)
   // r5 = xMin (float)
   // r6 = cX (float pos, starting at xMin)
   // r7 = fStep
@@ -96,7 +96,7 @@ uint16 mockCodeSegment[] = {
   // r9 = iStep (1)
 
   _save       (_mr0|_mr2)                // 2 : save pixel base address
-  _ld_32_f32  (16.0f, _r4)                // 3 : bailout = 4.0
+  _ld_32_f32  (16.0f, _r4)               // 3 : bailout = 16.0
   _ld_16_i32  (256,  _r9)                // 2 : max iters
 
   // y loop
