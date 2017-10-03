@@ -97,7 +97,7 @@ uint16 mockCodeSegment[] = {
 
   _save       (_mr0|_mr2)                // 2 : save pixel base address
   _ld_32_f32  (16.0f, _r4)                // 3 : bailout = 4.0
-  _ld_16_i32  (512,  _r9)                // 2 : max iters
+  _ld_16_i32  (256,  _r9)                // 2 : max iters
 
   // y loop
   _ldq        (0,    _r8)                // 1 : x = 0

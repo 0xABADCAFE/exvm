@@ -148,7 +148,13 @@ void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
 
 void Interpreter::execute() {
   MilliClock total;
+#if X_PTRSIZE == XA_PTRSIZE64
   uint64 numStatements = 0;
+  #define FCNT FU64
+#else
+  uint32 numStatements = 0;
+  #define FCNT FU32
+#endif
   totalTime            = 0;
   nativeTime           = 0;
   status               = VMDefs::RUNNING;
@@ -162,7 +168,7 @@ void Interpreter::execute() {
 #endif
 
   totalTime = total.elapsedFrac();
-  debuglog(LOG_INFO, "Executed %" FU64 " statements\n", numStatements);
+  debuglog(LOG_INFO, "Executed %" FCNT " statements\n", numStatements);
   float64 virtualTime = totalTime - nativeTime;
   float64 mips        = (0.001*numStatements)/virtualTime;
   debuglog(
