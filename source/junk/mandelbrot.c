@@ -21,7 +21,7 @@ int main() {
     for (int y = 0; y<iSize; y++, fCY -= fStep) {
       float fCX = fXMin;
       for (int x = 0; x<iSize; x++, fCX += fStep) {
-        int i   = iMaxIters;
+        int i   = 0;
         float fZX = fCX;
         float fZY = fCY;
         float fTest, fZX2, fZY2, fNewZX, fNewZY;
@@ -31,9 +31,13 @@ int main() {
           fTest  = fZX2 + fZY2;
           fNewZX = fZX2 - fZY2 + fCX;
           fNewZY = 2.0 * fZX * fZY + fCY;
+//           if (fNewZX == fZX && fNewZY == fZY) {
+//             i = iMaxIters;
+//             break;
+//           }
           fZY    = fNewZY;
           fZX    = fNewZX;
-        } while (--i && fTest < fBailout);
+        } while (i++ < iMaxIters && fTest < fBailout);
         aPixels[iPix++] = (i * i) & 0xFF;
       }
     }

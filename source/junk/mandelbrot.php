@@ -20,16 +20,16 @@ for ($y = 0; $y<$iSize; $y++, $fCY -= $fStep) {
   for ($x = 0; $x<$iSize; $x++, $fCX += $fStep) {
     $fZX = $fCX;
     $fZY = $fCY;
-    $i   = $iMaxIters;
+    $i   = 0;
     do {
       $fZX2   = $fZX * $fZX;
       $fZY2   = $fZY * $fZY;
       $fTest  = $fZX2 + $fZY2;
       $fNewZX = $fZX2 - $fZY2 + $fCX;
-      $fNewZY = 2 * $fZX * $fZY + $fCY;
+      $fNewZY = 2.0 * $fZX * $fZY + $fCY;
       $fZY    = $fNewZY;
       $fZX    = $fNewZX;
-    } while (--$i && $fTest < $fBailout);
+    } while ($i++ < $iMaxIters && $fTest < $fBailout);
     $aPixels[$iPix++] = ($i*$i)&0xFF;
   }
 }
