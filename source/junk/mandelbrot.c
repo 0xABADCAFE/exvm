@@ -31,10 +31,6 @@ int main() {
           fTest  = fZX2 + fZY2;
           fNewZX = fZX2 - fZY2 + fCX;
           fNewZY = 2.0 * fZX * fZY + fCY;
-//           if (fNewZX == fZX && fNewZY == fZY) {
-//             i = iMaxIters;
-//             break;
-//           }
           fZY    = fNewZY;
           fZX    = fNewZX;
         } while (i++ < iMaxIters && fTest < fBailout);
