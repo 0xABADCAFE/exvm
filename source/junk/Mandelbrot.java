@@ -37,17 +37,15 @@ public class Mandelbrot {
         } while (i++ < iMaxIters && fTest < fBailout);
         aPixels[iPix++] = (byte)((i * i) & 0xFF);
       }
-
-      try {
-        FileOutputStream f = new FileOutputStream("java_out.ppm");
-        String header = "P5\n" + iSize + "\n" + iSize + "\n255\n";
-        f.write(header.getBytes());
-        f.write(aPixels);
-        f.close();
-      } catch (Exception e) {
-        System.out.println("Error writing file");
-      }
-
+    }
+    try {
+      FileOutputStream f = new FileOutputStream("java_out.ppm");
+      String header = "P5\n" + iSize + "\n" + iSize + "\n255\n";
+      f.write(header.getBytes());
+      f.write(aPixels);
+      f.close();
+    } catch (Exception e) {
+      System.out.println("Error writing file");
     }
   }
 }
