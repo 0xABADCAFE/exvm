@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int iSize       = 1024;
-int iMaxIters   = 256;
-float fBailout  = 16.0;
-float fYMin     = -1.25;
-float fYMax     = 1.25;
-float fXMax     = 0.75;
-
 int main() {
+  int iSize       = 1024;
+  int iMaxIters   = 256;
+  float fBailout  = 16.0;
+  float fYMin     = -1.25;
+  float fYMax     = 1.25;
+  float fXMax     = 0.75;
   float fYTot = fYMax - fYMin;
   float fXMin = fXMax - fYTot;
   float fStep = fYTot / iSize;
