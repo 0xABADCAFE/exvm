@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int iSize       = 1024;
-int iMaxIters   = 256;
-float fBailout  = 16.0;
-float fYMin     = -1.25;
-float fYMax     = 1.25;
-float fXMax     = 0.75;
-
 int main() {
+  int iSize       = 1024;
+  int iMaxIters   = 256;
+  float fBailout  = 16.0;
+  float fYMin     = -1.25;
+  float fYMax     = 1.25;
+  float fXMax     = 0.75;
   float fYTot = fYMax - fYMin;
   float fXMin = fXMax - fYTot;
   float fStep = fYTot / iSize;
@@ -21,7 +20,7 @@ int main() {
     for (int y = 0; y<iSize; y++, fCY -= fStep) {
       float fCX = fXMin;
       for (int x = 0; x<iSize; x++, fCX += fStep) {
-        int i   = iMaxIters;
+        int i   = 0;
         float fZX = fCX;
         float fZY = fCY;
         float fTest, fZX2, fZY2, fNewZX, fNewZY;
@@ -33,7 +32,7 @@ int main() {
           fNewZY = 2.0 * fZX * fZY + fCY;
           fZY    = fNewZY;
           fZX    = fNewZX;
-        } while (--i && fTest < fBailout);
+        } while (i++ < iMaxIters && fTest < fBailout);
         aPixels[iPix++] = (i * i) & 0xFF;
       }
     }

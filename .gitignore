@@ -4,10 +4,6 @@ source/junk/*.pnm
 source/junk/*.ppm
 source/junk/*.pgm
 source/junk/*.s
-source/junk/card_original
-source/junk/card_raytracer
-source/junk/card_raytracer_noref
-source/junk/card_raytracer_vec
-source/junk/mandelbrot
+source/junk/bin/*
 source/junk/xhprof
 source/junk/profiling.php
