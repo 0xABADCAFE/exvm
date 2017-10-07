@@ -176,8 +176,8 @@ void runTestExample() {
   );
 
   std::puts("Code Segment before linking...");
-  for (int i = 0; i<sizeof(mockCodeSegment)/sizeof(uint16); i++) {
-    printf("%3d  0x%04X\n", i, mockCodeSegment[i]);
+  for (uint32 i = 0; i<sizeof(mockCodeSegment)/sizeof(uint16); i++) {
+    printf("%3" FU32 "  0x%04X\n", i, mockCodeSegment[i]);
   }
 
   std::puts(
@@ -203,8 +203,8 @@ void runTestExample() {
 
 
   std::puts("Code Segment after linking...");
-  for (int i = 0; i<sizeof(mockCodeSegment)/sizeof(uint16); i++) {
-    printf("%3d  0x%04X\n", i, mockCodeSegment[i]);
+  for (uint32 i = 0; i<sizeof(mockCodeSegment)/sizeof(uint16); i++) {
+    printf("%3" FU32 "  0x%04X\n", i, mockCodeSegment[i]);
   }
 
   // Grab the executable layout
