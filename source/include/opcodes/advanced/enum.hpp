@@ -73,15 +73,16 @@ typedef enum {
   _LERP_F32,   _LERP_F64,
 
   // Fixed vectors of float32[3]
-  _SPLV3_F32, // splat fill, all elements set to the same value
-  _MOVV3_F32, // copy
-  _ADDV3_F32, // add
-  _SUBV3_F32, // subtract
-  _CRSV3_F32, // cross product
-  _DOTV3_F32, // dot product
-  _SCLV3_F32, // scale
-  _MAGV3_F32, // magnitude
-  _NRMV3_F32, // normalise
+  _SPLAT_V3F32, // splat fill, all elements set to the same value
+  _COPY_V3F32,  // copy
+  _ADD_V3F32,   // add
+  _SUB_V3F32,   // subtract
+  _CROSS_V3F32, // cross product
+  _DOT_V3F32,   // dot product
+  _SCALE_V3F32, // scale
+  _MAGN_V3F32,  // magnitude
+  _NORM_V3F32,  // normalise
+  _LERP_V3F32,  // interpolate
 
   MAX_ADV
 } AdvancedOp;
