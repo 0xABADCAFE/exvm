@@ -343,15 +343,16 @@ _DECLARE_OP(FLOOR_F64)
 _DECLARE_OP(LERP_F32)
 _DECLARE_OP(LERP_F64)
 
-_DECLARE_OP(SPLV3_F32) // splat fill
-_DECLARE_OP(MOVV3_F32) // move
-_DECLARE_OP(ADDV3_F32) // add
-_DECLARE_OP(SUBV3_F32) // subtract
-_DECLARE_OP(CRSV3_F32) // cross product
-_DECLARE_OP(DOTV3_F32) // dot product
-_DECLARE_OP(SCLV3_F32) // scale
-_DECLARE_OP(MAGV3_F32) // magnitude
-_DECLARE_OP(NRMV3_F32) // normalise
+_DECLARE_OP(SPLAT_V3F32) // splat fill
+_DECLARE_OP(COPY_V3F32)  // copy
+_DECLARE_OP(ADD_V3F32)   // add
+_DECLARE_OP(SUB_V3F32)   // subtract
+_DECLARE_OP(CROSS_V3F32) // cross product
+_DECLARE_OP(DOT_V3F32)   // dot product
+_DECLARE_OP(SCALE_V3F32) // scale
+_DECLARE_OP(MAGN_V3F32)  // magnitude
+_DECLARE_OP(NORM_V3F32)  // normalise
+_DECLARE_OP(LERP_V3F32)  // interpolate
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

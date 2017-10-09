@@ -139,15 +139,16 @@
 #define _lerp_f32(x,y,l,d)    _MKAOP(LERP_F32),     (x) << 12 | (y) << 8 | (l) << 4 | (d),
 #define _lerp_f64(x,y,l,d)    _MKAOP(LERP_F64),     (x) << 12 | (y) << 8 | (l) << 4 | (d),
 
-#define _spl_v3f32(s,d)       _MKAOP(SPLV3_F32),    (s) << 4 | (d),
-#define _mov_v3f32(s,d)       _MKAOP(MOVV3_F32),    (s) << 4 | (d),
-#define _add_v3f32(x,y,d)     _MKAOP(ADDV3_F32),    (x) << 8 | (y) << 4 | (d),
-#define _sub_v3f32(x,y,d)     _MKAOP(SUVV3_F32),    (x) << 8 | (y) << 4 | (d),
-#define _cross_v3f32(x,y,d)   _MKAOP(CRSV3_F32),    (x) << 8 | (y) << 4 | (d),
-#define _dot_v3f32(x,y,d)     _MKAOP(DOTV3_F32),    (x) << 8 | (y) << 4 | (d),
-#define _scale_v3f32(f,s,d)   _MKAOP(SCLV3_F32),    (f) << 8 | (s) << 4 | (d),
-#define _mag_v3f32(s,d)       _MKAOP(MAGV3_F32),    (s) << 4 | (d),
-#define _norm_v3f32(s,d)      _MKAOP(NRMV3_F32),    (s) << 4 | (d),
+#define _spl_v3f32(s,d)       _MKAOP(SPLAT_V3F32),  (s) << 4 | (d),
+#define _copy_v3f32(s,d)      _MKAOP(COPY_V3F32),   (s) << 4 | (d),
+#define _add_v3f32(x,y,d)     _MKAOP(ADD_V3F32),    (x) << 8 | (y) << 4 | (d),
+#define _sub_v3f32(x,y,d)     _MKAOP(SUB_V3F32),    (x) << 8 | (y) << 4 | (d),
+#define _cross_v3f32(x,y,d)   _MKAOP(CROSS_V3F32),  (x) << 8 | (y) << 4 | (d),
+#define _dot_v3f32(x,y,d)     _MKAOP(DOT_V3F32),    (x) << 8 | (y) << 4 | (d),
+#define _scale_v3f32(f,s,d)   _MKAOP(SCALE_V3F32),  (f) << 8 | (s) << 4 | (d),
+#define _mag_v3f32(s,d)       _MKAOP(MAGN_V3F32),   (s) << 4 | (d),
+#define _norm_v3f32(s,d)      _MKAOP(NORM_V3F32),   (s) << 4 | (d),
+#define _lerp_v3f32(x,y,f,d)  _MKAOP(LER_V3F32),    (x) << 12 | (y) << 8 | (f) << 4 | (d),
 
 #endif
 
