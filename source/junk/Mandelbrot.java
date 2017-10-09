@@ -1,5 +1,4 @@
 import java.io.FileOutputStream;
-import java.nio.ByteBuffer;
 
 public class Mandelbrot {
 
@@ -14,11 +13,10 @@ public class Mandelbrot {
     float fXMin = fXMax - fYTot;
     float fStep = fYTot / iSize;
 
-    byte[] aPixels = ByteBuffer.allocate(iSize * iSize).array();
+    byte[] aPixels = new byte[iSize * iSize];
 
-    //FILE* f;
-    int iPix = 0;
-    float fCY   = fYMax;
+    int iPix  = 0;
+    float fCY = fYMax;
     for (int y = 0; y<iSize; y++, fCY -= fStep) {
       float fCX = fXMin;
       for (int x = 0; x<iSize; x++, fCX += fStep) {
