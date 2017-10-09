@@ -53,7 +53,7 @@ uint16 mockCodeSegment[] = {
   _salloc(3*sizeof(float32), _r15)     // 0      Allocate space for a vec3f on the stack
   _move_64(_r15, _r0)                  // 2      Copy the vec3f address to r0
   _ld_32_f32(1.75, _r1)                // 3      Load a nice recognisable value into r1
-  _spl_v3f32(_r1, _r0)                 // 6      Splat fill vec3f with value in r1
+  _splat_v3f32(_r1, _r0)               // 6      Splat fill vec3f with value in r1
   _calln_unresolved(@printVec3f)       // 8      Print out the vec3f
   _norm_v3f32(_r0, _r0)                // 10     Normalise the vec3f referenced in r0
   _calln_unresolved(@printVec3f)       // 12     Print out the vec3f
