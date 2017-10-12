@@ -292,63 +292,41 @@ const Interpreter::Handler Interpreter::handlers[256] = {
 };
 
 const Interpreter::Handler Interpreter::advancedHandlers[256] = {
-  _REFER_OP(MADD_F32),
-  _REFER_OP(MADD_F64),
-  _REFER_OP(LD_CONST_F32),
-  _REFER_OP(LD_CONST_F64),
+
+  // Implementation Level 0
   _REFER_OP(LD_RII_8),
   _REFER_OP(LD_RII_16),
   _REFER_OP(LD_RII_32),
-  _REFER_OP(LD_RII_64),
   _REFER_OP(ST_RII_8),
   _REFER_OP(ST_RII_16),
   _REFER_OP(ST_RII_32),
-  _REFER_OP(ST_RII_64),
-  _REFER_OP(SQRT_F32),
-  _REFER_OP(SQRT_F64),
-  _REFER_OP(ISQRT_F32),
-  _REFER_OP(ISQRT_F64),
-  _REFER_OP(ACOS_F32),
-  _REFER_OP(ACOS_F64),
-  _REFER_OP(ASIN_F32),
-  _REFER_OP(ASIN_F64),
-  _REFER_OP(ATAN_F32),
-  _REFER_OP(ATAN_F64),
-  _REFER_OP(COS_F32),
-  _REFER_OP(COS_F64),
-  _REFER_OP(SIN_F32),
-  _REFER_OP(SIN_F64),
-  _REFER_OP(TAN_F32),
-  _REFER_OP(TAN_F64),
-  _REFER_OP(COSH_F32),
-  _REFER_OP(COSH_F64),
-  _REFER_OP(SINH_F32),
-  _REFER_OP(SINH_F64),
-  _REFER_OP(TANH_F32),
-  _REFER_OP(TANH_F64),
-  _REFER_OP(SINCOS_F32),
-  _REFER_OP(SINCOS_F64),
-  _REFER_OP(EXP_F32),
-  _REFER_OP(EXP_F64),
-  _REFER_OP(POW_F32),
-  _REFER_OP(POW_F64),
-  _REFER_OP(LOGN_F32),
-  _REFER_OP(LOGN_F64),
-  _REFER_OP(LOG2_F32),
-  _REFER_OP(LOG2_F64),
-  _REFER_OP(LOG10_F32),
-  _REFER_OP(LOG10_F64),
-  _REFER_OP(LOGX_F32),
-  _REFER_OP(LOGX_F64),
-  _REFER_OP(CEIL_F32),
-  _REFER_OP(CEIL_F64),
-  _REFER_OP(FLOOR_F32),
-  _REFER_OP(FLOOR_F64),
-  _REFER_OP(LERP_F32),
-  _REFER_OP(LERP_F64),
 
-  _REFER_OP(SPLAT_V3F32), // splat fill
-  _REFER_OP(COPY_V3F32),  // move
+  // Implementation Level 1
+  _REFER_OP(LD_CONST_F32),
+  _REFER_OP(MADD_F32),
+  _REFER_OP(SQRT_F32),
+  _REFER_OP(ISQRT_F32),
+  _REFER_OP(ACOS_F32),
+  _REFER_OP(ASIN_F32),
+  _REFER_OP(ATAN_F32),
+  _REFER_OP(COS_F32),
+  _REFER_OP(SIN_F32),
+  _REFER_OP(TAN_F32),
+  _REFER_OP(COSH_F32),
+  _REFER_OP(SINH_F32),
+  _REFER_OP(TANH_F32),
+  _REFER_OP(SINCOS_F32),
+  _REFER_OP(EXP_F32),
+  _REFER_OP(POW_F32),
+  _REFER_OP(LOGN_F32),
+  _REFER_OP(LOG2_F32),
+  _REFER_OP(LOG10_F32),
+  _REFER_OP(LOGX_F32),
+  _REFER_OP(CEIL_F32),
+  _REFER_OP(FLOOR_F32),
+  _REFER_OP(LERP_F32),
+  _REFER_OP(SPLAT_V3F32), // splat fill, all elements set to the same value
+  _REFER_OP(COPY_V3F32),  // copy
   _REFER_OP(ADD_V3F32),   // add
   _REFER_OP(SUB_V3F32),   // subtract
   _REFER_OP(CROSS_V3F32), // cross product
@@ -356,7 +334,35 @@ const Interpreter::Handler Interpreter::advancedHandlers[256] = {
   _REFER_OP(SCALE_V3F32), // scale
   _REFER_OP(MAGN_V3F32),  // magnitude
   _REFER_OP(NORM_V3F32),  // normalise
-  _REFER_OP(LERP_V3F32),  // normalise
+  _REFER_OP(LERP_V3F32),  // interpolate
+
+  // Implementation Level 2
+  _REFER_OP(LD_RII_64),
+  _REFER_OP(ST_RII_64),
+  _REFER_OP(LD_CONST_F64),
+  _REFER_OP(MADD_F64),
+  _REFER_OP(SQRT_F64),
+  _REFER_OP(ISQRT_F64),
+  _REFER_OP(ACOS_F64),
+  _REFER_OP(ASIN_F64),
+  _REFER_OP(ATAN_F64),
+  _REFER_OP(COS_F64),
+  _REFER_OP(SIN_F64),
+  _REFER_OP(TAN_F64),
+  _REFER_OP(COSH_F64),
+  _REFER_OP(SINH_F64),
+  _REFER_OP(TANH_F64),
+  _REFER_OP(SINCOS_F64),
+  _REFER_OP(EXP_F64),
+  _REFER_OP(POW_F64),
+  _REFER_OP(LOGN_F64),
+  _REFER_OP(LOG2_F64),
+  _REFER_OP(LOG10_F64),
+  _REFER_OP(LOGX_F64),
+  _REFER_OP(CEIL_F64),
+  _REFER_OP(FLOOR_F64),
+  _REFER_OP(LERP_F64),
+
 };
 
 const Interpreter::Handler Interpreter::vectorHandlers[256] = {
