@@ -12,22 +12,8 @@
 //**                                                                        **//
 //****************************************************************************//
 
-_DEFINE_OP(SQRT_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::sqrt(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
-  );
-}
-_END_OP
-
 _DEFINE_OP(SQRT_F64) {
   vm->gpr[(vArgs & 0x000F)].f64() = std::sqrt(vm->gpr[(vArgs & 0x00F0) >> 4].f64());
-}
-_END_OP
-
-_DEFINE_OP(ISQRT_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)(
-    1.0 / std::sqrt((float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32())
-  );
 }
 _END_OP
 

@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         op_adv_powers_impl.hpp                                   **//
-//** Description:  Powers and exponentiation                                **//
+//** File:         op_adv_madd_impl.hpp                                     **//
+//** Description:  Multiply-Add                                             **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2017-08-19                                               **//
@@ -13,32 +13,15 @@
 //****************************************************************************//
 
 
-_DEFINE_OP(EXP_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::exp(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
-  );
+_DEFINE_OP(MADD_F32) {
+/*
+  vm->gpr[_RD(op)].f32() = vm->gpr[_RS(op)].f32() * vm->gpr[_EX_U8_1].f32() + vm->gpr[_EX_U8_2].f32();
+  ++vm->pc.extU16;
+*/
+  vm->gpr[(vArgs & 0x000F)].f32() = (
+    vm->gpr[(vArgs & 0x00F0) >> 4].f32() *
+    vm->gpr[(vArgs & 0x0F00) >> 8].f32()
+  ) + vm->gpr[(vArgs & 0xF000) >> 12].f32();
 }
 _END_OP
 
-_DEFINE_OP(EXP_F64) {
-  vm->gpr[(vArgs & 0x000F)].f64() = std::exp(vm->gpr[(vArgs & 0x00F0) >> 4].f64());
-}
-_END_OP
-
-_DEFINE_OP(POW_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)(
-    std::pow(
-      (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32(),
-      (float64)vm->gpr[(vArgs & 0x0F00) >> 8].f32()
-    )
-  );
-}
-_END_OP
-
-_DEFINE_OP(POW_F64) {
-  vm->gpr[(vArgs & 0x000F)].f64() = std::pow(
-    vm->gpr[(vArgs & 0x00F0) >> 4].f64(),
-    vm->gpr[(vArgs & 0x0F00) >> 8].f64()
-  );
-}
-_END_OP
