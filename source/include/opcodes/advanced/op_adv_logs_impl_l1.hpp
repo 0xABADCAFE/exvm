@@ -19,26 +19,12 @@ _DEFINE_OP(LOGN_F32) {
 }
 _END_OP
 
-
-_DEFINE_OP(LOGN_F64) {
-  vm->gpr[(vArgs & 0x000F)].f64() = std::log(vm->gpr[(vArgs & 0x00F0) >> 4].f64());
-}
-_END_OP
-
-
 _DEFINE_OP(LOG2_F32) {
   vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::log(
     (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
   ) * predefinedConstants[VMDefs::CONST_INV_LN_2];
 }
 _END_OP
-
-
-_DEFINE_OP(LOG2_F64) {
-  vm->gpr[(vArgs & 0x000F)].f64() = std::log(vm->gpr[(vArgs & 0x00F0) >> 4].f64()) * predefinedConstants[VMDefs::CONST_INV_LN_2];
-}
-_END_OP
-
 
 _DEFINE_OP(LOG10_F32) {
   vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::log10(
@@ -47,13 +33,6 @@ _DEFINE_OP(LOG10_F32) {
 }
 _END_OP
 
-
-_DEFINE_OP(LOG10_F64) {
-  vm->gpr[(vArgs & 0x000F)].f64() = std::log10(vm->gpr[(vArgs & 0x00F0) >> 4].f64());
-}
-_END_OP
-
-
 _DEFINE_OP(LOGX_F32) {
   vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::log(
     (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
@@ -61,10 +40,3 @@ _DEFINE_OP(LOGX_F32) {
 }
 _END_OP
 
-
-_DEFINE_OP(LOGX_F64) {
-  vm->gpr[(vArgs & 0x000F)].f64() = std::log(
-    vm->gpr[(vArgs & 0x00F0) >> 4].f64()
-  ) / std::log(vm->gpr[(vArgs & 0x0F00) >> 8].f64());
-}
-_END_OP

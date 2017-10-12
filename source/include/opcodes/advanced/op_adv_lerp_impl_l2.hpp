@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         op_adv_const_impl.hpp                                    **//
-//** Description:  Load Constants                                           **//
+//** File:         op_adv_lerp_impl.hpp                                     **//
+//** Description:  Interpolation                                            **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2017-08-19                                               **//
@@ -12,16 +12,10 @@
 //**                                                                        **//
 //****************************************************************************//
 
-_DEFINE_OP(LD_CONST_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)predefinedConstants[
-    (vArgs & 0x000F) >> 4
-  ];
-}
-_END_OP
-
-_DEFINE_OP(LD_CONST_F64) {
-  vm->gpr[(vArgs & 0x000F)].f64() = predefinedConstants[
-    (vArgs & 0x000F) >> 4
-  ];
+_DEFINE_OP(LERP_F64) {
+  float64 lerp = vm->gpr[(vArgs & 0x00F0) >> 4].f64();
+  vm->gpr[(vArgs & 0x000F)].f64() =
+    (lerp * vm->gpr[(vArgs & 0xF000) >> 12].f64()) +
+    ((1.0 - lerp) * vm->gpr[(vArgs & 0x0F00) >> 8].f64());
 }
 _END_OP

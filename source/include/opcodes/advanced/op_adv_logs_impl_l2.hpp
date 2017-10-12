@@ -1,7 +1,7 @@
 //****************************************************************************//
 //**                                                                        **//
-//** File:         op_adv_lerp_impl.hpp                                     **//
-//** Description:  Interpolation                                            **//
+//** File:         op_adv_logs_impl.hpp                                     **//
+//** Description:  Logarithmic functions                                    **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
 //** Created:      2017-08-19                                               **//
@@ -12,20 +12,27 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
-_DEFINE_OP(LERP_F32) {
-  float32 lerp = vm->gpr[(vArgs & 0x00F0) >> 4].f32();
-  vm->gpr[(vArgs & 0x000F)].f32() =
-    (lerp * vm->gpr[(vArgs & 0xF000) >> 12].f32()) +
-    ((1.0f - lerp) * vm->gpr[(vArgs & 0x0F00) >> 8].f32());
+_DEFINE_OP(LOGN_F64) {
+  vm->gpr[(vArgs & 0x000F)].f64() = std::log(vm->gpr[(vArgs & 0x00F0) >> 4].f64());
 }
 _END_OP
 
 
-_DEFINE_OP(LERP_F64) {
-  float64 lerp = vm->gpr[(vArgs & 0x00F0) >> 4].f64();
-  vm->gpr[(vArgs & 0x000F)].f64() =
-    (lerp * vm->gpr[(vArgs & 0xF000) >> 12].f64()) +
-    ((1.0 - lerp) * vm->gpr[(vArgs & 0x0F00) >> 8].f64());
+_DEFINE_OP(LOG2_F64) {
+  vm->gpr[(vArgs & 0x000F)].f64() = std::log(vm->gpr[(vArgs & 0x00F0) >> 4].f64()) * predefinedConstants[VMDefs::CONST_INV_LN_2];
+}
+_END_OP
+
+
+_DEFINE_OP(LOG10_F64) {
+  vm->gpr[(vArgs & 0x000F)].f64() = std::log10(vm->gpr[(vArgs & 0x00F0) >> 4].f64());
+}
+_END_OP
+
+
+_DEFINE_OP(LOGX_F64) {
+  vm->gpr[(vArgs & 0x000F)].f64() = std::log(
+    vm->gpr[(vArgs & 0x00F0) >> 4].f64()
+  ) / std::log(vm->gpr[(vArgs & 0x0F00) >> 8].f64());
 }
 _END_OP
