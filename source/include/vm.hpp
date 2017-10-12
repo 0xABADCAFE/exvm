@@ -69,6 +69,14 @@ namespace ExVM {
       #include "vm_opcodes.hpp"
 
       typedef enum {
+        IMP_LEVEL_0 = 0, // up to 32-bit integer operations only
+        IMP_LEVEL_1 = 1, // up to 32-bit integer plus 32-bit floating point operations
+        IMP_LEVEL_2 = 2, // up to 64-bit integer and 64-bit floating point operations
+        IMP_LEVEL_3 = 3, // 64-bit memory model required
+
+      } ImplementationLevel;
+
+      typedef enum {
         // bit masks used in multi-register transfers
         BITMASK_R0  = 0x0001,
         BITMASK_R1  = 0x0002,
