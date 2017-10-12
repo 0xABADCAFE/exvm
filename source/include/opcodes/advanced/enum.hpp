@@ -100,11 +100,11 @@ typedef enum {
   // st.x rS, (rD,rI,#d)
   _ST_RII_64,
 
-  // Multiply Add
-  _MADD_F64,
-
   // Load constants
   _LD_CONST_F64,
+
+  // Multiply Add
+  _MADD_F64,
 
   // Roots
   _SQRT_F64,
