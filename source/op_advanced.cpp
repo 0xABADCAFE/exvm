@@ -87,30 +87,30 @@ void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
   #undef _DEFINE_OP
   #define _DEFINE_OP(x) void ExVM::Interpreter::do##x(ExVM::Interpreter* vm UNUSED, uint16 vArgs UNUSED)
 
-    // Implementation level 0
-    #include "include/opcodes/advanced/op_adv_load_impl_l0.hpp"
-    #include "include/opcodes/advanced/op_adv_store_impl_l0.hpp"
+  // Implementation level 0
+  #include "include/opcodes/advanced/op_adv_load_impl_l0.hpp"
+  #include "include/opcodes/advanced/op_adv_store_impl_l0.hpp"
 
-    // Implementation level 1
-    #include "include/opcodes/advanced/op_adv_const_impl_l1.hpp"
-    #include "include/opcodes/advanced/op_adv_madd_impl_l1.hpp"
-    #include "include/opcodes/advanced/op_adv_roots_impl_l1.hpp"
-    #include "include/opcodes/advanced/op_adv_trig_impl_l1.hpp"
-    #include "include/opcodes/advanced/op_adv_powers_impl_l1.hpp"
-    #include "include/opcodes/advanced/op_adv_logs_impl_l1.hpp"
-    #include "include/opcodes/advanced/op_adv_trunc_impl_l1.hpp"
-    #include "include/opcodes/advanced/op_adv_lerp_impl_l1.hpp"
-    #include "include/opcodes/advanced/op_adv_vec3_f32_impl_l1.hpp"
+  // Implementation level 1
+  #include "include/opcodes/advanced/op_adv_const_impl_l1.hpp"
+  #include "include/opcodes/advanced/op_adv_madd_impl_l1.hpp"
+  #include "include/opcodes/advanced/op_adv_roots_impl_l1.hpp"
+  #include "include/opcodes/advanced/op_adv_trig_impl_l1.hpp"
+  #include "include/opcodes/advanced/op_adv_powers_impl_l1.hpp"
+  #include "include/opcodes/advanced/op_adv_logs_impl_l1.hpp"
+  #include "include/opcodes/advanced/op_adv_trunc_impl_l1.hpp"
+  #include "include/opcodes/advanced/op_adv_lerp_impl_l1.hpp"
+  #include "include/opcodes/advanced/op_adv_vec3_f32_impl_l1.hpp"
 
-    // Implementation level 2
-    #include "include/opcodes/advanced/op_adv_load_impl_l2.hpp"
-    #include "include/opcodes/advanced/op_adv_store_impl_l2.hpp"
-    #include "include/opcodes/advanced/op_adv_const_impl_l2.hpp"
-    #include "include/opcodes/advanced/op_adv_madd_impl_l2.hpp"
-    #include "include/opcodes/advanced/op_adv_roots_impl_l2.hpp"
-    #include "include/opcodes/advanced/op_adv_trig_impl_l2.hpp"
-    #include "include/opcodes/advanced/op_adv_powers_impl_l2.hpp"
-    #include "include/opcodes/advanced/op_adv_logs_impl_l2.hpp"
-    #include "include/opcodes/advanced/op_adv_trunc_impl_l2.hpp"
-    #include "include/opcodes/advanced/op_adv_lerp_impl_l2.hpp"
+  // Implementation level 2
+  #include "include/opcodes/advanced/op_adv_load_impl_l2.hpp"
+  #include "include/opcodes/advanced/op_adv_store_impl_l2.hpp"
+  #include "include/opcodes/advanced/op_adv_const_impl_l2.hpp"
+  #include "include/opcodes/advanced/op_adv_madd_impl_l2.hpp"
+  #include "include/opcodes/advanced/op_adv_roots_impl_l2.hpp"
+  #include "include/opcodes/advanced/op_adv_trig_impl_l2.hpp"
+  #include "include/opcodes/advanced/op_adv_powers_impl_l2.hpp"
+  #include "include/opcodes/advanced/op_adv_logs_impl_l2.hpp"
+  #include "include/opcodes/advanced/op_adv_trunc_impl_l2.hpp"
+  #include "include/opcodes/advanced/op_adv_lerp_impl_l2.hpp"
 #endif
