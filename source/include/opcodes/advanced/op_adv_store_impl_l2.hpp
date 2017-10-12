@@ -12,48 +12,6 @@
 //**                                                                        **//
 //****************************************************************************//
 
-_DEFINE_OP(ST_RII_8) {
-  // st.8 rS, (rD,rI,#s)
-  *(
-      // Base address
-      vm->gpr[(vArgs & 0x00F0) >> 4].pU8() + (
-        // Index
-        vm->gpr[(vArgs & 0x0F00) >> 8].s32()
-        // Scale
-        << ((vArgs & 0xF000) >> 12)
-    )
-  ) = vm->gpr[(vArgs & 0x000F)].u8();
-}
-_END_OP
-
-_DEFINE_OP(ST_RII_16) {
-  // st.16 rS, (rD,rI,#s)
-  *((uint16*)(
-      // Base address
-      vm->gpr[(vArgs & 0x00F0) >> 4].pU8() + (
-        // Index
-        vm->gpr[(vArgs & 0x0F00) >> 8].s32()
-        // Scale
-        << ((vArgs & 0xF000) >> 12)
-    )
-  )) = vm->gpr[(vArgs & 0x000F)].u16();
-}
-_END_OP
-
-_DEFINE_OP(ST_RII_32) {
-  // st.32 rS, (rD,rI,#s)
-  *((uint32*)(
-      // Base address
-      vm->gpr[(vArgs & 0x00F0) >> 4].pU8() + (
-        // Index
-        vm->gpr[(vArgs & 0x0F00) >> 8].s32()
-        // Scale
-        << ((vArgs & 0xF000) >> 12)
-    )
-  )) = vm->gpr[(vArgs & 0x000F)].u32();
-}
-_END_OP
-
 _DEFINE_OP(ST_RII_64) {
   // st.64 rS, (rD,rI,#s)
   *((uint64*)(

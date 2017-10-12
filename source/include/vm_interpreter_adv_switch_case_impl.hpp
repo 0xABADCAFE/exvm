@@ -16,6 +16,7 @@
 
   switch (op & 0xFF) {
     // Includes added in strict order of the opcode enumerations
+/*
     #include "opcodes/advanced/op_adv_madd_impl.hpp"
     #include "opcodes/advanced/op_adv_const_impl.hpp"
 
@@ -29,7 +30,9 @@
     #include "opcodes/advanced/op_adv_trunc_impl.hpp"
     #include "opcodes/advanced/op_adv_lerp_impl.hpp"
     #include "opcodes/advanced/op_adv_vec3_f32_impl.hpp"
-
+*/
+    #include "opcodes/advanced/op_adv_load_impl_l0.hpp"
+    #include "opcodes/advanced/op_adv_store_impl_l0.hpp"
     default:
       debuglog(LOG_ERROR, "No handler yet defined for advanced opcode 0x%04X\n", (unsigned)op);
       vm->status = VMDefs::BREAKPOINT;
