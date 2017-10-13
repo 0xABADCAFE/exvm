@@ -59,7 +59,6 @@
     #include "opcodes/vector/op_vec_vdiv_saturated_impl_l0.hpp"
     #include "opcodes/vector/op_vec_vmod_impl_l0.hpp"
     #include "opcodes/vector/op_vec_vbitwise_impl_l0.hpp"
-
     #include "opcodes/vector/op_vec_vmap_impl_l0.hpp"
 
     // Implementation Level 1 //////////////////////////////////////////////////////////////////////////////////////////
@@ -92,13 +91,11 @@
     #include "opcodes/vector/op_vec_fill_impl_l2.hpp"
     #include "opcodes/vector/op_vec_smin_impl_l2.hpp"
     #include "opcodes/vector/op_vec_smax_impl_l2.hpp"
-
     #include "opcodes/vector/op_vec_ssum_impl_l2.hpp"
 
     // Two vector operations (usually scalar and source to destination)
     #include "opcodes/vector/op_vec_neg_impl_l2.hpp"
     #include "opcodes/vector/op_vec_abs_impl_l2.hpp"
-
     #include "opcodes/vector/op_vec_sadd_impl_l2.hpp"
     #include "opcodes/vector/op_vec_sadd_saturated_impl_l2.hpp"
     #include "opcodes/vector/op_vec_ssub_impl_l2.hpp"
@@ -128,7 +125,6 @@
     #include "opcodes/vector/op_vec_vdiv_impl_l2.hpp"
     #include "opcodes/vector/op_vec_vdiv_saturated_impl_l2.hpp"
     #include "opcodes/vector/op_vec_vmod_impl_l2.hpp"
-
     #include "opcodes/vector/op_vec_vmap_impl_l2.hpp"
     #include "opcodes/vector/op_vec_vmac_impl_l2.hpp"
 
