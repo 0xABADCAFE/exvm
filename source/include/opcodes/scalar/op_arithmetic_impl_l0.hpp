@@ -32,24 +32,6 @@ _DEFINE_OP(ADD_I32) {
 }
 _END_OP
 
-_DEFINE_OP(ADD_I64) {
-  // add.64 rS,rD
-  vm->gpr[_RD(op)].s64() += vm->gpr[_RS(op)].s64();
-}
-_END_OP
-
-_DEFINE_OP(ADD_F32) {
-  // add.f32 rS,rD
-  vm->gpr[_RD(op)].f32() += vm->gpr[_RS(op)].f32();
-}
-_END_OP
-
-_DEFINE_OP(ADD_F64) {
-  // add.f64 rS,rD
-  vm->gpr[_RD(op)].f64() += vm->gpr[_RS(op)].f64();
-}
-_END_OP
-
 _DEFINE_OP(ADDI_I8) {
   // addi.8 #n, rX
   // #n is in the lower 8 bits of the extension word
@@ -91,24 +73,6 @@ _DEFINE_OP(SUB_I32) {
 }
 _END_OP
 
-_DEFINE_OP(SUB_I64) {
-  // sub.64 rS,rD
-  vm->gpr[_RD(op)].s64() -= vm->gpr[_RS(op)].s64();
-}
-_END_OP
-
-_DEFINE_OP(SUB_F32) {
-  // sub.f32 rS,rD
-  vm->gpr[_RD(op)].f32() -= vm->gpr[_RS(op)].f32();
-}
-_END_OP
-
-_DEFINE_OP(SUB_F64) {
-  // sub.f64 rS,rD
-  vm->gpr[_RD(op)].s64() -= vm->gpr[_RS(op)].s64();
-}
-_END_OP
-
 // MULTIPLICATION //////////////////////////////////////////////////////////////
 
 _DEFINE_OP(MUL_U8) {
@@ -132,12 +96,6 @@ _DEFINE_OP(MUL_U32) {
 }
 _END_OP
 
-_DEFINE_OP(MUL_U64) {
-  // mul.u64 rS,rD
-  vm->gpr[_RD(op)].u64() *= vm->gpr[_RS(op)].u64();
-}
-_END_OP
-
 _DEFINE_OP(MUL_S8) {
   // mul.s8 rS,rD : 16-bit product
   GPR* d = &vm->gpr[_RD(op)];
@@ -156,24 +114,6 @@ _DEFINE_OP(MUL_S32) {
   // mul.s8 rS,rD : 64-bit product
   GPR* d = &vm->gpr[_RD(op)];
   d->s64() = (sint64)d->s32() * (sint64)vm->gpr[_RS(op)].s32();
-}
-_END_OP
-
-_DEFINE_OP(MUL_S64) {
-  // mul.s64 rS,rD
-  vm->gpr[_RD(op)].s64() *= vm->gpr[_RS(op)].s64();
-}
-_END_OP
-
-_DEFINE_OP(MUL_F32) {
-  // mul.f32 rS,rD
-  vm->gpr[_RD(op)].f32() *= vm->gpr[_RS(op)].f32();
-}
-_END_OP
-
-_DEFINE_OP(MUL_F64) {
-  // mul.f32 rS,rD
-  vm->gpr[_RD(op)].f64() *= vm->gpr[_RS(op)].f64();
 }
 _END_OP
 
@@ -212,17 +152,6 @@ _DEFINE_OP(DIV_U32) {
 }
 _END_OP
 
-_DEFINE_OP(DIV_U64) {
-  // div.u64 rS,rD
-  uint64 d = vm->gpr[_RS(op)].u64();
-  if (!d) {
-    vm->status = VMDefs::ZERO_DIVIDE;
-    _HALT
-  }
-  vm->gpr[_RD(op)].u64() /= d;
-}
-_END_OP
-
 _DEFINE_OP(DIV_S8) {
   // div.s8 rS,rD
   sint8 d = vm->gpr[_RS(op)].s8();
@@ -253,29 +182,6 @@ _DEFINE_OP(DIV_S32) {
     _HALT
   }
   vm->gpr[_RD(op)].s32() /= d;
-}
-_END_OP
-
-_DEFINE_OP(DIV_S64) {
-  // div.s64 rS,rD
-  sint64 d = vm->gpr[_RS(op)].s64();
-  if (!d) {
-    vm->status = VMDefs::ZERO_DIVIDE;
-    _HALT
-  }
-  vm->gpr[_RD(op)].s64() /= d;
-}
-_END_OP
-
-_DEFINE_OP(DIV_F32) {
-  // div.f32 rS,rD
-  vm->gpr[_RD(op)].f32() /= vm->gpr[_RS(op)].f32();
-}
-_END_OP
-
-_DEFINE_OP(DIV_F64) {
-  // div.f32 rS,rD
-  vm->gpr[_RD(op)].f64() /= vm->gpr[_RS(op)].f64();
 }
 _END_OP
 
@@ -314,17 +220,6 @@ _DEFINE_OP(MOD_U32) {
 }
 _END_OP
 
-_DEFINE_OP(MOD_U64) {
-  // mod.u64 rS,rD
-  uint64 d = vm->gpr[_RS(op)].u64();
-  if (!d) {
-    vm->status = VMDefs::ZERO_DIVIDE;
-    _HALT
-  }
-  vm->gpr[_RD(op)].u64() %= d;
-}
-_END_OP
-
 _DEFINE_OP(MOD_S8) {
   // mod.s8 rS,rD
   sint8 d = vm->gpr[_RS(op)].s8();
@@ -358,29 +253,6 @@ _DEFINE_OP(MOD_S32) {
 }
 _END_OP
 
-_DEFINE_OP(MOD_S64) {
-  // mod.s64 rS,rD
-  sint64 d = vm->gpr[_RS(op)].s64();
-  if (!d) {
-    vm->status = VMDefs::ZERO_DIVIDE;
-    _HALT
-  }
-  vm->gpr[_RD(op)].s64() %= d;
-}
-_END_OP
-
-_DEFINE_OP(MOD_F32) {
-  // mod.f32 rS,rD
-  vm->gpr[_RD(op)].f32() = (float32) std::fmod((float64)vm->gpr[_RD(op)].f32(), (float64)vm->gpr[_RS(op)].f32());
-}
-_END_OP
-
-_DEFINE_OP(MOD_F64) {
-  // mod.f64 rS,rD
-  vm->gpr[_RD(op)].f64() = std::fmod(vm->gpr[_RD(op)].f64(), vm->gpr[_RS(op)].f64());
-}
-_END_OP
-
 // NEGATE //////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(NEG_S8) {
@@ -401,50 +273,6 @@ _DEFINE_OP(NEG_S32) {
 }
 _END_OP
 
-_DEFINE_OP(NEG_S64) {
-  // neg.s64 rS,rD
-  vm->gpr[_RD(op)].s64() = -(vm->gpr[_RS(op)].s64());
-}
-_END_OP
-
-_DEFINE_OP(NEG_F32) {
-  // neg.f32 rS,rD
-  vm->gpr[_RD(op)].f32() = -(vm->gpr[_RS(op)].f32());
-}
-_END_OP
-
-_DEFINE_OP(NEG_F64) {
-  // neg.s8 rS,rD
-  vm->gpr[_RD(op)].f64() = -(vm->gpr[_RS(op)].f64());
-}
-_END_OP
-
-// SHIFT LEFT //////////////////////////////////////////////////////////////////
-/*
-_DEFINE_OP(ASL_S8) {
-  // asl.s8 rS,rD
-  vm->gpr[_RD(op)].s8() <<= vm->gpr[_RS(op)].u8();
-}
-_END_OP
-
-_DEFINE_OP(ASL_S16) {
-  // asl.s16 rS,rD
-  vm->gpr[_RD(op)].s16() <<= vm->gpr[_RS(op)].u8();
-}
-_END_OP
-
-_DEFINE_OP(ASL_S32) {
-  // asl.s32 rS,rD
-  vm->gpr[_RD(op)].s32() <<= vm->gpr[_RS(op)].u8();
-}
-_END_OP
-
-_DEFINE_OP(ASL_S64) {
-  // asl.s64 rS,rD
-  vm->gpr[_RD(op)].s64() <<= vm->gpr[_RS(op)].u8();
-}
-_END_OP
-*/
 // SHIFT RIGHT /////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(ASR_S8) {
@@ -462,12 +290,6 @@ _END_OP
 _DEFINE_OP(ASR_S32) {
   // asl.s32 rS,rD
   vm->gpr[_RD(op)].s32() >>= vm->gpr[_RS(op)].u8();
-}
-_END_OP
-
-_DEFINE_OP(ASR_S64) {
-  // asl.s64 rS,rD
-  vm->gpr[_RD(op)].s64() >>= vm->gpr[_RS(op)].u8();
 }
 _END_OP
 
@@ -501,36 +323,6 @@ _DEFINE_OP(MIN_S32) {
 }
 _END_OP
 
-_DEFINE_OP(MIN_S64) {
-  // min.s64 rS,rD
-  sint64 &d = vm->gpr[_RD(op)].s64();
-  sint64 s = vm->gpr[_RS(op)].s64();
-  if (s < d) {
-    d = s;
-  }
-}
-_END_OP
-
-_DEFINE_OP(MIN_F32) {
-  // min.f32 rS,rD
-  float32 &d = vm->gpr[_RD(op)].f32();
-  float32 s = vm->gpr[_RS(op)].f32();
-  if (s < d) {
-    d = s;
-  }
-}
-_END_OP
-
-_DEFINE_OP(MIN_F64) {
-  // min.f64 rS,rD
-  float64 &d = vm->gpr[_RD(op)].f64();
-  float64 s = vm->gpr[_RS(op)].f64();
-  if (s < d) {
-    d = s;
-  };
-}
-_END_OP
-
 // MAXIMUM /////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(MAX_S8) {
@@ -560,34 +352,6 @@ _DEFINE_OP(MAX_S32) {
   if (s > d) {
     d = s;
   }
-}
-_END_OP
-
-_DEFINE_OP(MAX_S64) {
-  // max.s64 rS,rD
-  sint64 &d = vm->gpr[_RD(op)].s64();
-  sint64 s = vm->gpr[_RS(op)].s64();
-  if (s > d) {
-    d = s;
-  }
-}
-_END_OP
-
-_DEFINE_OP(MAX_F32) {
-  // max.f32 rS,rD
-  float32 &d = vm->gpr[_RD(op)].f32();
-  float32 s = vm->gpr[_RS(op)].f32();
-  if (s > d) {
-    d = s;
-  }
-}
-_END_OP
-
-_DEFINE_OP(MAX_F64) {
-  // max.f64 rS,rD
-  float64 &d = vm->gpr[_RD(op)].f64();
-  float64 s = vm->gpr[_RS(op)].f64();
-  if (s>d) d = s;
 }
 _END_OP
 
