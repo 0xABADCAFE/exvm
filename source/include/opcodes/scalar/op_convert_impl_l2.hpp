@@ -14,23 +14,8 @@
 
 // CAST WIDENING ///////////////////////////////////////////////////////////////
 
-_DEFINE_OP(S8_2_S16) {
-  vm->gpr[_RD(op)].s16() = (sint16)vm->gpr[_RS(op)].s8();
-}
-_END_OP
-
-_DEFINE_OP(S8_2_S32) {
-  vm->gpr[_RD(op)].s32() = (sint32)vm->gpr[_RS(op)].s8();
-}
-_END_OP
-
 _DEFINE_OP(S8_2_S64) {
   vm->gpr[_RD(op)].s64() = (sint64)vm->gpr[_RS(op)].s8();
-}
-_END_OP
-
-_DEFINE_OP(S8_2_F32) {
-  vm->gpr[_RD(op)].f32() = (float32)vm->gpr[_RS(op)].s8();
 }
 _END_OP
 
@@ -39,18 +24,8 @@ _DEFINE_OP(S8_2_F64) {
 }
 _END_OP
 
-_DEFINE_OP(S16_2_S32) {
-  vm->gpr[_RD(op)].s32() = (sint32)vm->gpr[_RS(op)].s16();
-}
-_END_OP
-
 _DEFINE_OP(S16_2_S64) {
   vm->gpr[_RD(op)].s64() = (sint64)vm->gpr[_RS(op)].s16();
-}
-_END_OP
-
-_DEFINE_OP(S16_2_F32) {
-  vm->gpr[_RD(op)].f32() = (float32)vm->gpr[_RS(op)].s16();
 }
 _END_OP
 
@@ -61,11 +36,6 @@ _END_OP
 
 _DEFINE_OP(S32_2_S64) {
   vm->gpr[_RD(op)].s64() = (sint64)vm->gpr[_RS(op)].s32();
-}
-_END_OP
-
-_DEFINE_OP(S32_2_F32) {
-  vm->gpr[_RD(op)].f32() = (float32)vm->gpr[_RS(op)].s32();
 }
 _END_OP
 
@@ -86,28 +56,13 @@ _DEFINE_OP(S64_2_F64) {
 }
 _END_OP
 
-_DEFINE_OP(U8_2_F32) {
-  vm->gpr[_RD(op)].f32() = (float32)vm->gpr[_RS(op)].u8();
-}
-_END_OP
-
 _DEFINE_OP(U8_2_F64) {
   vm->gpr[_RD(op)].f64() = (float32)vm->gpr[_RS(op)].u8();
 }
 _END_OP
 
-_DEFINE_OP(U16_2_F32) {
-  vm->gpr[_RD(op)].f32() = (float32)vm->gpr[_RS(op)].u16();
-}
-_END_OP
-
 _DEFINE_OP(U16_2_F64) {
   vm->gpr[_RD(op)].f64() = (float64)vm->gpr[_RS(op)].u16();
-}
-_END_OP
-
-_DEFINE_OP(U32_2_F32) {
-  vm->gpr[_RD(op)].f32() = (float32)vm->gpr[_RS(op)].u32();
 }
 _END_OP
 
@@ -166,18 +121,4 @@ _DEFINE_OP(F32_2_S64) {
 }
 _END_OP
 
-_DEFINE_OP(F32_2_S32) {
-  vm->gpr[_RD(op)].s32() = (sint32)(vm->gpr[_RS(op)].f32());
-}
-_END_OP
-
-_DEFINE_OP(F32_2_S16) {
-  vm->gpr[_RD(op)].s16() = (sint16)(vm->gpr[_RS(op)].f32());
-}
-_END_OP
-
-_DEFINE_OP(F32_2_S8) {
-  vm->gpr[_RD(op)].s8() = (sint8)(vm->gpr[_RS(op)].f32());
-}
-_END_OP
 
