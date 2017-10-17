@@ -15,7 +15,6 @@
 #ifndef _VM_DEF_SCALAR_OPCODES_L1_HPP_
 #define _VM_DEF_SCALAR_OPCODES_L1_HPP_
 
-
   // beq.x rS,rD,label
   // branch taken if rS == rD
   _BEQ_F32,
