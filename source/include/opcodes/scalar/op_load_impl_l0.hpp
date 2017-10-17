@@ -40,31 +40,10 @@ _DEFINE_OP(LD_16_I32) {
 }
 _END_OP
 
-_DEFINE_OP(LD_16_I64) {
-  // ld.64 #n,rX, #n = -32768 - 32767
-  // #n is in the extension word, treat as signed for expansion.
-  vm->gpr[_RD(op)].s64() = _EX_S16;
-}
-_END_OP
-
 _DEFINE_OP(LD_32_32) {
   // ld.32 #n,rX, #n = -2^31 - (2^31)-1
   // #n is in the 32-bit extension word.
   vm->gpr[_RD(op)].u32() = _EX_U32;
-}
-_END_OP
-
-_DEFINE_OP(LD_32_I64) {
-  // ld.64 #n,rX, #n = -2^31 - (2^31)-1
-  // #n is in the 32-bit extension word, treat as signed for expansion.
-  vm->gpr[_RD(op)].s64() = _EX_S32;
-}
-_END_OP
-
-_DEFINE_OP(LD_32_F64) {
-  // ld.f64 #n,rX, #n = FLOAT_MIN - FLOAT_MAX
-  // #n is in the 32-bit extension word, treat as single precision floating point for expansion.s
-  vm->gpr[_RD(op)].f64() = _EX_F32;
 }
 _END_OP
 
@@ -86,12 +65,6 @@ _DEFINE_OP(LD_RI_32) {
 }
 _END_OP
 
-_DEFINE_OP(LD_RI_64) {
-  // ld.64 (rS),rD
-  vm->gpr[_RD(op)].u64() = *(vm->gpr[_RS(op)].pU64());
-}
-_END_OP
-
 _DEFINE_OP(LD_RIPI_8) {
   // ld.8 (rS)+,rD
   vm->gpr[_RD(op)].u8() = *(vm->gpr[_RS(op)].pU8()++);
@@ -110,12 +83,6 @@ _DEFINE_OP(LD_RIPI_32) {
 }
 _END_OP
 
-_DEFINE_OP(LD_RIPI_64) {
-  // ld.64 (rS)+,rD
-  vm->gpr[_RD(op)].u64() = *(vm->gpr[_RS(op)].pU64()++);
-}
-_END_OP
-
 _DEFINE_OP(LD_RIPD_8) {
   // ld.8 -(rS),rD
   vm->gpr[_RD(op)].u8() = *(--vm->gpr[_RS(op)].pU8());
@@ -131,12 +98,6 @@ _END_OP
 _DEFINE_OP(LD_RIPD_32) {
   // ld.32 -(rS),rD
   vm->gpr[_RD(op)].u32() = *(--vm->gpr[_RS(op)].pU32());
-}
-_END_OP
-
-_DEFINE_OP(LD_RIPD_64) {
-  // ld.64 -(rS),rD
-  vm->gpr[_RD(op)].u64() = *(--vm->gpr[_RS(op)].pU64());
 }
 _END_OP
 
@@ -161,13 +122,6 @@ _DEFINE_OP(LD_RID_32) {
 }
 _END_OP
 
-_DEFINE_OP(LD_RID_64) {
-  // ld.64 (rS,#d16),rD
-  // #d16 is in extension word
-  vm->gpr[_RD(op)].u64() = *((uint64*)(vm->gpr[_RS(op)].pU8() + _EX_S16));
-}
-_END_OP
-
 _DEFINE_OP(LD_8) {
   // ld.8 label, rX
   _DECLARE_DATA_SYMBOL(symbol)
@@ -186,13 +140,6 @@ _DEFINE_OP(LD_32) {
   // ld.32 label, rX
   _DECLARE_DATA_SYMBOL(symbol)
   vm->gpr[_RX(op)].u32()  = *((uint32*)(vm->dataSymbol[symbol]));
-}
-_END_OP
-
-_DEFINE_OP(LD_64) {
-  // ld.64 label, rX
-  _DECLARE_DATA_SYMBOL(symbol)
-  vm->gpr[_RX(op)].u64()  = *((uint64*)(vm->dataSymbol[symbol]));
 }
 _END_OP
 
