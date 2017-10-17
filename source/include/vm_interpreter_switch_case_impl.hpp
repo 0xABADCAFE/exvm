@@ -19,14 +19,26 @@
 forever:
   op = *pc.inst++;
   switch (op >> 8) {
-    #include "opcodes/scalar/op_control_impl.hpp"
-    #include "opcodes/scalar/op_load_impl.hpp"
-    #include "opcodes/scalar/op_store_impl.hpp"
-    #include "opcodes/scalar/op_move_impl.hpp"
-    #include "opcodes/scalar/op_jump_impl.hpp"
-    #include "opcodes/scalar/op_convert_impl.hpp"
-    #include "opcodes/scalar/op_arithmetic_impl.hpp"
-    #include "opcodes/scalar/op_logic_impl.hpp"
+    #include "opcodes/scalar/op_control_impl_l0.hpp"
+    #include "opcodes/scalar/op_load_impl_l0.hpp"
+    #include "opcodes/scalar/op_store_impl_l0.hpp"
+    #include "opcodes/scalar/op_move_impl_l0.hpp"
+    #include "opcodes/scalar/op_jump_impl_l0.hpp"
+    #include "opcodes/scalar/op_convert_impl_l0.hpp"
+    #include "opcodes/scalar/op_arithmetic_impl_l0.hpp"
+    #include "opcodes/scalar/op_logic_impl_l0.hpp"
+
+    #include "opcodes/scalar/op_jump_impl_l1.hpp"
+    #include "opcodes/scalar/op_convert_impl_l1.hpp"
+    #include "opcodes/scalar/op_arithmetic_impl_l1.hpp"
+
+    #include "opcodes/scalar/op_load_impl_l2.hpp"
+    #include "opcodes/scalar/op_store_impl_l2.hpp"
+    #include "opcodes/scalar/op_move_impl_l2.hpp"
+    #include "opcodes/scalar/op_jump_impl_l2.hpp"
+    #include "opcodes/scalar/op_convert_impl_l2.hpp"
+    #include "opcodes/scalar/op_arithmetic_impl_l2.hpp"
+    #include "opcodes/scalar/op_logic_impl_l2.hpp"
 
     _DEFINE_OP(ADV) {
       doADV(vm, op);

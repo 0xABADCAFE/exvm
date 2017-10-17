@@ -19,20 +19,6 @@
   _NOP = 0,
   _BRK,
 
-  // prefixes //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  // Advanced operations (transcendal arithmetic etc)
-  _ADV,
-
-  // Vector operations (array primitives)
-  _VEC1,
-
-  // Reserved for future expansion
-  _RESERVED_4,
-  _RESERVED_5,
-  _RESERVED_6,
-  _RESERVED_7,
-
   // load group ///////////////////////////////////////////
 
   // immediate small literal, 0-15

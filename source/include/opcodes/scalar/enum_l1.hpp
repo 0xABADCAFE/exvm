@@ -42,7 +42,6 @@
   _U8_2_F32,
   _U16_2_F32,
   _U32_2_F32,
-  _U64_2_F32,
 
   // narrowing, double to float / float to signed
   // double/float to unsigned must be implemented in virtual code

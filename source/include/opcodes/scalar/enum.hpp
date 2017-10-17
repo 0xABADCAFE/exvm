@@ -16,8 +16,7 @@
 #define _VM_DEF_SCALAR_OPCODES_HPP_
 
 typedef enum {
-// TODO: Reorganise based on sizeless, 32-bit int only, 32-bit int+float, 64-bit contiguous blocks
-
+/*
   // control group ////////////////////////////////////////
   _NOP = 0,
   _BRK,
@@ -300,6 +299,16 @@ typedef enum {
   _ROR_8, _ROR_16, _ROR_32, _ROR_64,
 
   // prefixes //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Advanced operations (transcendal arithmetic etc)
+  _ADV,
+
+  // Vector operations (array primitives)
+  _VEC1,
+*/
+  #include "enum_l0.hpp"
+  #include "enum_l1.hpp"
+  #include "enum_l2.hpp"
 
   // Advanced operations (transcendal arithmetic etc)
   _ADV,

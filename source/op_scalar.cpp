@@ -31,14 +31,26 @@
 // vm is a pointer to the VMCore instance
 // op is the current opcode word
 
-  #include "include/opcodes/scalar/op_control_impl.hpp"
-  #include "include/opcodes/scalar/op_load_impl.hpp"
-  #include "include/opcodes/scalar/op_store_impl.hpp"
-  #include "include/opcodes/scalar/op_move_impl.hpp"
-  #include "include/opcodes/scalar/op_jump_impl.hpp"
-  #include "include/opcodes/scalar/op_convert_impl.hpp"
-  #include "include/opcodes/scalar/op_arithmetic_impl.hpp"
-  #include "include/opcodes/scalar/op_logic_impl.hpp"
+  #include "include/opcodes/scalar/op_control_impl_l0.hpp"
+  #include "include/opcodes/scalar/op_load_impl_l0.hpp"
+  #include "include/opcodes/scalar/op_store_impl_l0.hpp"
+  #include "include/opcodes/scalar/op_move_impl_l0.hpp"
+  #include "include/opcodes/scalar/op_jump_impl_l0.hpp"
+  #include "include/opcodes/scalar/op_convert_impl_l0.hpp"
+  #include "include/opcodes/scalar/op_arithmetic_impl_l0.hpp"
+  #include "include/opcodes/scalar/op_logic_impl_l0.hpp"
+
+  #include "include/opcodes/scalar/op_jump_impl_l1.hpp"
+  #include "include/opcodes/scalar/op_convert_impl_l1.hpp"
+  #include "include/opcodes/scalar/op_arithmetic_impl_l1.hpp"
+
+  #include "include/opcodes/scalar/op_load_impl_l2.hpp"
+  #include "include/opcodes/scalar/op_store_impl_l2.hpp"
+  #include "include/opcodes/scalar/op_move_impl_l2.hpp"
+  #include "include/opcodes/scalar/op_jump_impl_l2.hpp"
+  #include "include/opcodes/scalar/op_convert_impl_l2.hpp"
+  #include "include/opcodes/scalar/op_arithmetic_impl_l2.hpp"
+  #include "include/opcodes/scalar/op_logic_impl_l2.hpp"
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
