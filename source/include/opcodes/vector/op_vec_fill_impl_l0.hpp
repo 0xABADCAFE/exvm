@@ -12,7 +12,6 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
 _DEFINE_OP(VFILL_8) {
   // Super naive reference implementation
   uint8  val = vm->gpr[(vArgs & 0x0F00) >> 8].u8();
@@ -24,6 +23,8 @@ _DEFINE_OP(VFILL_8) {
 }
 _END_OP
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 _DEFINE_OP(VFILL_16) {
   // Super naive reference implementation
   uint16  val = vm->gpr[(vArgs & 0x0F00) >> 8].u16();
@@ -34,6 +35,8 @@ _DEFINE_OP(VFILL_16) {
   }
 }
 _END_OP
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(VFILL_32) {
   // Super naive reference implementation

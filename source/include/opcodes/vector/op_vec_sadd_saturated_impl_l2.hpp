@@ -27,6 +27,8 @@ _DEFINE_OP(VSADDS_U64) {
 }
 _END_OP
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Signed
 _DEFINE_OP(VSADDS_S64) {
   vm->status = VMDefs::BREAKPOINT;
@@ -42,3 +44,4 @@ _DEFINE_OP(VSADDS_S64) {
 //   }
 }
 _END_OP
+

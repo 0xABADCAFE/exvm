@@ -12,7 +12,6 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
 _DEFINE_OP(VAND_8) {
   // Super naive reference implementation
   uint8* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pU8();
@@ -25,6 +24,8 @@ _DEFINE_OP(VAND_8) {
 }
 _END_OP
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 _DEFINE_OP(VOR_8) {
   // Super naive reference implementation
   uint8* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pU8();
@@ -36,6 +37,8 @@ _DEFINE_OP(VOR_8) {
   }
 }
 _END_OP
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(VXOR_8) {
   // Super naive reference implementation

@@ -4,7 +4,7 @@
 //** Description:  Virtual Machine definitions                              **//
 //** Comment(s):   Internal developer version only                          **//
 //** Library:                                                               **//
-//** Created:      2001-08-14                                               **//
+//** Created:      2017-10-14                                               **//
 //** Author(s):    Karl Churchill                                           **//
 //** Note(s):                                                               **//
 //** Copyright:    (C)1996 - , eXtropia Studios                             **//

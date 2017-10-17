@@ -12,7 +12,6 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
 _DEFINE_OP(VSASR_64) {
   // Super naive reference implementation
   sint64  val = vm->gpr[(vArgs & 0xF000) >> 12].s64();
@@ -24,3 +23,4 @@ _DEFINE_OP(VSASR_64) {
   }
 }
 _END_OP
+

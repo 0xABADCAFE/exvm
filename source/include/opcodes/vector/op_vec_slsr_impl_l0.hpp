@@ -12,7 +12,6 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
 _DEFINE_OP(VSLSR_8) {
   // Super naive reference implementation
   uint32 val = vm->gpr[(vArgs & 0xF000) >> 12].u8() & 0x7;
@@ -25,6 +24,8 @@ _DEFINE_OP(VSLSR_8) {
 }
 _END_OP
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 _DEFINE_OP(VSLSR_16) {
   // Super naive reference implementation
   uint32  val = vm->gpr[(vArgs & 0xF000) >> 12].u8() & 0xF;
@@ -36,6 +37,8 @@ _DEFINE_OP(VSLSR_16) {
   }
 }
 _END_OP
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(VSLSR_32) {
   // Super naive reference implementation

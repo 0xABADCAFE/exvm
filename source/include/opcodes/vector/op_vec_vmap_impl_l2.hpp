@@ -24,6 +24,8 @@ _DEFINE_OP(VMAP_8_64) {
 }
 _END_OP
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 _DEFINE_OP(VMAP_16_64) {
   // Super naive reference implementation
   uint16* src = vm->gpr[(vArgs & 0xF000) >> 12].pU16();

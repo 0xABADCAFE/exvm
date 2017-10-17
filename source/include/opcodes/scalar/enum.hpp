@@ -16,11 +16,17 @@
 #define _VM_DEF_SCALAR_OPCODES_HPP_
 
 typedef enum {
+
+  // Implementation Level 0
   #include "enum_l0.hpp"
+
+  // Implementation Level 1
   #include "enum_l1.hpp"
+
+  // Implementation Level 2
   #include "enum_l2.hpp"
 
-  // Prefixes
+  // Prefixes //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // Advanced operations (transcendal arithmetic etc)
   _ADV,

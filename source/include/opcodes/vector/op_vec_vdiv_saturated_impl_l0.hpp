@@ -14,7 +14,6 @@
 
 // TODO - division by zero
 
-
 // Signed
 _DEFINE_OP(VDIVS_S8) {
   vm->status = VMDefs::BREAKPOINT;
@@ -30,6 +29,8 @@ _DEFINE_OP(VDIVS_S8) {
 }
 _END_OP
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 _DEFINE_OP(VDIVS_S16) {
   vm->status = VMDefs::BREAKPOINT;
   return;
@@ -43,6 +44,8 @@ _DEFINE_OP(VDIVS_S16) {
 //  }
 }
 _END_OP
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(VDIVS_S32) {
   vm->status = VMDefs::BREAKPOINT;

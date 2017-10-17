@@ -12,7 +12,6 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
 _DEFINE_OP(VSASR_8) {
   // Super naive reference implementation
   sint8  val = vm->gpr[(vArgs & 0xF000) >> 12].s8();
@@ -25,6 +24,8 @@ _DEFINE_OP(VSASR_8) {
 }
 _END_OP
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 _DEFINE_OP(VSASR_16) {
   // Super naive reference implementation
   sint16  val = vm->gpr[(vArgs & 0xF000) >> 12].s16();
@@ -36,6 +37,8 @@ _DEFINE_OP(VSASR_16) {
   }
 }
 _END_OP
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(VSASR_32) {
   // Super naive reference implementation

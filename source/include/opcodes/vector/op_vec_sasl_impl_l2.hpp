@@ -23,3 +23,4 @@ _DEFINE_OP(VSASL_64) {
   }
 }
 _END_OP
+

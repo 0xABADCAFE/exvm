@@ -19,8 +19,14 @@
 // functions that otherwise would require the use of native function calls to expose.
 
 typedef enum {
+
+  // Implementation Level 0
   #include "enum_l0.hpp"
+
+  // Implementation Level 1
   #include "enum_l1.hpp"
+
+  // Implementation Level 2
   #include "enum_l2.hpp"
   MAX_ADV
 } AdvancedOp;

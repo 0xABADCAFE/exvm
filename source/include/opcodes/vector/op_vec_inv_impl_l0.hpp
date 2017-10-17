@@ -12,7 +12,6 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
 _DEFINE_OP(VINV_8) {
   // Super naive reference implementation
   sint8* src = vm->gpr[(vArgs & 0x0F00) >> 8].pS8();

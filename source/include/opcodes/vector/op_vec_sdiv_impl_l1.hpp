@@ -12,7 +12,6 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
 // Float
 _DEFINE_OP(VSDIV_F32) {
   // Super naive reference implementation

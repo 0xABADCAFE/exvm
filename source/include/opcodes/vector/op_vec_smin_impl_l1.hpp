@@ -12,7 +12,6 @@
 //**                                                                        **//
 //****************************************************************************//
 
-
 // Floatng point
 _DEFINE_OP(VSMIN_F32) {
   // Super naive reference implementation
