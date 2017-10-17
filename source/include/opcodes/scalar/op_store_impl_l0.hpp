@@ -30,12 +30,6 @@ _DEFINE_OP(ST_RI_32) {
 }
 _END_OP
 
-_DEFINE_OP(ST_RI_64) {
-  // st.64 rS, (rD)
-  *(vm->gpr[_RD(op)].pU64()) = vm->gpr[_RS(op)].u64();
-}
-_END_OP
-
 _DEFINE_OP(ST_RIPI_8) {
   // st.8 rS, (rD)+
   *(vm->gpr[_RD(op)].pU8()++) = vm->gpr[_RS(op)].u8();
@@ -54,12 +48,6 @@ _DEFINE_OP(ST_RIPI_32) {
 }
 _END_OP
 
-_DEFINE_OP(ST_RIPI_64) {
-  // st.64 rS, (rD)+
-  *(vm->gpr[_RD(op)].pU64()++) = vm->gpr[_RS(op)].u64();
-}
-_END_OP
-
 _DEFINE_OP(ST_RIPD_8) {
   // st.8 rS, -(rD)
   *(--vm->gpr[_RD(op)].pU8()) = vm->gpr[_RS(op)].u8();
@@ -75,12 +63,6 @@ _END_OP
 _DEFINE_OP(ST_RIPD_32) {
   // st.32 rS, -(rD)
   *(--vm->gpr[_RD(op)].pU32()) = vm->gpr[_RS(op)].u32();
-}
-_END_OP
-
-_DEFINE_OP(ST_RIPD_64) {
-  // st.64 rS, -(rD)
-  *(--vm->gpr[_RD(op)].pU64()) = vm->gpr[_RS(op)].u64();
 }
 _END_OP
 
@@ -105,13 +87,6 @@ _DEFINE_OP(ST_RID_32) {
 }
 _END_OP
 
-_DEFINE_OP(ST_RID_64) {
-  // st.64 rS, (rD,#d16)
-  // #d16 is in extension word
-  *(vm->gpr[_RD(op)].pU64() + _EX_S16) = vm->gpr[_RS(op)].u64();
-}
-_END_OP
-
 _DEFINE_OP(ST_8) {
   // st.8 rX, label
   _DECLARE_DATA_SYMBOL(symbol)
@@ -133,10 +108,4 @@ _DEFINE_OP(ST_32) {
 }
 _END_OP
 
-_DEFINE_OP(ST_64) {
-  // st.64 rX, label
-  _DECLARE_DATA_SYMBOL(symbol)
-  *((uint64*)(vm->dataSymbol[symbol])) = vm->gpr[_RX(op)].u64();
-}
-_END_OP
 

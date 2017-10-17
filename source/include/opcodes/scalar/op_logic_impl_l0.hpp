@@ -32,12 +32,6 @@ _DEFINE_OP(AND_32) {
 }
 _END_OP
 
-_DEFINE_OP(AND_64) {
-  // and.64 rS,rD
-  vm->gpr[_RD(op)].u64() &= vm->gpr[_RS(op)].u64();
-}
-_END_OP
-
 // BITWISE OR //////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(OR_8) {
@@ -55,12 +49,6 @@ _END_OP
 _DEFINE_OP(OR_32) {
   // or.32 rS,rD
   vm->gpr[_RD(op)].u32() |= vm->gpr[_RS(op)].u32();
-}
-_END_OP
-
-_DEFINE_OP(OR_64) {
-  // or.64 rS,rD
-  vm->gpr[_RD(op)].u64() |= vm->gpr[_RS(op)].u64();
 }
 _END_OP
 
@@ -84,12 +72,6 @@ _DEFINE_OP(XOR_32) {
 }
 _END_OP
 
-_DEFINE_OP(XOR_64) {
-  // xor.64 rS,rD
-  vm->gpr[_RD(op)].u64() ^= vm->gpr[_RS(op)].u64();
-}
-_END_OP
-
 // BITWISE INVERT //////////////////////////////////////////////////////////////
 
 _DEFINE_OP(INV_8) {
@@ -107,12 +89,6 @@ _END_OP
 _DEFINE_OP(INV_32) {
   // inv.32 rS,rD
   vm->gpr[_RD(op)].u32() = ~vm->gpr[_RS(op)].u32();
-}
-_END_OP
-
-_DEFINE_OP(INV_64) {
-  // inv.64 rS,rD
-  vm->gpr[_RD(op)].u64() = ~vm->gpr[_RS(op)].u64();
 }
 _END_OP
 
@@ -136,12 +112,6 @@ _DEFINE_OP(LSL_32) {
 }
 _END_OP
 
-_DEFINE_OP(LSL_64) {
-  // lsl.64 rS,rD
-  vm->gpr[_RD(op)].u64() <<= vm->gpr[_RS(op)].u8();
-}
-_END_OP
-
 // BITWISE SHIFT RIGHT /////////////////////////////////////////////////////////
 
 _DEFINE_OP(LSR_8) {
@@ -159,12 +129,6 @@ _END_OP
 _DEFINE_OP(LSR_32) {
   // lsl.32 rS,rD
   vm->gpr[_RD(op)].u32() >>= vm->gpr[_RS(op)].u8();
-}
-_END_OP
-
-_DEFINE_OP(LSR_64) {
-  // lsl.64 rS,rD
-  vm->gpr[_RD(op)].u64() >>= vm->gpr[_RS(op)].u8();
 }
 _END_OP
 
@@ -191,13 +155,6 @@ _DEFINE_OP(ROL_32) {
 }
 _END_OP
 
-_DEFINE_OP(ROL_64) {
-  uint64 val              = vm->gpr[_RD(op)].u64();
-  uint32 shift            = vm->gpr[_RS(op)].u8() & 0x3F;
-  vm->gpr[_RD(op)].u64()  = (val << shift | val >> (64 - shift));
-}
-_END_OP
-
 // BITWISE ROTATE RIGHT ////////////////////////////////////////////////////////
 
 _DEFINE_OP(ROR_8) {
@@ -221,10 +178,4 @@ _DEFINE_OP(ROR_32) {
 }
 _END_OP
 
-_DEFINE_OP(ROR_64) {
-  uint64 val              = vm->gpr[_RD(op)].u64();
-  uint32 shift            = vm->gpr[_RS(op)].u8() & 0x3F;
-  vm->gpr[_RD(op)].u64()  = (val >> shift | val << (64 - shift));
-}
-_END_OP
 
