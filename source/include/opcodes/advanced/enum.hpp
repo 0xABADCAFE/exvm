@@ -19,74 +19,20 @@
 // functions that otherwise would require the use of native function calls to expose.
 
 typedef enum {
-  // Multiply Add
-  _MADD_F32,   _MADD_F64,
 
-  // Load constants
-  _LD_CONST_F32, _LD_CONST_F64,
+  // Implementation Level 0
+  #include "enum_l0.hpp"
 
-  // register indirect, scale indexed
-  // ld.x (rS,rI,#s), rD
-  _LD_RII_8, _LD_RII_16, _LD_RII_32, _LD_RII_64,
+  // Implementation Level 1
+  #include "enum_l1.hpp"
 
-  // register indirect, scale indexed
-  // st.x rS, (rD,rI,#d)
-  _ST_RII_8, _ST_RII_16, _ST_RII_32, _ST_RII_64,
-
-  // Roots
-  _SQRT_F32,   _SQRT_F64,
-  _ISQRT_F32,  _ISQRT_F64,
-
-  // Trig - Arc
-  _ACOS_F32,   _ACOS_F64,
-  _ASIN_F32,   _ASIN_F64,
-  _ATAN_F32,   _ATAN_F64,
-
-  // Trig - Regular
-  _COS_F32,    _COS_F64,
-  _SIN_F32,    _SIN_F64,
-  _TAN_F32,    _TAN_F64,
-
-  // Trig - Hyperbolic
-  _COSH_F32,   _COSH_F64,
-  _SINH_F32,   _SINH_F64,
-  _TANH_F32,   _TANH_F64,
-
-  // Trig - Simultaneous sine and cosine
-  _SINCOS_F32, _SINCOS_F64,
-
-  // Exponentiation and powers
-  _EXP_F32,    _EXP_F64,
-  _POW_F32,    _POW_F64,
-
-  // Logarithms
-  _LOGN_F32,   _LOGN_F64,
-  _LOG2_F32,   _LOG2_F64,
-  _LOG10_F32,  _LOG10_F64,
-  _LOGX_F32,   _LOGX_F64,
-
-  // Truncation and rounding
-  _CEIL_F32,   _CEIL_F64,
-  _FLOOR_F32,  _FLOOR_F64,
-
-  // Interpolaton
-  _LERP_F32,   _LERP_F64,
-
-  // Fixed vectors of float32[3]
-  _SPLAT_V3F32, // splat fill, all elements set to the same value
-  _COPY_V3F32,  // copy
-  _ADD_V3F32,   // add
-  _SUB_V3F32,   // subtract
-  _CROSS_V3F32, // cross product
-  _DOT_V3F32,   // dot product
-  _SCALE_V3F32, // scale
-  _MAGN_V3F32,  // magnitude
-  _NORM_V3F32,  // normalise
-  _LERP_V3F32,  // interpolate
-
+  // Implementation Level 2
+  #include "enum_l2.hpp"
   MAX_ADV
 } AdvancedOp;
 
+
+// Constants for the load constant operators
 typedef enum {
   // Common multiples of PI
   CONST_PI         = 0,
