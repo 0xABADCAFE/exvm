@@ -16,7 +16,7 @@
 #define _VM_DEF_SCALAR_OPCODES_L0_HPP_
 
   // control group ////////////////////////////////////////
-  _NOP = 0,
+  _NOP,
   _BRK,
 
   // load group ///////////////////////////////////////////
