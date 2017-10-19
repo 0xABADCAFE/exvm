@@ -354,6 +354,11 @@ _DECLARE_OP(MAGN_V3F32)  // magnitude
 _DECLARE_OP(NORM_V3F32)  // normalise
 _DECLARE_OP(LERP_V3F32)  // interpolate
 
+_DECLARE_OP(LSLM_32)
+_DECLARE_OP(LSLR_32)
+_DECLARE_OP(LSLM_64)
+_DECLARE_OP(LSLR_64)
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Implementation Level 0

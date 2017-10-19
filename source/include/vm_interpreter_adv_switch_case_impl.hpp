@@ -20,6 +20,7 @@
     // Implementation level 0
     #include "opcodes/advanced/op_adv_load_impl_l0.hpp"
     #include "opcodes/advanced/op_adv_store_impl_l0.hpp"
+    #include "opcodes/advanced/op_adv_logic_impl_l0.hpp"
 
     // Implementation level 1
     #include "opcodes/advanced/op_adv_const_impl_l1.hpp"
@@ -35,6 +36,7 @@
     // Implementation level 2
     #include "opcodes/advanced/op_adv_load_impl_l2.hpp"
     #include "opcodes/advanced/op_adv_store_impl_l2.hpp"
+    #include "opcodes/advanced/op_adv_logic_impl_l2.hpp"
     #include "opcodes/advanced/op_adv_const_impl_l2.hpp"
     #include "opcodes/advanced/op_adv_madd_impl_l2.hpp"
     #include "opcodes/advanced/op_adv_roots_impl_l2.hpp"

@@ -90,6 +90,7 @@ void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
   // Implementation level 0
   #include "include/opcodes/advanced/op_adv_load_impl_l0.hpp"
   #include "include/opcodes/advanced/op_adv_store_impl_l0.hpp"
+  #include "include/opcodes/advanced/op_adv_logic_impl_l0.hpp"
 
   // Implementation level 1
   #include "include/opcodes/advanced/op_adv_const_impl_l1.hpp"
@@ -105,6 +106,7 @@ void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
   // Implementation level 2
   #include "include/opcodes/advanced/op_adv_load_impl_l2.hpp"
   #include "include/opcodes/advanced/op_adv_store_impl_l2.hpp"
+  #include "include/opcodes/advanced/op_adv_logic_impl_l0.hpp"
   #include "include/opcodes/advanced/op_adv_const_impl_l2.hpp"
   #include "include/opcodes/advanced/op_adv_madd_impl_l2.hpp"
   #include "include/opcodes/advanced/op_adv_roots_impl_l2.hpp"

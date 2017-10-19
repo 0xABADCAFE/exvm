@@ -25,6 +25,11 @@
   // st.x rS, (rD,rI,#d)
   _ST_RII_8, _ST_RII_16, _ST_RII_32,
 
+  // Logically shift, with mask
+  // lslm.32 rS,rB,rM,rD
+  _LSLM_32,
+  _LSRM_32,
+
 
 #endif
 
