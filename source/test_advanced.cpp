@@ -34,7 +34,7 @@ void printVec3f(Interpreter* vm) {
   // Vec3 in r0
   const float32 *v = vm->getReg(_r0).pF32();
   std::printf(
-    "vec3f { %0.5f, %0.5f, %0.5f } : %0.5f\n",
+    "vec3f { %0.7f, %0.7f, %0.7f } : %0.7f\n",
     (float64)v[0], (float64)v[1], (float64)v[2],
     sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2])
   );
@@ -50,18 +50,22 @@ void printVec3f(Interpreter* vm) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 uint16 mockCodeSegment[] = {
-  _salloc(3*sizeof(float32), _r15)     // 0      Allocate space for a vec3f on the stack
-  _move_64(_r15, _r0)                  // 2      Copy the vec3f address to r0
-  _ld_32_f32(1.75, _r1)                // 3      Load a nice recognisable value into r1
-  _splat_v3f32(_r1, _r0)               // 6      Splat fill vec3f with value in r1
-  _calln_unresolved(@printVec3f)       // 8      Print out the vec3f
-  _norm_v3f32(_r0, _r0)                // 10     Normalise the vec3f referenced in r0
-  _calln_unresolved(@printVec3f)       // 12     Print out the vec3f
-  _ld_const_f32(VMDefs::CONST_PI, _r2) // 14     Load 32-bit PI into r2
-  _scale_v3f32(_r2, _r0, _r0)          // 16     Scale the vec3f in r0 by r2
-  _calln_unresolved(@printVec3f)       // 18     Print out the vec3f
-  _sfree(_r15)                         // 20
-  _ret                                 // 21
+  _salloc            (3*sizeof(float32), _r15)  // 0      Allocate space for a vec3f on the stack
+  _move_64           (_r15, _r0)                // 2      Copy the vec3f address to r0
+  _ld_32_f32         (1.75, _r1)                // 3      Load a nice recognisable value into r1
+  _splat_v3f32       (_r1, _r0)                 // 6      Splat fill vec3f with value in r1
+  _calln_unresolved  (@printVec3f)              // 8      Print out the vec3f
+  _norm_v3f32        (_r0, _r0)                 // 10     Normalise the vec3f referenced in r0
+  _calln_unresolved  (@printVec3f)              // 12     Print out the vec3f
+  _ld_const_f32      (VMDefs::CONST_PI, _r2)    // 14     Load 32-bit PI into r2
+  _scale_v3f32       (_r2, _r0, _r0)            // 16     Scale the vec3f in r0 by r2
+  _calln_unresolved  (@printVec3f)              // 18     Print out the vec3f
+  _sfree             (_r15)                     // 20
+  _ld_32_i32         (0xF0F1F2F3, _r4)          // 21
+  _ld_32_i32         (0x00FF0000, _r5)
+  _ldq               (3, _r6)
+  _lslm_32           (_r4, _r5, _r6, _r7)
+  _ret                                          // 21
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

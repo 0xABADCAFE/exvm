@@ -282,6 +282,8 @@ const Interpreter::Handler Interpreter::advancedHandlers[256] = {
   _REFER_OP(ST_RII_8),
   _REFER_OP(ST_RII_16),
   _REFER_OP(ST_RII_32),
+  _REFER_OP(LSLM_32),
+  _REFER_OP(LSLR_32),
 
   // Implementation Level 1
   _REFER_OP(LD_CONST_F32),
@@ -321,6 +323,8 @@ const Interpreter::Handler Interpreter::advancedHandlers[256] = {
   // Implementation Level 2
   _REFER_OP(LD_RII_64),
   _REFER_OP(ST_RII_64),
+  _REFER_OP(LSLM_64),
+  _REFER_OP(LSLR_64),
   _REFER_OP(LD_CONST_F64),
   _REFER_OP(MADD_F64),
   _REFER_OP(SQRT_F64),

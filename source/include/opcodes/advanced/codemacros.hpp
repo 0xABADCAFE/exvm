@@ -150,5 +150,12 @@
 #define _norm_v3f32(s,d)      _MKAOP(NORM_V3F32),   (s) << 4 | (d),
 #define _lerp_v3f32(x,y,f,d)  _MKAOP(LERP_V3F32),   (x) << 12 | (y) << 8 | (f) << 4 | (d),
 
+#define _lslm_32(s,m,b,d)     _MKAOP(LSLM_32),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
+#define _lsrm_32(s,m,b,d)     _MKAOP(LSRM_32),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
+
+#define _lslm_64(s,m,b,d)     _MKAOP(LSLM_64),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
+#define _lsrm_64(s,m,b,d)     _MKAOP(LSRM_64),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
+
+
 #endif
 

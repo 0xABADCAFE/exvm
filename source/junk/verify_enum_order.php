@@ -5,6 +5,7 @@ $aEnum = [
     0 => [
       'op_adv_load_impl_l0.hpp',
       'op_adv_store_impl_l0.hpp',
+      'op_adv_logic_impl_l0.hpp',
     ],
     1 => [
       'op_adv_const_impl_l1.hpp',
@@ -18,16 +19,17 @@ $aEnum = [
       'op_adv_vec3_f32_impl_l1.hpp'
     ],
     2 => [
-    'op_adv_load_impl_l2.hpp',
-    'op_adv_store_impl_l2.hpp',
-    'op_adv_const_impl_l2.hpp',
-    'op_adv_madd_impl_l2.hpp',
-    'op_adv_roots_impl_l2.hpp',
-    'op_adv_trig_impl_l2.hpp',
-    'op_adv_powers_impl_l2.hpp',
-    'op_adv_logs_impl_l2.hpp',
-    'op_adv_trunc_impl_l2.hpp',
-    'op_adv_lerp_impl_l2.hpp',
+      'op_adv_load_impl_l2.hpp',
+      'op_adv_store_impl_l2.hpp',
+      'op_adv_logic_impl_l2.hpp',
+      'op_adv_const_impl_l2.hpp',
+      'op_adv_madd_impl_l2.hpp',
+      'op_adv_roots_impl_l2.hpp',
+      'op_adv_trig_impl_l2.hpp',
+      'op_adv_powers_impl_l2.hpp',
+      'op_adv_logs_impl_l2.hpp',
+      'op_adv_trunc_impl_l2.hpp',
+      'op_adv_lerp_impl_l2.hpp',
     ]
 
   ],

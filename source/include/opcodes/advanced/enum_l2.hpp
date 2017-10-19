@@ -25,6 +25,11 @@
   // st.x rS, (rD,rI,#d)
   _ST_RII_64,
 
+  // Logically shift, with mask
+  // lslm.32 rS,rB,rM,rD
+  _LSLM_64,
+  _LSRM_64,
+
   // Load constants
   _LD_CONST_F64,
 
