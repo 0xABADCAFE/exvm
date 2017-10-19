@@ -1,7 +1,7 @@
 # Project: ExVM Multiplatform
 
 # Target
-BIN      = bin/exvm_mos
+BIN      = bin/exvm_mos_ft
 
 # Compiler Settings
 CXX		   = ppc-morphos-g++-5
