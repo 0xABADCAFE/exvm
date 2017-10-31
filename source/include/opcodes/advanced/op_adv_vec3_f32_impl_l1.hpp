@@ -137,3 +137,11 @@ _DEFINE_OP(LERP_V3F32) {
 }
 _END_OP
 
+// Transform a set if vec3f by a 4x4 matrix. Note that the last matrix row is unused, whereas the last column
+// will contain any translation step.
+
+_DEFINE_OP(M4X4_VF32) {
+
+}
+_END_OP
+
