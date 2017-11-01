@@ -73,6 +73,8 @@
   _NORM_V2F32,  // normalise
   _LERP_V2F32,  // interpolate
 
+  _M3X3_V2F32, // transform a set of vec2 using a 4x4 matrix
+
   // Fixed 3D vectors : float32[3]
   _SPLAT_V3F32, // splat fill, all elements set to the same value
   _COPY_V3F32,  // copy
@@ -85,7 +87,7 @@
   _NORM_V3F32,  // normalise
   _LERP_V3F32,  // interpolate
 
-  _M4X4_VF32, // transform a set of vec3 using a 4x4 matrix
+  _M4X4_V3F32, // transform a set of vec3f using a 4x4 matrix
 
 #endif
 
