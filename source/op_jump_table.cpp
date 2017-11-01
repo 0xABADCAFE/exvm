@@ -309,6 +309,18 @@ const Interpreter::Handler Interpreter::advancedHandlers[256] = {
   _REFER_OP(CEIL_F32),
   _REFER_OP(FLOOR_F32),
   _REFER_OP(LERP_F32),
+
+  _REFER_OP(SPLAT_V2F32), // splat fill
+  _REFER_OP(COPY_V2F32),  // copy
+  _REFER_OP(ADD_V2F32),   // add
+  _REFER_OP(SUB_V2F32),   // subtract
+  _REFER_OP(DOT_V2F32),   // dot product
+  _REFER_OP(SCALE_V2F32), // scale
+  _REFER_OP(MAGN_V2F32),  // magnitude
+  _REFER_OP(NORM_V2F32),  // normalise
+  _REFER_OP(LERP_V2F32),  // interpolate
+  _REFER_OP(M3X3_V2F32),  // transform by 3x3 matrix
+
   _REFER_OP(SPLAT_V3F32), // splat fill, all elements set to the same value
   _REFER_OP(COPY_V3F32),  // copy
   _REFER_OP(ADD_V3F32),   // add
@@ -319,6 +331,7 @@ const Interpreter::Handler Interpreter::advancedHandlers[256] = {
   _REFER_OP(MAGN_V3F32),  // magnitude
   _REFER_OP(NORM_V3F32),  // normalise
   _REFER_OP(LERP_V3F32),  // interpolate
+  _REFER_OP(M4X4_V3F32),  // interpolate
 
   // Implementation Level 2
   _REFER_OP(LD_RII_64),

@@ -69,6 +69,17 @@ _DECLARE_OP(FLOOR_F64)
 _DECLARE_OP(LERP_F32)
 _DECLARE_OP(LERP_F64)
 
+_DECLARE_OP(SPLAT_V2F32) // splat fill
+_DECLARE_OP(COPY_V2F32)  // copy
+_DECLARE_OP(ADD_V2F32)   // add
+_DECLARE_OP(SUB_V2F32)   // subtract
+_DECLARE_OP(DOT_V2F32)   // dot product
+_DECLARE_OP(SCALE_V2F32) // scale
+_DECLARE_OP(MAGN_V2F32)  // magnitude
+_DECLARE_OP(NORM_V2F32)  // normalise
+_DECLARE_OP(LERP_V2F32)  // interpolate
+_DECLARE_OP(M3X3_V2F32)  // transform by 3x3 matrix
+
 _DECLARE_OP(SPLAT_V3F32) // splat fill
 _DECLARE_OP(COPY_V3F32)  // copy
 _DECLARE_OP(ADD_V3F32)   // add
@@ -79,6 +90,7 @@ _DECLARE_OP(SCALE_V3F32) // scale
 _DECLARE_OP(MAGN_V3F32)  // magnitude
 _DECLARE_OP(NORM_V3F32)  // normalise
 _DECLARE_OP(LERP_V3F32)  // interpolate
+_DECLARE_OP(M4X4_V3F32)  // transform by 4x4 matrix
 
 _DECLARE_OP(LSLM_32)
 _DECLARE_OP(LSLR_32)

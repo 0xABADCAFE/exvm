@@ -62,7 +62,20 @@
   // Interpolaton
   _LERP_F32,
 
-  // Fixed vectors of float32[3]
+  // Fixed 2D vectors : float32[2]
+  _SPLAT_V2F32, // splat fill, all elements set to the same value
+  _COPY_V2F32,  // copy
+  _ADD_V2F32,   // add
+  _SUB_V2F32,   // subtract
+  _DOT_V2F32,   // dot product
+  _SCALE_V2F32, // scale
+  _MAGN_V2F32,  // magnitude
+  _NORM_V2F32,  // normalise
+  _LERP_V2F32,  // interpolate
+
+  _M3X3_V2F32, // transform a set of vec2 using a 4x4 matrix
+
+  // Fixed 3D vectors : float32[3]
   _SPLAT_V3F32, // splat fill, all elements set to the same value
   _COPY_V3F32,  // copy
   _ADD_V3F32,   // add
@@ -73,6 +86,8 @@
   _MAGN_V3F32,  // magnitude
   _NORM_V3F32,  // normalise
   _LERP_V3F32,  // interpolate
+
+  _M4X4_V3F32, // transform a set of vec3f using a 4x4 matrix
 
 #endif
 
