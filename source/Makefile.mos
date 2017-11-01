@@ -6,7 +6,6 @@ CXXFLAGS = -Ofast -Wall -W -fomit-frame-pointer -fno-exceptions -fexpensive-opti
 LDFLAGS	 = -noixemul
 
 ARCH     = ppc_morphos
-
+MEXT     = mos
 include interpreter.make
-
 
