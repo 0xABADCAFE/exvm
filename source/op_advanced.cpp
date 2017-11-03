@@ -102,6 +102,7 @@ void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
   #include "include/opcodes/advanced/op_adv_trunc_impl_l1.hpp"
   #include "include/opcodes/advanced/op_adv_lerp_impl_l1.hpp"
   #include "include/opcodes/advanced/op_adv_vec2_f32_impl_l1.hpp"
+  #include "include/opcodes/advanced/op_adv_complex_f32_impl_l1.hpp"
   #include "include/opcodes/advanced/op_adv_vec3_f32_impl_l1.hpp"
 
   // Implementation level 2

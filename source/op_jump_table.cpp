@@ -321,6 +321,9 @@ const Interpreter::Handler Interpreter::advancedHandlers[256] = {
   _REFER_OP(LERP_V2F32),  // interpolate
   _REFER_OP(M3X3_V2F32),  // transform by 3x3 matrix
 
+  _REFER_OP(MUL_C2F32),   // Complex multiply
+  _REFER_OP(DIV_C2F32),   // Complex divide
+
   _REFER_OP(SPLAT_V3F32), // splat fill, all elements set to the same value
   _REFER_OP(COPY_V3F32),  // copy
   _REFER_OP(ADD_V3F32),   // add
