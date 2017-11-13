@@ -138,11 +138,11 @@ inline uint16 _float32LSW(float32 f) {
 
 // Macros that define how to spread tye bits of an enumerated native code Symbol ID between the opcode and extension
 #define _SYM_NATIVE_LOWER(x) (uint16)(sym_native_##x & 0xFFFF)
-#define _SYM_NATIVE_UPPER(x) (uint16)((sym_native_##x & 0xFF0000) >> 16)
+#define _SYM_NATIVE_UPPER(x) (uint16)((sym_native_##x & 0xF0000) >> 16)
 
 // Macros that define how to spread tye bits of an enumerated code Symbol ID between the opcode and extension
 #define _SYM_CODE_LOWER(x) (uint16)(sym_code_##x & 0xFFFF)
-#define _SYM_CODE_UPPER(x) (uint16)((sym_code_##x & 0xFF0000) >> 16)
+#define _SYM_CODE_UPPER(x) (uint16)((sym_code_##x & 0xF0000) >> 16)
 
 // Macros that define how to spread tye bits of an enumerated data Symbol ID between the opcode and extension
 #define _SYM_DATA_LOWER(x) (uint16)(sym_data_##x & 0xFFFF)
