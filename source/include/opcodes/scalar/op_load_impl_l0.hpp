@@ -190,3 +190,22 @@ _DEFINE_OP(LD_ADDR) {
 }
 _END_OP
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+_DEFINE_OP(LD_CSYM) {
+  // ldc symbol, rX
+  uint32 symbol = RawSegmentData::TYPE_CODE | (uint32)_EX_U16 | ((uint32)op & 0x0F) << 16;
+  vm->gpr[_RS(op)].u32() = symbol;
+}
+_END_OP
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+_DEFINE_OP(LD_NSYM) {
+  // ldn symbol, rX
+  uint32 symbol = RawSegmentData::TYPE_NATIVE | (uint32)_EX_U16 | ((uint32)op & 0x0F) << 16;
+  vm->gpr[_RS(op)].u32() = symbol;
+}
+_END_OP
+
+
