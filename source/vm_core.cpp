@@ -15,6 +15,7 @@
 #include <cstdio>
 #include "include/vm_core.hpp"
 #include "include/vm_inline.hpp"
+#include "include/vm_linker.hpp"
 #include <new>
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE

@@ -41,8 +41,8 @@
     #define  _EX_U8_2 ((vm->pc.extU8)[0])
   #endif
 
-  #define _SI(x)  (((x) & 0x00F0) >> 4)       // small immediate
-  #define _RS(x)  (((x) & 0x00F0) >> 4)       // source register in 2 operand
+  #define _SI(x)  (((x) & 0x00F0) >> 4)     // small immediate
+  #define _RS(x)  (((x) & 0x00F0) >> 4)     // source register in 2 operand
   #define _RD(x)  ((x) & 0x000F)            // dest register in 2 operand
   #define _RX(x)  ((x) & 0x000F)            // source/dest register in 1 operand
   #define _SC(x)  ((x) >> 8)                // scale
@@ -53,7 +53,7 @@
   #define _EX_S16 (*vm->pc.extS16++)
   #define _EX_S32 (*vm->pc.extS32++)
   #define _EX_F32 (*vm->pc.extF32++)
-  #define _SU(x)  ((uint32)((x) & 0x00F0) << 12)
+  #define _SU(x)  ((uint32)((x) & 0x000F) << 16) // Symbol upper
 
   #if X_PTRSIZE == XA_PTRSIZE64
     #define PTR_CH   _pch

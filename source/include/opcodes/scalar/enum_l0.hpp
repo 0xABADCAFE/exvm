@@ -83,12 +83,24 @@
   _LD_16,
   _LD_32,
 
-  // loads the address implied by the symbol ID into the specified address reguster:
+  // loads the address implied by the data symbol ID into the specified register:
   // lda label, rX
   // [opcode] [ Data Symbol ID {16:19} : rX ]
   // [          Data Symbol ID {0:15}       ]
 
   _LD_ADDR,
+
+  // Load executable symbol reference into the specified register
+  // ldc label, rX
+  // [opcode] [ Code Symbol ID {16:19} : rX ]
+  // [          Code Symbol ID {0:15}       ]
+  _LD_CSYM,
+
+  // Load native symbol reference into the specified register
+  // ldn label, rX
+  // [opcode] [ Native Symbol ID {16:19} : rX ]
+  // [          Native Symbol ID {0:15}       ]
+  _LD_NSYM,
 
   // store group ////////////////////////////////////////
 
@@ -185,10 +197,18 @@
 
   // call global reference
   // call label
+  // calln label
   // [opcode] [ Code Symbol ID{16:24} ]
   // [          Code Symbol ID{0-15}  ]
   _CALL,
   _CALLN,
+
+  // indirect calling. Assumes that the lower 32-bits of the register contains a code or native symbol ID
+  // call rX
+  // calln rX
+  _ICALL,
+  _ICALLN,
+
   _RET,
 
   // unconditional branches, max 16-bit pc relative displacement
