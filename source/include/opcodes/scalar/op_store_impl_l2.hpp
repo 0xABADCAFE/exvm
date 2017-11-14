@@ -48,7 +48,7 @@ _END_OP
 _DEFINE_OP(ST_64) {
   // st.64 rX, label
   _DECLARE_DATA_SYMBOL(symbol)
-  *((uint64*)(vm->dataSymbol[symbol])) = vm->gpr[_RX(op)].u64();
+  *((uint64*)(vm->dataSymbol[symbol])) = vm->gpr[_RS(op)].u64();
 }
 _END_OP
 

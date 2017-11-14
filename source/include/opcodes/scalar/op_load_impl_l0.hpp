@@ -159,7 +159,7 @@ _END_OP
 _DEFINE_OP(LD_8) {
   // ld.8 label, rX
   _DECLARE_DATA_SYMBOL(symbol)
-  vm->gpr[_RX(op)].u8() = *((uint8*)(vm->dataSymbol[symbol]));
+  vm->gpr[_RS(op)].u8() = *((uint8*)(vm->dataSymbol[symbol]));
 }
 _END_OP
 
@@ -168,7 +168,7 @@ _END_OP
 _DEFINE_OP(LD_16) {
   // ld.16 label, rX
   _DECLARE_DATA_SYMBOL(symbol)
-  vm->gpr[_RX(op)].u16()  = *((uint16*)(vm->dataSymbol[symbol]));
+  vm->gpr[_RS(op)].u16()  = *((uint16*)(vm->dataSymbol[symbol]));
 }
 _END_OP
 
@@ -177,7 +177,7 @@ _END_OP
 _DEFINE_OP(LD_32) {
   // ld.32 label, rX
   _DECLARE_DATA_SYMBOL(symbol)
-  vm->gpr[_RX(op)].u32()  = *((uint32*)(vm->dataSymbol[symbol]));
+  vm->gpr[_RS(op)].u32()  = *((uint32*)(vm->dataSymbol[symbol]));
 }
 _END_OP
 
@@ -186,7 +186,7 @@ _END_OP
 _DEFINE_OP(LD_ADDR) {
   // lda label, rX
   _DECLARE_DATA_SYMBOL(symbol)
-  vm->gpr[_RX(op)].u64()  = (uint64)vm->dataSymbol[symbol];
+  vm->gpr[_RS(op)].u64()  = (uint64)vm->dataSymbol[symbol];
 }
 _END_OP
 
