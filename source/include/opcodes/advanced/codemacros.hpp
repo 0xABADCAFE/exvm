@@ -139,6 +139,57 @@
 #define _lerp_f32(x,y,l,d)    _MKAOP(LERP_F32),     (x) << 12 | (y) << 8 | (l) << 4 | (d),
 #define _lerp_f64(x,y,l,d)    _MKAOP(LERP_F64),     (x) << 12 | (y) << 8 | (l) << 4 | (d),
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Masked shifting
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#define _lslm_32(s,m,b,d)     _MKAOP(LSLM_32),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
+#define _lsrm_32(s,m,b,d)     _MKAOP(LSRM_32),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
+#define _lslm_64(s,m,b,d)     _MKAOP(LSLM_64),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
+#define _lsrm_64(s,m,b,d)     _MKAOP(LSRM_64),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Complex { float32 real; float32 imaginary; }
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Specifically complex number operations
+#define _mul_c2f32(a,b,d) _MKAOP(MUL_C2F32), (a) << 8 | (b) << 4 | (d)
+#define _div_c2f32(a,b,d) _MKAOP(DIV_C2F32), (a) << 8 | (b) << 4 | (d)
+
+// Complex and vector 2D equivalents
+#define _copy_c2f32(s, d) _MKAOP(COPY_V2F32), (s) << 4 | (d)
+#define _add_c2f32(a,b,d) _MKAOP(ADD_V2F32), (a) << 8 | (b) << 4 | (d)
+#define _sub_c2f32(a,b,d) _MKAOP(SUB_V2F32), (a) << 8 | (b) << 4 | (d)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Vector 2D float32[2]
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#define _splat_v2f32(s, d)    _MKAOP(SPLAT_V2F32),  (s) << 4 | (d)
+#define _copy_v2f32(s, d)     _MKAOP(COPY_V2F32),   (s) << 4 | (d)
+#define _add_v2f32(a,b,d)     _MKAOP(ADD_V2F32),    (a) << 8 | (b) << 4 | (d)
+#define _sub_v2f32(a,b,d)     _MKAOP(SUB_V2F32),    (a) << 8 | (b) << 4 | (d)
+#define _dot_v2f32(a, b, d)   _MKAOP(DOT_V2F32),    (a) << 8 | (b) << 4 | (d)
+#define _scale_v2f32(f, s, d) _MKAOP(SCALE_V2F32),  (f) << 8 | (s) << 4 | (d)
+#define _magn_v2f32(s, d)     _MKAOP(MAGN_V2F32),   (s) << 4 | (d)
+#define _norm_v2f32(s, d)     _MKAOP(NORM_V2F32),   (s) << 4 | (d)
+#define _lerp_v2f32(x,y,f,d)  _MKAOP(LERP_V2F32),   (x) << 12 | (y) << 8 | (f) << 4 | (d),
+
+// TODO
+#define _xform_v2f32()        _MKAOP(M3X3_V2F32),
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Vector 3D float32[3]
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define _splat_v3f32(s,d)     _MKAOP(SPLAT_V3F32),  (s) << 4 | (d),
 #define _copy_v3f32(s,d)      _MKAOP(COPY_V3F32),   (s) << 4 | (d),
 #define _add_v3f32(x,y,d)     _MKAOP(ADD_V3F32),    (x) << 8 | (y) << 4 | (d),
@@ -150,12 +201,8 @@
 #define _norm_v3f32(s,d)      _MKAOP(NORM_V3F32),   (s) << 4 | (d),
 #define _lerp_v3f32(x,y,f,d)  _MKAOP(LERP_V3F32),   (x) << 12 | (y) << 8 | (f) << 4 | (d),
 
-#define _lslm_32(s,m,b,d)     _MKAOP(LSLM_32),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
-#define _lsrm_32(s,m,b,d)     _MKAOP(LSRM_32),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
-
-#define _lslm_64(s,m,b,d)     _MKAOP(LSLM_64),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
-#define _lsrm_64(s,m,b,d)     _MKAOP(LSRM_64),      (s) << 12 | (m) << 8 | (b) << 4 | (d),
-
+// TODO
+#define _xform_v3f32()        _MKAOP(M4X4_V3F32),
 
 #endif
 
