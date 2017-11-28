@@ -80,6 +80,9 @@ _DECLARE_OP(NORM_V2F32)  // normalise
 _DECLARE_OP(LERP_V2F32)  // interpolate
 _DECLARE_OP(M3X3_V2F32)  // transform by 3x3 matrix
 
+_DECLARE_OP(MUL_C2F32)   // Complex Multiply
+_DELCARE_OP(DIV_C2F32)   // Complex Divide
+
 _DECLARE_OP(SPLAT_V3F32) // splat fill
 _DECLARE_OP(COPY_V3F32)  // copy
 _DECLARE_OP(ADD_V3F32)   // add
