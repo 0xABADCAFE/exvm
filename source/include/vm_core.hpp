@@ -130,6 +130,8 @@ namespace ExVM {
       static void doBCALL16(Interpreter* vm, uint16 op);
       static void doCALL(Interpreter* vm, uint16 op);
       static void doCALLN(Interpreter* vm, uint16 op);
+      static void doICALL(Interpreter* vm, uint16 op);
+      static void doICALLN(Interpreter* vm, uint16 op);
       static void doSV(Interpreter* vn, uint16 op);
       static void doRS(Interpreter* vn, uint16 op);
       static void doPUSH_8(Interpreter* vm, uint16 op);

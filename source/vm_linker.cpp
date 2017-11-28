@@ -201,9 +201,11 @@ int Linker::enumerateAllSymbols() {
 
 int Linker::resolveToEnumerated() {
 
-  #define MODIFY_OPCODE_FOR_CODE(o, s)   (o) &= 0xFF00; (o) |= ((s) & 0xFF0000) >> 16;
-  #define MODIFY_OPCODE_FOR_NATIVE(o, s) (o) &= 0xFF00; (o) |= ((s) & 0xFF0000) >> 16;
-  #define MODIFY_OPCODE_FOR_DATA(o, s)   (o) &= 0xFF0F; (o) |= ((s) & 0x0F0000) >> 12;
+  // Where symbol ID values are present in an instruction, the overall format of the two words is as follows:
+  //
+  // |<- Op ->|          |<--------- Symbol ----------->|
+  // [OOOOOOOO] : [Resv] [SSSS] : [SSSSSSSS] : [SSSSSSSS]
+  #define MODIFY_OPCODE_FOR_SYMBOL(o, s) (o) &= 0xFFF0; (o) |= ((s) & 0x0F0000) >> 16;
 
   for (uint32 i = 0; i < numRawSegments; i++) {
     RawSegmentData* segment = rawSegments[i];
@@ -240,7 +242,7 @@ int Linker::resolveToEnumerated() {
 
             //debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
 
-            MODIFY_OPCODE_FOR_CODE(opcodeWord, symbolID)
+            MODIFY_OPCODE_FOR_SYMBOL(opcodeWord, symbolID)
 
             //debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
 
@@ -264,7 +266,7 @@ int Linker::resolveToEnumerated() {
 
             //debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
 
-            MODIFY_OPCODE_FOR_DATA(opcodeWord, symbolID)
+            MODIFY_OPCODE_FOR_SYMBOL(opcodeWord, symbolID)
 
             //debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
 
@@ -288,7 +290,7 @@ int Linker::resolveToEnumerated() {
 
             //debuglog(LOG_DEBUG, "\t\tOpcode word before: 0x%04X", opcodeWord);
 
-            MODIFY_OPCODE_FOR_NATIVE(opcodeWord, symbolID)
+            MODIFY_OPCODE_FOR_SYMBOL(opcodeWord, symbolID)
 
             //debuglog(LOG_DEBUG, "\t\tOpcode word after: 0x%04X", opcodeWord);
 

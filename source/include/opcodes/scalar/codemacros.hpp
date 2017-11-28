@@ -70,13 +70,18 @@
 #define _ld_32_unresolved(x,d)           _MKOP(LD_32)   | 0xF0 | (d), 0xFFFF,
 #define _ld_64_unresolved(x,d)           _MKOP(LD_64)   | 0xF0 | (d), 0xFFFF,
 #define _lda_unresolved(x,d)             _MKOP(LD_ADDR) | 0xF0 | (d), 0xFFFF,
+#define _ldc_unresolved(x,d)             _MKOP(LD_CSYM) | (d) << 4 | 0xF, 0xFFFF,
+#define _ldn_unresolved(x,d)             _MKOP(LD_NSYM) | (d) << 4 | 0xF, 0xFFFF,
 
 // For testing mock resolved symbols
-#define _ld_8(x,d)            _MKOP(LD_8)    | _SYM_DATA_UPPER(x) | (d), _SYM_DATA_LOWER(x),
-#define _ld_16(x,d)           _MKOP(LD_16)   | _SYM_DATA_UPPER(x) | (d), _SYM_DATA_LOWER(x),
-#define _ld_32(x,d)           _MKOP(LD_32)   | _SYM_DATA_UPPER(x) | (d), _SYM_DATA_LOWER(x),
-#define _ld_64(x,d)           _MKOP(LD_64)   | _SYM_DATA_UPPER(x) | (d), _SYM_DATA_LOWER(x),
-#define _lda(x,d)             _MKOP(LD_ADDR) | _SYM_DATA_UPPER(x) | (d), _SYM_DATA_LOWER(x),
+#define _ld_8(x,d)            _MKOP(LD_8)    | (d) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+#define _ld_16(x,d)           _MKOP(LD_16)   | (d) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+#define _ld_32(x,d)           _MKOP(LD_32)   | (d) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+#define _ld_64(x,d)           _MKOP(LD_64)   | (d) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+#define _lda(x,d)             _MKOP(LD_ADDR) | (d) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+
+#define _ldc(x,d)             _MKOP(LD_CSYM) | (d) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+#define _ldn(x,d)             _MKOP(LD_NSYM) | (d) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -113,10 +118,10 @@
 #define _st_64_unresolved(s,x)           _MKOP(ST_64) | 0xF0 | (s), 0xFFFF,
 
 // For testing mock resolved symbols
-#define _st_8(s,x)            _MKOP(ST_8)  | _SYM_DATA_UPPER(x) | (s), _SYM_DATA_LOWER(x),
-#define _st_16(s,x)           _MKOP(ST_16) | _SYM_DATA_UPPER(x) | (s), _SYM_DATA_LOWER(x),
-#define _st_32(s,x)           _MKOP(ST_32) | _SYM_DATA_UPPER(x) | (s), _SYM_DATA_LOWER(x),
-#define _st_64(s,x)           _MKOP(ST_64) | _SYM_DATA_UPPER(x) | (s), _SYM_DATA_LOWER(x),
+#define _st_8(s,x)            _MKOP(ST_8)  | (s) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+#define _st_16(s,x)           _MKOP(ST_16) | (s) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+#define _st_32(s,x)           _MKOP(ST_32) | (s) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+#define _st_64(s,x)           _MKOP(ST_64) | (s) << 4 | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -158,14 +163,17 @@
 #define _bcall_8_unresolved(x) _MKOP(BCALL8)  | 0xFF, 0xFFFF,
 #define _bcall_unresolved(x)   _MKOP(BCALL16) | 0xFF, 0xFFFF,
 
-#define _bcall_8(x)           _MKOP(BCALL8),  | _SYM_CODE_UPPER(x), _SYM_CODE_LOWER(x),
-#define _bcall(x)             _MKOP(BCALL16)  | _SYM_CODE_UPPER(x), _SYM_CODE_LOWER(x),
+#define _bcall_8(x)           _MKOP(BCALL8),  | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+#define _bcall(x)             _MKOP(BCALL16)  | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
 
 #define _call_unresolved(x)   _MKOP(CALL)     | 0xFF, 0xFFFF,
 #define _calln_unresolved(x)  _MKOP(CALLN)    | 0xFF, 0xFFFF,
 
-#define _call(x)              _MKOP(CALL)     | _SYM_CODE_UPPER(x), _SYM_CODE_LOWER(x),
-#define _calln(x)             _MKOP(CALLN)    | _SYM_NATIVE_UPPER(x), _SYM_NATIVE_LOWER(x),
+#define _call(x)              _MKOP(CALL)     | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+#define _calln(x)             _MKOP(CALLN)    | _SYM_ID_UPPER(x), _SYM_ID_LOWER(x),
+
+#define _icall(d)             _MKOP(ICALL)    | (d),
+#define _icalln(d)            _MKOP(ICALLN)   | (d),
 
 #define _ret                  _MKOP(RET)
 #define _bra_8(o)             _MKOP(BRA8)   | (o),

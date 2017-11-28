@@ -75,7 +75,7 @@ _END_OP
 _DEFINE_OP(LD_64) {
   // ld.64 label, rX
   _DECLARE_DATA_SYMBOL(symbol)
-  vm->gpr[_RX(op)].u64()  = *((uint64*)(vm->dataSymbol[symbol]));
+  vm->gpr[_RS(op)].u64()  = *((uint64*)(vm->dataSymbol[symbol]));
 }
 _END_OP
 

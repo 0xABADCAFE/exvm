@@ -15,6 +15,7 @@
 #include "include/machine.hpp"
 #include "include/vm_core.hpp"
 #include "include/vm_inline.hpp"
+#include "include/vm_linker.hpp"
 #include <cstdio>
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
@@ -320,7 +321,7 @@ void ExVM::Interpreter::doBCALL16(ExVM::Interpreter* vm, uint16 op UNUSED) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::Interpreter::doCALL(ExVM::Interpreter* vm, uint16 op) {
-  uint32 symbol = (uint32)_EX_U16 | ((uint32)op & 0xFF) << 16;
+  uint32 symbol = (uint32)_EX_U16 | ((uint32)op & 0x0F) << 16;
   if (symbol >= vm->codeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
 
@@ -348,7 +349,7 @@ void ExVM::Interpreter::doCALL(ExVM::Interpreter* vm, uint16 op) {
 
 void ExVM::Interpreter::doCALLN(ExVM::Interpreter* vm, uint16 op) {
 
-  uint32 symbol = (uint32)_EX_U16 | ((uint32)op & 0xFF) << 16;
+  uint32 symbol = (uint32)_EX_U16 | ((uint32)op & 0x0F) << 16;
   if (symbol >= vm->nativeCodeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
 
@@ -372,3 +373,83 @@ void ExVM::Interpreter::doCALLN(ExVM::Interpreter* vm, uint16 op) {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void ExVM::Interpreter::doICALL(ExVM::Interpreter* vm, uint16 op) {
+  uint32 symbol = vm->gpr[_RS(op)].u32();
+
+  if ( (symbol & RawSegmentData::TYPE_MASK) != RawSegmentData::TYPE_CODE) {
+    vm->status = VMDefs::ILLEGAL_CALLABLE_SYMBOL;
+
+    debuglog(LOG_ERROR, "Invalid code symbold %d in CALL", (int)symbol);
+    dumpstate(vm);
+
+    return;
+  }
+
+  // Mask off the type to get the actual symbol
+  symbol &= ~RawSegmentData::TYPE_MASK;
+
+  if (symbol >= vm->codeSymbolCount) {
+    vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
+
+    debuglog(LOG_ERROR, "Unknown code symbold %d in CALL", (int)symbol);
+    dumpstate(vm);
+
+    return;
+  }
+
+  const uint16* newPC = vm->codeSymbol[symbol];
+  //printf("call 0x%08X\n", (unsigned)newPC);
+  if (vm->callStack < vm->callStackTop) {
+    *vm->callStack++ = (uint16*)vm->pc.inst;
+    vm->pc.inst = newPC;
+  } else {
+    vm->status = VMDefs::CALL_STACK_OVERFLOW;
+
+    debuglog(LOG_ERROR, "Call stack overflow in CALL");
+    dumpstate(vm);
+
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void ExVM::Interpreter::doICALLN(ExVM::Interpreter* vm, uint16 op) {
+
+  uint32 symbol = vm->gpr[_RS(op)].u32();
+
+  if ( (symbol & RawSegmentData::TYPE_MASK) != RawSegmentData::TYPE_NATIVE) {
+    vm->status = VMDefs::ILLEGAL_CALLABLE_SYMBOL;
+
+    debuglog(LOG_ERROR, "Invalid native symbold %d in CALL", (int)symbol);
+    dumpstate(vm);
+
+    return;
+  }
+
+  // Mask off the type to get the actual symbol
+  symbol &= ~RawSegmentData::TYPE_MASK;
+
+  if (symbol >= vm->nativeCodeSymbolCount) {
+    vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
+
+    debuglog(LOG_ERROR, "Unknown native code symbold %d in CALLN", (int)symbol);
+    dumpstate(vm);
+
+    return;
+  }
+  NativeCall func = vm->nativeCodeSymbol[symbol];
+  if (func) {
+    MilliClock native;
+    //printf("call native 0x%08X\n", (unsigned)func);
+    func(vm);
+    vm->nativeTime += native.elapsedFrac();
+  } else {
+    vm->status = VMDefs::CALL_EMPTY_NATIVE;
+
+    debuglog(LOG_ERROR, "Empty native address in CALLN");
+    dumpstate(vm);
+
+  }
+}

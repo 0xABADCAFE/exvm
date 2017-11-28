@@ -114,7 +114,7 @@ _END_OP
 _DEFINE_OP(ST_8) {
   // st.8 rX, label
   _DECLARE_DATA_SYMBOL(symbol)
-  *((uint8*)(vm->dataSymbol[symbol])) = vm->gpr[_RX(op)].u8();
+  *((uint8*)(vm->dataSymbol[symbol])) = vm->gpr[_RS(op)].u8();
 }
 _END_OP
 
@@ -123,7 +123,7 @@ _END_OP
 _DEFINE_OP(ST_16) {
   // st.16 rX, label
   _DECLARE_DATA_SYMBOL(symbol)
-  *((uint16*)(vm->dataSymbol[symbol])) = vm->gpr[_RX(op)].u16();
+  *((uint16*)(vm->dataSymbol[symbol])) = vm->gpr[_RS(op)].u16();
 }
 _END_OP
 
@@ -132,7 +132,7 @@ _END_OP
 _DEFINE_OP(ST_32) {
   // st.32 rX, label
   _DECLARE_DATA_SYMBOL(symbol)
-  *((uint32*)(vm->dataSymbol[symbol])) = vm->gpr[_RX(op)].u32();
+  *((uint32*)(vm->dataSymbol[symbol])) = vm->gpr[_RS(op)].u32();
 }
 _END_OP
 
