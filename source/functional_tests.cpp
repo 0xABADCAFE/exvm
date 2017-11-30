@@ -28,7 +28,11 @@ namespace ExVM {
 
     public:
       static void dummy(Interpreter* vm) {
+        printf("Interpreter %p\n", vm);
+        printf("Registers   %p\n", vm->gpr);
         printf("Data Stack Base %p\n", vm->dataStackBase);
+        printf("Call Stack Base %p\n", vm->callStackBase);
+        printf("Regs Stack Base %p\n", vm->regStackBase);
       }
 
   };
