@@ -100,5 +100,31 @@ _DECLARE_OP(LSLR_32)
 _DECLARE_OP(LSLM_64)
 _DECLARE_OP(LSLR_64)
 
+_DECLARE_OP(SPLAT_V2F64) // splat fill
+_DECLARE_OP(COPY_V2F64)  // copy
+_DECLARE_OP(ADD_V2F64)   // add
+_DECLARE_OP(SUB_V2F64)   // subtract
+_DECLARE_OP(DOT_V2F64)   // dot product
+_DECLARE_OP(SCALE_V2F64) // scale
+_DECLARE_OP(MAGN_V2F64)  // magnitude
+_DECLARE_OP(NORM_V2F64)  // normalise
+_DECLARE_OP(LERP_V2F64)  // interpolate
+_DECLARE_OP(M3X3_V2F64)  // transform by 3x3 matrix
+
+_DECLARE_OP(MUL_C2F64)   // Complex Multiply
+_DELCARE_OP(DIV_C2F64)   // Complex Divide
+
+_DECLARE_OP(SPLAT_V3F64) // splat fill
+_DECLARE_OP(COPY_V3F64)  // copy
+_DECLARE_OP(ADD_V3F64)   // add
+_DECLARE_OP(SUB_V3F64)   // subtract
+_DECLARE_OP(CROSS_V3F64) // cross product
+_DECLARE_OP(DOT_V3F64)   // dot product
+_DECLARE_OP(SCALE_V3F64) // scale
+_DECLARE_OP(MAGN_V3F64)  // magnitude
+_DECLARE_OP(NORM_V3F64)  // normalise
+_DECLARE_OP(LERP_V3F64)  // interpolate
+_DECLARE_OP(M4X4_V3F64)  // transform by 4x4 matrix
+
 static const Handler advancedHandlers[256]; // advanced handlers
 

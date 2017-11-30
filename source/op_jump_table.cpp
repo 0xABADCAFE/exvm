@@ -369,6 +369,31 @@ const Interpreter::Handler Interpreter::advancedHandlers[256] = {
   _REFER_OP(FLOOR_F64),
   _REFER_OP(LERP_F64),
 
+  _REFER_OP(SPLAT_V2F64), // splat fill
+  _REFER_OP(COPY_V2F64),  // copy
+  _REFER_OP(ADD_V2F64),   // add
+  _REFER_OP(SUB_V2F64),   // subtract
+  _REFER_OP(DOT_V2F64),   // dot product
+  _REFER_OP(SCALE_V2F64), // scale
+  _REFER_OP(MAGN_V2F64),  // magnitude
+  _REFER_OP(NORM_V2F64),  // normalise
+  _REFER_OP(LERP_V2F64),  // interpolate
+  _REFER_OP(M3X3_V2F64),  // transform by 3x3 matrix
+
+  _REFER_OP(MUL_C2F64),   // Complex multiply
+  _REFER_OP(DIV_C2F64),   // Complex divide
+
+  _REFER_OP(SPLAT_V3F64), // splat fill, all elements set to the same value
+  _REFER_OP(COPY_V3F64),  // copy
+  _REFER_OP(ADD_V3F64),   // add
+  _REFER_OP(SUB_V3F64),   // subtract
+  _REFER_OP(CROSS_V3F64), // cross product
+  _REFER_OP(DOT_V3F64),   // dot product
+  _REFER_OP(SCALE_V3F64), // scale
+  _REFER_OP(MAGN_V3F64),  // magnitude
+  _REFER_OP(NORM_V3F64),  // normalise
+  _REFER_OP(LERP_V3F64),  // interpolate
+  _REFER_OP(M4X4_V3F64),  // interpolate
 };
 
 const Interpreter::Handler Interpreter::vectorHandlers[256] = {

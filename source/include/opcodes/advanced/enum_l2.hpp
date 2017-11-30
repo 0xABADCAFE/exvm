@@ -75,5 +75,37 @@
   // Interpolaton
   _LERP_F64,
 
+  // Fixed 2D vectors : float64[2]
+  _SPLAT_V2F64, // splat fill, all elements set to the same value
+  _COPY_V2F64,  // copy
+  _ADD_V2F64,   // add
+  _SUB_V2F64,   // subtract
+  _DOT_V2F64,   // dot product
+  _SCALE_V2F64, // scale
+  _MAGN_V2F64,  // magnitude
+  _NORM_V2F64,  // normalise
+  _LERP_V2F64,  // interpolate
+
+  _M3X3_V2F64, // transform a set of vec2d using a 4x4 matrix
+
+  // Complex number oberations C2F64, extends the 2D vector operations
+
+  _MUL_C2F64,    // Complex Multiply
+  _DIV_C2F64,    // Complex Divide
+
+  // Fixed 3D vectors : float64[3]
+  _SPLAT_V3F64, // splat fill, all elements set to the same value
+  _COPY_V3F64,  // copy
+  _ADD_V3F64,   // add
+  _SUB_V3F64,   // subtract
+  _CROSS_V3F64, // cross product
+  _DOT_V3F64,   // dot product
+  _SCALE_V3F64, // scale
+  _MAGN_V3F64,  // magnitude
+  _NORM_V3F64,  // normalise
+  _LERP_V3F64,  // interpolate
+
+  _M4X4_V3F64, // transform a set of vec3d using a 4x4 matrix
+
 #endif
 
