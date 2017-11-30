@@ -32,6 +32,8 @@ using namespace ExVM;
   #include "include/platforms/machine_haiku_generic_impl.hpp"
 #elif (_VM_HOST_OS == _VM_HOST_HAIKU_X86)
   #include "include/platforms/machine_haiku_generic_impl.hpp"
+#elif (_VM_HOST_OS == _VM_HOST_MACOS_X64)
+  #include "include/platforms/machine_macos_generic_impl.hpp"
 
 #endif
 
