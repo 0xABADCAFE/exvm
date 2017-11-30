@@ -47,6 +47,9 @@
     #include "opcodes/advanced/op_adv_logs_impl_l2.hpp"
     #include "opcodes/advanced/op_adv_trunc_impl_l2.hpp"
     #include "opcodes/advanced/op_adv_lerp_impl_l2.hpp"
+    #include "opcodes/advanced/op_adv_vec2_f64_impl_l2.hpp"
+    #include "opcodes/advanced/op_adv_complex_f64_impl_l2.hpp"
+    #include "opcodes/advanced/op_adv_vec3_f64_impl_l2.hpp"
 
     default:
       debuglog(LOG_ERROR, "No handler yet defined for advanced opcode 0x%04X\n", (unsigned)op);
