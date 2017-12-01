@@ -48,6 +48,7 @@ any pointer %p
   #define _VM_HOST_MORPHOS_PPC      7
   #define _VM_HOST_HAIKU_X64        8
   #define _VM_HOST_HAIKU_X86        9
+  #define _VM_HOST_MACOS_X64        10
 
 
   #define _VM_INTERPRETER_FUNC_TABLE     1
@@ -140,7 +141,11 @@ any pointer %p
   #elif (_VM_HOST_OS == _VM_HOST_HAIKU_X86)
     #define X_ENDIAN XA_LITTLEENDIAN
     #include "platforms/machine_haiku_generic.hpp"
-  #else
+  #elif (_VM_HOST_OS == _VM_HOST_MACOS_X64)
+    #define X_ENDIAN XA_LITTLEENDIAN
+    #include "platforms/machine_macos_generic.hpp"
+
+#else
     #error Unrecognised Machine
   #endif
 
