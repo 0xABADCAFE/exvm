@@ -1,4 +1,5 @@
 source/.kdev*
+source/exvm/*
 source/source.kdev4
 source/junk/*.pnm
 source/junk/*.ppm
