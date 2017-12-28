@@ -82,6 +82,9 @@ namespace ExVM {
       NativeCall* nativeCodeSymbol;
       uint16**    codeSymbol;
       void**      dataSymbol;
+
+      NativeCall  hostExceptionHandlers[VMDefs::_MAX_VMSTATUS - VMDefs::BREAKPOINT - 1];
+
       uint32      status;
 
       size_t  regStackSize;
@@ -123,6 +126,8 @@ namespace ExVM {
 
       void dump();
       void execute();
+
+      void setNativeExceptionHandler(NativeCall symbol, uint32 onStatus);
 
     private:
       // Specific handler functions for opcodes that require more than a couple of inline statements

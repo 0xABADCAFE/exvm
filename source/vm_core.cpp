@@ -147,6 +147,16 @@ void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+void Interpreter::setNativeExceptionHandler(NativeCall symbol, uint32 onStatus) {
+  if (onStatus < VMDefs::BREAKPOINT || onStatus >= VMDefs::_MAX_VMSTATUS) {
+    debuglog(LOG_WARN, "Cannot set exception handler for status %u\n", onStatus);
+  } else {
+    hostExceptionHandlers[onStatus - VMDefs::BREAKPOINT] = symbol;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Interpreter::execute() {
   MilliClock total;
 #if X_PTRSIZE == XA_PTRSIZE64

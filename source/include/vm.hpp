@@ -114,6 +114,8 @@ namespace ExVM {
         UNKNOWN_DATA_SYMBOL,
         UNKNOWN_NATIVE_CODE_SYMBOL,
         ILLEGAL_CALLABLE_SYMBOL,
+
+        _MAX_VMSTATUS
       } VMStatus;
 
       enum {
