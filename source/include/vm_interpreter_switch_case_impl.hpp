@@ -58,7 +58,7 @@ forever:
 
     default:
       debuglog(LOG_ERROR, "No handler yet defined for opcode 0x%04X\n", (unsigned)op);
-        status = VMDefs::BREAKPOINT;
+        status = VMDefs::ILLEGAL_OPCODE;
         _HALT
     }
     ++numStatements;
@@ -66,5 +66,21 @@ forever:
 
 interpreter_bailout:
   ++numStatements; // include the statement last executed that led here
+
+  // If the status indicates we had an exception, check if there is a handler.
+  // If the handler can recover from the exception, it will set the status back to RUNNING.
+  if (
+    vm->status >= VMDefs::BREAKPOINT &&
+    vm->status < VMDefs::_MAX_VMSTATUS
+  ) {
+    uint32 handlerID = vm->status - VMDefs::BREAKPOINT;
+    if (vm->hostExceptionHandlers[handlerID]) {
+      vm->hostExceptionHandlers[handlerID](vm);
+      if (vm->status == VMDefs::RUNNING) {
+        goto forever;
+      }
+    }
+  }
+
 }
 
