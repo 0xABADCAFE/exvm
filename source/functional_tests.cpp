@@ -27,7 +27,7 @@ namespace ExVM {
   class FunctionalTest {
 
     public:
-      static void dummy(Interpreter* vm) {
+      static void run(Interpreter* vm) {
         printf("Interpreter %p\n", vm);
         printf("Registers   %p\n", vm->gpr);
         printf("Data Stack Base %p\n", vm->dataStackBase);
@@ -38,14 +38,17 @@ namespace ExVM {
   };
 }
 
-class OpcodeTest : public FunctionalTest {
+class IllegalOpcodeTest : public FunctionalTest {
+  public:
+    static void run(Interpreter* vm) {
 
+    }
 };
 
 int main() {
   Interpreter* interpreter = new Interpreter();
   if (interpreter) {
-    OpcodeTest::dummy(interpreter);
+    IllegalOpcodeTest::run(interpreter);
 
     delete interpreter;
   }
