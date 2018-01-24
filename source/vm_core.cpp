@@ -18,9 +18,7 @@
 #include "include/vm_linker.hpp"
 #include <new>
 
-#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include "include/vm_interpreter_func_table.hpp"
-#elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+#if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
   #include "include/vm_interpreter_switch_case.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
   #include "include/vm_interpreter_custom.hpp"
@@ -160,9 +158,7 @@ void Interpreter::execute() {
   nativeTime           = 0;
   status               = VMDefs::RUNNING;
 
-#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include "include/vm_interpreter_func_table_impl.hpp"
-#elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+#if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
   #include "include/vm_interpreter_switch_case_impl.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
   #include "include/vm_interpreter_custom_impl.hpp"
