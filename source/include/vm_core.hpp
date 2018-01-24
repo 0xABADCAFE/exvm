@@ -103,7 +103,7 @@ namespace ExVM {
     public:
 
       Interpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
-      ~Interpreter();
+      virtual ~Interpreter();
 
       uint32  getStatus() const {
         return status;

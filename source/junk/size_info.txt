@@ -1,0 +1,29 @@
+Concrete:
+
+32-bit
+Structure Sizes
+        sizeof(Linker)      : 28
+        sizeof(Interpreter) : 224
+        sizeof(Executable)  : 28
+
+64-bit
+Structure Sizes
+        sizeof(Linker)      : 48
+        sizeof(Interpreter) : 296
+        sizeof(Executable)  : 40
+
+Abstract:
+
+32-bit
+Structure Sizes
+        sizeof(Linker)      : 28
+        sizeof(Interpreter) : 228
+        sizeof(Executable)  : 28
+
+64-bit
+Structure Sizes
+        sizeof(Linker)      : 48
+        sizeof(Interpreter) : 304
+        sizeof(Executable)  : 40
+
+
