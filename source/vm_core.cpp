@@ -77,10 +77,8 @@ Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize
   nativeCodeSymbolCount = 0;
   codeSymbolCount       = 0;
   dataSymbolCount       = 0;
-
-  debuglog(LOG_INFO, "VM compiled %d-bit native", X_PTRSIZE);
+  debuglog(LOG_INFO, "VM compiled %d-bit native, gpr alignment is %d bytes", X_PTRSIZE, (int)(8 - (((long)gpr) & 7)) );
   debuglog(LOG_INFO, "There are presently %d scalar, %d advanced and %d stream instructions defined", VMDefs::MAX_OP, VMDefs::MAX_ADV, VMDefs::MAX_VEC);
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

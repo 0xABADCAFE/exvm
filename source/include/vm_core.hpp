@@ -49,6 +49,9 @@ namespace ExVM {
       #include "vm_gpr.hpp"
 
     private:
+      #if X_PTRSIZE == XA_PTRSIZE32
+      void* padding;
+      #endif
       GPR gpr[Interpreter::NUM_GPR];    // register set
 
       union {

@@ -346,7 +346,7 @@ void runTestExample() {
 
   // Dump the Executable
   if (executable) {
-    printf(
+    std::printf(
       "Linked Executable at %p {\n"
       "\tnativeCodeAddresses : %p\n"
       "\tcodeAddresses       : %p\n"
@@ -376,14 +376,22 @@ void runTestExample() {
       std::printf("\tSymbol ID : %" FU32 " -> %p\n", i, executable->dataAddresses[i]);
     }
 
-    std::puts(
-      "\nBeginning Virtual Program\n"
-      "-----------------------\n"
-    );
+
 
     // Create an Interpreter
     Interpreter* interpreter = new Interpreter();
     if (interpreter) {
+
+      std::printf(
+        "Allocated interpreter at address %p\n",
+        interpreter
+      );
+
+      std::puts(
+        "\nBeginning Virtual Program\n"
+        "-----------------------\n"
+      );
+
       // Execute it
       interpreter->setExecutable(executable);
       interpreter->execute();
