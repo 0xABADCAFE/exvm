@@ -125,7 +125,7 @@ namespace ExVM {
       }
 
       void dump();
-      void execute();
+      virtual void execute();
 
     private:
       // Specific handler functions for opcodes that require more than a couple of inline statements
