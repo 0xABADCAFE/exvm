@@ -18,44 +18,6 @@
 #include "include/vm_linker.hpp"
 #include <cstdio>
 
-#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-
-  #include "include/vm_interpreter_func_table.hpp"
-  #include <cmath>
-
-// Upon entry, the pc points to the 16-bit word following the current opcode.
-// Normally, this would be the address of the next opcode. Handlers that use
-// extension words must ensure that they increment the pc so that it points
-// to the next opcode.
-
-// Arguments:
-// vm is a pointer to the VMCore instance
-// op is the current opcode word
-
-  #include "include/opcodes/scalar/op_control_impl_l0.hpp"
-  #include "include/opcodes/scalar/op_load_impl_l0.hpp"
-  #include "include/opcodes/scalar/op_store_impl_l0.hpp"
-  #include "include/opcodes/scalar/op_move_impl_l0.hpp"
-  #include "include/opcodes/scalar/op_jump_impl_l0.hpp"
-  #include "include/opcodes/scalar/op_convert_impl_l0.hpp"
-  #include "include/opcodes/scalar/op_arithmetic_impl_l0.hpp"
-  #include "include/opcodes/scalar/op_logic_impl_l0.hpp"
-
-  #include "include/opcodes/scalar/op_jump_impl_l1.hpp"
-  #include "include/opcodes/scalar/op_convert_impl_l1.hpp"
-  #include "include/opcodes/scalar/op_arithmetic_impl_l1.hpp"
-
-  #include "include/opcodes/scalar/op_load_impl_l2.hpp"
-  #include "include/opcodes/scalar/op_store_impl_l2.hpp"
-  #include "include/opcodes/scalar/op_move_impl_l2.hpp"
-  #include "include/opcodes/scalar/op_jump_impl_l2.hpp"
-  #include "include/opcodes/scalar/op_convert_impl_l2.hpp"
-  #include "include/opcodes/scalar/op_arithmetic_impl_l2.hpp"
-  #include "include/opcodes/scalar/op_logic_impl_l2.hpp"
-#endif
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 void ExVM::Interpreter::doSV(ExVM::Interpreter* vm, uint16 op UNUSED) {
   uint16  mask  = _EX_U16;
   GPR*    r     = vm->gpr;

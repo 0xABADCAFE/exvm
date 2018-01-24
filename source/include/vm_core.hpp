@@ -95,9 +95,6 @@ namespace ExVM {
       uint32  codeSymbolCount;
       uint32  dataSymbolCount;
 
-      #if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-        #include "vm_handlers.hpp"
-      #endif
       static const char* statusCodes[];
 
     public:
