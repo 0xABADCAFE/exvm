@@ -50,8 +50,6 @@ any pointer %p
   #define _VM_HOST_HAIKU_X86        9
   #define _VM_HOST_MACOS_X64        10
 
-
-  #define _VM_INTERPRETER_FUNC_TABLE     1
   #define _VM_INTERPRETER_SWITCH_CASE    2
   #define _VM_INTERPRETER_CUSTOM_ASM     3
 
