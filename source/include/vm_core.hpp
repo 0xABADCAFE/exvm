@@ -17,7 +17,6 @@
 #include "vm.hpp"
 #include "vm_targetmacros.hpp"
 
-
 namespace ExVM {
 
   struct Executable;
@@ -48,7 +47,7 @@ namespace ExVM {
 
       #include "vm_gpr.hpp"
 
-    private:
+    protected:
       #if X_PTRSIZE == XA_PTRSIZE32
       void* padding;
       #endif
@@ -102,7 +101,7 @@ namespace ExVM {
 
     public:
 
-      Interpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
+      Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize);
       virtual ~Interpreter();
 
       uint32  getStatus() const {
@@ -121,36 +120,56 @@ namespace ExVM {
         pc.inst = newPC;
       }
 
+      virtual void execute() = 0;
+  };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// StandardInterpreter
+//
+// Represents the core interpreter for the virtual machine and is primarily responsible for the runtime execution of
+// virtual code.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  class StandardInterpreter : public Interpreter {
+
+    friend ExVM::FunctionalTest;
+
+    public:
+      StandardInterpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
+      ~StandardInterpreter();
+
       void dump();
-      virtual void execute();
+      void execute();
 
     private:
       // Specific handler functions for opcodes that require more than a couple of inline statements
-      static void doBCALL8(Interpreter* vm, uint16 op);
-      static void doBCALL16(Interpreter* vm, uint16 op);
-      static void doCALL(Interpreter* vm, uint16 op);
-      static void doCALLN(Interpreter* vm, uint16 op);
-      static void doICALL(Interpreter* vm, uint16 op);
-      static void doICALLN(Interpreter* vm, uint16 op);
-      static void doSV(Interpreter* vn, uint16 op);
-      static void doRS(Interpreter* vn, uint16 op);
-      static void doPUSH_8(Interpreter* vm, uint16 op);
-      static void doPUSH_16(Interpreter* vm, uint16 op);
-      static void doPUSH_32(Interpreter* vm, uint16 op);
-      static void doPUSH_64(Interpreter* vm, uint16 op);
-      static void doPOP_8(Interpreter* vm, uint16 op);
-      static void doPOP_16(Interpreter* vm, uint16 op);
-      static void doPOP_32(Interpreter* vm, uint16 op);
-      static void doPOP_64(Interpreter* vm, uint16 op);
-      static void doSALLOC(Interpreter* vm, uint16 op);
-      static void doSFREE(Interpreter* vm, uint16 op);
-      static void doVEC1(Interpreter* vm, uint16 op);
-      static void doADV(Interpreter* vm, uint16 op);
+      static void doBCALL8(StandardInterpreter* vm, uint16 op);
+      static void doBCALL16(StandardInterpreter* vm, uint16 op);
+      static void doCALL(StandardInterpreter* vm, uint16 op);
+      static void doCALLN(StandardInterpreter* vm, uint16 op);
+      static void doICALL(StandardInterpreter* vm, uint16 op);
+      static void doICALLN(StandardInterpreter* vm, uint16 op);
+      static void doSV(StandardInterpreter* vn, uint16 op);
+      static void doRS(StandardInterpreter* vn, uint16 op);
+      static void doPUSH_8(StandardInterpreter* vm, uint16 op);
+      static void doPUSH_16(StandardInterpreter* vm, uint16 op);
+      static void doPUSH_32(StandardInterpreter* vm, uint16 op);
+      static void doPUSH_64(StandardInterpreter* vm, uint16 op);
+      static void doPOP_8(StandardInterpreter* vm, uint16 op);
+      static void doPOP_16(StandardInterpreter* vm, uint16 op);
+      static void doPOP_32(StandardInterpreter* vm, uint16 op);
+      static void doPOP_64(StandardInterpreter* vm, uint16 op);
+      static void doSALLOC(StandardInterpreter* vm, uint16 op);
+      static void doSFREE(StandardInterpreter* vm, uint16 op);
+      static void doVEC1(StandardInterpreter* vm, uint16 op);
+      static void doADV(StandardInterpreter* vm, uint16 op);
   };
-
+/*
   class DebuggingInterpreter : public Interpreter {
   };
-
+*/
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Executable
@@ -158,7 +177,6 @@ namespace ExVM {
 // Represents the runtime linked and ready to execute VM program.
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   struct Executable {
     NativeCall* nativeCodeAddresses;

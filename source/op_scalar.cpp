@@ -18,7 +18,7 @@
 #include "include/vm_linker.hpp"
 #include <cstdio>
 
-void ExVM::Interpreter::doSV(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doSV(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   uint16  mask  = _EX_U16;
   GPR*    r     = vm->gpr;
 
@@ -39,7 +39,7 @@ void ExVM::Interpreter::doSV(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doRS(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doRS(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   uint16  mask  = _EX_U16;
   GPR*    r     = vm->gpr + GPR_LAST;
   while (mask && (vm->regStack > vm->regStackBase)) {
@@ -59,7 +59,7 @@ void ExVM::Interpreter::doRS(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPUSH_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doPUSH_8(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -79,7 +79,7 @@ void ExVM::Interpreter::doPUSH_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPUSH_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doPUSH_16(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -99,7 +99,7 @@ void ExVM::Interpreter::doPUSH_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPUSH_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doPUSH_32(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -119,7 +119,7 @@ void ExVM::Interpreter::doPUSH_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPUSH_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doPUSH_64(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr;
   while (mask && (vm->dataStack.u8 < vm->dataStackTop)) {
@@ -139,7 +139,7 @@ void ExVM::Interpreter::doPUSH_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPOP_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doPOP_8(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -159,7 +159,7 @@ void ExVM::Interpreter::doPOP_8(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPOP_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doPOP_16(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -179,7 +179,7 @@ void ExVM::Interpreter::doPOP_16(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPOP_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doPOP_32(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -199,7 +199,7 @@ void ExVM::Interpreter::doPOP_32(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doPOP_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doPOP_64(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   uint16 mask =  _EX_U16;
   GPR*  r = vm->gpr + GPR_LAST;
   while (mask && (vm->dataStack.u8 > vm->dataStackBase)) {
@@ -219,7 +219,7 @@ void ExVM::Interpreter::doPOP_64(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doSALLOC(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::StandardInterpreter::doSALLOC(ExVM::StandardInterpreter* vm, uint16 op) {
   uint16 size =  _EX_U16;
   if ((vm->dataStack.u8 + size) < vm->dataStackTop) {
     vm->gpr[_RD(op)].pU8() = vm->dataStack.u8;
@@ -233,7 +233,7 @@ void ExVM::Interpreter::doSALLOC(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doSFREE(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::StandardInterpreter::doSFREE(ExVM::StandardInterpreter* vm, uint16 op) {
   uint8* last = vm->gpr[_RD(op)].pU8();
   if (last < vm->dataStackBase) {
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
@@ -250,7 +250,7 @@ void ExVM::Interpreter::doSFREE(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doBCALL8(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::StandardInterpreter::doBCALL8(ExVM::StandardInterpreter* vm, uint16 op) {
   if (vm->callStack < vm->callStackTop) {
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst += _B8(op);
@@ -265,7 +265,7 @@ void ExVM::Interpreter::doBCALL8(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doBCALL16(ExVM::Interpreter* vm, uint16 op UNUSED) {
+void ExVM::StandardInterpreter::doBCALL16(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {
   if (vm->callStack < vm->callStackTop) {
     // for clarity, since _EX_S16 macro increments pc
     _DECLARE_OFFSET
@@ -282,7 +282,7 @@ void ExVM::Interpreter::doBCALL16(ExVM::Interpreter* vm, uint16 op UNUSED) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doCALL(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::StandardInterpreter::doCALL(ExVM::StandardInterpreter* vm, uint16 op) {
   uint32 symbol = (uint32)_EX_U16 | ((uint32)op & 0x0F) << 16;
   if (symbol >= vm->codeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
@@ -309,7 +309,7 @@ void ExVM::Interpreter::doCALL(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doCALLN(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::StandardInterpreter::doCALLN(ExVM::StandardInterpreter* vm, uint16 op) {
 
   uint32 symbol = (uint32)_EX_U16 | ((uint32)op & 0x0F) << 16;
   if (symbol >= vm->nativeCodeSymbolCount) {
@@ -337,7 +337,7 @@ void ExVM::Interpreter::doCALLN(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doICALL(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::StandardInterpreter::doICALL(ExVM::StandardInterpreter* vm, uint16 op) {
   uint32 symbol = vm->gpr[_RS(op)].u32();
 
   if ( (symbol & RawSegmentData::TYPE_MASK) != RawSegmentData::TYPE_CODE) {
@@ -377,7 +377,7 @@ void ExVM::Interpreter::doICALL(ExVM::Interpreter* vm, uint16 op) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExVM::Interpreter::doICALLN(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::StandardInterpreter::doICALLN(ExVM::StandardInterpreter* vm, uint16 op) {
 
   uint32 symbol = vm->gpr[_RS(op)].u32();
 

@@ -25,7 +25,7 @@
 #endif
 
 
-void ExVM::Interpreter::doVEC1(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::StandardInterpreter::doVEC1(ExVM::StandardInterpreter* vm, uint16 op) {
 
   // The next word in the instruction stream defines up to 4 registers
   uint16 vArgs = *vm->pc.inst++;

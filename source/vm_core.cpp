@@ -90,7 +90,7 @@ Interpreter::~Interpreter() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Interpreter::dump() {
+void StandardInterpreter::dump() {
   printf("Interpreter dump\n\n");
   printf("rX: %18s : %12s : %6s : %4s : c\n",
     "64-bit (hex dump)",
@@ -143,7 +143,7 @@ void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Interpreter::execute() {
+void StandardInterpreter::execute() {
   MilliClock total;
 #if X_PTRSIZE == XA_PTRSIZE64
   uint64 numStatements = 0;
@@ -174,4 +174,10 @@ void Interpreter::execute() {
 
 }
 
+StandardInterpreter::StandardInterpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
+Interpreter(rStackSize, dStackSize, cStackSize) {
+}
 
+StandardInterpreter::~StandardInterpreter() {
+
+}

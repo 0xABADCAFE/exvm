@@ -308,10 +308,10 @@ void runTestExample() {
   std::printf(
     "Structure Sizes\n"
     "\tsizeof(Linker)      : %" FU32 "\n"
-    "\tsizeof(Interpreter) : %" FU32 "\n"
+    "\tsizeof(StandardInterpreter) : %" FU32 "\n"
     "\tsizeof(Executable)  : %" FU32 "\n",
     (uint32)sizeof(Linker),
-    (uint32)sizeof(Interpreter),
+    (uint32)sizeof(StandardInterpreter),
     (uint32)sizeof(Executable)
   );
 
@@ -378,8 +378,8 @@ void runTestExample() {
 
 
 
-    // Create an Interpreter
-    Interpreter* interpreter = new Interpreter();
+    // Create an StandardInterpreter
+    StandardInterpreter* interpreter = new StandardInterpreter();
     if (interpreter) {
 
       std::printf(

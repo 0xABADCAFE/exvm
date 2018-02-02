@@ -13,7 +13,7 @@
 //****************************************************************************//
 
 {
-  register Interpreter* vm = this;
+  register StandardInterpreter* vm = this;
   register uint16  op;
 
 forever:

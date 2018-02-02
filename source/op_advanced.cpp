@@ -43,7 +43,7 @@ const float64 predefinedConstants[ExVM::VMDefs::MAX_CONST] = {
 #endif
 
 
-void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::StandardInterpreter::doADV(ExVM::StandardInterpreter* vm, uint16 op) {
 
   // The next word in the instruction stream defines up to 4 registers
   uint16 vArgs = *vm->pc.inst++;
