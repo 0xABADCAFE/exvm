@@ -144,32 +144,27 @@ namespace ExVM {
       void execute();
 
     private:
-      // Specific handler functions for opcodes that require more than a couple of inline statements
-      static void doBCALL8(StandardInterpreter* vm, uint16 op);
-      static void doBCALL16(StandardInterpreter* vm, uint16 op);
-      static void doCALL(StandardInterpreter* vm, uint16 op);
-      static void doCALLN(StandardInterpreter* vm, uint16 op);
-      static void doICALL(StandardInterpreter* vm, uint16 op);
-      static void doICALLN(StandardInterpreter* vm, uint16 op);
-      static void doSV(StandardInterpreter* vn, uint16 op);
-      static void doRS(StandardInterpreter* vn, uint16 op);
-      static void doPUSH_8(StandardInterpreter* vm, uint16 op);
-      static void doPUSH_16(StandardInterpreter* vm, uint16 op);
-      static void doPUSH_32(StandardInterpreter* vm, uint16 op);
-      static void doPUSH_64(StandardInterpreter* vm, uint16 op);
-      static void doPOP_8(StandardInterpreter* vm, uint16 op);
-      static void doPOP_16(StandardInterpreter* vm, uint16 op);
-      static void doPOP_32(StandardInterpreter* vm, uint16 op);
-      static void doPOP_64(StandardInterpreter* vm, uint16 op);
-      static void doSALLOC(StandardInterpreter* vm, uint16 op);
-      static void doSFREE(StandardInterpreter* vm, uint16 op);
-      static void doVEC1(StandardInterpreter* vm, uint16 op);
-      static void doADV(StandardInterpreter* vm, uint16 op);
+      #define CLASS StandardInterpreter
+      #include "vm_interpreter_opcode_funcs.hpp"
+      #undef CLASS
   };
-/*
+
   class DebuggingInterpreter : public Interpreter {
+    friend ExVM::FunctionalTest;
+
+    public:
+      DebuggingInterpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
+      ~DebuggingInterpreter();
+
+      void dump();
+      void execute();
+
+    private:
+      #define CLASS DebuggingInterpreter
+      #include "vm_interpreter_opcode_funcs.hpp"
+      #undef CLASS
   };
-*/
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Executable
