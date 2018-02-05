@@ -90,14 +90,12 @@ namespace ExVM {
       size_t  dataStackSize;
       size_t  callStackSize;
 
-      float64 totalTime;
-      float64 nativeTime;
+      //float64 totalTime;
+      //float64 nativeTime;
 
       uint32  nativeCodeSymbolCount;
       uint32  codeSymbolCount;
       uint32  dataSymbolCount;
-
-      static const char* statusCodes[];
 
     public:
 
@@ -121,6 +119,7 @@ namespace ExVM {
       }
 
       virtual void execute() = 0;
+      virtual void dump()    = 0;
   };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,6 +159,12 @@ namespace ExVM {
       void execute();
 
     private:
+
+      float64 totalTime;
+      float64 nativeTime;
+
+      static const char* statusCodes[];
+
       #define CLASS DebuggingInterpreter
       #include "vm_interpreter_opcode_funcs.hpp"
       #undef CLASS

@@ -38,3 +38,17 @@ void ExVM::StandardInterpreter::doVEC1(ExVM::StandardInterpreter* vm, uint16 op)
 
 }
 
+void ExVM::DebuggingInterpreter::doVEC1(ExVM::DebuggingInterpreter* vm, uint16 op) {
+
+  // The next word in the instruction stream defines up to 4 registers
+  uint16 vArgs = *vm->pc.inst++;
+
+#if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+  #include "include/vm_interpreter_vec_switch_case_impl.hpp"
+#elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
+  #include "include/vm_interpreter_vec_custom_impl.hpp"
+#endif
+
+}
+
+

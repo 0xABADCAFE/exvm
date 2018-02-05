@@ -13,7 +13,7 @@
 //****************************************************************************//
 
 {
-  register StandardInterpreter* vm = this;
+  register CLASS* vm = this;
   register uint16  op;
 
 forever:
@@ -61,10 +61,11 @@ forever:
         status = VMDefs::BREAKPOINT;
         _HALT
     }
-    ++numStatements;
+    COUNT_STATEMENTS
   goto forever;
 
 interpreter_bailout:
-  ++numStatements; // include the statement last executed that led here
+ // include the statement last executed that led here
+  COUNT_STATEMENTS
 }
 
