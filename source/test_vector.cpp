@@ -50,7 +50,7 @@ void dumpTestArray(Interpreter *interpreter) {
 int main() {
 
   // Create an Interpreter
-  Interpreter* interpreter = new Interpreter();
+  StandardInterpreter* interpreter = new StandardInterpreter();
   if (interpreter) {
 
     uint16 code[] = {

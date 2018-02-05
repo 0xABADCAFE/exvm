@@ -256,7 +256,7 @@ void runTestExample() {
     );
 
     // Create an Interpreter
-    Interpreter* interpreter = new Interpreter();
+    StandardInterpreter* interpreter = new StandardInterpreter();
     if (interpreter) {
       // Execute it
       interpreter->setExecutable(executable);

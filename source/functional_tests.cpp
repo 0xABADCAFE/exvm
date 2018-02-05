@@ -39,7 +39,7 @@ class OpcodeTest : public FunctionalTest {
 };
 
 int main() {
-  Interpreter* interpreter = new Interpreter();
+  StandardInterpreter* interpreter = new StandardInterpreter();
   if (interpreter) {
     OpcodeTest::dummy(interpreter);
 
