@@ -16,19 +16,15 @@
 #include <new>
 #include <cstdio>
 #include <cstdlib>
-#include "include/vm_core.hpp"
-#include "include/vm_inline.hpp"
-#include "include/vm_codemacros.hpp"
 
 using namespace std;
 
-////////////////////////////////////////////////////////////////////////////////
+extern void runTestExample(int type);
 
-_VM_EXTERN(virtualProgram);
+int main(int argc, const char** argv) {
 
-extern void runTestExample();
+  int type = argc > 1 ? 1 : 0;
 
-int main() {
-  runTestExample();
+  runTestExample(type);
   return 0;
 }

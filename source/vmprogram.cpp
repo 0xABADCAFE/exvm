@@ -303,17 +303,7 @@ RawSegmentData mockLoadSegment = {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void runTestExample() {
-
-  std::printf(
-    "Structure Sizes\n"
-    "\tsizeof(Linker)      : %" FU32 "\n"
-    "\tsizeof(StandardInterpreter) : %" FU32 "\n"
-    "\tsizeof(Executable)  : %" FU32 "\n",
-    (uint32)sizeof(Linker),
-    (uint32)sizeof(StandardInterpreter),
-    (uint32)sizeof(Executable)
-  );
+void runTestExample(int type) {
 
   std::puts(
     "\nLinking Virtual Program\n"
@@ -376,10 +366,14 @@ void runTestExample() {
       std::printf("\tSymbol ID : %" FU32 " -> %p\n", i, executable->dataAddresses[i]);
     }
 
-
-
     // Create an StandardInterpreter
-    StandardInterpreter* interpreter = new StandardInterpreter();
+    Interpreter* interpreter = 0;
+    if (type == 0) {
+      interpreter = new StandardInterpreter();
+    } else {
+      interpreter = new DebuggingInterpreter();
+    }
+
     if (interpreter) {
 
       std::printf(
