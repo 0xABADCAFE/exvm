@@ -1,7 +1,6 @@
 # Common include for building the interpreter
 
-OBJ      = obj/$(ARCH)/main.o \
-           obj/$(ARCH)/vmprogram.o \
+OBJ      = obj/$(ARCH)/test_interpreter.o \
            obj/$(ARCH)/machine.o \
            obj/$(ARCH)/op_scalar.o \
            obj/$(ARCH)/op_advanced.o \
@@ -14,10 +13,7 @@ OBJ      = obj/$(ARCH)/main.o \
 $(BIN): $(OBJ) Makefile.$(MEXT)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN)
 
-obj/$(ARCH)/main.o: main.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-obj/$(ARCH)/vmprogram.o: vmprogram.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
+obj/$(ARCH)/test_interpreter.o: test_interpreter.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/$(ARCH)/machine.o: machine.cpp include/machine.hpp

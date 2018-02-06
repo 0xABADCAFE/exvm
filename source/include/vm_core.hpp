@@ -84,18 +84,15 @@ namespace ExVM {
       NativeCall* nativeCodeSymbol;
       uint16**    codeSymbol;
       void**      dataSymbol;
-      uint32      status;
 
       size_t  regStackSize;
       size_t  dataStackSize;
       size_t  callStackSize;
 
-      //float64 totalTime;
-      //float64 nativeTime;
-
       uint32  nativeCodeSymbolCount;
       uint32  codeSymbolCount;
       uint32  dataSymbolCount;
+      uint32  status;
 
     public:
 
