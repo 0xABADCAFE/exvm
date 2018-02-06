@@ -303,7 +303,7 @@ RawSegmentData mockLoadSegment = {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void runTestExample(int type) {
+void runTestExample(Interpreter::Type type) {
 
   std::puts(
     "\nLinking Virtual Program\n"
@@ -366,14 +366,7 @@ void runTestExample(int type) {
       std::printf("\tSymbol ID : %" FU32 " -> %p\n", i, executable->dataAddresses[i]);
     }
 
-    // Create an StandardInterpreter
-    Interpreter* interpreter = 0;
-    if (type == 0) {
-      interpreter = new StandardInterpreter();
-    } else {
-      interpreter = new DebuggingInterpreter();
-    }
-
+    Interpreter* interpreter = Interpreter::create(type);
     if (interpreter) {
 
       std::printf(
@@ -415,8 +408,10 @@ void runTestExample(int type) {
 
 int main(int argc, const char** argv) {
 
-  int type = argc > 1 ? 1 : 0;
-
+  Interpreter::Type type = Interpreter::TYPE_STANDARD;
+  if (argc > 1) {
+    type = Interpreter::TYPE_DEBUGGING;
+  }
   runTestExample(type);
   return 0;
 }

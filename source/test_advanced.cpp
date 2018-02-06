@@ -256,7 +256,7 @@ void runTestExample() {
     );
 
     // Create an Interpreter
-    StandardInterpreter* interpreter = new StandardInterpreter();
+    Interpreter* interpreter = Interpreter::create(Interpreter::TYPE_DEBUGGING);
     if (interpreter) {
       // Execute it
       interpreter->setExecutable(executable);

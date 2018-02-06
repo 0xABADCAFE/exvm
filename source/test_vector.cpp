@@ -50,7 +50,7 @@ void dumpTestArray(Interpreter *interpreter) {
 int main() {
 
   // Create an Interpreter
-  StandardInterpreter* interpreter = new StandardInterpreter();
+  Interpreter* interpreter = Interpreter::create(Interpreter::TYPE_DEBUGGING);
   if (interpreter) {
 
     uint16 code[] = {

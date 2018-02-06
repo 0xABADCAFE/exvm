@@ -16,6 +16,8 @@
 #include "include/vm_core.hpp"
 #include "include/vm_inline.hpp"
 #include "include/vm_linker.hpp"
+#include "include/vm_interpreter_standard.hpp"
+#include "include/vm_interpreter_debugging.hpp"
 #include <cstdio>
 
 void ExVM::StandardInterpreter::doSV(ExVM::StandardInterpreter* vm, uint16 op UNUSED) {

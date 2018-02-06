@@ -45,6 +45,11 @@ namespace ExVM {
         DEF_CALL_STACK  = 4096  // Default call stack size, in entries
       };
 
+      typedef enum {
+        TYPE_STANDARD  = 0,
+        TYPE_DEBUGGING = 1
+      } Type;
+
       #include "vm_gpr.hpp"
 
     protected:
@@ -94,10 +99,11 @@ namespace ExVM {
       uint32  dataSymbolCount;
       uint32  status;
 
+      Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize);
+
     public:
 
-      Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize);
-      virtual ~Interpreter();
+      static Interpreter* create(Type type, size_t rStackSize=DEF_REG_STACK, size_t dStackSize=DEF_DATA_STACK, size_t cStackSize=DEF_CALL_STACK);
 
       uint32  getStatus() const {
         return status;
@@ -117,55 +123,9 @@ namespace ExVM {
 
       virtual void execute() = 0;
       virtual void dump()    = 0;
+      virtual ~Interpreter();
   };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// StandardInterpreter
-//
-// Represents the core interpreter for the virtual machine and is primarily responsible for the runtime execution of
-// virtual code.
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  class StandardInterpreter : public Interpreter {
-
-    friend ExVM::FunctionalTest;
-
-    public:
-      StandardInterpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
-      ~StandardInterpreter();
-
-      void dump();
-      void execute();
-
-    private:
-      #define CLASS StandardInterpreter
-      #include "vm_interpreter_opcode_funcs.hpp"
-      #undef CLASS
-  };
-
-  class DebuggingInterpreter : public Interpreter {
-    friend ExVM::FunctionalTest;
-
-    public:
-      DebuggingInterpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
-      ~DebuggingInterpreter();
-
-      void dump();
-      void execute();
-
-    private:
-
-      float64 totalTime;
-      float64 nativeTime;
-
-      static const char* statusCodes[];
-
-      #define CLASS DebuggingInterpreter
-      #include "vm_interpreter_opcode_funcs.hpp"
-      #undef CLASS
-  };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
