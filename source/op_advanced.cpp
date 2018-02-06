@@ -14,6 +14,8 @@
 #include "include/vm_core.hpp"
 #include "include/vm_inline.hpp"
 #include "include/machine.hpp"
+#include "include/vm_interpreter_standard.hpp"
+#include "include/vm_interpreter_debugging.hpp"
 #include <cstdio>
 #include <cmath>
 
@@ -43,7 +45,7 @@ const float64 predefinedConstants[ExVM::VMDefs::MAX_CONST] = {
 #endif
 
 
-void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
+void ExVM::StandardInterpreter::doADV(ExVM::StandardInterpreter* vm, uint16 op) {
 
   // The next word in the instruction stream defines up to 4 registers
   uint16 vArgs = *vm->pc.inst++;
@@ -56,3 +58,15 @@ void ExVM::Interpreter::doADV(ExVM::Interpreter* vm, uint16 op) {
 
 }
 
+void ExVM::DebuggingInterpreter::doADV(ExVM::DebuggingInterpreter* vm, uint16 op) {
+
+  // The next word in the instruction stream defines up to 4 registers
+  uint16 vArgs = *vm->pc.inst++;
+
+#if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+  #include "include/vm_interpreter_adv_switch_case_impl.hpp"
+#elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
+  #include "include/vm_interpreter_adv_custom_impl.hpp"
+#endif
+
+}

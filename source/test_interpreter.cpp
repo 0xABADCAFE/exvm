@@ -303,17 +303,7 @@ RawSegmentData mockLoadSegment = {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void runTestExample() {
-
-  std::printf(
-    "Structure Sizes\n"
-    "\tsizeof(Linker)      : %" FU32 "\n"
-    "\tsizeof(Interpreter) : %" FU32 "\n"
-    "\tsizeof(Executable)  : %" FU32 "\n",
-    (uint32)sizeof(Linker),
-    (uint32)sizeof(Interpreter),
-    (uint32)sizeof(Executable)
-  );
+void runTestExample(Interpreter::Type type) {
 
   std::puts(
     "\nLinking Virtual Program\n"
@@ -346,7 +336,7 @@ void runTestExample() {
 
   // Dump the Executable
   if (executable) {
-    printf(
+    std::printf(
       "Linked Executable at %p {\n"
       "\tnativeCodeAddresses : %p\n"
       "\tcodeAddresses       : %p\n"
@@ -376,14 +366,19 @@ void runTestExample() {
       std::printf("\tSymbol ID : %" FU32 " -> %p\n", i, executable->dataAddresses[i]);
     }
 
-    std::puts(
-      "\nBeginning Virtual Program\n"
-      "-----------------------\n"
-    );
-
-    // Create an Interpreter
-    Interpreter* interpreter = new Interpreter();
+    Interpreter* interpreter = Interpreter::create(type);
     if (interpreter) {
+
+      std::printf(
+        "Allocated interpreter at address %p\n",
+        interpreter
+      );
+
+      std::puts(
+        "\nBeginning Virtual Program\n"
+        "-----------------------\n"
+      );
+
       // Execute it
       interpreter->setExecutable(executable);
       interpreter->execute();
@@ -405,3 +400,18 @@ void runTestExample() {
 
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Main Program
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int main(int argc, const char** argv) {
+
+  Interpreter::Type type = Interpreter::TYPE_STANDARD;
+  if (argc > 1) {
+    type = Interpreter::TYPE_DEBUGGING;
+  }
+  runTestExample(type);
+  return 0;
+}

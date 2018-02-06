@@ -39,7 +39,7 @@ class OpcodeTest : public FunctionalTest {
 };
 
 int main() {
-  Interpreter* interpreter = new Interpreter();
+  Interpreter* interpreter = Interpreter::create(Interpreter::TYPE_DEBUGGING);
   if (interpreter) {
     OpcodeTest::dummy(interpreter);
 

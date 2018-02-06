@@ -25,31 +25,12 @@
 #endif
 
 using std::nothrow;
-
 using namespace ExVM;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-const char* Interpreter::statusCodes[] = {
-  "Running",
-  "Initialised",
-  "Completed",
-  "Breakpoint",
-  "Change instruction set",
-  "Illegal opcode",
-  "Integer divide by zero",
-  "Register stack overflow",
-  "Register stack underflow",
-  "Data stack overflow",
-  "Data stack underflow",
-  "Call stack overflow",
-  "Call empty address",
-  "Call empty native address",
-  "Unknown code symbol",
-  "Unknown data symbol",
-  "Unknown native code symbol",
-};
-
+//
+// Base Interpreter
+//
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
@@ -76,9 +57,6 @@ Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize
   codeSymbolCount       = 0;
   dataSymbolCount       = 0;
 
-  debuglog(LOG_INFO, "VM compiled %d-bit native", X_PTRSIZE);
-  debuglog(LOG_INFO, "There are presently %d scalar, %d advanced and %d stream instructions defined", VMDefs::MAX_OP, VMDefs::MAX_ADV, VMDefs::MAX_VEC);
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,12 +65,121 @@ Interpreter::~Interpreter() {
   delete[] callStackBase;
   delete[] dataStackBase;
   delete[] regStackBase;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void Interpreter::setNativeCodeSymbolTable(NativeCall* symbol, uint32 count) {
+  nativeCodeSymbol      = symbol;
+  nativeCodeSymbolCount = count;
+}
+
+void Interpreter::setCodeSymbolTable(uint16** symbol, uint32 count) {
+  codeSymbol      = symbol;
+  codeSymbolCount = count;
+}
+
+void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
+  dataSymbol      = symbol;
+  dataSymbolCount = count;
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// StandardInterpreter
+//
+// Represents the core interpreter for the virtual machine and is primarily responsible for the runtime execution of
+// virtual code.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#include "include/vm_interpreter_standard.hpp"
+
+StandardInterpreter::StandardInterpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
+Interpreter(rStackSize, dStackSize, cStackSize) {
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+StandardInterpreter::~StandardInterpreter() {
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void StandardInterpreter::dump() {
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void StandardInterpreter::execute() {
+
+  status               = VMDefs::RUNNING;
+
+#define CLASS StandardInterpreter
+#define COUNT_STATEMENTS ;
+
+#if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+  #include "include/vm_interpreter_switch_case_impl.hpp"
+#elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
+  #include "include/vm_interpreter_custom_impl.hpp"
+#endif
+
+#undef CLASS
+#undef COUNT_STATEMENTS
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// DebuggingInterpreter
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#include "include/vm_interpreter_debugging.hpp"
+
+const char* DebuggingInterpreter::statusCodes[] = {
+  "Running",
+  "Initialised",
+  "Completed",
+  "Breakpoint",
+  "Change instruction set",
+  "Illegal opcode",
+  "Integer divide by zero",
+  "Register stack overflow",
+  "Register stack underflow",
+  "Data stack overflow",
+  "Data stack underflow",
+  "Call stack overflow",
+  "Call empty address",
+  "Call empty native address",
+  "Unknown code symbol",
+  "Unknown data symbol",
+  "Unknown native code symbol",
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+DebuggingInterpreter::DebuggingInterpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
+Interpreter(rStackSize, dStackSize, cStackSize) {
+  debuglog(LOG_INFO, "VM compiled %d-bit native, gpr alignment is %d bytes", X_PTRSIZE, (int)(8 - (((long)gpr) & 7)) );
+  debuglog(LOG_INFO, "There are presently %d scalar, %d advanced and %d stream instructions defined", VMDefs::MAX_OP, VMDefs::MAX_ADV, VMDefs::MAX_VEC);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+DebuggingInterpreter::~DebuggingInterpreter() {
   debuglog(LOG_INFO, "Destroyed Interpreter");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Interpreter::dump() {
+void DebuggingInterpreter::dump() {
   printf("Interpreter dump\n\n");
   printf("rX: %18s : %12s : %6s : %4s : c\n",
     "64-bit (hex dump)",
@@ -128,24 +215,7 @@ void Interpreter::dump() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Interpreter::setNativeCodeSymbolTable(NativeCall* symbol, uint32 count) {
-  nativeCodeSymbol      = symbol;
-  nativeCodeSymbolCount = count;
-}
-
-void Interpreter::setCodeSymbolTable(uint16** symbol, uint32 count) {
-  codeSymbol      = symbol;
-  codeSymbolCount = count;
-}
-
-void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
-  dataSymbol      = symbol;
-  dataSymbolCount = count;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void Interpreter::execute() {
+void DebuggingInterpreter::execute() {
   MilliClock total;
 #if X_PTRSIZE == XA_PTRSIZE64
   uint64 numStatements = 0;
@@ -158,11 +228,17 @@ void Interpreter::execute() {
   nativeTime           = 0;
   status               = VMDefs::RUNNING;
 
+#define CLASS DebuggingInterpreter
+#define COUNT_STATEMENTS ++numStatements;
+
 #if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
   #include "include/vm_interpreter_switch_case_impl.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
   #include "include/vm_interpreter_custom_impl.hpp"
 #endif
+
+#undef CLASS
+#undef COUNT_STATEMENTS
 
   totalTime = total.elapsedFrac();
   debuglog(LOG_INFO, "Executed %" FCNT " statements\n", numStatements);
@@ -176,4 +252,14 @@ void Interpreter::execute() {
 
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Interpreter* Interpreter::create(Interpreter::Type type, size_t rStackSize, size_t dStackSize, size_t cStackSize) {
+  switch (type) {
+    case TYPE_DEBUGGING:
+      return new(nothrow) DebuggingInterpreter(rStackSize, dStackSize, cStackSize);
+    default:
+      return new(nothrow) StandardInterpreter(rStackSize, dStackSize, cStackSize);
+  }
+}
 

@@ -17,7 +17,6 @@
 #include "vm.hpp"
 #include "vm_targetmacros.hpp"
 
-
 namespace ExVM {
 
   struct Executable;
@@ -46,9 +45,17 @@ namespace ExVM {
         DEF_CALL_STACK  = 4096  // Default call stack size, in entries
       };
 
+      typedef enum {
+        TYPE_STANDARD  = 0,
+        TYPE_DEBUGGING = 1
+      } Type;
+
       #include "vm_gpr.hpp"
 
-    private:
+    protected:
+      #if X_PTRSIZE == XA_PTRSIZE32
+      void* padding;
+      #endif
       GPR gpr[Interpreter::NUM_GPR];    // register set
 
       union {
@@ -82,25 +89,21 @@ namespace ExVM {
       NativeCall* nativeCodeSymbol;
       uint16**    codeSymbol;
       void**      dataSymbol;
-      uint32      status;
 
       size_t  regStackSize;
       size_t  dataStackSize;
       size_t  callStackSize;
 
-      float64 totalTime;
-      float64 nativeTime;
-
       uint32  nativeCodeSymbolCount;
       uint32  codeSymbolCount;
       uint32  dataSymbolCount;
+      uint32  status;
 
-      static const char* statusCodes[];
+      Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize);
 
     public:
 
-      Interpreter(size_t rStackSize = DEF_REG_STACK, size_t dStackSize = DEF_DATA_STACK, size_t cStackSize = DEF_CALL_STACK);
-      ~Interpreter();
+      static Interpreter* create(Type type, size_t rStackSize=DEF_REG_STACK, size_t dStackSize=DEF_DATA_STACK, size_t cStackSize=DEF_CALL_STACK);
 
       uint32  getStatus() const {
         return status;
@@ -118,32 +121,11 @@ namespace ExVM {
         pc.inst = newPC;
       }
 
-      void dump();
-      void execute();
-
-    private:
-      // Specific handler functions for opcodes that require more than a couple of inline statements
-      static void doBCALL8(Interpreter* vm, uint16 op);
-      static void doBCALL16(Interpreter* vm, uint16 op);
-      static void doCALL(Interpreter* vm, uint16 op);
-      static void doCALLN(Interpreter* vm, uint16 op);
-      static void doICALL(Interpreter* vm, uint16 op);
-      static void doICALLN(Interpreter* vm, uint16 op);
-      static void doSV(Interpreter* vn, uint16 op);
-      static void doRS(Interpreter* vn, uint16 op);
-      static void doPUSH_8(Interpreter* vm, uint16 op);
-      static void doPUSH_16(Interpreter* vm, uint16 op);
-      static void doPUSH_32(Interpreter* vm, uint16 op);
-      static void doPUSH_64(Interpreter* vm, uint16 op);
-      static void doPOP_8(Interpreter* vm, uint16 op);
-      static void doPOP_16(Interpreter* vm, uint16 op);
-      static void doPOP_32(Interpreter* vm, uint16 op);
-      static void doPOP_64(Interpreter* vm, uint16 op);
-      static void doSALLOC(Interpreter* vm, uint16 op);
-      static void doSFREE(Interpreter* vm, uint16 op);
-      static void doVEC1(Interpreter* vm, uint16 op);
-      static void doADV(Interpreter* vm, uint16 op);
+      virtual void execute() = 0;
+      virtual void dump()    = 0;
+      virtual ~Interpreter();
   };
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -152,7 +134,6 @@ namespace ExVM {
 // Represents the runtime linked and ready to execute VM program.
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   struct Executable {
     NativeCall* nativeCodeAddresses;
