@@ -580,6 +580,11 @@ void ExVM::DebuggingInterpreter::doBCALL8(ExVM::DebuggingInterpreter* vm, uint16
   if (vm->callStack < vm->callStackTop) {
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst += _B8(op);
+
+    if (vm->debugFlags & FLAG_LOG_CALLS) {
+      debuglog(LOG_INFO, "Branch call to offset %d [address %p]", (int)_B8(op), vm->pc.inst);
+    }
+
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
 
@@ -592,11 +597,18 @@ void ExVM::DebuggingInterpreter::doBCALL8(ExVM::DebuggingInterpreter* vm, uint16
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ExVM::DebuggingInterpreter::doBCALL16(ExVM::DebuggingInterpreter* vm, uint16 op UNUSED) {
+
+
   if (vm->callStack < vm->callStackTop) {
     // for clarity, since _EX_S16 macro increments pc
     _DECLARE_OFFSET
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst += offset;
+
+    if (vm->debugFlags & FLAG_LOG_CALLS) {
+      debuglog(LOG_INFO, "Branch call to offset %d [address %p]", (int)offset, vm->pc.inst);
+    }
+
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
 
