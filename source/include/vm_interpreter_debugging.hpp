@@ -30,7 +30,8 @@ class DebuggingInterpreter : public Interpreter {
   public:
 
     enum {
-      FLAG_LOG_CALLS = 1
+      FLAG_LOG_CALLS        = 1,
+      FLAG_LOG_NATIVE_CALLS = 2,
     };
 
     DebuggingInterpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize);
