@@ -119,10 +119,11 @@ void StandardInterpreter::dump() {
 
 void StandardInterpreter::execute() {
 
-  status               = VMDefs::RUNNING;
+  status = VMDefs::RUNNING;
 
 #define CLASS StandardInterpreter
 #define COUNT_STATEMENTS ;
+#define DEBUG_RETURN
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
   #include "include/vm_interpreter_switch_case_impl.hpp"
@@ -132,6 +133,7 @@ void StandardInterpreter::execute() {
 
 #undef CLASS
 #undef COUNT_STATEMENTS
+#undef DEBUG_RETURN
 
 }
 
@@ -166,7 +168,7 @@ const char* DebuggingInterpreter::statusCodes[] = {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 DebuggingInterpreter::DebuggingInterpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
-Interpreter(rStackSize, dStackSize, cStackSize) {
+Interpreter(rStackSize, dStackSize, cStackSize), debugFlags(0xFFFFFFFF) {
   debuglog(LOG_INFO, "VM compiled %d-bit native, gpr alignment is %d bytes", X_PTRSIZE, (int)(8 - (((long)gpr) & 7)) );
   debuglog(LOG_INFO, "There are presently %d scalar, %d advanced and %d stream instructions defined", VMDefs::MAX_OP, VMDefs::MAX_ADV, VMDefs::MAX_VEC);
 }
@@ -231,6 +233,8 @@ void DebuggingInterpreter::execute() {
 #define CLASS DebuggingInterpreter
 #define COUNT_STATEMENTS ++numStatements;
 
+#define DEBUG_RETURN if (vm->debugFlags & FLAG_LOG_CALLS) { debuglog(LOG_INFO, "Returning"); }
+
 #if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
   #include "include/vm_interpreter_switch_case_impl.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
@@ -239,6 +243,7 @@ void DebuggingInterpreter::execute() {
 
 #undef CLASS
 #undef COUNT_STATEMENTS
+#undef DEBUG_RETURN
 
   totalTime = total.elapsedFrac();
   debuglog(LOG_INFO, "Executed %" FCNT " statements\n", numStatements);

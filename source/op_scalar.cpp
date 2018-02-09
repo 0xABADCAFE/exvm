@@ -610,13 +610,20 @@ void ExVM::DebuggingInterpreter::doBCALL16(ExVM::DebuggingInterpreter* vm, uint1
 
 void ExVM::DebuggingInterpreter::doCALL(ExVM::DebuggingInterpreter* vm, uint16 op) {
   uint32 symbol = (uint32)_EX_U16 | ((uint32)op & 0x0F) << 16;
+
+
+
   if (symbol >= vm->codeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
 
-    debuglog(LOG_ERROR, "Unknown code symbold %d in CALL", (int)symbol);
+    debuglog(LOG_ERROR, "Unknown code symbol %d in CALL", (int)symbol);
     dumpstate(vm);
 
     return;
+  }
+
+  if (vm->debugFlags & FLAG_LOG_CALLS) {
+    debuglog(LOG_INFO, "Calling %d", (int)symbol);
   }
 
   const uint16* newPC = vm->codeSymbol[symbol];
@@ -641,17 +648,27 @@ void ExVM::DebuggingInterpreter::doCALLN(ExVM::DebuggingInterpreter* vm, uint16 
   if (symbol >= vm->nativeCodeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
 
-    debuglog(LOG_ERROR, "Unknown native code symbold %d in CALLN", (int)symbol);
+    debuglog(LOG_ERROR, "Unknown native code symbol %d in CALLN", (int)symbol);
     dumpstate(vm);
 
     return;
   }
+
+  if (vm->debugFlags & FLAG_LOG_CALLS) {
+    debuglog(LOG_INFO, "Calling native %d", (int)symbol);
+  }
+
   NativeCall func = vm->nativeCodeSymbol[symbol];
   if (func) {
     MilliClock native;
     //printf("call native 0x%08X\n", (unsigned)func);
     func(vm);
     vm->nativeTime += native.elapsedFrac();
+
+    if (vm->debugFlags & FLAG_LOG_CALLS) {
+      debuglog(LOG_INFO, "Returned from native");
+    }
+
   } else {
     vm->status = VMDefs::CALL_EMPTY_NATIVE;
 
@@ -685,6 +702,10 @@ void ExVM::DebuggingInterpreter::doICALL(ExVM::DebuggingInterpreter* vm, uint16 
     dumpstate(vm);
 
     return;
+  }
+
+  if (vm->debugFlags & FLAG_LOG_CALLS) {
+    debuglog(LOG_INFO, "Calling %d", (int)symbol);
   }
 
   const uint16* newPC = vm->codeSymbol[symbol];
@@ -727,12 +748,22 @@ void ExVM::DebuggingInterpreter::doICALLN(ExVM::DebuggingInterpreter* vm, uint16
 
     return;
   }
+
+  if (vm->debugFlags & FLAG_LOG_CALLS) {
+    debuglog(LOG_INFO, "Calling native %d", (int)symbol);
+  }
+
   NativeCall func = vm->nativeCodeSymbol[symbol];
   if (func) {
     MilliClock native;
     //printf("call native 0x%08X\n", (unsigned)func);
     func(vm);
     vm->nativeTime += native.elapsedFrac();
+
+    if (vm->debugFlags & FLAG_LOG_CALLS) {
+      debuglog(LOG_INFO, "Returned from native");
+    }
+
   } else {
     vm->status = VMDefs::CALL_EMPTY_NATIVE;
 

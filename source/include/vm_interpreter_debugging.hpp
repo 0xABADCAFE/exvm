@@ -28,6 +28,11 @@ class DebuggingInterpreter : public Interpreter {
   friend ExVM::FunctionalTest;
 
   public:
+
+    enum {
+      FLAG_LOG_CALLS = 1
+    };
+
     DebuggingInterpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize);
     ~DebuggingInterpreter();
 
@@ -38,6 +43,8 @@ class DebuggingInterpreter : public Interpreter {
 
     float64 totalTime;
     float64 nativeTime;
+
+    uint32 debugFlags;
 
     static const char* statusCodes[];
 
