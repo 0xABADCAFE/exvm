@@ -340,7 +340,7 @@ void ExVM::StandardInterpreter::doICALLN(ExVM::StandardInterpreter* vm, uint16 o
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//
+// DebuggingInterpreter
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -585,6 +585,8 @@ void ExVM::DebuggingInterpreter::doBCALL8(ExVM::DebuggingInterpreter* vm, uint16
       debuglog(LOG_INFO, "Branch call to offset %d", (int)_B8(op));
     }
 
+    ++vm->branchCalls;
+
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
 
@@ -598,7 +600,6 @@ void ExVM::DebuggingInterpreter::doBCALL8(ExVM::DebuggingInterpreter* vm, uint16
 
 void ExVM::DebuggingInterpreter::doBCALL16(ExVM::DebuggingInterpreter* vm, uint16 op UNUSED) {
 
-
   if (vm->callStack < vm->callStackTop) {
     // for clarity, since _EX_S16 macro increments pc
     _DECLARE_OFFSET
@@ -608,6 +609,8 @@ void ExVM::DebuggingInterpreter::doBCALL16(ExVM::DebuggingInterpreter* vm, uint1
     if (vm->debugFlags & FLAG_LOG_CALLS) {
       debuglog(LOG_INFO, "Branch call to offset %d", (int)offset);
     }
+
+    ++vm->branchCalls;
 
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
@@ -634,13 +637,15 @@ void ExVM::DebuggingInterpreter::doCALL(ExVM::DebuggingInterpreter* vm, uint16 o
 
   const uint16* newPC = vm->codeSymbol[symbol];
 
-  if (vm->debugFlags & FLAG_LOG_CALLS) {
-    debuglog(LOG_INFO, "Calling %d", (int)symbol);
-  }
-
   if (vm->callStack < vm->callStackTop) {
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst = newPC;
+
+    ++vm->functionCalls;
+    if (vm->debugFlags & FLAG_LOG_CALLS) {
+      debuglog(LOG_INFO, "Calling %d", (int)symbol);
+    }
+
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
 
@@ -665,14 +670,13 @@ void ExVM::DebuggingInterpreter::doCALLN(ExVM::DebuggingInterpreter* vm, uint16 
   }
 
   NativeCall func = vm->nativeCodeSymbol[symbol];
-
-  if (vm->debugFlags & FLAG_LOG_NATIVE_CALLS) {
-    debuglog(LOG_INFO, "Calling native %d", (int)symbol);
-  }
-
   if (func) {
+    if (vm->debugFlags & FLAG_LOG_NATIVE_CALLS) {
+      debuglog(LOG_INFO, "Calling native %d", (int)symbol);
+    }
+    ++vm->nativeFunctionCalls;
+    
     MilliClock native;
-
     func(vm);
     vm->nativeTime += native.elapsedFrac();
 
@@ -716,13 +720,13 @@ void ExVM::DebuggingInterpreter::doICALL(ExVM::DebuggingInterpreter* vm, uint16 
   }
 
   const uint16* newPC = vm->codeSymbol[symbol];
-  if (vm->debugFlags & FLAG_LOG_CALLS) {
-    debuglog(LOG_INFO, "Calling %d", (int)symbol);
-  }
-
   if (vm->callStack < vm->callStackTop) {
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst = newPC;
+    ++vm->functionCalls;
+    if (vm->debugFlags & FLAG_LOG_CALLS) {
+      debuglog(LOG_INFO, "Calling %d", (int)symbol);
+    }
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
 
@@ -761,13 +765,12 @@ void ExVM::DebuggingInterpreter::doICALLN(ExVM::DebuggingInterpreter* vm, uint16
 
 
   NativeCall func = vm->nativeCodeSymbol[symbol];
-
-  if (vm->debugFlags & FLAG_LOG_NATIVE_CALLS) {
-    debuglog(LOG_INFO, "Calling native %d", (int)symbol);
-  }
-
-
   if (func) {
+
+    if (vm->debugFlags & FLAG_LOG_NATIVE_CALLS) {
+      debuglog(LOG_INFO, "Calling native %d", (int)symbol);
+    }
+    ++vm->nativeFunctionCalls;
     MilliClock native;
     func(vm);
     vm->nativeTime += native.elapsedFrac();

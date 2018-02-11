@@ -16,7 +16,9 @@ _DEFINE_OP(BEQ_F32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].f32() == vm->gpr[_RS(op)].f32()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -26,7 +28,9 @@ _DEFINE_OP(BGREQ_F32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].f32() <= vm->gpr[_RS(op)].f32()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -36,7 +40,9 @@ _DEFINE_OP(BGR_F32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].f32() < vm->gpr[_RS(op)].f32()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 

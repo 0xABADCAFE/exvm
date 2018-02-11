@@ -92,6 +92,7 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(BRA8) {
+  DEBUG_BRANCH_UNCONDITIONAL
   vm->pc.inst += _B8(op);
 }
 _END_OP
@@ -99,6 +100,7 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(BRA16) {
+  DEBUG_BRANCH_UNCONDITIONAL
   // for clarity, since _EX_S16 macro increments pc
   _DECLARE_OFFSET
   vm->pc.inst += offset;
@@ -120,7 +122,9 @@ _DEFINE_OP(BNZ_8) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s8()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -130,7 +134,9 @@ _DEFINE_OP(BNZ_16) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s16()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -140,7 +146,9 @@ _DEFINE_OP(BNZ_32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s32()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -150,7 +158,9 @@ _DEFINE_OP(BEQ_8) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s8() == vm->gpr[_RS(op)].s8()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -160,7 +170,9 @@ _DEFINE_OP(BEQ_16) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s16() == vm->gpr[_RS(op)].s16()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -170,7 +182,9 @@ _DEFINE_OP(BEQ_32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s32() == vm->gpr[_RS(op)].s32()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -180,7 +194,9 @@ _DEFINE_OP(BGREQ_8) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s8() <= vm->gpr[_RS(op)].s8()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -190,7 +206,9 @@ _DEFINE_OP(BGREQ_16) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s16() <= vm->gpr[_RS(op)].s16()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -200,7 +218,9 @@ _DEFINE_OP(BGREQ_32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s32() <= vm->gpr[_RS(op)].s32()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -210,7 +230,9 @@ _DEFINE_OP(BGR_8) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s8() < vm->gpr[_RS(op)].s8()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -220,7 +242,9 @@ _DEFINE_OP(BGR_16) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s16() < vm->gpr[_RS(op)].s16()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 
@@ -230,7 +254,9 @@ _DEFINE_OP(BGR_32) {
   _DECLARE_OFFSET
   if (vm->gpr[_RD(op)].s32() < vm->gpr[_RS(op)].s32()) {
     vm->pc.inst += offset;
+    DEBUG_BRANCH_TAKEN
   }
+  DEBUG_BRANCH_NOT_TAKEN
 }
 _END_OP
 

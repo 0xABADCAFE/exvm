@@ -41,10 +41,15 @@ class DebuggingInterpreter : public Interpreter {
     void execute();
 
   private:
-
     float64 totalTime;
     float64 nativeTime;
-
+    uint64 totalStatements;
+    uint32 functionCalls;
+    uint32 nativeFunctionCalls;
+    uint32 branchCalls;
+    uint32 conditionalBranchesTaken;
+    uint32 conditionalBranchesNotTaken;
+    uint32 unconditionalBranches;
     uint32 debugFlags;
 
     static const char* statusCodes[];
