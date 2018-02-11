@@ -28,6 +28,12 @@ class DebuggingInterpreter : public Interpreter {
   friend ExVM::FunctionalTest;
 
   public:
+
+    enum {
+      FLAG_LOG_CALLS        = 1,
+      FLAG_LOG_NATIVE_CALLS = 2,
+    };
+
     DebuggingInterpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize);
     ~DebuggingInterpreter();
 
@@ -35,9 +41,16 @@ class DebuggingInterpreter : public Interpreter {
     void execute();
 
   private:
-
     float64 totalTime;
     float64 nativeTime;
+    uint64 totalStatements;
+    uint32 functionCalls;
+    uint32 nativeFunctionCalls;
+    uint32 branchCalls;
+    uint32 conditionalBranchesTaken;
+    uint32 conditionalBranchesNotTaken;
+    uint32 unconditionalBranches;
+    uint32 debugFlags;
 
     static const char* statusCodes[];
 
