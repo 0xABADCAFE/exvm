@@ -116,11 +116,12 @@ namespace ExVM {
       void setNativeCodeSymbolTable(NativeCall* symbol, uint32 count);
       void setCodeSymbolTable(uint16** symbol, uint32 count);
       void setDataSymbolTable(void** symbol, uint32 count);
-      void setExecutable(Executable* executable);
+
       void setPC(uint16* newPC) {
         pc.inst = newPC;
       }
 
+      virtual void setExecutable(Executable* executable);
       virtual void execute() = 0;
       virtual void dump()    = 0;
       virtual ~Interpreter();
@@ -148,11 +149,5 @@ namespace ExVM {
     static void release(Executable* executable);
   };
 
-  inline void Interpreter::setExecutable(Executable* executable) {
-    setNativeCodeSymbolTable(executable->nativeCodeAddresses, executable->nativeCodeCount);
-    setCodeSymbolTable(executable->codeAddresses, executable->codeCount);
-    setDataSymbolTable(executable->dataAddresses, executable->dataCount);
-    setPC(executable->codeAddresses[executable->main]);
-  }
 }
 #endif

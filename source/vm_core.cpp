@@ -56,7 +56,6 @@ Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize
   nativeCodeSymbolCount = 0;
   codeSymbolCount       = 0;
   dataSymbolCount       = 0;
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,7 +84,12 @@ void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
   dataSymbolCount = count;
 }
 
-
+void Interpreter::setExecutable(Executable* executable) {
+  setNativeCodeSymbolTable(executable->nativeCodeAddresses, executable->nativeCodeCount);
+  setCodeSymbolTable(executable->codeAddresses, executable->codeCount);
+  setDataSymbolTable(executable->dataAddresses, executable->dataCount);
+  setPC(executable->codeAddresses[executable->main]);
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
