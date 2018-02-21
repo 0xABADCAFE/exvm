@@ -133,8 +133,6 @@ void StandardInterpreter::execute() {
 #define DEBUG_BRANCH_TAKEN
 #define DEBUG_BRANCH_NOT_TAKEN
 #define DEBUG_SCALAR_COUNT ;
-#define DEBUG_ADVANCED_COUNT ;
-#define DEBUG_VECTOR_COUNT ;
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
   #include "include/vm_interpreter_switch_case_impl.hpp"
@@ -149,8 +147,7 @@ void StandardInterpreter::execute() {
 #undef DEBUG_BRANCH_TAKEN
 #undef DEBUG_BRANCH_NOT_TAKEN
 #undef DEBUG_SCALAR_COUNT
-#undef DEBUG_ADVANCED_COUNT
-#undef DEBUG_VECTOR_COUNT
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

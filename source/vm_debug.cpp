@@ -1000,7 +1000,7 @@ void DebuggingInterpreter::dump() {
   for (uint32 i = 0; i<sizeof(scalarCount)/sizeof(uint32); i++) {
     if (scalarCount[i]) {
       std::printf(
-        "\t   %02X %24s : %9" FU32 "\n",
+        "\t   %02X %28s : %9" FU32 "\n",
         (unsigned)i,
         scalarNames[i],
         scalarCount[i]
@@ -1011,7 +1011,7 @@ void DebuggingInterpreter::dump() {
   for (uint32 i = 0; i<sizeof(advancedCount)/sizeof(uint32); i++) {
     if (advancedCount[i]) {
       std::printf(
-        "\t   %02X %24s : %9" FU32 "\n",
+        "\t   %02X %28s : %9" FU32 "\n",
         (unsigned)i,
         advancedNames[i],
         advancedCount[i]
@@ -1063,8 +1063,6 @@ void DebuggingInterpreter::execute() {
 #define DEBUG_BRANCH_TAKEN         ++conditionalBranchesTaken;
 #define DEBUG_BRANCH_NOT_TAKEN     else { ++conditionalBranchesNotTaken; }
 #define DEBUG_SCALAR_COUNT         ++scalarCount[op>>8];
-#define DEBUG_ADVANCED_COUNT ;
-#define DEBUG_VECTOR_COUNT ;
 
 #if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
   #include "include/vm_interpreter_switch_case_impl.hpp"
@@ -1076,8 +1074,6 @@ void DebuggingInterpreter::execute() {
 #undef COUNT_STATEMENTS
 #undef DEBUG_RETURN
 #undef DEBUG_SCALAR_COUNT
-#undef DEBUG_ADVANCED_COUNT
-#undef DEBUG_VECTOR_COUNT
 
   totalTime = total.elapsedFrac();
   totalStatements     = numStatements;
