@@ -62,7 +62,7 @@ void ExVM::DebuggingInterpreter::doADV(ExVM::DebuggingInterpreter* vm, uint16 op
 
   // The next word in the instruction stream defines up to 4 registers
   uint16 vArgs = *vm->pc.inst++;
-#define DEBUG_ADVANCED_COUNT       ++vm->advancedCount[op&0xFF];
+#define DEBUG_ADVANCED_COUNT ++vm->advancedCount[op&0xFF];
 #if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
   #include "include/vm_interpreter_adv_switch_case_impl.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
