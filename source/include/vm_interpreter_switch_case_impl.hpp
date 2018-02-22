@@ -18,6 +18,7 @@
 
 forever:
   op = *pc.inst++;
+  DEBUG_SCALAR_COUNT
   switch (op >> 8) {
     #include "opcodes/scalar/op_control_impl_l0.hpp"
     #include "opcodes/scalar/op_load_impl_l0.hpp"

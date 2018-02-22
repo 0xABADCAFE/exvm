@@ -52,6 +52,10 @@ class DebuggingInterpreter : public Interpreter {
     uint32 unconditionalBranches;
     uint32 debugFlags;
 
+    uint32 scalarCount[256];
+    uint32 advancedCount[256];
+    uint32 vectorCount[256];
+
     static const char* statusCodes[];
 
     #define CLASS DebuggingInterpreter
