@@ -16,13 +16,13 @@ _DEFINE_OP(ST_RII_64) {
   // st.64 rS, (rD,rI,#s)
   *((uint64*)(
       // Base address
-      vm->gpr[(vArgs & 0x00F0) >> 4].pU8() + (
+      vm->gpr[VARG1].pU8() + (
         // Index
-        vm->gpr[(vArgs & 0x0F00) >> 8].s32()
+        vm->gpr[VARG2].s32()
         // Scale
-        << ((vArgs & 0xF000) >> 12)
+        << (VARG3)
     )
-  )) = vm->gpr[(vArgs & 0x000F)].u64();
+  )) = vm->gpr[VARG0].u64();
 }
 _END_OP
 

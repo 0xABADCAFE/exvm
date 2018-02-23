@@ -14,10 +14,10 @@
 
 _DEFINE_OP(VSXOR_64) {
   // Super naive reference implementation
-  uint64  val = vm->gpr[(vArgs & 0xF000) >> 12].u64();
-  uint64* src = vm->gpr[(vArgs & 0x0F00) >> 8].pU64();
-  uint64* dst = vm->gpr[(vArgs & 0x00F0) >> 4].pU64();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  uint64  val = vm->gpr[VARG3].u64();
+  uint64* src = vm->gpr[VARG2].pU64();
+  uint64* dst = vm->gpr[VARG1].pU64();
+  uint32  i   = vm->gpr[VARG0].u32();
   while (i--) {
     *dst++ = val ^ *src++;
   }

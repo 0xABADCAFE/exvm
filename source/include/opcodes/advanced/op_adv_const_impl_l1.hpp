@@ -13,9 +13,7 @@
 //****************************************************************************//
 
 _DEFINE_OP(LD_CONST_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)predefinedConstants[
-    (vArgs & 0x000F) >> 4
-  ];
+  vm->gpr[VARG0].f32() = (float32)predefinedConstants[VARG1];
 }
 _END_OP
 

@@ -15,10 +15,10 @@
 // Float
 _DEFINE_OP(VMAC_F32) {
   // Super naive reference implementation
-  float32* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pF32();
-  float32* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pF32();
+  float32* src1 = vm->gpr[VARG3].pF32();
+  float32* src2 = vm->gpr[VARG2].pF32();
   float32  acc  = 0;
-  uint32   i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint32   i    = vm->gpr[VARG0].u32();
 
   if (src1 != src2) {
     while (i--) {
@@ -31,7 +31,7 @@ _DEFINE_OP(VMAC_F32) {
       acc += tmp * tmp;
     }
   }
-  vm->gpr[(vArgs & 0x00F0) >>  4].f32() = acc;
+  vm->gpr[VARG1].f32() = acc;
 }
 _END_OP
 

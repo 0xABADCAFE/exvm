@@ -17,10 +17,10 @@ _DEFINE_OP(VMULS_U64) {
   vm->status = VMDefs::BREAKPOINT;
   return;
   // Super naive reference implementation
-//  uint64* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pU64();
-//  uint64* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pU64();
-//  uint64* dst  = vm->gpr[(vArgs & 0x00F0) >>  4].pU64();
-//  uint32  i    = vm->gpr[(vArgs & 0x000F)].u32();
+//  uint64* src1 = vm->gpr[VARG3].pU64();
+//  uint64* src2 = vm->gpr[VARG2].pU64();
+//  uint64* dst  = vm->gpr[VARG1].pU64();
+//  uint32  i    = vm->gpr[VARG0].u32();
 //  while (i--) {
 //    *dst++ = *src1++ * *src2++;
 //  }
@@ -34,10 +34,10 @@ _DEFINE_OP(VMULS_S64) {
   vm->status = VMDefs::BREAKPOINT;
   return;
   // Super naive reference implementation
-//  sint64* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pS64();
-//  sint64* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pS64();
-//  sint64* dst  = vm->gpr[(vArgs & 0x00F0) >>  4].pS64();
-//  uint32  i    = vm->gpr[(vArgs & 0x000F)].u32();
+//  sint64* src1 = vm->gpr[VARG3].pS64();
+//  sint64* src2 = vm->gpr[VARG2].pS64();
+//  sint64* dst  = vm->gpr[VARG1].pS64();
+//  uint32  i    = vm->gpr[VARG0].u32();
 //  while (i--) {
 //    *dst++ = *src1++ * *src2++;
 //  }

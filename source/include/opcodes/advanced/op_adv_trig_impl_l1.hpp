@@ -13,8 +13,8 @@
 //****************************************************************************//
 
 _DEFINE_OP(ACOS_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::acos(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
+  vm->gpr[VARG0].f32() = (float32)std::acos(
+    (float64)vm->gpr[VARG1].f32()
   );
 }
 _END_OP
@@ -22,8 +22,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(ASIN_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::asin(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
+  vm->gpr[VARG0].f32() = (float32)std::asin(
+    (float64)vm->gpr[VARG1].f32()
   );
 }
 _END_OP
@@ -31,8 +31,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(ATAN_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::atan(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
+  vm->gpr[VARG0].f32() = (float32)std::atan(
+    (float64)vm->gpr[VARG1].f32()
   );
 }
 _END_OP
@@ -40,8 +40,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(COS_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::cos(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
+  vm->gpr[VARG0].f32() = (float32)std::cos(
+    (float64)vm->gpr[VARG1].f32()
   );
 }
 _END_OP
@@ -49,8 +49,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(SIN_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::sin(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
+  vm->gpr[VARG0].f32() = (float32)std::sin(
+    (float64)vm->gpr[VARG1].f32()
   );
 }
 _END_OP
@@ -58,8 +58,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(TAN_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::tan(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
+  vm->gpr[VARG0].f32() = (float32)std::tan(
+    (float64)vm->gpr[VARG1].f32()
   );
 }
 _END_OP
@@ -67,8 +67,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(COSH_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::cosh(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
+  vm->gpr[VARG0].f32() = (float32)std::cosh(
+    (float64)vm->gpr[VARG1].f32()
   );
 }
 _END_OP
@@ -76,8 +76,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(SINH_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::sinh(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
+  vm->gpr[VARG0].f32() = (float32)std::sinh(
+    (float64)vm->gpr[VARG1].f32()
   );
 }
 _END_OP
@@ -85,8 +85,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(TANH_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::tanh(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
+  vm->gpr[VARG0].f32() = (float32)std::tanh(
+    (float64)vm->gpr[VARG1].f32()
   );
 }
 _END_OP
@@ -94,9 +94,9 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(SINCOS_F32) {
-  float64 val = (float64)vm->gpr[(vArgs & 0x0F00) >> 8].f32();
-  vm->gpr[(vArgs & 0x000F)].f32()      = (float32)std::sin(val);
-  vm->gpr[(vArgs & 0x00F0) >> 4].f32() = (float32)std::cos(val);
+  float64 val = (float64)vm->gpr[VARG2].f32();
+  vm->gpr[VARG0].f32()      = (float32)std::sin(val);
+  vm->gpr[VARG1].f32() = (float32)std::cos(val);
 }
 _END_OP
 

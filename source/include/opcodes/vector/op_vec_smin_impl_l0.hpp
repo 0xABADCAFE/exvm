@@ -15,8 +15,8 @@
 // Unsigned integer
 _DEFINE_OP(VSMIN_U8) {
   // Super naive reference implementation
-  uint8* src = vm->gpr[(vArgs & 0x00F0) >> 4].pU8();
-  uint32 i   = vm->gpr[(vArgs & 0x000F)].u32();
+  uint8* src = vm->gpr[VARG2].pU8();
+  uint32 i   = vm->gpr[VARG0].u32();
   uint8  val = *src;
 
   // Bail if we find zero
@@ -26,7 +26,7 @@ _DEFINE_OP(VSMIN_U8) {
       val = val2;
     }
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].u8() = val;
+  vm->gpr[VARG1].u8() = val;
 }
 _END_OP
 
@@ -34,8 +34,8 @@ _END_OP
 
 _DEFINE_OP(VSMIN_U16) {
   // Super naive reference implementation
-  uint16* src = vm->gpr[(vArgs & 0x00F0) >> 4].pU16();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  uint16* src = vm->gpr[VARG2].pU16();
+  uint32  i   = vm->gpr[VARG0].u32();
   uint16  val = *src;
 
   // Bail if we find zero
@@ -45,7 +45,7 @@ _DEFINE_OP(VSMIN_U16) {
       val = val2;
     }
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].u16() = val;
+  vm->gpr[VARG1].u16() = val;
 }
 _END_OP
 
@@ -53,8 +53,8 @@ _END_OP
 
 _DEFINE_OP(VSMIN_U32) {
   // Super naive reference implementation
-  uint32* src = vm->gpr[(vArgs & 0x00F0) >> 4].pU32();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  uint32* src = vm->gpr[VARG2].pU32();
+  uint32  i   = vm->gpr[VARG0].u32();
   uint32  val = *src;
 
   // Bail if we find zero
@@ -64,7 +64,7 @@ _DEFINE_OP(VSMIN_U32) {
       val = val2;
     }
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].u32() = val;
+  vm->gpr[VARG1].u32() = val;
 }
 _END_OP
 
@@ -73,8 +73,8 @@ _END_OP
 // Signed integer
 _DEFINE_OP(VSMIN_S8) {
   // Super naive reference implementation
-  sint8* src = vm->gpr[(vArgs & 0x00F0) >> 4].pS8();
-  uint32 i   = vm->gpr[(vArgs & 0x000F)].u32();
+  sint8* src = vm->gpr[VARG2].pS8();
+  uint32 i   = vm->gpr[VARG0].u32();
   sint8  min = 0x80;
   sint8  val = *src;
 
@@ -85,7 +85,7 @@ _DEFINE_OP(VSMIN_S8) {
       val = val2;
     }
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].s8() = val;
+  vm->gpr[VARG1].s8() = val;
 }
 _END_OP
 
@@ -93,8 +93,8 @@ _END_OP
 
 _DEFINE_OP(VSMIN_S16) {
   // Super naive reference implementation
-  sint16* src = vm->gpr[(vArgs & 0x00F0) >> 4].pS16();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  sint16* src = vm->gpr[VARG2].pS16();
+  uint32  i   = vm->gpr[VARG0].u32();
   sint16  min = 0x8000;
   sint16  val = *src;
 
@@ -105,7 +105,7 @@ _DEFINE_OP(VSMIN_S16) {
       val = val2;
     }
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].s16() = val;
+  vm->gpr[VARG1].s16() = val;
 }
 _END_OP
 
@@ -113,8 +113,8 @@ _END_OP
 
 _DEFINE_OP(VSMIN_S32) {
   // Super naive reference implementation
-  sint32* src = vm->gpr[(vArgs & 0x00F0) >> 4].pS32();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  sint32* src = vm->gpr[VARG2].pS32();
+  uint32  i   = vm->gpr[VARG0].u32();
   sint32  min = 0x80000000;
   sint32  val = *src;
 
@@ -125,8 +125,7 @@ _DEFINE_OP(VSMIN_S32) {
       val = val2;
     }
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].s32() = val;
+  vm->gpr[VARG1].s32() = val;
 }
 _END_OP
-
 
