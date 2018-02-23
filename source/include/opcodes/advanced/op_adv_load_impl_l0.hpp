@@ -14,13 +14,13 @@
 
 _DEFINE_OP(LD_RII_8) {
   // ld.8 (rS,rI,#s),rD
-  vm->gpr[(vArgs & 0x000F)].u8() = *(
+  vm->gpr[VARG0].u8() = *(
       // Base address
-      vm->gpr[(vArgs & 0x00F0) >> 4].pU8() + (
+      vm->gpr[VARG1].pU8() + (
         // Index
-        vm->gpr[(vArgs & 0x0F00) >> 8].s32()
+        vm->gpr[VARG2].s32()
         // Scale
-        << ((vArgs & 0xF000) >> 12)
+        << (VARG3)
     )
   );
 }
@@ -30,13 +30,13 @@ _END_OP
 
 _DEFINE_OP(LD_RII_16) {
   // ld.16 (rS,rI,#s),rD
-  vm->gpr[(vArgs & 0x000F)].u16() = *((uint16*)(
+  vm->gpr[VARG0].u16() = *((uint16*)(
       // Base address
-      vm->gpr[(vArgs & 0x00F0) >> 4].pU8() + (
+      vm->gpr[VARG1].pU8() + (
         // Index
-        vm->gpr[(vArgs & 0x0F00) >> 8].s32()
+        vm->gpr[VARG2].s32()
         // Scale
-        << ((vArgs & 0xF000) >> 12)
+        << (VARG3)
     )
   ));
 }
@@ -46,13 +46,13 @@ _END_OP
 
 _DEFINE_OP(LD_RII_32) {
   // ld.32 (rS,rI,#s),rD
-  vm->gpr[(vArgs & 0x000F)].u32() = *((uint32*)(
+  vm->gpr[VARG0].u32() = *((uint32*)(
       // Base address
-      vm->gpr[(vArgs & 0x00F0) >> 4].pU8() + (
+      vm->gpr[VARG1].pU8() + (
         // Index
-        vm->gpr[(vArgs & 0x0F00) >> 8].s32()
+        vm->gpr[VARG2].s32()
         // Scale
-        << ((vArgs & 0xF000) >> 12)
+        << (VARG3)
     )
   ));
 }

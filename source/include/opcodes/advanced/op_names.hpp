@@ -75,7 +75,7 @@
   "norm_vec2.f32 rS, rD", //_NORM_V2F32,  // normalise
   "lerp_vec2.f32 rA, rB, rL, rD", //_LERP_V2F32,  // interpolate
 
-  "xform_vec2.f32", //_M3X3_V2F32, // transform a set of vec2f using a 4x4 matrix
+  "xform_vec2.f32 rS, rM, rD, rC", //_M3X3_V2F32, // transform a set of vec2f using a 4x4 matrix
 
   // Complex number oberations C2F32, extends the 2D vector operations
 
@@ -94,7 +94,7 @@
   "norm_vec3.f32 rS, rD", //_NORM_V3F32,  // normalise
   "lerp_vec3.f32 rA, rB, rL, rD", //_LERP_V3F32,  // interpolate
 
-  "xform_vec3.f32", //_M4X4_V3F32, // transform a set of vec3f using a 4x4 matrix
+  "xform_vec3.f32 rS, rM, rD, rC", //_M4X4_V3F32, // transform a set of vec3f using a 4x4 matrix
 
   // LEVEL 2
 
@@ -167,7 +167,7 @@
   "norm_vec2.f64 rS, rD", //_NORM_V2F64,  // normalise
   "lerp_vec2.f64 rA, rB, rL, rD", //_LERP_V2F64,  // interpolate
 
-  "xform_vec2.f64", //_M3X3_V2F64, // transform a set of vec2d using a 4x4 matrix
+  "xform_vec2.f64 rS, rM, rD, rC", //_M3X3_V2F64, // transform a set of vec2d using a 4x4 matrix
 
   // Complex number oberations C2F64, extends the 2D vector operations
 
@@ -186,4 +186,4 @@
   "norm_vec3.f64 rS, rD", //_NORM_V3F64,  // normalise
   "lerp_vec3.f64 rA, rB, rL, rD", //_LERP_V3F64,  // interpolate
 
-  "xform_vec3.f64", //_M4X4_V3F64, // transform a set of vec3d using a 4x4 matrix
+  "xform_vec3.f64 rS, rM, rD, rC", //_M4X4_V3F64, // transform a set of vec3d using a 4x4 matrix

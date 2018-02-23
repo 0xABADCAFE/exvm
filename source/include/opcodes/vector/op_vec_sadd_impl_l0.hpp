@@ -15,10 +15,10 @@
 // Integer
 _DEFINE_OP(VSADD_I8) {
   // Super naive reference implementation
-  sint8  val = vm->gpr[(vArgs & 0xF000) >> 12].s8();
-  sint8* src = vm->gpr[(vArgs & 0x0F00) >>  8].pS8();
-  sint8* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pS8();
-  uint32 i   = vm->gpr[(vArgs & 0x000F)].u32();
+  sint8  val = vm->gpr[VARG3].s8();
+  sint8* src = vm->gpr[VARG2].pS8();
+  sint8* dst = vm->gpr[VARG1].pS8();
+  uint32 i   = vm->gpr[VARG0].u32();
   while (i--) {
     *dst++ = val + *src++;
   }
@@ -29,10 +29,10 @@ _END_OP
 
 _DEFINE_OP(VSADD_I16) {
   // Super naive reference implementation
-  sint16  val = vm->gpr[(vArgs & 0xF000) >> 12].s16();
-  sint16* src = vm->gpr[(vArgs & 0x0F00) >>  8].pS16();
-  sint16* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pS16();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  sint16  val = vm->gpr[VARG3].s16();
+  sint16* src = vm->gpr[VARG2].pS16();
+  sint16* dst = vm->gpr[VARG1].pS16();
+  uint32  i   = vm->gpr[VARG0].u32();
   while (i--) {
     *dst++ = val + *src++;
   }
@@ -43,10 +43,10 @@ _END_OP
 
 _DEFINE_OP(VSADD_I32) {
   // Super naive reference implementation
-  sint32  val = vm->gpr[(vArgs & 0xF000) >> 12].s32();
-  sint32* src = vm->gpr[(vArgs & 0x0F00) >>  8].pS32();
-  sint32* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pS32();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  sint32  val = vm->gpr[VARG3].s32();
+  sint32* src = vm->gpr[VARG2].pS32();
+  sint32* dst = vm->gpr[VARG1].pS32();
+  uint32  i   = vm->gpr[VARG0].u32();
   while (i--) {
     *dst++ = val + *src++;
   }

@@ -13,9 +13,9 @@
 //****************************************************************************//
 
 _DEFINE_OP(LERP_F64) {
-  float64 lerp = vm->gpr[(vArgs & 0x00F0) >> 4].f64();
-  vm->gpr[(vArgs & 0x000F)].f64() =
-    (lerp * vm->gpr[(vArgs & 0xF000) >> 12].f64()) +
-    ((1.0 - lerp) * vm->gpr[(vArgs & 0x0F00) >> 8].f64());
+  float64 lerp = vm->gpr[VARG1].f64();
+  vm->gpr[VARG0].f64() =
+    (lerp * vm->gpr[VARG3].f64()) +
+    ((1.0 - lerp) * vm->gpr[VARG2].f64());
 }
 _END_OP

@@ -15,9 +15,9 @@
 // Float
 _DEFINE_OP(VABS_F32) {
   // Super naive reference implementation
-  uint32* src  = vm->gpr[(vArgs & 0x0F00) >> 8].pU32();
-  uint32* dst  = vm->gpr[(vArgs & 0x00F0) >> 4].pU32();
-  uint32  i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint32* src  = vm->gpr[VARG2].pU32();
+  uint32* dst  = vm->gpr[VARG1].pU32();
+  uint32  i    = vm->gpr[VARG0].u32();
 
   // Mask off the sign bit.
   uint32  mask = 0x7FFFFFFF;

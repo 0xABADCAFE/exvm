@@ -17,10 +17,10 @@ _DEFINE_OP(MADD_F32) {
   vm->gpr[_RD(op)].f32() = vm->gpr[_RS(op)].f32() * vm->gpr[_EX_U8_1].f32() + vm->gpr[_EX_U8_2].f32();
   ++vm->pc.extU16;
 */
-  vm->gpr[(vArgs & 0x000F)].f32() = (
-    vm->gpr[(vArgs & 0x00F0) >> 4].f32() *
-    vm->gpr[(vArgs & 0x0F00) >> 8].f32()
-  ) + vm->gpr[(vArgs & 0xF000) >> 12].f32();
+  vm->gpr[VARG0].f32() = (
+    vm->gpr[VARG1].f32() *
+    vm->gpr[VARG2].f32()
+  ) + vm->gpr[VARG3].f32();
 }
 _END_OP
 

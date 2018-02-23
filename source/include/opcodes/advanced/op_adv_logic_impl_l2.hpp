@@ -13,20 +13,20 @@
 //****************************************************************************//
 
 _DEFINE_OP(LSLM_64) {
-  uint64 val  = vm->gpr[(vArgs & 0xF000) >> 12].u64();
-  uint64 mask = vm->gpr[(vArgs & 0x0F00) >> 8].u64();
-  uint64 val2 = ((val & mask) << vm->gpr[(vArgs & 0x00F0) >> 4].u32()) & mask;
-  vm->gpr[(vArgs & 0x000F)].u64() = val2 | (val & ~mask);
+  uint64 val  = vm->gpr[VARG3].u64();
+  uint64 mask = vm->gpr[VARG2].u64();
+  uint64 val2 = ((val & mask) << vm->gpr[VARG1].u32()) & mask;
+  vm->gpr[VARG0].u64() = val2 | (val & ~mask);
 }
 _END_OP
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(LSRM_64) {
-  uint64 val  = vm->gpr[(vArgs & 0xF000) >> 12].u64();
-  uint64 mask = vm->gpr[(vArgs & 0x0F00) >> 8].u64();
-  uint64 val2 = ((val & mask) >> vm->gpr[(vArgs & 0x00F0) >> 4].u32()) & mask;
-  vm->gpr[(vArgs & 0x000F)].u64() = val2 | (val & ~mask);
+  uint64 val  = vm->gpr[VARG3].u64();
+  uint64 mask = vm->gpr[VARG2].u64();
+  uint64 val2 = ((val & mask) >> vm->gpr[VARG1].u32()) & mask;
+  vm->gpr[VARG0].u64() = val2 | (val & ~mask);
 }
 _END_OP
 

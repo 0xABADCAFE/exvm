@@ -5,12 +5,12 @@
   // Scalar to Vector Fill
   //
   // vd[i] = x
-  "vfill.8", //_VFILL_8,
-  "vfill.16", //_VFILL_16,
-  "vfill.32", //_VFILL_32,
+  "vfill.8  rS, rD, rC", //_VFILL_8,
+  "vfill.16 rS, rD, rC", //_VFILL_16,
+  "vfill.32 rS, rD, rC", //_VFILL_32,
 
   // Scalar minimum in vector v = min(vs[])
-  "vsmin.u8", //_VSMIN_U8,
+  "vsmin.u8 ", //_VSMIN_U8,
   "vsmin.u16", //_VSMIN_U16,
   "vsmin.u32", //_VSMIN_U32,
   "vsmin.s8", //_VSMIN_S8,
