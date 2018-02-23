@@ -123,7 +123,10 @@ _DEFINE_OP(M3X3_V2F64) {
   uint32         i   = vm->gpr[(vArgs & 0x000F)].u32();
 
   while (i--) {
-
+    float64 x = *src++;
+    float64 y = *src++;
+    *dst++ = x*mtx[0] + y*mtx[1] + mtx[2];
+    *dst++ = x*mtx[3] + y*mtx[4] + mtx[5];
   }
 }
 _END_OP

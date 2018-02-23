@@ -147,7 +147,12 @@ _DEFINE_OP(M4X4_V3F32) {
   uint32         i   = vm->gpr[(vArgs & 0x000F)].u32();
 
   while (i--) {
-
+    float32 x = *src++;
+    float32 y = *src++;
+    float32 z = *src++;
+    *dst++ = x*mtx[0] + y*mtx[1] + z*mtx[2]  + mtx[3];
+    *dst++ = x*mtx[4] + y*mtx[5] + z*mtx[6]  + mtx[7];
+    *dst++ = x*mtx[8] + y*mtx[9] + z*mtx[10] + mtx[11];
   }
 }
 _END_OP
