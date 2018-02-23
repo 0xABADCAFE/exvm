@@ -15,8 +15,8 @@
 // Floatng point
 _DEFINE_OP(VSMAX_F32) {
   // Super naive reference implementation
-  float32* src = vm->gpr[(vArgs & 0x00F0) >> 4].pF32();
-  uint32   i   = vm->gpr[(vArgs & 0x000F)].u32();
+  float32* src = vm->gpr[VARG2].pF32();
+  uint32   i   = vm->gpr[VARG0].u32();
   float32  val = *src;
 
   // Bail if we find max
@@ -26,7 +26,7 @@ _DEFINE_OP(VSMAX_F32) {
       val = val2;
     }
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].f32() = val;
+  vm->gpr[VARG1].f32() = val;
 }
 _END_OP
 

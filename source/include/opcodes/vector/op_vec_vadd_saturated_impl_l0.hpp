@@ -15,10 +15,10 @@
 // Unsigned
 _DEFINE_OP(VADDS_U8) {
   // Super naive reference implementation
-  uint8*  src1 = vm->gpr[(vArgs & 0xF000) >> 12].pU8();
-  uint8*  src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pU8();
-  uint8*  dst  = vm->gpr[(vArgs & 0x00F0) >>  4].pU8();
-  uint32  i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint8*  src1 = vm->gpr[VARG3].pU8();
+  uint8*  src2 = vm->gpr[VARG2].pU8();
+  uint8*  dst  = vm->gpr[VARG1].pU8();
+  uint32  i    = vm->gpr[VARG0].u32();
   while (i--) {
     // TODO - src1idate correctness
     uint8 val = *src1++;
@@ -32,10 +32,10 @@ _END_OP
 
 _DEFINE_OP(VADDS_U16) {
   // Super naive reference implementation
-  uint16* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pU16();
-  uint16* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pU16();
-  uint16* dst  = vm->gpr[(vArgs & 0x00F0) >>  4].pU16();
-  uint32  i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint16* src1 = vm->gpr[VARG3].pU16();
+  uint16* src2 = vm->gpr[VARG2].pU16();
+  uint16* dst  = vm->gpr[VARG1].pU16();
+  uint32  i    = vm->gpr[VARG0].u32();
   while (i--) {
     // TODO - src1idate correctsness
     uint16 val = *src1++;
@@ -49,10 +49,10 @@ _END_OP
 
 _DEFINE_OP(VADDS_U32) {
   // Super naive reference implementation
-  uint32* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pU32();
-  uint32* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pU32();
-  uint32* dst  = vm->gpr[(vArgs & 0x00F0) >>  4].pU32();
-  uint32  i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint32* src1 = vm->gpr[VARG3].pU32();
+  uint32* src2 = vm->gpr[VARG2].pU32();
+  uint32* dst  = vm->gpr[VARG1].pU32();
+  uint32  i    = vm->gpr[VARG0].u32();
   while (i--) {
     // TODO - src1idate correctness
     uint32 val = *src1++;
@@ -70,10 +70,10 @@ _DEFINE_OP(VADDS_S8) {
   return;
 
 //   // Super naive reference implementation
-//   sint8*  src1 = vm->gpr[(vArgs & 0xF000) >> 12].pS8();
-//   sint8*  src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pS8();
-//   sint8*  dst = vm->gpr[(vArgs & 0x00F0) >>  4].pS8();
-//   uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+//   sint8*  src1 = vm->gpr[VARG3].pS8();
+//   sint8*  src2 = vm->gpr[VARG2].pS8();
+//   sint8*  dst = vm->gpr[VARG1].pS8();
+//   uint32  i   = vm->gpr[VARG0].u32();
 //   while (i--) {
 //     // TODO - src1idate correctness
 //
@@ -88,10 +88,10 @@ _DEFINE_OP(VADDS_S16) {
   return;
 
 //   // Super naive reference implementation
-//   sint16* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pS16();
-//   sint16* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pS16();
-//   sint16* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pS16();
-//   uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+//   sint16* src1 = vm->gpr[VARG3].pS16();
+//   sint16* src2 = vm->gpr[VARG2].pS16();
+//   sint16* dst = vm->gpr[VARG1].pS16();
+//   uint32  i   = vm->gpr[VARG0].u32();
 //   while (i--) {
 //     // TODO - src1idate correctness
 //
@@ -106,10 +106,10 @@ _DEFINE_OP(VADDS_S32) {
   return;
 
 //   // Super naive reference implementation
-//   sint32* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pS32();
-//   sint32* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pS32();
-//   sint32* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pS32();
-//   uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+//   sint32* src1 = vm->gpr[VARG3].pS32();
+//   sint32* src2 = vm->gpr[VARG2].pS32();
+//   sint32* dst = vm->gpr[VARG1].pS32();
+//   uint32  i   = vm->gpr[VARG0].u32();
 //   while (i--) {
 //     // TODO - src1idate correctness
 //

@@ -14,9 +14,9 @@
 
 _DEFINE_OP(VFILL_64) {
   // Super naive reference implementation
-  uint64  val = vm->gpr[(vArgs & 0x0F00) >> 8].u64();
-  uint64* dst = vm->gpr[(vArgs & 0x00F0) >> 4].pU64();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  uint64  val = vm->gpr[VARG2].u64();
+  uint64* dst = vm->gpr[VARG1].pU64();
+  uint32  i   = vm->gpr[VARG0].u32();
   while (i--) {
     *dst++ = val;
   }

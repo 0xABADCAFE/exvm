@@ -16,8 +16,8 @@
 
 _DEFINE_OP(VSMAX_U64) {
   // Super naive reference implementation
-  uint64* src = vm->gpr[(vArgs & 0x00F0) >> 4].pU64();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  uint64* src = vm->gpr[VARG2].pU64();
+  uint32  i   = vm->gpr[VARG0].u32();
   uint64  max = (uint64)(-1LL);
   uint64  val = *src;
 
@@ -28,7 +28,7 @@ _DEFINE_OP(VSMAX_U64) {
       val = val2;
     }
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].u64() = val;
+  vm->gpr[VARG1].u64() = val;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,8 +37,8 @@ _DEFINE_OP(VSMAX_U64) {
 
 _DEFINE_OP(VSMAX_S64) {
   // Super naive reference implementation
-  sint64* src = vm->gpr[(vArgs & 0x00F0) >> 4].pS64();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  sint64* src = vm->gpr[VARG2].pS64();
+  uint32  i   = vm->gpr[VARG0].u32();
   sint64  max = 9223372036854775807LL;
   sint64  val = *src;
 
@@ -49,7 +49,7 @@ _DEFINE_OP(VSMAX_S64) {
       val = val2;
     }
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].s64() = val;
+  vm->gpr[VARG1].s64() = val;
 }
 _END_OP
 
@@ -58,8 +58,8 @@ _END_OP
 // Floatng point
 _DEFINE_OP(VSMAX_F64) {
   // Super naive reference implementation
-  float64* src = vm->gpr[(vArgs & 0x00F0) >> 4].pF64();
-  uint32   i   = vm->gpr[(vArgs & 0x000F)].u32();
+  float64* src = vm->gpr[VARG2].pF64();
+  uint32   i   = vm->gpr[VARG0].u32();
   float64  val = *src;
 
   // Bail if we find max
@@ -69,7 +69,7 @@ _DEFINE_OP(VSMAX_F64) {
       val = val2;
     }
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].f64() = val;
+  vm->gpr[VARG1].f64() = val;
 }
 _END_OP
 

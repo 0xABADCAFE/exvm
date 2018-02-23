@@ -19,10 +19,10 @@ _DEFINE_OP(VDIVS_S64) {
   vm->status = VMDefs::BREAKPOINT;
   return;
   // Super naive reference implementation
-//  sint64* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pS64();
-//  sint64* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pS64();
-//  sint64* dst  = vm->gpr[(vArgs & 0x00F0) >>  4].pS64();
-//  uint32  i    = vm->gpr[(vArgs & 0x000F)].u32();
+//  sint64* src1 = vm->gpr[VARG3].pS64();
+//  sint64* src2 = vm->gpr[VARG2].pS64();
+//  sint64* dst  = vm->gpr[VARG1].pS64();
+//  uint32  i    = vm->gpr[VARG0].u32();
 //  while (i--) {
 //    *dst++ = *src1++ / *src2++;
 //  }

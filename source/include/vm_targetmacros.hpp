@@ -15,6 +15,11 @@
 #ifndef _VM_TARGETMACROS_HPP_
   #define _VM_TARGETMACROS_HPP_
 
+  #define VARG0 (vArgs & 0x000F)
+  #define VARG1 (vArgs & 0x00F0)>>4
+  #define VARG2 (vArgs & 0x0F00)>>8
+  #define VARG3 (vArgs & 0xF000)>>12
+
   #if (X_ENDIAN == XA_BIGENDIAN)
     // Big endian (680x0/Coldfire/PowerPC/Alpha/Delta/MIPS/ARM/SPARC/Radix...etc)
     // Instruction word layout [opcode byte][operand byte]
