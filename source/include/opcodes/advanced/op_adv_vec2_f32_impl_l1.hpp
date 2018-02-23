@@ -116,8 +116,16 @@ _END_OP
 // Transform a set if vec2f by a 3x3 matrix. Note that the last matrix row is unused, whereas the last column
 // will contain any translation step.
 
+//_xform_v2f32(s,m,d,n) _MKAOP(M3X3_V2F32),   (s) << 12 | (m) << 8 | (d) << 4 | (n),
 _DEFINE_OP(M3X3_V2F32) {
+  const float32* src = vm->gpr[(vArgs & 0xF000) >> 12].pF32();
+  const float32* mtx = vm->gpr[(vArgs & 0x0F00) >> 8].pF32();
+  float32*       dst = vm->gpr[(vArgs & 0x00F0) >> 4].pF32();
+  uint32         i   = vm->gpr[(vArgs & 0x000F)].u32();
 
+  while (i--) {
+
+  }
 }
 _END_OP
 

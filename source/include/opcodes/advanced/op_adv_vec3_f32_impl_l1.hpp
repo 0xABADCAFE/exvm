@@ -141,7 +141,14 @@ _END_OP
 // will contain any translation step.
 
 _DEFINE_OP(M4X4_V3F32) {
+  const float32* src = vm->gpr[(vArgs & 0xF000) >> 12].pF32();
+  const float32* mtx = vm->gpr[(vArgs & 0x0F00) >> 8].pF32();
+  float32*       dst = vm->gpr[(vArgs & 0x00F0) >> 4].pF32();
+  uint32         i   = vm->gpr[(vArgs & 0x000F)].u32();
 
+  while (i--) {
+
+  }
 }
 _END_OP
 
