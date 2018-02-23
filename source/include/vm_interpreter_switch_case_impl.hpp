@@ -13,11 +13,12 @@
 //****************************************************************************//
 
 {
-  register Interpreter* vm = this;
+  register CLASS* vm = this;
   register uint16  op;
 
 forever:
   op = *pc.inst++;
+  DEBUG_SCALAR_COUNT
   switch (op >> 8) {
     #include "opcodes/scalar/op_control_impl_l0.hpp"
     #include "opcodes/scalar/op_load_impl_l0.hpp"
@@ -58,14 +59,15 @@ forever:
 
     default:
       debuglog(LOG_ERROR, "No handler yet defined for opcode 0x%04X\n", (unsigned)op);
-        status = VMDefs::ILLEGAL_OPCODE;
+        status = VMDefs::BREAKPOINT;
         _HALT
     }
-    ++numStatements;
+    COUNT_STATEMENTS
   goto forever;
 
 interpreter_bailout:
-  ++numStatements; // include the statement last executed that led here
+ // include the statement last executed that led here
+  COUNT_STATEMENTS
 
   // If the status indicates we had an exception, check if there is a handler.
   // If the handler can recover from the exception, it will set the status back to RUNNING.

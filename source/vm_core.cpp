@@ -13,45 +13,25 @@
 //****************************************************************************//
 
 #include <cstdio>
+#include <cstring>
 #include "include/vm_core.hpp"
 #include "include/vm_inline.hpp"
 #include "include/vm_linker.hpp"
 #include <new>
 
-#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include "include/vm_interpreter_func_table.hpp"
-#elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+#if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
   #include "include/vm_interpreter_switch_case.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
   #include "include/vm_interpreter_custom.hpp"
 #endif
 
 using std::nothrow;
-
 using namespace ExVM;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-const char* Interpreter::statusCodes[] = {
-  "Running",
-  "Initialised",
-  "Completed",
-  "Breakpoint",
-  "Change instruction set",
-  "Illegal opcode",
-  "Integer divide by zero",
-  "Register stack overflow",
-  "Register stack underflow",
-  "Data stack overflow",
-  "Data stack underflow",
-  "Call stack overflow",
-  "Call empty address",
-  "Call empty native address",
-  "Unknown code symbol",
-  "Unknown data symbol",
-  "Unknown native code symbol",
-};
-
+//
+// Base Interpreter
+//
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
@@ -77,10 +57,6 @@ Interpreter::Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize
   nativeCodeSymbolCount = 0;
   codeSymbolCount       = 0;
   dataSymbolCount       = 0;
-
-  debuglog(LOG_INFO, "VM compiled %d-bit native", X_PTRSIZE);
-  debuglog(LOG_INFO, "There are presently %d scalar, %d advanced and %d stream instructions defined", VMDefs::MAX_OP, VMDefs::MAX_ADV, VMDefs::MAX_VEC);
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -89,44 +65,8 @@ Interpreter::~Interpreter() {
   delete[] callStackBase;
   delete[] dataStackBase;
   delete[] regStackBase;
-  debuglog(LOG_INFO, "Destroyed Interpreter");
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void Interpreter::dump() {
-  printf("Interpreter dump\n\n");
-  printf("rX: %18s : %12s : %6s : %4s : c\n",
-    "64-bit (hex dump)",
-    "s32",
-    "s16",
-    "s8"
-  );
-  for (int i = 0; i < NUM_GPR; i++) {
-    printf("%2d: 0x%08X%08X : %12d : %6d : %4d : %c : %.8f\n", i,
-      (unsigned)gpr[i].getMSW(), (unsigned)gpr[i].getLSW(),
-      (int)gpr[i].s32(),
-      (int)gpr[i].s16(),
-      (int)gpr[i].s8(),
-      (int)((gpr[i].u8()>32 && gpr[i].u8() < 127) ? gpr[i].u8() : '.'),
-      gpr[i].f32()
-    );
-  }
-#if X_PTRSIZE == XA_PTRSIZE64
-  printf("PC: %p\n",             pc.inst);
-  printf("RS: %p (%td)\n",       regStack, (regStack-regStackBase));
-  printf("DS: %p (%td)\n",       dataStack.u8, (dataStack.u8-dataStackBase));
-  printf("CS: %p (%td)\n",       callStack, (callStack-callStackBase));
-  printf("ST: 0x%08X (%s)\n\n",  (unsigned)status, statusCodes[status]);
-#else
-  printf("PC: 0x%08X\n",         (unsigned)pc.inst);
-  printf("RS: 0x%08X (%d)\n",    (unsigned)regStack, (regStack-regStackBase));
-  printf("DS: 0x%08X (%d)\n",    (unsigned)dataStack.u8, (dataStack.u8-dataStackBase));
-  printf("CS: 0x%08X (%d)\n",    (unsigned)callStack, (callStack-callStackBase));
-  printf("ST: 0x%08X (%s)\n\n",  (unsigned)status, statusCodes[status]);
-#endif
-
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -145,49 +85,81 @@ void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
   dataSymbolCount = count;
 }
 
+void Interpreter::setExecutable(Executable* executable) {
+  setNativeCodeSymbolTable(executable->nativeCodeAddresses, executable->nativeCodeCount);
+  setCodeSymbolTable(executable->codeAddresses, executable->codeCount);
+  setDataSymbolTable(executable->dataAddresses, executable->dataCount);
+  setPC(executable->codeAddresses[executable->main]);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// StandardInterpreter
+//
+// Represents the core interpreter for the virtual machine and is primarily responsible for the runtime execution of
+// virtual code.
+//
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Interpreter::setNativeExceptionHandler(NativeCall symbol, uint32 onStatus) {
-  if (onStatus < VMDefs::BREAKPOINT || onStatus >= VMDefs::_MAX_VMSTATUS) {
-    debuglog(LOG_WARN, "Cannot set exception handler for status %u\n", onStatus);
-  } else {
-    hostExceptionHandlers[onStatus - VMDefs::BREAKPOINT] = symbol;
-  }
+#include "include/vm_interpreter_standard.hpp"
+
+StandardInterpreter::StandardInterpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize) :
+Interpreter(rStackSize, dStackSize, cStackSize) {
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Interpreter::execute() {
-  MilliClock total;
-#if X_PTRSIZE == XA_PTRSIZE64
-  uint64 numStatements = 0;
-  #define FCNT FU64
-#else
-  uint32 numStatements = 0;
-  #define FCNT FU32
-#endif
-  totalTime            = 0;
-  nativeTime           = 0;
-  status               = VMDefs::RUNNING;
+StandardInterpreter::~StandardInterpreter() {
 
-#if _VM_INTERPRETER == _VM_INTERPRETER_FUNC_TABLE
-  #include "include/vm_interpreter_func_table_impl.hpp"
-#elif _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void StandardInterpreter::dump() {
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void StandardInterpreter::execute() {
+
+  status = VMDefs::RUNNING;
+
+#define CLASS StandardInterpreter
+#define COUNT_STATEMENTS ;
+#define DEBUG_RETURN
+#define DEBUG_BRANCH_UNCONDITIONAL
+#define DEBUG_BRANCH_TAKEN
+#define DEBUG_BRANCH_NOT_TAKEN
+#define DEBUG_SCALAR_COUNT ;
+
+#if _VM_INTERPRETER == _VM_INTERPRETER_SWITCH_CASE
   #include "include/vm_interpreter_switch_case_impl.hpp"
 #elif _VM_INTERPRETER == _VM_INTERPRETER_CUSTOM
   #include "include/vm_interpreter_custom_impl.hpp"
 #endif
 
-  totalTime = total.elapsedFrac();
-  debuglog(LOG_INFO, "Executed %" FCNT " statements\n", numStatements);
-  float64 virtualTime = totalTime - nativeTime;
-  float64 mips        = (0.001*numStatements)/virtualTime;
-  debuglog(
-    LOG_INFO,
-    "Total: %.3f ms, native: %.3f ms, virtual: %.3f ms, %.3f MIPS",
-    totalTime, nativeTime, virtualTime, mips
-  );
+#undef CLASS
+#undef COUNT_STATEMENTS
+#undef DEBUG_RETURN
+#undef DEBUG_BRANCH_UNCONDITIONAL
+#undef DEBUG_BRANCH_TAKEN
+#undef DEBUG_BRANCH_NOT_TAKEN
+#undef DEBUG_SCALAR_COUNT
 
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#include "include/vm_interpreter_debugging.hpp"
+
+Interpreter* Interpreter::create(Interpreter::Type type, size_t rStackSize, size_t dStackSize, size_t cStackSize) {
+  switch (type) {
+    case TYPE_DEBUGGING:
+      return new(nothrow) DebuggingInterpreter(rStackSize, dStackSize, cStackSize);
+    default:
+      return new(nothrow) StandardInterpreter(rStackSize, dStackSize, cStackSize);
+  }
+}
 

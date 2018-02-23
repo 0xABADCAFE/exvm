@@ -13,7 +13,7 @@
 //****************************************************************************//
 
 {
-
+  DEBUG_VECTOR_COUNT
   switch (op & 0xFF) {
     // Includes added in strict order of the opcode enumerations
 
