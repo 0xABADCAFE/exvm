@@ -15,10 +15,10 @@
 // Float
 _DEFINE_OP(VSMOD_F32) {
   // Super naive reference implementation
-  float64  val = (float64)vm->gpr[(vArgs & 0xF000) >> 12].f32();
-  float32* src = vm->gpr[(vArgs & 0x0F00) >>  8].pF32();
-  float32* dst = vm->gpr[(vArgs & 0x00F0) >>  4].pF32();
-  uint32   i   = vm->gpr[(vArgs & 0x000F)].u32();
+  float64  val = (float64)vm->gpr[VARG3].f32();
+  float32* src = vm->gpr[VARG2].pF32();
+  float32* dst = vm->gpr[VARG1].pF32();
+  uint32   i   = vm->gpr[VARG0].u32();
   while (i--) {
     *dst++ = (float32) std::fmod((float64)*src++, val);
   }

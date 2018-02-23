@@ -14,9 +14,9 @@
 
 // Complex Multiply of vec2d (real,imaginary)
 _DEFINE_OP(MUL_C2F64) {
-  const float64* src1 = vm->gpr[(vArgs & 0x0F00) >> 8].pF64();
-  const float64* src2 = vm->gpr[(vArgs & 0x00F0) >> 4].pF64();
-  float64*       dst  = vm->gpr[(vArgs & 0x000F)].pF64();
+  const float64* src1 = vm->gpr[VARG2].pF64();
+  const float64* src2 = vm->gpr[VARG1].pF64();
+  float64*       dst  = vm->gpr[VARG0].pF64();
 
   // (a + bi)(c + di) = (ac - bd) + (bc + ad)i
 
@@ -32,9 +32,9 @@ _END_OP
 
 // Complex Division of vec2d (real, imaginary)
 _DEFINE_OP(DIV_C2F64) {
-  const float64* src1 = vm->gpr[(vArgs & 0x0F00) >> 8].pF64();
-  const float64* src2 = vm->gpr[(vArgs & 0x00F0) >> 4].pF64();
-  float64*       dst  = vm->gpr[(vArgs & 0x000F)].pF64();
+  const float64* src1 = vm->gpr[VARG2].pF64();
+  const float64* src2 = vm->gpr[VARG1].pF64();
+  float64*       dst  = vm->gpr[VARG0].pF64();
 
   float64 denominator = ((src2[0] * src2[0]) + (src2[1] * src2[1]));
 

@@ -15,10 +15,10 @@
 // Float
 _DEFINE_OP(VADD_F32) {
   // Super naive reference implementation
-  float32* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pF32();
-  float32* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pF32();
-  float32* dst  = vm->gpr[(vArgs & 0x00F0) >>  4].pF32();
-  uint32   i    = vm->gpr[(vArgs & 0x000F)].u32();
+  float32* src1 = vm->gpr[VARG3].pF32();
+  float32* src2 = vm->gpr[VARG2].pF32();
+  float32* dst  = vm->gpr[VARG1].pF32();
+  uint32   i    = vm->gpr[VARG0].u32();
   while (i--) {
     *dst++ = *src1++ + *src2++;
   }

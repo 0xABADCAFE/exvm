@@ -15,13 +15,13 @@
 // Unsigned integer
 _DEFINE_OP(VSSUM_U64) {
   // Super naive reference implementation
-  uint64* src = vm->gpr[(vArgs & 0x00F0) >> 4].pU64();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  uint64* src = vm->gpr[VARG2].pU64();
+  uint32  i   = vm->gpr[VARG0].u32();
   uint64  val = 0;
   while (i--) {
     val += *src++;
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].u64() = val;
+  vm->gpr[VARG1].u64() = val;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,13 +29,13 @@ _DEFINE_OP(VSSUM_U64) {
 // Signed integer
 _DEFINE_OP(VSSUM_S64) {
   // Super naive reference implementation
-  sint64* src = vm->gpr[(vArgs & 0x00F0) >> 4].pS64();
-  uint32  i   = vm->gpr[(vArgs & 0x000F)].u32();
+  sint64* src = vm->gpr[VARG2].pS64();
+  uint32  i   = vm->gpr[VARG0].u32();
   sint64  val = 0;
   while (i--) {
     val += *src++;
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].s64() = val;
+  vm->gpr[VARG1].s64() = val;
 }
 _END_OP
 
@@ -44,13 +44,13 @@ _END_OP
 // Floating point
 _DEFINE_OP(VSSUM_F64) {
   // Super naive reference implementation
-  float64* src = vm->gpr[(vArgs & 0x00F0) >> 4].pF64();
-  uint32   i   = vm->gpr[(vArgs & 0x000F)].u32();
+  float64* src = vm->gpr[VARG2].pF64();
+  uint32   i   = vm->gpr[VARG0].u32();
   float64  val = 0;
   while (i--) {
     val += *src++;
   }
-  vm->gpr[(vArgs & 0x0F00) >> 8].f64() = val;
+  vm->gpr[VARG1].f64() = val;
 }
 _END_OP
 

@@ -14,10 +14,10 @@
 
 _DEFINE_OP(VAND_8) {
   // Super naive reference implementation
-  uint8* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pU8();
-  uint8* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pU8();
-  uint8* dst  = vm->gpr[(vArgs & 0x00F0) >>  4].pU8();
-  uint32 i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint8* src1 = vm->gpr[VARG3].pU8();
+  uint8* src2 = vm->gpr[VARG2].pU8();
+  uint8* dst  = vm->gpr[VARG1].pU8();
+  uint32 i    = vm->gpr[VARG0].u32();
   while (i--) {
     *dst++ = *src1++ & *src2++;
   }
@@ -28,10 +28,10 @@ _END_OP
 
 _DEFINE_OP(VOR_8) {
   // Super naive reference implementation
-  uint8* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pU8();
-  uint8* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pU8();
-  uint8* dst  = vm->gpr[(vArgs & 0x00F0) >>  4].pU8();
-  uint32 i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint8* src1 = vm->gpr[VARG3].pU8();
+  uint8* src2 = vm->gpr[VARG2].pU8();
+  uint8* dst  = vm->gpr[VARG1].pU8();
+  uint32 i    = vm->gpr[VARG0].u32();
   while (i--) {
     *dst++ = *src1++ | *src2++;
   }
@@ -42,10 +42,10 @@ _END_OP
 
 _DEFINE_OP(VXOR_8) {
   // Super naive reference implementation
-  uint8* src1 = vm->gpr[(vArgs & 0xF000) >> 12].pU8();
-  uint8* src2 = vm->gpr[(vArgs & 0x0F00) >>  8].pU8();
-  uint8* dst  = vm->gpr[(vArgs & 0x00F0) >>  4].pU8();
-  uint32 i    = vm->gpr[(vArgs & 0x000F)].u32();
+  uint8* src1 = vm->gpr[VARG3].pU8();
+  uint8* src2 = vm->gpr[VARG2].pU8();
+  uint8* dst  = vm->gpr[VARG1].pU8();
+  uint32 i    = vm->gpr[VARG0].u32();
   while (i--) {
     *dst++ = *src1++ ^ *src2++;
   }
