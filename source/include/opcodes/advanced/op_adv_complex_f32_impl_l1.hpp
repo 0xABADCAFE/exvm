@@ -14,9 +14,9 @@
 
 // Complex Multiply of vec2f (real,imaginary)
 _DEFINE_OP(MUL_C2F32) {
-  const float32* src1 = vm->gpr[(vArgs & 0x0F00) >> 8].pF32();
-  const float32* src2 = vm->gpr[(vArgs & 0x00F0) >> 4].pF32();
-  float32*       dst  = vm->gpr[(vArgs & 0x000F)].pF32();
+  const float32* src1 = vm->gpr[VARG2].pF32();
+  const float32* src2 = vm->gpr[VARG1].pF32();
+  float32*       dst  = vm->gpr[VARG0].pF32();
 
   // (a + bi)(c + di) = (ac - bd) + (bc + ad)i
 
@@ -32,9 +32,9 @@ _END_OP
 
 // Complex Division of vec2f (real, imaginary)
 _DEFINE_OP(DIV_C2F32) {
-  const float32* src1 = vm->gpr[(vArgs & 0x0F00) >> 8].pF32();
-  const float32* src2 = vm->gpr[(vArgs & 0x00F0) >> 4].pF32();
-  float32*       dst  = vm->gpr[(vArgs & 0x000F)].pF32();
+  const float32* src1 = vm->gpr[VARG2].pF32();
+  const float32* src2 = vm->gpr[VARG1].pF32();
+  float32*       dst  = vm->gpr[VARG0].pF32();
 
   float32 denominator = ((src2[0] * src2[0]) + (src2[1] * src2[1]));
 

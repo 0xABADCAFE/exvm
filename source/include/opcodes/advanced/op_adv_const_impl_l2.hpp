@@ -13,8 +13,6 @@
 //****************************************************************************//
 
 _DEFINE_OP(LD_CONST_F64) {
-  vm->gpr[(vArgs & 0x000F)].f64() = predefinedConstants[
-    (vArgs & 0x000F) >> 4
-  ];
+  vm->gpr[VARG0].f64() = predefinedConstants[VARG1];
 }
 _END_OP

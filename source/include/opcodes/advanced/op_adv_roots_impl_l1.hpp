@@ -13,8 +13,8 @@
 //****************************************************************************//
 
 _DEFINE_OP(SQRT_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)std::sqrt(
-    (float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32()
+  vm->gpr[VARG0].f32() = (float32)std::sqrt(
+    (float64)vm->gpr[VARG1].f32()
   );
 }
 _END_OP
@@ -22,8 +22,8 @@ _END_OP
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 _DEFINE_OP(ISQRT_F32) {
-  vm->gpr[(vArgs & 0x000F)].f32() = (float32)(
-    1.0 / std::sqrt((float64)vm->gpr[(vArgs & 0x00F0) >> 4].f32())
+  vm->gpr[VARG0].f32() = (float32)(
+    1.0 / std::sqrt((float64)vm->gpr[VARG1].f32())
   );
 }
 _END_OP
