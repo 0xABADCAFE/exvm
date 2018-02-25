@@ -33,7 +33,7 @@ namespace ExVM {
   class FunctionalTest;
   class Interpreter {
 
-    friend ExVM::FunctionalTest;
+    friend class ExVM::FunctionalTest;
 
     public:
       enum {
@@ -118,6 +118,7 @@ namespace ExVM {
       void setNativeCodeSymbolTable(NativeCall* symbol, uint32 count);
       void setCodeSymbolTable(uint16** symbol, uint32 count);
       void setDataSymbolTable(void** symbol, uint32 count);
+      void setExceptionHandler(VMDefs::VMStatus status, NativeCall handler);
 
       void setPC(uint16* newPC) {
         pc.inst = newPC;
