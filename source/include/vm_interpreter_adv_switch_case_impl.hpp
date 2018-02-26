@@ -53,7 +53,8 @@
 
     default:
       debuglog(LOG_ERROR, "No handler yet defined for advanced opcode 0x%04X\n", (unsigned)op);
-      vm->status = VMDefs::BREAKPOINT;
+      vm->status = VMDefs::ILLEGAL_OPCODE;
+      vm->exceptionOffset = -2;
       return;
   }
 }

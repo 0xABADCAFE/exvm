@@ -195,7 +195,7 @@ void ExVM::StandardInterpreter::doPOP_64(ExVM::StandardInterpreter* vm, uint16 o
   }
   if (mask) {
     // not all the data were popped, signifying an underflow
-    vm->status = VMDefs::DATA_STACK_UNDERFLOW;;
+    vm->status = VMDefs::DATA_STACK_UNDERFLOW;
   }
 }
 
@@ -580,16 +580,12 @@ void ExVM::DebuggingInterpreter::doBCALL8(ExVM::DebuggingInterpreter* vm, uint16
   if (vm->callStack < vm->callStackTop) {
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst += _B8(op);
-
     if (vm->debugFlags & FLAG_LOG_CALLS) {
       debuglog(LOG_INFO, "Branch call to offset %d", (int)_B8(op));
     }
-
     ++vm->branchCalls;
-
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
-
     debuglog(LOG_ERROR, "Call stack overflow in BCALL8");
     dumpstate(vm);
 
@@ -605,19 +601,14 @@ void ExVM::DebuggingInterpreter::doBCALL16(ExVM::DebuggingInterpreter* vm, uint1
     _DECLARE_OFFSET
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst += offset;
-
     if (vm->debugFlags & FLAG_LOG_CALLS) {
       debuglog(LOG_INFO, "Branch call to offset %d", (int)offset);
     }
-
     ++vm->branchCalls;
-
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
-
     debuglog(LOG_ERROR, "Call stack overflow in BCALL16");
     dumpstate(vm);
-
   }
 }
 
@@ -628,10 +619,8 @@ void ExVM::DebuggingInterpreter::doCALL(ExVM::DebuggingInterpreter* vm, uint16 o
 
   if (symbol >= vm->codeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
-
     debuglog(LOG_ERROR, "Unknown code symbol %d in CALL", (int)symbol);
     dumpstate(vm);
-
     return;
   }
 
@@ -640,7 +629,6 @@ void ExVM::DebuggingInterpreter::doCALL(ExVM::DebuggingInterpreter* vm, uint16 o
   if (vm->callStack < vm->callStackTop) {
     *vm->callStack++ = (uint16*)vm->pc.inst;
     vm->pc.inst = newPC;
-
     ++vm->functionCalls;
     if (vm->debugFlags & FLAG_LOG_CALLS) {
       debuglog(LOG_INFO, "Calling %d", (int)symbol);
@@ -648,10 +636,8 @@ void ExVM::DebuggingInterpreter::doCALL(ExVM::DebuggingInterpreter* vm, uint16 o
 
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
-
     debuglog(LOG_ERROR, "Call stack overflow in CALL");
     dumpstate(vm);
-
   }
 }
 
@@ -662,10 +648,8 @@ void ExVM::DebuggingInterpreter::doCALLN(ExVM::DebuggingInterpreter* vm, uint16 
   uint32 symbol = (uint32)_EX_U16 | ((uint32)op & 0x0F) << 16;
   if (symbol >= vm->nativeCodeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
-
     debuglog(LOG_ERROR, "Unknown native code symbol %d in CALLN", (int)symbol);
     dumpstate(vm);
-
     return;
   }
 
@@ -675,7 +659,7 @@ void ExVM::DebuggingInterpreter::doCALLN(ExVM::DebuggingInterpreter* vm, uint16 
       debuglog(LOG_INFO, "Calling native %d", (int)symbol);
     }
     ++vm->nativeFunctionCalls;
-    
+
     MilliClock native;
     func(vm);
     vm->nativeTime += native.elapsedFrac();
@@ -686,10 +670,8 @@ void ExVM::DebuggingInterpreter::doCALLN(ExVM::DebuggingInterpreter* vm, uint16 
 
   } else {
     vm->status = VMDefs::CALL_EMPTY_NATIVE;
-
     debuglog(LOG_ERROR, "Empty native address in CALLN");
     dumpstate(vm);
-
   }
 }
 
@@ -700,10 +682,8 @@ void ExVM::DebuggingInterpreter::doICALL(ExVM::DebuggingInterpreter* vm, uint16 
 
   if ( (symbol & RawSegmentData::TYPE_MASK) != RawSegmentData::TYPE_CODE) {
     vm->status = VMDefs::ILLEGAL_CALLABLE_SYMBOL;
-
     debuglog(LOG_ERROR, "Invalid code symbol %d in CALL", (int)symbol);
     dumpstate(vm);
-
     return;
   }
 
@@ -712,10 +692,8 @@ void ExVM::DebuggingInterpreter::doICALL(ExVM::DebuggingInterpreter* vm, uint16 
 
   if (symbol >= vm->codeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
-
     debuglog(LOG_ERROR, "Unknown code symbol %d in CALL", (int)symbol);
     dumpstate(vm);
-
     return;
   }
 
@@ -729,10 +707,8 @@ void ExVM::DebuggingInterpreter::doICALL(ExVM::DebuggingInterpreter* vm, uint16 
     }
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
-
     debuglog(LOG_ERROR, "Call stack overflow in CALL");
     dumpstate(vm);
-
   }
 }
 
@@ -744,10 +720,8 @@ void ExVM::DebuggingInterpreter::doICALLN(ExVM::DebuggingInterpreter* vm, uint16
 
   if ( (symbol & RawSegmentData::TYPE_MASK) != RawSegmentData::TYPE_NATIVE) {
     vm->status = VMDefs::ILLEGAL_CALLABLE_SYMBOL;
-
     debuglog(LOG_ERROR, "Invalid native symbol %d in CALL", (int)symbol);
     dumpstate(vm);
-
     return;
   }
 
@@ -756,10 +730,8 @@ void ExVM::DebuggingInterpreter::doICALLN(ExVM::DebuggingInterpreter* vm, uint16
 
   if (symbol >= vm->nativeCodeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
-
     debuglog(LOG_ERROR, "Unknown native code symbol %d in CALLN", (int)symbol);
     dumpstate(vm);
-
     return;
   }
 
@@ -781,10 +753,8 @@ void ExVM::DebuggingInterpreter::doICALLN(ExVM::DebuggingInterpreter* vm, uint16
 
   } else {
     vm->status = VMDefs::CALL_EMPTY_NATIVE;
-
     debuglog(LOG_ERROR, "Empty native address in CALLN");
     dumpstate(vm);
-
   }
 }
 

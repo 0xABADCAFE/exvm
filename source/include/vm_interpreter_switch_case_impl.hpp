@@ -60,6 +60,7 @@ forever:
     default:
       debuglog(LOG_ERROR, "No handler yet defined for opcode 0x%04X\n", (unsigned)op);
         status = VMDefs::ILLEGAL_OPCODE;
+        vm->exceptionOffset = -1;
         _HALT
     }
     COUNT_STATEMENTS

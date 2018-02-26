@@ -70,6 +70,7 @@ _END_OP
 _DEFINE_OP(SV) {
   doSV(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -80,6 +81,7 @@ _END_OP
 _DEFINE_OP(RS) {
   doRS(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -90,6 +92,7 @@ _END_OP
 _DEFINE_OP(PUSH_8) {
   doPUSH_8(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -100,6 +103,7 @@ _END_OP
 _DEFINE_OP(PUSH_16) {
   doPUSH_16(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -110,6 +114,7 @@ _END_OP
 _DEFINE_OP(PUSH_32) {
   doPUSH_32(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -120,6 +125,7 @@ _END_OP
 _DEFINE_OP(POP_8) {
   doPOP_8(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -130,6 +136,7 @@ _END_OP
 _DEFINE_OP(POP_16) {
   doPOP_16(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -140,6 +147,7 @@ _END_OP
 _DEFINE_OP(POP_32) {
   doPOP_32(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -149,6 +157,7 @@ _END_OP
 _DEFINE_OP(SALLOC) {
   doSALLOC(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -159,6 +168,7 @@ _END_OP
 _DEFINE_OP(SFREE) {
   doSFREE(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }

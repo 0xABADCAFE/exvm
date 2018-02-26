@@ -18,6 +18,7 @@ _DEFINE_OP(VSMOD_U64) {
   uint64  val = vm->gpr[VARG3].u64();
   if (!val) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     return;
   }
   uint64* src = vm->gpr[VARG2].pU64();
@@ -37,6 +38,7 @@ _DEFINE_OP(VSMOD_S64) {
   sint64  val = vm->gpr[VARG3].s64();
   if (!val) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     return;
   }
   sint64* src = vm->gpr[VARG2].pS64();

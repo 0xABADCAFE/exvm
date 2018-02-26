@@ -8,3 +8,4 @@ make -j4 -f Makefile.x86_linux
 make -j4 -f Makefile_Vector.x64_linux
 make -j4 -f Makefile_Advanced.x64_linux
 make -j4 -f Makefile_Tests.x64_linux
+make -j4 -f Makefile_Exceptions.x64_linux

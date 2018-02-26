@@ -102,7 +102,8 @@ class Interpreter {
     uint32  nativeCodeSymbolCount;
     uint32  codeSymbolCount;
     uint32  dataSymbolCount;
-    uint32  status;
+    uint16  status;
+    sint16  exceptionOffset;
 
     Interpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize);
 
@@ -168,6 +169,10 @@ class HostHelper {
   protected:
     static void setStatus(Interpreter* vm, VMDefs::VMStatus status) {
       vm->status = status;
+    }
+
+    static const uint16* getExceptingInstruction(Interpreter* vm) {
+      return vm->pc.inst + vm->exceptionOffset;
     }
 
     static const uint16* getPC(Interpreter* vm) {
