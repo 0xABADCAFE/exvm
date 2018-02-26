@@ -78,9 +78,6 @@ interpreter_bailout:
     uint32 handlerID = vm->status - VMDefs::BREAKPOINT;
 
     if (vm->hostExceptionHandlers[handlerID]) {
-
-      debuglog(LOG_INFO, "Executing handlerID %u\n", handlerID);
-
       vm->hostExceptionHandlers[handlerID](vm);
       if (vm->status == VMDefs::RUNNING) {
         goto forever;

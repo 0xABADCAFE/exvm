@@ -22,28 +22,15 @@
 
 using namespace ExVM;
 
-namespace ExVM {
-class FunctionalTest {
-
-  protected:
-    static void info(Interpreter* vm) {
-      std::printf("Interpreter %p\n", vm);
-      std::printf("Registers   %p\n", vm->gpr);
-      std::printf("Data Stack Base %p\n", vm->dataStackBase);
-      std::printf("Call Stack Base %p\n", vm->callStackBase);
-      std::printf("Regs Stack Base %p\n", vm->regStackBase);
-    }
-
-    static void setStatus(Interpreter* vm, VMDefs::VMStatus status) {
-      vm->status = status;
-    }
-};
-}
-
-class ExceptionHandler : public FunctionalTest {
+class ExceptionHandler : public HostHelper {
   public:
     static void illegalOpcode(Interpreter* vm) {
-      info(vm);
+      std::printf("Invoking illegal opcode handler for instruction %04X\n", (unsigned) *(getPC(vm) - 1));
+      setStatus(vm, VMDefs::RUNNING);
+    }
+
+    static void zeroDivide(Interpreter* vm) {
+      std::printf("Invoking illegal opcode handler for instruction %04X\n", (unsigned) *(getPC(vm) - 1));
       setStatus(vm, VMDefs::RUNNING);
     }
 };
@@ -53,9 +40,11 @@ int main() {
   if (interpreter) {
 
     interpreter->setExceptionHandler(VMDefs::ILLEGAL_OPCODE, ExceptionHandler::illegalOpcode);
+    interpreter->setExceptionHandler(VMDefs::ZERO_DIVIDE,    ExceptionHandler::zeroDivide);
 
     uint16 code[] = {
       0xFF00,    // Illegal
+      _div_s32(_r0, _r1)
       _ret
     };
 
