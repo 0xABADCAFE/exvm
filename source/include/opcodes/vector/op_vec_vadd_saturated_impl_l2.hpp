@@ -34,6 +34,7 @@ _END_OP
 // Signed
 _DEFINE_OP(VADDS_S64) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 //   // Super naive reference implementation
 //   sint64* src1 = vm->gpr[VARG3].pS64();

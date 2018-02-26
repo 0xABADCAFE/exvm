@@ -17,6 +17,7 @@
 _DEFINE_OP(BCALL8) {
   doBCALL8(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
 }
@@ -27,6 +28,7 @@ _END_OP
 _DEFINE_OP(BCALL16) {
   doBCALL16(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -37,6 +39,7 @@ _END_OP
 _DEFINE_OP(CALL) {
   doCALL(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -47,6 +50,7 @@ _END_OP
 _DEFINE_OP(CALLN) {
   doCALLN(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -57,6 +61,7 @@ _END_OP
 _DEFINE_OP(ICALL) {
   doICALL(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
 }
@@ -67,6 +72,7 @@ _END_OP
 _DEFINE_OP(ICALLN) {
   doICALLN(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
 }

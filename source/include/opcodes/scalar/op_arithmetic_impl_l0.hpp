@@ -164,6 +164,7 @@ _DEFINE_OP(DIV_U8) {
   uint8 d = vm->gpr[_RS(op)].u8();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].u8() /= d;
@@ -177,6 +178,7 @@ _DEFINE_OP(DIV_U16) {
   uint16 d = vm->gpr[_RS(op)].u16();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].u16() /= d;
@@ -190,6 +192,7 @@ _DEFINE_OP(DIV_U32) {
   uint32 d = vm->gpr[_RS(op)].u32();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].u32() /= d;
@@ -203,6 +206,7 @@ _DEFINE_OP(DIV_S8) {
   sint8 d = vm->gpr[_RS(op)].s8();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].s8() /= d;
@@ -216,6 +220,7 @@ _DEFINE_OP(DIV_S16) {
   sint8 d = vm->gpr[_RS(op)].s16();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].s16() /= d;
@@ -229,6 +234,7 @@ _DEFINE_OP(DIV_S32) {
   sint8 d = vm->gpr[_RS(op)].s32();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].s32() /= d;
@@ -246,6 +252,7 @@ _DEFINE_OP(MOD_U8) {
   uint8 d = vm->gpr[_RS(op)].u8();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].u8() %= d;
@@ -259,6 +266,7 @@ _DEFINE_OP(MOD_U16) {
   uint16 d = vm->gpr[_RS(op)].u16();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].u16() %= d;
@@ -272,6 +280,7 @@ _DEFINE_OP(MOD_U32) {
   uint32 d = vm->gpr[_RS(op)].u32();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].u32() %= d;
@@ -285,6 +294,7 @@ _DEFINE_OP(MOD_S8) {
   sint8 d = vm->gpr[_RS(op)].s8();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].s8() %= d;
@@ -298,6 +308,7 @@ _DEFINE_OP(MOD_S16) {
   sint16 d = vm->gpr[_RS(op)].s16();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].s16() %= d;
@@ -311,6 +322,7 @@ _DEFINE_OP(MOD_S32) {
   sint32 d = vm->gpr[_RS(op)].s32();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].s32() %= d;

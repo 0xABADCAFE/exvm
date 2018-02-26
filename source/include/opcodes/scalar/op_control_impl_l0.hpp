@@ -21,6 +21,7 @@ _END_OP
 
 _DEFINE_OP(BRK) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_STD;
   _HALT
 }
 _END_OP

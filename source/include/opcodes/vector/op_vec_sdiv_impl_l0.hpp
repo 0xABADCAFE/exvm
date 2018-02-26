@@ -18,6 +18,7 @@ _DEFINE_OP(VSDIV_U8) {
   uint8  val = vm->gpr[VARG3].u8();
   if (!val) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     return;
   }
   uint8* src = vm->gpr[VARG2].pU8();
@@ -36,6 +37,7 @@ _DEFINE_OP(VSDIV_U16) {
   uint16  val = vm->gpr[VARG3].u16();
   if (!val) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     return;
   }
   uint16* src = vm->gpr[VARG2].pU16();
@@ -54,6 +56,7 @@ _DEFINE_OP(VSDIV_U32) {
   uint32  val = vm->gpr[VARG3].u32();
   if (!val) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     return;
   }
   uint32* src = vm->gpr[VARG2].pU32();
@@ -73,6 +76,7 @@ _DEFINE_OP(VSDIV_S8) {
   sint8  val = vm->gpr[VARG3].s8();
   if (!val) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     return;
   }
   sint8* src = vm->gpr[VARG2].pS8();
@@ -91,6 +95,7 @@ _DEFINE_OP(VSDIV_S16) {
   sint16  val = vm->gpr[VARG3].s16();
   if (!val) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     return;
   }
   sint16* src = vm->gpr[VARG2].pS16();
@@ -109,6 +114,7 @@ _DEFINE_OP(VSDIV_S32) {
   sint32  val = vm->gpr[VARG3].s32();
   if (!val) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     return;
   }
   sint32* src = vm->gpr[VARG2].pS32();

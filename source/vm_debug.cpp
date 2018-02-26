@@ -60,7 +60,6 @@ const char* DebuggingInterpreter::statusCodes[] = {
   "Initialised",
   "Completed",
   "Breakpoint",
-  "Change instruction set",
   "Illegal opcode",
   "Integer divide by zero",
   "Register stack overflow",
@@ -166,12 +165,16 @@ void DebuggingInterpreter::dump() {
   );
 
   std::puts("\tScalar Opcode Execution Breakdown");
+
   for (uint32 i = 0; i<sizeof(scalarCount)/sizeof(uint32); i++) {
     if (scalarCount[i]) {
+
+      const char* opcodeName = i >= VMDefs::MAX_OP ? "Illegal" : scalarNames[i];
+
       std::printf(
         "\t   %02X %28s : %9" FU32 "\n",
         (unsigned)i,
-        scalarNames[i],
+        opcodeName,
         scalarCount[i]
       );
     }
@@ -179,10 +182,13 @@ void DebuggingInterpreter::dump() {
   std::puts("\tAdvanced Opcode Execution Breakdown");
   for (uint32 i = 0; i<sizeof(advancedCount)/sizeof(uint32); i++) {
     if (advancedCount[i]) {
+
+      const char* opcodeName = i >= VMDefs::MAX_ADV ? "Illegal" : advancedNames[i];
+
       std::printf(
         "\t   %02X %28s : %9" FU32 "\n",
         (unsigned)i,
-        advancedNames[i],
+        opcodeName,
         advancedCount[i]
       );
     }
@@ -190,10 +196,13 @@ void DebuggingInterpreter::dump() {
   std::puts("\tVector Opcode Execution Breakdown");
   for (uint32 i = 0; i<sizeof(vectorCount)/sizeof(uint32); i++) {
     if (vectorCount[i]) {
+
+      const char* opcodeName = i >= VMDefs::MAX_VEC ? "Illegal" : vectorNames[i];
+
       std::printf(
         "\t   %02X %28s : %9" FU32 "\n",
         (unsigned)i,
-        vectorNames[i],
+        opcodeName,
         vectorCount[i]
       );
     }

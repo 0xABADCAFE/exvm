@@ -14,6 +14,7 @@
 
 _DEFINE_OP(VSDIVS_S64) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 //   // Super naive reference implementation
 //   sint64  val = vm->gpr[VARG3].s64();

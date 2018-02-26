@@ -15,6 +15,7 @@
 // Unsigned
 _DEFINE_OP(VSMULS_U8) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 //   // Super naive reference implementation
 //   uint8  val = vm->gpr[VARG3].u8();
@@ -31,6 +32,7 @@ _END_OP
 
 _DEFINE_OP(VSMULS_U16) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 //   // Super naive reference implementation
 //   uint16  val = vm->gpr[VARG3].u16();
@@ -47,6 +49,7 @@ _END_OP
 
 _DEFINE_OP(VSMULS_U32) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 //   // Super naive reference implementation
 //   uint32  val = vm->gpr[VARG3].u32();
@@ -64,6 +67,7 @@ _END_OP
 // Signed
 _DEFINE_OP(VSMULS_S8) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 //   // Super naive reference implementation
 //   sint8  val = vm->gpr[VARG3].s8();
@@ -80,6 +84,7 @@ _END_OP
 
 _DEFINE_OP(VSMULS_S16) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 //   // Super naive reference implementation
 //   sint16  val = vm->gpr[VARG3].s16();
@@ -96,6 +101,7 @@ _END_OP
 
 _DEFINE_OP(VSMULS_S32) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 //   // Super naive reference implementation
 //   sint32  val = vm->gpr[VARG3].s32();

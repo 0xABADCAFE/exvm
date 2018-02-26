@@ -20,6 +20,9 @@
   #define VARG2 (vArgs & 0x0F00)>>8
   #define VARG3 (vArgs & 0xF000)>>12
 
+  #define EXC_OFFSET_STD -1
+  #define EXC_OFFSET_EXT -2
+
   #if (X_ENDIAN == XA_BIGENDIAN)
     // Big endian (680x0/Coldfire/PowerPC/Alpha/Delta/MIPS/ARM/SPARC/Radix...etc)
     // Instruction word layout [opcode byte][operand byte]
