@@ -96,14 +96,15 @@
     uint32 x = _EX_U16 | _SU(op);               \
     if (x >= vm->dataSymbolCount) {             \
       vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \
+      vm->exceptionOffset = EXC_OFFSET_EXT;     \
       debuglog(LOG_ERROR, "Runtime error: Unknown data symbol : %d\n", (int)x); \
-      dumpstate(vm);                            \
       _HALT                                     \
     }
   #else
     #define _DECLARE_DATA_SYMBOL(x)             \
     uint32 x = _EX_U16 | _SU(op);               \
     if (x >= vm->dataSymbolCount) {             \
+      vm->exceptionOffset = EXC_OFFSET_EXT;     \
       vm->status = VMDefs::UNKNOWN_DATA_SYMBOL; \
       _HALT                                     \
     }

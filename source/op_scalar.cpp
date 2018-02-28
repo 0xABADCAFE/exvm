@@ -359,7 +359,6 @@ void ExVM::DebuggingInterpreter::doSV(ExVM::DebuggingInterpreter* vm, uint16 op 
     // not all the registers were saved, signifying an overflow
     vm->status = VMDefs::REG_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Register stack overflow");
-    dumpstate(vm);
   }
 }
 
@@ -379,7 +378,6 @@ void ExVM::DebuggingInterpreter::doRS(ExVM::DebuggingInterpreter* vm, uint16 op 
     // not all the registers were restored, signifying an underflow
     vm->status = VMDefs::REG_STACK_UNDERFLOW;
     debuglog(LOG_ERROR, "Register stack underflow");
-    dumpstate(vm);
   }
 }
 
@@ -399,7 +397,6 @@ void ExVM::DebuggingInterpreter::doPUSH_8(ExVM::DebuggingInterpreter* vm, uint16
     // not all the data were pushed, signifying an overflow
     vm->status = VMDefs::DATA_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_8");
-    dumpstate(vm);
   }
 }
 
@@ -419,7 +416,6 @@ void ExVM::DebuggingInterpreter::doPUSH_16(ExVM::DebuggingInterpreter* vm, uint1
     // not all the data were pushed, signifying an overflow
     vm->status = VMDefs::DATA_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_16");
-    dumpstate(vm);
   }
 }
 
@@ -439,7 +435,6 @@ void ExVM::DebuggingInterpreter::doPUSH_32(ExVM::DebuggingInterpreter* vm, uint1
     // not all the data were pushed, signifying an overflow
     vm->status = VMDefs::DATA_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_32");
-    dumpstate(vm);
   }
 }
 
@@ -459,7 +454,6 @@ void ExVM::DebuggingInterpreter::doPUSH_64(ExVM::DebuggingInterpreter* vm, uint1
     // not all the data were pushed, signifying an overflow
     vm->status = VMDefs::DATA_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Data stack overflow in PUSH_64");
-    dumpstate(vm);
   }
 }
 
@@ -479,7 +473,6 @@ void ExVM::DebuggingInterpreter::doPOP_8(ExVM::DebuggingInterpreter* vm, uint16 
     // not all the data were popped, signifying an underflow
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
     debuglog(LOG_ERROR, "Data stack underflow in POP_8");
-    dumpstate(vm);
   }
 }
 
@@ -499,7 +492,6 @@ void ExVM::DebuggingInterpreter::doPOP_16(ExVM::DebuggingInterpreter* vm, uint16
     // not all the data were popped, signifying an underflow
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
     debuglog(LOG_ERROR, "Data stack underflow in POP_16");
-    dumpstate(vm);
   }
 }
 
@@ -519,7 +511,6 @@ void ExVM::DebuggingInterpreter::doPOP_32(ExVM::DebuggingInterpreter* vm, uint16
     // not all the data were popped, signifying an underflow
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
     debuglog(LOG_ERROR, "Data stack underflow in POP_32");
-    dumpstate(vm);
   }
 }
 
@@ -539,7 +530,6 @@ void ExVM::DebuggingInterpreter::doPOP_64(ExVM::DebuggingInterpreter* vm, uint16
     // not all the data were popped, signifying an underflow
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
     debuglog(LOG_ERROR, "Data stack underflow in POP_64");
-    dumpstate(vm);
   }
 }
 
@@ -553,7 +543,6 @@ void ExVM::DebuggingInterpreter::doSALLOC(ExVM::DebuggingInterpreter* vm, uint16
   } else {
     vm->status = VMDefs::DATA_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Data stack overflow in SALLOC");
-    dumpstate(vm);
   }
 }
 
@@ -564,11 +553,9 @@ void ExVM::DebuggingInterpreter::doSFREE(ExVM::DebuggingInterpreter* vm, uint16 
   if (last < vm->dataStackBase) {
     vm->status = VMDefs::DATA_STACK_UNDERFLOW;
     debuglog(LOG_ERROR, "Data stack underflow in SFREE");
-    dumpstate(vm);
   } else if (last >= vm->dataStackTop) {
     vm->status = VMDefs::DATA_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Data stack overflow in SFREE");
-    dumpstate(vm);
   } else {
     vm->dataStack.u8 = last;
   }
@@ -587,8 +574,6 @@ void ExVM::DebuggingInterpreter::doBCALL8(ExVM::DebuggingInterpreter* vm, uint16
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Call stack overflow in BCALL8");
-    dumpstate(vm);
-
   }
 }
 
@@ -608,7 +593,6 @@ void ExVM::DebuggingInterpreter::doBCALL16(ExVM::DebuggingInterpreter* vm, uint1
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Call stack overflow in BCALL16");
-    dumpstate(vm);
   }
 }
 
@@ -620,7 +604,6 @@ void ExVM::DebuggingInterpreter::doCALL(ExVM::DebuggingInterpreter* vm, uint16 o
   if (symbol >= vm->codeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
     debuglog(LOG_ERROR, "Unknown code symbol %d in CALL", (int)symbol);
-    dumpstate(vm);
     return;
   }
 
@@ -637,7 +620,6 @@ void ExVM::DebuggingInterpreter::doCALL(ExVM::DebuggingInterpreter* vm, uint16 o
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Call stack overflow in CALL");
-    dumpstate(vm);
   }
 }
 
@@ -649,7 +631,6 @@ void ExVM::DebuggingInterpreter::doCALLN(ExVM::DebuggingInterpreter* vm, uint16 
   if (symbol >= vm->nativeCodeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
     debuglog(LOG_ERROR, "Unknown native code symbol %d in CALLN", (int)symbol);
-    dumpstate(vm);
     return;
   }
 
@@ -671,7 +652,6 @@ void ExVM::DebuggingInterpreter::doCALLN(ExVM::DebuggingInterpreter* vm, uint16 
   } else {
     vm->status = VMDefs::CALL_EMPTY_NATIVE;
     debuglog(LOG_ERROR, "Empty native address in CALLN");
-    dumpstate(vm);
   }
 }
 
@@ -683,7 +663,6 @@ void ExVM::DebuggingInterpreter::doICALL(ExVM::DebuggingInterpreter* vm, uint16 
   if ( (symbol & RawSegmentData::TYPE_MASK) != RawSegmentData::TYPE_CODE) {
     vm->status = VMDefs::ILLEGAL_CALLABLE_SYMBOL;
     debuglog(LOG_ERROR, "Invalid code symbol %d in CALL", (int)symbol);
-    dumpstate(vm);
     return;
   }
 
@@ -693,7 +672,6 @@ void ExVM::DebuggingInterpreter::doICALL(ExVM::DebuggingInterpreter* vm, uint16 
   if (symbol >= vm->codeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_CODE_SYMBOL;
     debuglog(LOG_ERROR, "Unknown code symbol %d in CALL", (int)symbol);
-    dumpstate(vm);
     return;
   }
 
@@ -708,7 +686,6 @@ void ExVM::DebuggingInterpreter::doICALL(ExVM::DebuggingInterpreter* vm, uint16 
   } else {
     vm->status = VMDefs::CALL_STACK_OVERFLOW;
     debuglog(LOG_ERROR, "Call stack overflow in CALL");
-    dumpstate(vm);
   }
 }
 
@@ -721,7 +698,6 @@ void ExVM::DebuggingInterpreter::doICALLN(ExVM::DebuggingInterpreter* vm, uint16
   if ( (symbol & RawSegmentData::TYPE_MASK) != RawSegmentData::TYPE_NATIVE) {
     vm->status = VMDefs::ILLEGAL_CALLABLE_SYMBOL;
     debuglog(LOG_ERROR, "Invalid native symbol %d in CALL", (int)symbol);
-    dumpstate(vm);
     return;
   }
 
@@ -731,7 +707,6 @@ void ExVM::DebuggingInterpreter::doICALLN(ExVM::DebuggingInterpreter* vm, uint16
   if (symbol >= vm->nativeCodeSymbolCount) {
     vm->status = VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL;
     debuglog(LOG_ERROR, "Unknown native code symbol %d in CALLN", (int)symbol);
-    dumpstate(vm);
     return;
   }
 
@@ -754,7 +729,6 @@ void ExVM::DebuggingInterpreter::doICALLN(ExVM::DebuggingInterpreter* vm, uint16
   } else {
     vm->status = VMDefs::CALL_EMPTY_NATIVE;
     debuglog(LOG_ERROR, "Empty native address in CALLN");
-    dumpstate(vm);
   }
 }
 

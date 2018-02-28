@@ -37,10 +37,8 @@ namespace ExVM {
   #ifdef VM_DEBUG
     extern const char* debugLevel(uint32 level);
     #define debuglog(level, format, args...) if ( _VM_##level <= _VM_LOG_LEVEL) std::printf("[%s] %s() - " format "\n", debugLevel((uint32)(_VM_##level)), __FUNCTION__, ## args)
-    #define dumpstate(v) (v)->dump()
   #else
     #define debuglog(level, format, args...)
-    #define dumpstate(v)
   #endif
 
   // Runtime execution engine

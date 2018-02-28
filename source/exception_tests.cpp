@@ -23,23 +23,45 @@
 using namespace ExVM;
 
 class ExceptionHandler : public HostHelper {
-  public:
+
+  private:
     static void illegalOpcode(Interpreter* vm) {
-      std::printf("\n-------------------------------------\nInvoking illegal opcode handler for instruction %04X\n", (unsigned) *getExceptingInstruction(vm));
-      setStatus(vm, VMDefs::RUNNING);
-      std::puts("Kept calm and carried on.\n-------------------------------------\n");
+      keepCalmAndCarryOn(vm, "Illegal Opcode");
     }
 
     static void zeroDivide(Interpreter* vm) {
-      std::printf("\n-------------------------------------\nInvoking zero divide handler for instruction %04X\n", (unsigned) *getExceptingInstruction(vm));
-      setStatus(vm, VMDefs::RUNNING);
-      std::puts("Kept calm and carried on.\n-------------------------------------\n");
+      keepCalmAndCarryOn(vm, "Divide by Zero");
     }
 
     static void unknownCall(Interpreter* vm) {
-      std::printf("\n-------------------------------------\nInvoking unknown call handler for instruction %04X\n", (unsigned) *getExceptingInstruction(vm));
+      keepCalmAndCarryOn(vm, "Unknown Code Symbol");
+    }
+
+    static void unknownData(Interpreter* vm) {
+      keepCalmAndCarryOn(vm, "Unknown Data Symbol");
+    }
+
+    static void unknownNative(Interpreter* vm) {
+      keepCalmAndCarryOn(vm, "Unknown Native Symbol");
+    }
+
+    static void dataStackUnderflow(Interpreter* vm) {
+      keepCalmAndCarryOn(vm, "Data Stack Underflow");
+    }
+
+    static void keepCalmAndCarryOn(Interpreter* vm, const char* note) {
+      std::printf("Invoked %s handler for instruction %04X\n", note, (unsigned) *getExceptingInstruction(vm));
       setStatus(vm, VMDefs::RUNNING);
-      std::puts("Kept calm and carried on.\n-------------------------------------\n");
+    }
+
+  public:
+    static void setHandlers(Interpreter* vm) {
+      vm->setExceptionHandler(VMDefs::ILLEGAL_OPCODE,             illegalOpcode);
+      vm->setExceptionHandler(VMDefs::ZERO_DIVIDE,                zeroDivide);
+      vm->setExceptionHandler(VMDefs::UNKNOWN_CODE_SYMBOL,        unknownCall);
+      vm->setExceptionHandler(VMDefs::UNKNOWN_DATA_SYMBOL,        unknownData);
+      vm->setExceptionHandler(VMDefs::UNKNOWN_NATIVE_CODE_SYMBOL, unknownNative);
+      vm->setExceptionHandler(VMDefs::DATA_STACK_UNDERFLOW,       dataStackUnderflow);
     }
 };
 
@@ -47,24 +69,31 @@ int main() {
   Interpreter* interpreter = Interpreter::create(Interpreter::TYPE_DEBUGGING);
   if (interpreter) {
 
-    interpreter->setExceptionHandler(VMDefs::ILLEGAL_OPCODE,      ExceptionHandler::illegalOpcode);
-    interpreter->setExceptionHandler(VMDefs::ZERO_DIVIDE,         ExceptionHandler::zeroDivide);
-    interpreter->setExceptionHandler(VMDefs::UNKNOWN_CODE_SYMBOL, ExceptionHandler::unknownCall);
+    ExceptionHandler::setHandlers(interpreter);
 
     uint32 sym_id_unknown = 1234;
 
     uint16 code[] = {
-      0xFF00,             // Illegal opcode
-      _div_s32(_r0, _r1)  // Divide by zero
-      _call(unknown)      // Unknown callable symbol
+      0xFF00,                            // Bogus Scalar operation
+      VMDefs::_ADV << 8  | 0xFF, 0xABCD, // Bogus advanced operation
       VMDefs::_VEC1 << 8 | 0xFF, 0xABCD, // Bogus vector operation
+      _div_s32(_r0, _r1)                 // Divide by zero
+      _call(unknown)                     // Unknown callable symbol
+      _calln(unknown)                    // Unknown native code symbol
+      _ld_32(unknown, _r2)               // Unknown data symbol
+      _pop_16(0xFFFF)                    // data stack underflow
       _ret
     };
 
     interpreter->setPC(code);
     interpreter->execute();
 
-    interpreter->dump();
+    if (interpreter->getStatus() != VMDefs::COMPLETED) {
+      std::printf("Execution terminated with an unhandled exception case.\n");
+      interpreter->dump();
+    } else {
+      std::printf("Execution completed with no unhandled exception cases.\n");
+    }
 
     delete interpreter;
   }
