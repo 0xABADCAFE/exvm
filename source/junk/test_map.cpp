@@ -1,5 +1,6 @@
 #include <string>
 #include <unordered_map>
+#include <map>
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
@@ -80,6 +81,32 @@ float64 Clock::elapsed() {
     return 1.0e-6 * (current.tv_usec - mark.tv_usec);
   }
   return (current.tv_sec - mark.tv_sec) + (1.0e-6 * (current.tv_usec - mark.tv_usec));
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  MapEnumerator
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class MapEnumerator {
+
+  private:
+    std::map<std::string, int> map;
+    int nextID;
+  public:
+    int enumerate(const char* symbol);
+    MapEnumerator() : nextID(0) {}
+};
+
+int MapEnumerator::enumerate(const char* symbol) {
+  std::string key = symbol;
+  int val = map[key];
+  if (val == 0) {
+    val = ++nextID;
+    map[key] = val;
+  }
+  return val;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -476,12 +503,12 @@ const char* createKey(char* buffer, int i) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int main() {
-
+  MapEnumerator          enumerator0;
   UnorderedMapEnumerator enumerator1;
-  TrieEnumerator         enmerator2(MAX_INSERTS);
+  TrieEnumerator         enumerator2(MAX_INSERTS);
   Clock timer;
 
-  int sum1 = 0, sum2 = 0, sum3 = 0;
+  int sum1 = 0, sum2 = 0, sum3 = 0, sum4 = 0;
   char buffer[32];
 
   std::printf("Calibrating for %d iterations...\n", MAX_INSERTS);
@@ -492,31 +519,41 @@ int main() {
   }
   float64 calibrationTime = timer.elapsed();
 
-  std::printf("Testing unordered_map implementation...\n");
+  std::printf("Testing std::map<std::string, int> based implementation...\n");
   timer.set();
   for (int i = 0; i < MAX_INSERTS; i++) {
-    sum2 += enumerator1.enumerate(createKey(buffer, i));
+    sum2 += enumerator0.enumerate(createKey(buffer, i));
+  }
+  float64 mapTime = timer.elapsed() - calibrationTime;
+
+  std::printf("Testing std::unordered_map<std::string, int> based implementation...\n");
+  timer.set();
+  for (int i = 0; i < MAX_INSERTS; i++) {
+    sum3 += enumerator1.enumerate(createKey(buffer, i));
   }
 
   float64 unorderedMapTime = timer.elapsed() - calibrationTime;
 
-  std::printf("Testing trie implementation...\n");
+  std::printf("Testing custom trie based implementation...\n");
   timer.set();
   for (int i = 0; i < MAX_INSERTS; i++) {
-    sum3 += enmerator2.enumerate(createKey(buffer, i));
+    sum4 += enumerator2.enumerate(createKey(buffer, i));
   }
 
   float64 trieTime = timer.elapsed() - calibrationTime;
 
   std::printf(
     "Calibration Checksum   %d, time %f s\n"
-    "UnorderedMapEnumerator %d, time %f s\n"
-    "TrieEnumerator         %d, time %f s\n",
+    "Simple map             %d, time %f s\n"
+    "Unordered map          %d, time %f s\n"
+    "Custom Trie            %d, time %f s\n",
     sum1,
     calibrationTime,
     sum2,
-    unorderedMapTime,
+    mapTime,
     sum3,
+    unorderedMapTime,
+    sum4,
     trieTime
   );
   return 0;
