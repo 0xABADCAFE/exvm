@@ -213,7 +213,7 @@ int SymbolNameEnumerator::getID(const char* name) const {
     }
 
     // Convert mapped code to index pair for our primary and secondary nodes.
-    indexPrimary   = code & 3;
+    indexPrimary   = code & 7;
     indexSecondary = code >> 3;
     if (!primaryNode->children[indexPrimary]) {
       return Error::UNKNOWN_SYMBOL;
@@ -269,7 +269,7 @@ int SymbolNameEnumerator::enumerate(const char* name) {
     }
 
     // Convert mapped code to index pair for our primary and secondary nodes
-    indexPrimary   = code & 3;
+    indexPrimary   = code & 7;
     indexSecondary = code >> 3;
 
     // Ensure there is a child SNode instance for the PNode
