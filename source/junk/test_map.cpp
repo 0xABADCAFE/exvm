@@ -465,8 +465,8 @@ int TrieEnumerator::enumerate(const char* name) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const int MAX_INSERTS = 1000000;
-const int MAX_LOOKUPS = 10000000;
+const int MAX_INSERTS = 5000000;
+const int MAX_LOOKUPS = 50000000;
 
 const char* createKey(char* buffer, int i) {
   std::sprintf(buffer, "Key_%d", i);
@@ -478,20 +478,21 @@ const char* createKey(char* buffer, int i) {
 int main() {
 
   UnorderedMapEnumerator enumerator1;
-  TrieEnumerator         enmerator2(MAX_INSERTS+100);
-
-  char buffer[32];
-
-  int sum1 = 0, sum2 = 0, sum3 = 0;
-
+  TrieEnumerator         enmerator2(MAX_INSERTS);
   Clock timer;
 
-  // Calibrate
+  int sum1 = 0, sum2 = 0, sum3 = 0;
+  char buffer[32];
+
+  std::printf("Calibrating for %d iterations...\n", MAX_INSERTS);
+  timer.set();
   for (int i = 0; i < MAX_INSERTS; i++) {
     sum1 += i;
     createKey(buffer, i);
   }
   float64 calibrationTime = timer.elapsed();
+
+  std::printf("Testing unordered_map implementation...\n");
   timer.set();
   for (int i = 0; i < MAX_INSERTS; i++) {
     sum2 += enumerator1.enumerate(createKey(buffer, i));
@@ -499,6 +500,7 @@ int main() {
 
   float64 unorderedMapTime = timer.elapsed() - calibrationTime;
 
+  std::printf("Testing trie implementation...\n");
   timer.set();
   for (int i = 0; i < MAX_INSERTS; i++) {
     sum3 += enmerator2.enumerate(createKey(buffer, i));
@@ -507,9 +509,9 @@ int main() {
   float64 trieTime = timer.elapsed() - calibrationTime;
 
   std::printf(
-    "Checksum:%d (calibration time %f s)\n"
-    "\tUnorderedMapEnumerator:%d, time: %f s\n"
-    "\tTrieEnumerator:%d, time %f s\n",
+    "Calibration Checksum   %d, time %f s\n"
+    "UnorderedMapEnumerator %d, time %f s\n"
+    "TrieEnumerator         %d, time %f s\n",
     sum1,
     calibrationTime,
     sum2,
