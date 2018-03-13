@@ -10,28 +10,28 @@
   "vfill.32 rS, rD, rC", //_VFILL_32,
 
   // Scalar minimum in vector v = min(vs[])
-  "vsmin.u8 ", //_VSMIN_U8,
-  "vsmin.u16", //_VSMIN_U16,
-  "vsmin.u32", //_VSMIN_U32,
-  "vsmin.s8", //_VSMIN_S8,
-  "vsmin.s16", //_VSMIN_S16,
-  "vsmin.s32", //_VSMIN_S32,
+  "vsmin.u8  rS, rD, rC", //_VSMIN_U8,
+  "vsmin.u16 rS, rD, rC", //_VSMIN_U16,
+  "vsmin.u32 rS, rD, rC", //_VSMIN_U32,
+  "vsmin.s8  rS, rD, rC", //_VSMIN_S8,
+  "vsmin.s16 rS, rD, rC", //_VSMIN_S16,
+  "vsmin.s32 rS, rD, rC", //_VSMIN_S32,
 
   // Scalar maximum in vector v = max(vs[])
-  "vsmax.u8", //_VSMAX_U8,
-  "vsmax.u16", //_VSMAX_U16,
-  "vsmax.u32", //_VSMAX_U32,
-  "vsmax.s8", //_VSMAX_S8,
-  "vsmax.s16", //_VSMAX_S16,
-  "vsmax.s32", //_VSMAX_S32,
+  "vsmax.u8  rS, rD, rC", //_VSMAX_U8,
+  "vsmax.u16 rS, rD, rC", //_VSMAX_U16,
+  "vsmax.u32 rS, rD, rC", //_VSMAX_U32,
+  "vsmax.s8  rS, rD, rC", //_VSMAX_S8,
+  "vsmax.s16 rS, rD, rC", //_VSMAX_S16,
+  "vsmax.s32 rS, rD, rC", //_VSMAX_S32,
 
   // Scalar sum v = sum(vs[])
-  "vssum.u8", //_VSSUM_U8,
-  "vssum.u16", //_VSSUM_U16,
-  "vssum.u32", //_VSSUM_U32,
-  "vssum.s8", //_VSSUM_S8,
-  "vssum.s16", //_VSSUM_S16,
-  "vssum.s32", //_VSSUM_S32,
+  "vssum.u8  rS, rD, rC", //_VSSUM_U8,
+  "vssum.u16 rS, rD, rC", //_VSSUM_U16,
+  "vssum.u32 rS, rD, rC", //_VSSUM_U32,
+  "vssum.s8  rS, rD, rC", //_VSSUM_S8,
+  "vssum.s16 rS, rD, rC", //_VSSUM_S16,
+  "vssum.s32 rS, rD, rC", //_VSSUM_S32,
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //

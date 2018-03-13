@@ -34,8 +34,8 @@ _DEFINE_OP(VABS_S16) {
   sint16* dst = vm->gpr[VARG1].pS16();
   uint32  i   = vm->gpr[VARG0].u32();
   while (i--) {
-    sint8 val  = *src++;
-    sint8 sign = val >> 15;
+    sint16 val  = *src++;
+    sint16 sign = val >> 15;
     *dst++     = (val ^ sign) - sign;
   }
 }
