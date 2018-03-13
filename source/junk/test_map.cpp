@@ -531,7 +531,6 @@ int main() {
   for (int i = 0; i < MAX_INSERTS; i++) {
     sum3 += enumerator1.enumerate(createKey(buffer, i));
   }
-
   float64 unorderedMapTime = timer.elapsed() - calibrationTime;
 
   std::printf("Testing custom trie based implementation...\n");
@@ -539,7 +538,6 @@ int main() {
   for (int i = 0; i < MAX_INSERTS; i++) {
     sum4 += enumerator2.enumerate(createKey(buffer, i));
   }
-
   float64 trieTime = timer.elapsed() - calibrationTime;
 
   std::printf(
