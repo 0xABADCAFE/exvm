@@ -17,6 +17,7 @@
 // Signed
 _DEFINE_OP(VDIVS_S8) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
   // Super naive reference implementation
 //  sint8* src1 = vm->gpr[VARG3].pS8();
@@ -33,6 +34,7 @@ _END_OP
 
 _DEFINE_OP(VDIVS_S16) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
   // Super naive reference implementation
 //  sint16* src1 = vm->gpr[VARG3].pS16();
@@ -49,6 +51,7 @@ _END_OP
 
 _DEFINE_OP(VDIVS_S32) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
   // Super naive reference implementation
 //  sint32* src1 = vm->gpr[VARG3].pS32();

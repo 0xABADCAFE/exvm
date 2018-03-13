@@ -16,6 +16,7 @@
 
 _DEFINE_OP(VSMULS_U64) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 //   // Super naive reference implementation
 //   uint64  val = vm->gpr[VARG3].u64();
@@ -33,6 +34,7 @@ _END_OP
 // Signed
 _DEFINE_OP(VSMULS_S64) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 //  // Super naive reference implementation
 //   sint64  val = vm->gpr[VARG3].s64();

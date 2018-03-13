@@ -27,21 +27,28 @@ namespace ExVM {
   class FunctionalTest {
 
     public:
-      static void dummy(Interpreter* vm) {
+      static void run(Interpreter* vm) {
+        printf("Interpreter %p\n", vm);
+        printf("Registers   %p\n", vm->gpr);
         printf("Data Stack Base %p\n", vm->dataStackBase);
+        printf("Call Stack Base %p\n", vm->callStackBase);
+        printf("Regs Stack Base %p\n", vm->regStackBase);
       }
 
   };
 }
 
-class OpcodeTest : public FunctionalTest {
+class IllegalOpcodeTest : public FunctionalTest {
+  public:
+    static void run(Interpreter* vm) {
 
+    }
 };
 
 int main() {
   Interpreter* interpreter = Interpreter::create(Interpreter::TYPE_DEBUGGING);
   if (interpreter) {
-    OpcodeTest::dummy(interpreter);
+    IllegalOpcodeTest::run(interpreter);
 
     delete interpreter;
   }

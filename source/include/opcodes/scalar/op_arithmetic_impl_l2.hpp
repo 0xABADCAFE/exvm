@@ -91,6 +91,7 @@ _DEFINE_OP(DIV_U64) {
   uint64 d = vm->gpr[_RS(op)].u64();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].u64() /= d;
@@ -129,6 +130,7 @@ _DEFINE_OP(MOD_U64) {
   uint64 d = vm->gpr[_RS(op)].u64();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].u64() %= d;
@@ -142,6 +144,7 @@ _DEFINE_OP(MOD_S64) {
   sint64 d = vm->gpr[_RS(op)].s64();
   if (!d) {
     vm->status = VMDefs::ZERO_DIVIDE;
+    vm->exceptionOffset = EXC_OFFSET_STD;
     _HALT
   }
   vm->gpr[_RD(op)].s64() %= d;

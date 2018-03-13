@@ -38,6 +38,7 @@ _END_OP
 _DEFINE_OP(PUSH_64) {
   doPUSH_64(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }
@@ -48,6 +49,7 @@ _END_OP
 _DEFINE_OP(POP_64) {
   doPOP_64(vm, op);
   if (vm->status != VMDefs::RUNNING) {
+    vm->exceptionOffset = EXC_OFFSET_EXT;
     _HALT
   }
 }

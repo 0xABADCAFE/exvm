@@ -85,6 +85,11 @@ void Interpreter::setDataSymbolTable(void** symbol, uint32 count) {
   dataSymbolCount = count;
 }
 
+void Interpreter::setExceptionHandler(VMDefs::VMStatus status, NativeCall handler) {
+  uint32 index = status - VMDefs::BREAKPOINT;
+  hostExceptionHandlers[index] = handler;
+}
+
 void Interpreter::setExecutable(Executable* executable) {
   setNativeCodeSymbolTable(executable->nativeCodeAddresses, executable->nativeCodeCount);
   setCodeSymbolTable(executable->codeAddresses, executable->codeCount);

@@ -137,8 +137,8 @@ inline uint16 _float32LSW(float32 f) {
 #define _mr15 32768
 
 // Macros that define how to spread the bits of an enumerated Symbol ID between the Opcode and Extension word.
-#define _SYM_ID_LOWER(x) (uint16)(sym_data_##x & 0xFFFF)
-#define _SYM_ID_UPPER(x) (uint16)((sym_code_##x & 0xF0000) >> 16)
+#define _SYM_ID_LOWER(x) (uint16)(sym_id_##x & 0xFFFF)
+#define _SYM_ID_UPPER(x) (uint16)((sym_id_##x & 0xF0000) >> 16)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

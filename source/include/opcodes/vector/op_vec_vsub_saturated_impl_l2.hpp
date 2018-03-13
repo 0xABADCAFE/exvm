@@ -33,6 +33,7 @@ _END_OP
 // Signed
 _DEFINE_OP(VSUBS_S64) {
   vm->status = VMDefs::BREAKPOINT;
+  vm->exceptionOffset = EXC_OFFSET_EXT;
   return;
 
 //   // Super naive reference implementation
