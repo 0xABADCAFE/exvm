@@ -16,7 +16,6 @@
 #include <cstdlib>
 #include <cmath>
 #include "include/vm_core.hpp"
-#include "include/vm_inline.hpp"
 #include "include/vm_codemacros.hpp"
 #include "include/vm_linker.hpp"
 #include <new>
