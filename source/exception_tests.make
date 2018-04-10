@@ -19,16 +19,16 @@ obj/$(ARCH)/exception_tests.o: exception_tests.cpp include/vm_core.hpp include/v
 obj/$(ARCH)/machine.o: machine.cpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/$(ARCH)/op_scalar.o: op_scalar.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
+obj/$(ARCH)/op_scalar.o: op_scalar.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/$(ARCH)/op_advanced.o: op_advanced.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
+obj/$(ARCH)/op_advanced.o: op_advanced.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/$(ARCH)/op_vector.o: op_vector.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
+obj/$(ARCH)/op_vector.o: op_vector.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-obj/$(ARCH)/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp include/vm_inline.hpp
+obj/$(ARCH)/vm_core.o: vm_core.cpp include/vm_core.hpp include/vm.hpp include/machine.hpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 obj/$(ARCH)/vm_symbol.o: vm_symbol.cpp include/machine.hpp

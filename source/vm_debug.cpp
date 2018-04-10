@@ -34,7 +34,6 @@ const char* ExVM::debugLevel(uint32 level) {
 #include <cstdio>
 #include <cstring>
 #include "include/vm_core.hpp"
-#include "include/vm_inline.hpp"
 #include "include/vm_linker.hpp"
 #include <new>
 
