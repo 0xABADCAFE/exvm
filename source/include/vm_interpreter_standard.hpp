@@ -28,7 +28,7 @@ namespace ExVM {
 
 class StandardInterpreter : public Interpreter {
 
-  friend ExVM::FunctionalTest;
+  friend class ExVM::FunctionalTest;
 
   public:
     StandardInterpreter(size_t rStackSize, size_t dStackSize, size_t cStackSize);
