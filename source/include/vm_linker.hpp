@@ -98,7 +98,7 @@ namespace ExVM {
     // The number of exported symbols
     uint32 exportTableLength;
 
-    // The number of imported synbo;s
+    // The number of imported symbols
     uint32 importTableLength;
 
     // The number of ExVM instruction words (16-bit) in the full codeSegment
