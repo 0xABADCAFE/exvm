@@ -14,82 +14,78 @@
 
 #ifndef _VM_LOADER_HPP_
   #define _VM_LOADER_HPP_
-  #include "vm.hpp"
-  #include "vm_core.hpp"
-  #include "vm_symbol.hpp"
+  #include "vm_rawsegment.hpp"
 
 namespace ExVM {
 
-  // Minimal 8-byte header
-  struct ObjectFileHeader {
-    enum {
-      // Level 0 requires 32-bit integer supporting runtime.
-      COMPATIBILITY_LEVEL_0  = 0x00,
+  class ObjectFile {
 
-      // Level 1 requires 32-bit integer and float runtime.
-      COMPATIBILITY_LEVEL_1  = 0x01,
+    private:
+      // Minimal 8-byte header
+      struct FileHeader {
+        enum {
+          // Level 0 requires 32-bit integer supporting runtime.
+          COMPATIBILITY_LEVEL_0  = 0x00,
 
-      // Level 2 requires 64-bit integer and float runtime.
-      COMPATIBILITY_LEVEL_2  = 0x02,
+          // Level 1 requires 32-bit integer and float runtime.
+          COMPATIBILITY_LEVEL_1  = 0x01,
 
-      // Level 3 requires 64-bit integer, flot and memory model.
-      COMPATIBILITY_LEVEL_3  = 0x03,
+          // Level 2 requires 64-bit integer and float runtime.
+          COMPATIBILITY_LEVEL_2  = 0x02,
 
-      // Flags
+          // Level 3 requires 64-bit integer, flot and memory model.
+          COMPATIBILITY_LEVEL_3  = 0x03,
 
-      // Bitfield indicating file contents. A file must contain either a code
-      // segment, a data segment or both. It cannot contain neither.
-      CONTAINS_CODE_ONLY     = 0x01,
-      CONTAINS_DATA_ONLY     = 0x02,
-      CONTAINS_CODE_AND_DATA = 0x03,
-      MASK_CONTAINS          = 0x03,
+          // Flags
 
-      // Set if the code has external dependencies (an import table). A file
-      // must contain an export table, but does not have to import anything.
-      HAS_DEPENDENCIES       = 0x04,
+          // Bitfield indicating file contents. A file must contain either a code
+          // segment, a data segment or both. It cannot contain neither.
+          CONTAINS_CODE_ONLY     = 0x01,
+          CONTAINS_DATA_ONLY     = 0x02,
+          CONTAINS_CODE_AND_DATA = 0x03,
+          MASK_CONTAINS          = 0x03,
 
-      // Set if the file contains a segment that indicates where blocks of
-      // 16/32/64 bit elements exist that may require swapping to the host
-      // representation on loading.
-      HAS_BLOCK_SWAP_SEGMENT = 0x08,
+          // Set if the code has external dependencies (an import table). A file
+          // must contain an export table, but does not have to import anything.
+          HAS_DEPENDENCIES       = 0x04,
 
-      // Set if the file contains a segment that describes embedded data
-      // in the form of complex structures that may require member field
-      // swapping on loading.
-      HAS_STRUCT_DICTIONARY  = 0x10,
+          // Set if the file contains a segment that indicates where blocks of
+          // 16/32/64 bit elements exist that may require swapping to the host
+          // representation on loading.
+          HAS_BLOCK_SWAP_SEGMENT = 0x08,
 
-      // Set if the multibyte data in the file is stored in big_endian
-      // byte order.
-      IS_BIG_ENDIAN          = 0x80
-    };
+          // Set if the file contains a segment that describes embedded data
+          // in the form of complex structures that may require member field
+          // swapping on loading.
+          HAS_STRUCT_DICTIONARY  = 0x10,
 
-    // Magic identifier
-    char   magic[4];
+          // Set if the multibyte data in the file is stored in big_endian
+          // byte order.
+          IS_BIG_ENDIAN          = 0x80
+        };
 
-    // Version of the file format (8.8)
-    uint8  version;
-    uint8  revision;
+        // Magic identifier
+        char   magic[4];
 
-    // Minimum Host Compatibility Level
-    uint8  minCompatLevel;
+        // Version of the file format (8.8)
+        uint8  version;
+        uint8  revision;
 
-    // Flags
-    uint8  flags;
+        // Minimum Host Compatibility Level
+        uint8  minCompatLevel;
 
-    int32 read(std::FILE* source);
-  };
+        // Flags
+        uint8  flags;
 
-  struct ChunkHeader {
-    char  type[4];
-    int32 size;
+      };
 
-    int32 read(std::FILE* source);
-  };
-
-
-  class Loader {
+      struct ChunkHeader {
+        char  type[4];
+        int32 size;
+      };
 
   };
+
 }
 
 #endif
