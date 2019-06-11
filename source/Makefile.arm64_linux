@@ -4,7 +4,7 @@
 BIN      = bin/exvm_arm64
 
 # Compiler settings
-CXXFLAGS = -Ofast -Wall -flto -m64 -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE
+CXXFLAGS = -Ofast -Wall -flto -mcpu=native -mtune=native -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE
 
 # Makefile settings
 ARCH     = arm64_linux
