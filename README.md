@@ -28,9 +28,11 @@ Supported platforms:
 - Amiga OS 3.x 680x0
 - Amiga OS 3.x WarpOS (PPC)
   - Each requires StormC4 (gcc 2.95.3 compatible) to compile the project
-- Amiga OS 4.x
-- MorphOS 3.x
+- Amiga OS 4.x PPC
+- MorphOS 3.x PPC
 - Linux arm32, arm64, i386, x64
+- Haiku i386, x64
+- BeOS i386
 
 ## Work in progress
 The current effort geared towards building a runtime loader and linker, defining a fully portable object code format and an assembler tool for writing virtual code.
