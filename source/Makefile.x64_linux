@@ -4,7 +4,7 @@
 BIN      = bin/exvm_x64
 
 # Compiler settings
-CXXFLAGS = -Ofast -Wall -W -m64 -march=native -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE -D_GCC_USE_BUILTIN
+CXXFLAGS = -Ofast -Wall -W -m64 -march=native -mtune=native -mavx -fomit-frame-pointer -fno-exceptions -fexpensive-optimizations -D_VM_HOST_OS=_VM_HOST_LINUX_X64 -D_VM_INTERPRETER=_VM_INTERPRETER_SWITCH_CASE -D_GCC_USE_BUILTIN
 
 # Makefile settings
 ARCH     = x64_linux
